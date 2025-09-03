@@ -53,3 +53,4 @@ class AppConfig {
   static const String addToCartSuccessMessage = 'Product added to cart!';
   static const String addToWishlistSuccessMessage = 'Product added to wishlist!';
 }
+

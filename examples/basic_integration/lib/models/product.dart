@@ -68,3 +68,4 @@ class Product {
     return ((price - specialPrice!) / price * 100).roundToDouble();
   }
 }
+

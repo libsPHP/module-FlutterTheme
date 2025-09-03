@@ -28,3 +28,4 @@ class AuthWrapper extends StatelessWidget {
     );
   }
 }
+

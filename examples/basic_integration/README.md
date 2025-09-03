@@ -173,3 +173,4 @@ For issues and questions:
 ## License
 
 This example is provided under the same license as the `flutter_magento` plugin.
+

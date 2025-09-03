@@ -71,3 +71,4 @@ class Category {
   bool get hasChildren => children.isNotEmpty;
   bool get isRoot => parentId == null || parentId == 0;
 }
+
