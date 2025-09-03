@@ -12,34 +12,34 @@ dependencies:
     sdk: flutter
   
   # HTTP Client
-  dio: ^5.4.0
+  dio: ^6.0.0
   
   # State Management
-  riverpod: ^2.4.9
+  riverpod: ^3.0.0
   
   # JSON Serialization
-  json_annotation: ^4.8.1
+  json_annotation: ^5.0.0
   
   # Immutable Models
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^3.0.0
   
   # API Client Generation
-  retrofit: ^4.0.3
+  retrofit: ^5.0.0
   
   # Local Storage
-  shared_preferences: ^2.2.2
+  shared_preferences: ^3.0.0
   
   # Network Connectivity
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.0
   
   # Security
-  crypto: ^3.0.3
+  crypto: ^4.0.0
   
   # HTTP Interceptors
-  dio_interceptors: ^1.0.0
+  dio_interceptors: ^2.0.0
   
   # Logging
-  logger: ^2.0.2+1
+  logger: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +52,7 @@ dev_dependencies:
   retrofit_generator: ^8.0.4
   
   # Linting
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
   
   # Testing
   mockito: ^5.4.4
