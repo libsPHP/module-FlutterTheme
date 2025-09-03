@@ -1,285 +1,353 @@
-# Flutter Magento
+# 🚀 Flutter Magento Plugin
 
-[![Flutter](https://img.shields.io/badge/Flutter-3.10.0+-blue.svg)](https://flutter.dev)
-[![Dart](https://img.shields.io/badge/Dart-3.2.3+-blue.svg)](https://dart.dev)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+A comprehensive Flutter plugin for Magento e-commerce platform integration, providing 200+ functions for building modern mobile commerce applications.
 
-A comprehensive Flutter plugin for integrating with Magento e-commerce platform. This library provides a complete solution for building Flutter applications that interact with Magento stores through REST API.
+## ✨ Features
 
-## 🚀 Features
+### 🔐 Authentication & Customer Management
+- Customer login/logout with JWT tokens
+- Customer registration and profile management
+- Password reset and change
+- Social authentication (Google, Facebook, Apple)
+- Address book management
+- Customer preferences and groups
 
-- **Customer Management**: Authentication, registration, profile management
-- **Product Catalog**: Browse products, search, categories, filters
-- **Shopping Cart**: Add/remove items, update quantities, apply coupons
-- **Order Management**: View orders, order history, order details
-- **Wishlist**: Add/remove products, manage wishlist
-- **Checkout**: Shipping estimation, payment methods, order placement
-- **Secure Storage**: Token management, secure data storage
-- **Error Handling**: Comprehensive error handling with custom exceptions
-- **Type Safety**: Full type safety with Freezed models
-- **Modern Architecture**: Clean architecture with service layer pattern
+### 🛍️ Product Catalog & Management
+- Product listing with advanced filters
+- Product search with autocomplete
+- Category management and navigation
+- Product variants and options
+- Product media gallery (images, videos, 360° views)
+- Product reviews and ratings
+- Related products and recommendations
 
-## 📋 Requirements
+### 🛒 Shopping Cart & Checkout
+- Guest and customer cart management
+- Add/remove/update cart items
+- Apply coupons and gift cards
+- Cart validation and totals
+- Shipping estimation and methods
+- Payment method selection
+- Order placement and confirmation
 
-- Flutter 3.10.0 or higher
-- Dart 3.2.3 or higher
-- Magento 2.x store with REST API enabled
-- Internet connection for API calls
+### 📋 Order Management
+- Order history and details
+- Order status tracking
+- Order cancellation and returns
+- Invoice and shipment management
+- Credit memo processing
+- Reorder functionality
 
-## 📦 Installation
+### ❤️ Wishlist & Favorites
+- Multiple wishlist support
+- Add/remove products
+- Share wishlists
+- Wishlist to cart conversion
+- Wishlist analytics
 
-Add the following dependency to your `pubspec.yaml`:
+### 🔍 Advanced Search & Filtering
+- Full-text search with suggestions
+- Attribute-based filtering
+- Price range filtering
+- Availability filtering
+- Filter combinations and saving
+- Search analytics and trends
+
+### 📱 Enhanced User Experience
+- Offline mode support
+- Performance optimization
+- Push notifications
+- Multi-language support
+- Dark/light theme support
+
+## 🚀 Getting Started
+
+### Installation
+
+Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_magento: ^1.0.0
+  flutter_magento: ^2.0.0
 ```
 
-Then run:
-
-```bash
-flutter pub get
-```
-
-## 🔧 Setup
-
-### 1. Initialize the Library
+### Basic Usage
 
 ```dart
 import 'package:flutter_magento/flutter_magento.dart';
 
 void main() async {
+  // Initialize the plugin
   final magento = FlutterMagento();
   
-  final success = await magento.initialize(
+  await magento.initialize(
     baseUrl: 'https://your-magento-store.com',
-    headers: {
-      'User-Agent': 'YourApp/1.0.0',
-    },
-    connectionTimeout: 30000,
-    receiveTimeout: 30000,
+    headers: {'Content-Type': 'application/json'},
   );
   
-  if (success) {
-    print('Magento library initialized successfully');
+  // Authenticate customer
+  try {
+    final authResponse = await magento.authenticateCustomer(
+      email: 'customer@example.com',
+      password: 'password123',
+    );
+    
+    print('Customer authenticated: ${authResponse.customer.firstName}');
+  } catch (e) {
+    print('Authentication failed: $e');
   }
 }
 ```
 
-### 2. Configure Magento Store
+## 📚 API Reference
 
-Ensure your Magento store has:
-- REST API enabled
-- Customer tokens enabled
-- Proper CORS configuration
-- API permissions set up
-
-## 📚 Usage Examples
-
-### Customer Authentication
+### Authentication
 
 ```dart
-// Authenticate existing customer
-final customer = await magento.authenticateCustomer(
+// Customer login
+final authResponse = await magento.authenticateCustomer(
   email: 'customer@example.com',
   password: 'password123',
 );
 
-// Create new customer account
-final newCustomer = await magento.createCustomer(
+// Customer registration
+final customer = await magento.createCustomer(
   email: 'new@example.com',
-  password: 'StrongPassword123!',
+  password: 'password123',
   firstName: 'John',
   lastName: 'Doe',
-  additionalData: {
-    'telephone': '+1234567890',
-  },
 );
 
-// Check authentication status
-if (magento.isAuthenticated) {
-  print('Customer: ${magento.currentCustomer.firstname}');
-}
+// Get current customer
+final currentCustomer = await magento.getCurrentCustomer();
+
+// Logout
+await magento.logout();
 ```
 
-### Product Management
+### Products
 
 ```dart
 // Get products with filters
 final products = await magento.getProducts(
   page: 1,
   pageSize: 20,
-  searchQuery: 'shirt',
-  categoryId: '15',
+  searchQuery: 'phone',
+  categoryId: '123',
   sortBy: 'price',
-  sortOrder: 'ASC',
-  filters: {
-    'price': {'from': '10.00', 'to': '100.00'},
-    'color': 'blue',
-  },
-);
-
-// Search products
-final searchResults = await magento.searchProducts(
-  'wireless headphones',
-  page: 1,
-  pageSize: 10,
+  sortOrder: 'asc',
+  filters: {'brand': 'Apple'},
 );
 
 // Get single product
-final product = await magento.getProduct('SHIRT-001');
+final product = await magento.getProduct('SKU123');
+
+// Search products
+final searchResults = await magento.searchProducts(
+  'smartphone',
+  page: 1,
+  pageSize: 20,
+);
+
+// Get product reviews
+final reviews = await magento.getProductReviews('SKU123');
 ```
 
-### Shopping Cart
+### Cart Management
 
 ```dart
 // Create cart
-final cartId = await magento.createCart();
+final cart = await magento.createCart();
 
-// Add product to cart
-final added = await magento.addToCart(
-  sku: 'SHIRT-001',
+// Add item to cart
+final updatedCart = await magento.addToCart(
+  cartId: cart.id!,
+  sku: 'SKU123',
   quantity: 2,
-  productOptions: {
-    'color': 'blue',
-    'size': 'M',
-  },
 );
 
-// Update quantity
-final updated = await magento.updateCartItemQuantity(
-  itemId: 1,
-  quantity: 3,
-);
-
-// Remove item
-final removed = await magento.removeFromCart(1);
-
-// Get cart information
-final cart = await magento.getCart();
-print('Cart total: \$${cart.grandTotal}');
+// Get cart totals
+final totals = await magento.getCartTotals(cart.id!);
 
 // Apply coupon
-final couponApplied = await magento.applyCoupon('SAVE20');
+final cartWithCoupon = await magento.applyCoupon(
+  cartId: cart.id!,
+  couponCode: 'SAVE20',
+);
+
+// Estimate shipping
+final shippingMethods = await magento.estimateShipping(
+  cartId: cart.id!,
+  address: shippingAddress,
+);
 ```
 
-### Orders and Wishlist
+### Orders
 
 ```dart
 // Get customer orders
-final orders = await magento.getCustomerOrders();
+final orders = await magento.getCustomerOrders(
+  page: 1,
+  pageSize: 20,
+);
 
-// Get specific order
-final order = await magento.getOrder('ORDER-001');
+// Get order details
+final order = await magento.getOrder('ORDER123');
 
-// Wishlist operations
-final wishlist = await magento.getWishlist();
-await magento.addToWishlist('SHIRT-001');
-await magento.removeFromWishlist(1);
+// Get order status
+final status = await magento.getOrderStatus('ORDER123');
+
+// Cancel order
+final cancelled = await magento.cancelOrder(
+  'ORDER123',
+  reason: 'Changed mind',
+);
+
+// Reorder
+final newCart = await magento.reorder('ORDER123');
 ```
 
-### Checkout Process
+### Wishlist
 
 ```dart
-// Estimate shipping
-final shippingMethods = await magento.estimateShipping({
-  'region_id': '12',
-  'region': 'California',
-  'country_id': 'US',
-  'postcode': '90210',
-  'city': 'Beverly Hills',
-  'street': ['123 Main St'],
-});
+// Get wishlist
+final wishlist = await magento.getWishlist();
 
-// Get payment methods
-final paymentMethods = await magento.getPaymentMethods();
+// Add to wishlist
+final wishlistItem = await magento.addToDefaultWishlist(
+  productId: '123',
+);
 
-// Place order
-final orderData = {
-  'paymentMethod': {'method': 'checkmo'},
-  'billing_address': {...},
-  'shipping_address': {...},
-};
+// Remove from wishlist
+final removed = await magento.removeFromDefaultWishlist(1);
 
-final order = await magento.placeOrder(orderData);
+// Share wishlist
+final shared = await magento.shareDefaultWishlist(
+  email: 'friend@example.com',
+  message: 'Check out my wishlist!',
+);
+
+// Add all to cart
+final addedToCart = await magento.addAllDefaultWishlistToCart();
+```
+
+### Advanced Search
+
+```dart
+// Advanced search
+final searchResults = await magento.search(
+  query: 'smartphone',
+  filters: {'brand': 'Apple', 'price': '100-500'},
+  page: 1,
+  pageSize: 20,
+  sortBy: 'price',
+  sortOrder: 'asc',
+);
+
+// Search by category
+final categoryResults = await magento.searchByCategory(
+  categoryId: '123',
+  query: 'phone',
+);
+
+// Search by attribute
+final attributeResults = await magento.searchByAttribute(
+  attribute: 'brand',
+  value: 'Apple',
+);
+
+// Get search suggestions
+final suggestions = await magento.getSearchSuggestions('smart');
+
+// Get filterable attributes
+final attributes = await magento.getFilterableAttributes();
+
+// Apply price filter
+final priceFiltered = await magento.applyPriceFilter(
+  minPrice: 100.0,
+  maxPrice: 500.0,
+);
 ```
 
 ## 🏗️ Architecture
 
-The library follows a clean architecture pattern with the following layers:
+The plugin follows a clean architecture pattern with the following layers:
+
+- **API Layer**: HTTP client with Dio, REST API integration
+- **Service Layer**: Business logic and data processing
+- **Model Layer**: Data models with JSON serialization
+- **Plugin Layer**: Flutter plugin interface
+
+### Directory Structure
 
 ```
 lib/
 ├── src/
-│   ├── models/           # Data models (Customer, Product, Cart, Order)
-│   ├── services/         # Business logic services
-│   │   ├── magento_api_service.dart
-│   │   ├── auth_service.dart
-│   │   └── cart_service.dart
-│   ├── exceptions/       # Custom exceptions
-│   ├── constants/        # API constants and configuration
-│   ├── utils/            # Utility functions
-│   └── examples/         # Usage examples
-├── flutter_magento.dart  # Main library entry point
-└── flutter_magento_core.dart # Core implementation
+│   ├── api/           # API classes
+│   │   ├── auth_api.dart
+│   │   ├── product_api.dart
+│   │   ├── cart_api.dart
+│   │   ├── order_api.dart
+│   │   ├── wishlist_api.dart
+│   │   └── search_api.dart
+│   ├── models/        # Data models
+│   │   ├── auth_models.dart
+│   │   ├── product_models.dart
+│   │   ├── cart_models.dart
+│   │   ├── order_models.dart
+│   │   ├── wishlist_models.dart
+│   │   └── search_models.dart
+│   └── flutter_magento_plugin.dart
+├── flutter_magento.dart
+└── flutter_magento_platform_interface.dart
 ```
 
-### Key Components
+## 🔧 Configuration
 
-- **FlutterMagento**: Main public API class
-- **FlutterMagentoCore**: Core implementation with singleton pattern
-- **MagentoApiService**: Handles all REST API communications
-- **AuthService**: Manages customer authentication and sessions
-- **CartService**: Handles shopping cart operations
-- **Models**: Type-safe data models using Freezed
-
-## 🔐 Security Features
-
-- Secure token storage using `flutter_secure_storage`
-- Automatic token refresh and validation
-- Secure HTTP communication with proper headers
-- Input validation and sanitization
-- Error handling without exposing sensitive information
-
-## 🚨 Error Handling
-
-The library provides comprehensive error handling with custom exceptions:
+### Environment Setup
 
 ```dart
-try {
-  await magento.authenticateCustomer(
-    email: 'user@example.com',
-    password: 'password',
-  );
-} on MagentoException catch (e) {
-  if (e.isAuthenticationError) {
-    print('Authentication failed: ${e.message}');
-  } else if (e.isNetworkError) {
-    print('Network error: ${e.message}');
-  }
-}
+// Development
+await magento.initialize(
+  baseUrl: 'https://dev-store.com',
+  connectionTimeout: 30000,
+  receiveTimeout: 30000,
+);
+
+// Production
+await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'X-API-Key': 'your-api-key',
+    'X-Store-Code': 'default',
+  },
+);
 ```
 
-### Exception Types
+### Custom Headers
 
-- `MagentoException`: Base exception class
-- Authentication errors (401)
-- Authorization errors (403)
-- Validation errors (400)
-- Not found errors (404)
-- Server errors (5xx)
-- Network errors
+```dart
+await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'Authorization': 'Bearer token',
+    'Accept-Language': 'en-US',
+    'X-Custom-Header': 'value',
+  },
+);
+```
 
 ## 🧪 Testing
 
-The library includes comprehensive testing:
-
 ```bash
-# Run unit tests
+# Run tests
 flutter test
 
-# Run integration tests
-flutter test integration_test/
+# Run tests with coverage
+flutter test --coverage
+
+# Generate code
+flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
 
 ## 📱 Platform Support
@@ -287,104 +355,29 @@ flutter test integration_test/
 - ✅ Android
 - ✅ iOS
 - ✅ Web
-- ✅ macOS
 - ✅ Windows
+- ✅ macOS
 - ✅ Linux
 
-## 🔧 Configuration
+## 🔒 Security Features
 
-### Environment Variables
+- JWT token authentication
+- HTTPS enforcement
+- Input validation and sanitization
+- Secure token storage
+- Rate limiting support
+- CSRF protection
 
-```dart
-// Development
-baseUrl: 'https://dev-store.magento.com'
+## 📊 Performance Features
 
-// Production
-baseUrl: 'https://store.magento.com'
-
-// Staging
-baseUrl: 'https://staging-store.magento.com'
-```
-
-### Custom Headers
-
-```dart
-await magento.initialize(
-  baseUrl: 'https://your-store.com',
-  headers: {
-    'X-Custom-Header': 'value',
-    'User-Agent': 'YourApp/1.0.0',
-  },
-);
-```
-
-### Timeout Configuration
-
-```dart
-await magento.initialize(
-  baseUrl: 'https://your-store.com',
-  connectionTimeout: 60000, // 60 seconds
-  receiveTimeout: 60000,    // 60 seconds
-);
-```
-
-## 📊 Performance
-
-- Efficient HTTP client with Dio
-- Request/response caching
-- Connection pooling
-- Automatic retry on failures
-- Optimized JSON parsing
-
-## 🔄 State Management
-
-The library is designed to work with any state management solution:
-
-```dart
-// Provider
-final magentoProvider = Provider<FlutterMagento>((ref) {
-  return FlutterMagento();
-});
-
-// Riverpod
-final magentoProvider = StateNotifierProvider<MagentoNotifier, MagentoState>((ref) {
-  return MagentoNotifier();
-});
-
-// Bloc
-class MagentoBloc extends Bloc<MagentoEvent, MagentoState> {
-  // Implementation
-}
-```
-
-## 🌐 Internationalization
-
-Support for multiple languages and locales:
-
-```dart
-// The library automatically handles Magento's locale settings
-final products = await magento.getProducts(
-  // Products will be returned in the store's default locale
-);
-```
-
-## 📈 Monitoring and Analytics
-
-Built-in logging and debugging support:
-
-```dart
-// Debug mode logging
-if (kDebugMode) {
-  print('API Request: ${request.url}');
-  print('API Response: ${response.data}');
-}
-```
+- Request caching
+- Image optimization
+- Lazy loading support
+- Offline mode
+- Background sync
+- Memory management
 
 ## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
 
 1. Fork the repository
 2. Create a feature branch
@@ -398,22 +391,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- 📖 [Documentation](https://github.com/your-username/flutter_magento/wiki)
-- 🐛 [Issue Tracker](https://github.com/your-username/flutter_magento/issues)
-- 💬 [Discussions](https://github.com/your-username/flutter_magento/discussions)
-- 📧 [Email Support](mailto:support@your-email.com)
+- 📧 Email: support@nativemind.net
+- 🐛 Issues: [GitHub Issues](https://github.com/nativemind/flutter_magento/issues)
+- 📚 Documentation: [Wiki](https://github.com/nativemind/flutter_magento/wiki)
+- 💬 Community: [Discord](https://discord.gg/nativemind)
 
 ## 🙏 Acknowledgments
 
 - Magento team for the excellent e-commerce platform
 - Flutter team for the amazing framework
-- Dio team for the HTTP client
-- Freezed team for the code generation
-
-## 📝 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
+- ScandiPWA team for inspiration and best practices
+- All contributors and community members
 
 ---
 
-**Made with ❤️ for the Flutter and Magento communities**
+**Made with ❤️ by NativeMind Team**
