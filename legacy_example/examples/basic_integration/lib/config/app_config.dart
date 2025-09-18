@@ -54,3 +54,7 @@ class AppConfig {
   static const String addToWishlistSuccessMessage = 'Product added to wishlist!';
 }
 
+
+
+
+

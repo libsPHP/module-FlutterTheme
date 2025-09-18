@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/magento_provider.dart';
 import '../providers/auth_provider.dart';
+import '../providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 import '../models/product.dart';
+import 'cart_screen.dart';
+import 'wishlist_screen.dart';
+import 'profile_screen.dart';
+import 'orders_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,21 +44,89 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Flutter Magento'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              // TODO: Navigate to cart
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Cart feature coming soon!')),
+          Consumer<CartProvider>(
+            builder: (context, cartProvider, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  if (cartProvider.itemCount > 0)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          '${cartProvider.itemCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {
-              // TODO: Navigate to wishlist
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Wishlist feature coming soon!')),
+          Consumer<WishlistProvider>(
+            builder: (context, wishlistProvider, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.favorite),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const WishlistScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  if (wishlistProvider.wishlistItems.isNotEmpty)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          '${wishlistProvider.wishlistItems.length}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
           ),
@@ -60,15 +134,17 @@ class _HomeScreenState extends State<HomeScreen> {
             onSelected: (value) {
               switch (value) {
                 case 'profile':
-                  // TODO: Navigate to profile
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profile feature coming soon!')),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
                   );
                   break;
                 case 'orders':
-                  // TODO: Navigate to orders
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Orders feature coming soon!')),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const OrdersScreen(),
+                    ),
                   );
                   break;
                 case 'logout':
@@ -154,15 +230,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     final category = magentoProvider.categories[index];
                     return Padding(
                       padding: const EdgeInsets.only(right: 8),
-                      child: FilterChip(
-                        label: Text(category.name),
-                        selected: false,
-                        onSelected: (selected) {
-                          // TODO: Filter by category
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Filtering by ${category.name} coming soon!'),
-                            ),
+                      child: Consumer<MagentoProvider>(
+                        builder: (context, magentoProvider, child) {
+                          final isSelected = magentoProvider.selectedCategoryId == category.id?.toString();
+                          return FilterChip(
+                            label: Text(category.name),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              if (selected) {
+                                magentoProvider.filterByCategory(category.id?.toString());
+                              } else {
+                                magentoProvider.clearCategoryFilter();
+                              }
+                            },
                           );
                         },
                       ),
@@ -380,37 +460,59 @@ class _ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // TODO: Add to cart
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Added ${product.name} to cart!'),
-                              backgroundColor: Colors.green,
+                      child: Consumer<CartProvider>(
+                        builder: (context, cartProvider, child) {
+                          final isInCart = cartProvider.isInCart(product);
+                          return ElevatedButton(
+                            onPressed: () {
+                              cartProvider.addToCart(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Added ${product.name} to cart!'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              backgroundColor: isInCart ? Colors.green : null,
                             ),
+                            child: Text(isInCart ? 'In Cart' : 'Add to Cart'),
                           );
                         },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                        ),
-                        child: const Text('Add to Cart'),
                       ),
                     ),
                     const SizedBox(width: 8),
-                    IconButton(
-                      onPressed: () {
-                        // TODO: Add to wishlist
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Added ${product.name} to wishlist!'),
-                            backgroundColor: Colors.orange,
+                    Consumer<WishlistProvider>(
+                      builder: (context, wishlistProvider, child) {
+                        final isInWishlist = wishlistProvider.isInWishlist(product);
+                        return IconButton(
+                          onPressed: () {
+                            if (isInWishlist) {
+                              wishlistProvider.removeFromWishlist(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Removed ${product.name} from wishlist!'),
+                                  backgroundColor: Colors.orange,
+                                ),
+                              );
+                            } else {
+                              wishlistProvider.addToWishlist(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Added ${product.name} to wishlist!'),
+                                  backgroundColor: Colors.orange,
+                                ),
+                              );
+                            }
+                          },
+                          icon: Icon(isInWishlist ? Icons.favorite : Icons.favorite_border),
+                          color: isInWishlist ? Colors.red : null,
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.grey.shade100,
                           ),
                         );
                       },
-                      icon: const Icon(Icons.favorite_border),
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.grey.shade100,
-                      ),
                     ),
                   ],
                 ),
@@ -422,4 +524,8 @@ class _ProductCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
 

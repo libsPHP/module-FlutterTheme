@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_magento/flutter_magento.dart';
 import 'providers/magento_provider.dart';
 import 'providers/auth_provider.dart';
+import 'providers/cart_provider.dart';
+import 'providers/wishlist_provider.dart';
 import 'widgets/auth_wrapper.dart';
 import 'config/app_config.dart';
 
@@ -37,6 +39,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => MagentoProvider(magento)),
         ChangeNotifierProvider(create: (_) => AuthProvider(magento)),
+        ChangeNotifierProvider(create: (_) => CartProvider(magento)),
+        ChangeNotifierProvider(create: (_) => WishlistProvider(magento)),
       ],
       child: MaterialApp(
         title: AppConfig.appName,

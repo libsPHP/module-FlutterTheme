@@ -1,4 +1,4 @@
-import 'package:flutter_magento_platform_interface/flutter_magento_platform_interface.dart';
+import '../flutter_magento_platform_interface.dart';
 import 'api/magento_api_client.dart';
 import 'api/auth_api.dart';
 import 'api/product_api.dart';
@@ -6,12 +6,16 @@ import 'api/cart_api.dart';
 import 'api/order_api.dart';
 import 'api/wishlist_api.dart';
 import 'api/search_api.dart';
+import 'api/checkout_api.dart';
+import 'api/customer_api.dart';
 import 'models/auth_models.dart';
 import 'models/product_models.dart';
 import 'models/cart_models.dart';
 import 'models/order_models.dart';
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
+import 'models/checkout_models.dart';
+import 'models/customer_models.dart';
 
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.
 /// 
@@ -25,6 +29,8 @@ class FlutterMagento {
   late final OrderApi _orderApi;
   late final WishlistApi _wishlistApi;
   late final SearchApi _searchApi;
+  late final CheckoutApi _checkoutApi;
+  late final CustomerApi _customerApi;
   bool _isInitialized = false;
 
   /// Get the platform version.
@@ -55,6 +61,8 @@ class FlutterMagento {
         _orderApi = OrderApi(_apiClient);
         _wishlistApi = WishlistApi(_apiClient);
         _searchApi = SearchApi(_apiClient);
+        _checkoutApi = CheckoutApi(_apiClient);
+        _customerApi = CustomerApi(_apiClient);
         _isInitialized = true;
         return true;
       }
@@ -91,6 +99,12 @@ class FlutterMagento {
 
   /// Get the search API instance
   SearchApi get search => _searchApi;
+
+  /// Get the checkout API instance
+  CheckoutApi get checkout => _checkoutApi;
+
+  /// Get the customer API instance
+  CustomerApi get customer => _customerApi;
 
   // ==================== AUTHENTICATION ====================
 
@@ -927,6 +941,351 @@ class FlutterMagento {
       page: page,
       pageSize: pageSize,
     );
+  }
+
+  // ==================== CHECKOUT ====================
+
+  /// Create checkout session
+  Future<CheckoutSession> createCheckoutSession({
+    required String cartId,
+    String? email,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.createCheckoutSession(
+      cartId: cartId,
+      email: email,
+      shippingAddress: shippingAddress,
+      billingAddress: billingAddress,
+      shippingMethod: shippingMethod,
+      paymentMethod: paymentMethod,
+    );
+  }
+
+  /// Get checkout session
+  Future<CheckoutSession> getCheckoutSession(String sessionId) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.getCheckoutSession(sessionId);
+  }
+
+  /// Update checkout session
+  Future<CheckoutSession> updateCheckoutSession({
+    required String sessionId,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+    Map<String, dynamic>? additionalData,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.updateCheckoutSession(
+      sessionId: sessionId,
+      shippingAddress: shippingAddress,
+      billingAddress: billingAddress,
+      shippingMethod: shippingMethod,
+      paymentMethod: paymentMethod,
+      additionalData: additionalData,
+    );
+  }
+
+  /// Get available shipping methods
+  Future<List<ShippingMethod>> getAvailableShippingMethods({
+    required String cartId,
+    Map<String, dynamic>? address,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.getShippingMethods(
+      cartId: cartId,
+      address: address,
+    );
+  }
+
+  /// Get available payment methods
+  Future<List<PaymentMethod>> getAvailablePaymentMethods({
+    required String cartId,
+    Map<String, dynamic>? address,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.getPaymentMethods(
+      cartId: cartId,
+      address: address,
+    );
+  }
+
+  /// Place order
+  Future<Order> placeOrder({
+    required String cartId,
+    Map<String, dynamic>? paymentData,
+    Map<String, dynamic>? additionalData,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.placeOrder(
+      cartId: cartId,
+      paymentData: paymentData,
+      additionalData: additionalData,
+    );
+  }
+
+  /// Validate checkout
+  Future<CheckoutValidationResult> validateCheckout({
+    required String cartId,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.validateCheckout(
+      cartId: cartId,
+      shippingAddress: shippingAddress,
+      billingAddress: billingAddress,
+      shippingMethod: shippingMethod,
+      paymentMethod: paymentMethod,
+    );
+  }
+
+  /// Get checkout totals
+  Future<CheckoutTotals> getCheckoutTotals({
+    required String cartId,
+    Map<String, dynamic>? shippingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+  }) async {
+    _checkInitialization();
+    
+    return await _checkoutApi.getCheckoutTotals(
+      cartId: cartId,
+      shippingAddress: shippingAddress,
+      shippingMethod: shippingMethod,
+      paymentMethod: paymentMethod,
+    );
+  }
+
+  // ==================== CUSTOMER MANAGEMENT ====================
+
+  /// Get customer profile
+  Future<Customer> getCustomerProfile() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerProfile();
+  }
+
+  /// Update customer profile
+  Future<Customer> updateCustomerProfile({
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? dateOfBirth,
+    String? taxVat,
+    String? gender,
+    bool? isSubscribed,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.updateCustomerProfile(
+      firstName: firstName,
+      lastName: lastName,
+      middleName: middleName,
+      prefix: prefix,
+      suffix: suffix,
+      dateOfBirth: dateOfBirth,
+      taxVat: taxVat,
+      gender: gender,
+      isSubscribed: isSubscribed,
+    );
+  }
+
+  /// Get customer addresses
+  Future<List<CustomerAddress>> getCustomerAddresses() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerAddresses();
+  }
+
+  /// Add customer address
+  Future<CustomerAddress> addCustomerAddress({
+    required String firstName,
+    required String lastName,
+    required List<String> street,
+    required String city,
+    required String region,
+    required String postcode,
+    required String countryId,
+    required String telephone,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    String? regionId,
+    String? regionCode,
+    String? fax,
+    bool? isDefaultShipping,
+    bool? isDefaultBilling,
+    Map<String, dynamic>? customAttributes,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.addCustomerAddress(
+      firstName: firstName,
+      lastName: lastName,
+      street: street,
+      city: city,
+      region: region,
+      postcode: postcode,
+      countryId: countryId,
+      telephone: telephone,
+      middleName: middleName,
+      prefix: prefix,
+      suffix: suffix,
+      company: company,
+      regionId: regionId,
+      regionCode: regionCode,
+      fax: fax,
+      isDefaultShipping: isDefaultShipping,
+      isDefaultBilling: isDefaultBilling,
+      customAttributes: customAttributes,
+    );
+  }
+
+  /// Update customer address
+  Future<CustomerAddress> updateCustomerAddress({
+    required int addressId,
+    String? firstName,
+    String? lastName,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    String? regionId,
+    String? regionCode,
+    String? fax,
+    bool? isDefaultShipping,
+    bool? isDefaultBilling,
+    Map<String, dynamic>? customAttributes,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.updateCustomerAddress(
+      addressId: addressId,
+      firstName: firstName,
+      lastName: lastName,
+      street: street,
+      city: city,
+      region: region,
+      postcode: postcode,
+      countryId: countryId,
+      telephone: telephone,
+      middleName: middleName,
+      prefix: prefix,
+      suffix: suffix,
+      company: company,
+      regionId: regionId,
+      regionCode: regionCode,
+      fax: fax,
+      isDefaultShipping: isDefaultShipping,
+      isDefaultBilling: isDefaultBilling,
+      customAttributes: customAttributes,
+    );
+  }
+
+  /// Delete customer address
+  Future<bool> deleteCustomerAddress(int addressId) async {
+    _checkInitialization();
+    
+    return await _customerApi.deleteCustomerAddress(addressId);
+  }
+
+  /// Get customer groups
+  Future<List<CustomerGroup>> getCustomerGroups() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerGroups();
+  }
+
+  /// Get customer attributes
+  Future<List<CustomerAttribute>> getCustomerAttributes() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerAttributes();
+  }
+
+  /// Update customer attribute value
+  Future<bool> updateCustomerAttributeValue({
+    required String attributeCode,
+    required dynamic value,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.updateCustomerAttributeValue(
+      attributeCode: attributeCode,
+      value: value,
+    );
+  }
+
+  /// Get customer preferences
+  Future<CustomerPreferences> getCustomerPreferences() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerPreferences();
+  }
+
+  /// Update customer preferences
+  Future<CustomerPreferences> updateCustomerPreferences({
+    String? language,
+    String? currency,
+    String? timezone,
+    bool? newsletterSubscription,
+    Map<String, dynamic>? additionalPreferences,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.updateCustomerPreferences(
+      language: language,
+      currency: currency,
+      timezone: timezone,
+      newsletterSubscription: newsletterSubscription,
+      additionalPreferences: additionalPreferences,
+    );
+  }
+
+  /// Get customer activity
+  Future<List<CustomerActivity>> getCustomerActivity({
+    int page = 1,
+    int pageSize = 20,
+    String? activityType,
+  }) async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerActivity(
+      page: page,
+      pageSize: pageSize,
+      activityType: activityType,
+    );
+  }
+
+  /// Get customer statistics
+  Future<CustomerStatistics> getCustomerStatistics() async {
+    _checkInitialization();
+    
+    return await _customerApi.getCustomerStatistics();
   }
 
   // ==================== UTILITY METHODS ====================

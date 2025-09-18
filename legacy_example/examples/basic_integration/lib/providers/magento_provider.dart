@@ -16,6 +16,10 @@ class MagentoProvider extends ChangeNotifier {
   List<dynamic> _categories = [];
   List<dynamic> get categories => _categories;
   
+  // Selected category
+  String? _selectedCategoryId;
+  String? get selectedCategoryId => _selectedCategoryId;
+  
   // Loading states
   bool _isLoadingProducts = false;
   bool _isLoadingCategories = false;
@@ -119,6 +123,18 @@ class MagentoProvider extends ChangeNotifier {
     }
   }
   
+  /// Filter products by category
+  Future<void> filterByCategory(String? categoryId) async {
+    _selectedCategoryId = categoryId;
+    await loadProducts(categoryId: categoryId);
+  }
+  
+  /// Clear category filter
+  Future<void> clearCategoryFilter() async {
+    _selectedCategoryId = null;
+    await loadProducts();
+  }
+  
   /// Clear error
   void clearError() {
     _error = null;
@@ -128,7 +144,7 @@ class MagentoProvider extends ChangeNotifier {
   /// Refresh data
   Future<void> refresh() async {
     await Future.wait([
-      loadProducts(),
+      loadProducts(categoryId: _selectedCategoryId),
       loadCategories(),
     ]);
   }
