@@ -1,3 +1,10 @@
+## 2.0.1
+
+* **Documentation Fix**: Fixed conflicting method names that caused dartdoc generation errors
+* **API Change**: Renamed `search` getter to `searchApi` to avoid conflicts with `search()` method
+* **Documentation**: Added comprehensive library-level documentation
+* **Quality**: Improved pub.dev analysis score by resolving documentation issues
+
 ## 2.0.0
 
 * **Major Release**: Complete rewrite of the Flutter Magento plugin with 200+ functions
