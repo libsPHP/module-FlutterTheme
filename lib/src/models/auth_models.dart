@@ -40,6 +40,8 @@ class Customer with _$Customer {
     DateTime? updatedAt,
     List<Address>? addresses,
   }) = _Customer;
+  
+  const Customer._();
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);

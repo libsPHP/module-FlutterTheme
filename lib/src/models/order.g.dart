@@ -42,35 +42,39 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'incrementId': instance.incrementId,
-      'status': instance.status,
-      'state': instance.state,
-      'grandTotal': instance.grandTotal,
-      'subtotal': instance.subtotal,
-      'shippingAmount': instance.shippingAmount,
-      'taxAmount': instance.taxAmount,
-      'discountAmount': instance.discountAmount,
-      'items': instance.items.map((e) => e.toJson()).toList(),
-      'billingAddress': instance.billingAddress.toJson(),
-      'shippingAddress': instance.shippingAddress.toJson(),
-      'payment': instance.payment.toJson(),
-      if (instance.shipping?.toJson() case final value?) 'shipping': value,
-      if (instance.comments?.map((e) => e.toJson()).toList() case final value?)
-        'comments': value,
-      if (instance.customerEmail case final value?) 'customerEmail': value,
-      if (instance.customerFirstname case final value?)
-        'customerFirstname': value,
-      if (instance.customerLastname case final value?)
-        'customerLastname': value,
-      if (instance.couponCode case final value?) 'couponCode': value,
-      if (instance.createdAt?.toIso8601String() case final value?)
-        'createdAt': value,
-      if (instance.updatedAt?.toIso8601String() case final value?)
-        'updatedAt': value,
-    };
+Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'incrementId': instance.incrementId,
+    'status': instance.status,
+    'state': instance.state,
+    'grandTotal': instance.grandTotal,
+    'subtotal': instance.subtotal,
+    'shippingAmount': instance.shippingAmount,
+    'taxAmount': instance.taxAmount,
+    'discountAmount': instance.discountAmount,
+    'items': instance.items.map((e) => e.toJson()).toList(),
+    'billingAddress': instance.billingAddress.toJson(),
+    'shippingAddress': instance.shippingAddress.toJson(),
+    'payment': instance.payment.toJson(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('shipping', instance.shipping?.toJson());
+  writeNotNull('comments', instance.comments?.map((e) => e.toJson()).toList());
+  writeNotNull('customerEmail', instance.customerEmail);
+  writeNotNull('customerFirstname', instance.customerFirstname);
+  writeNotNull('customerLastname', instance.customerLastname);
+  writeNotNull('couponCode', instance.couponCode);
+  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
+  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
+  return val;
+}
 
 _$OrderItemImpl _$$OrderItemImplFromJson(Map<String, dynamic> json) =>
     _$OrderItemImpl(
@@ -87,20 +91,27 @@ _$OrderItemImpl _$$OrderItemImplFromJson(Map<String, dynamic> json) =>
       customAttributes: json['customAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$OrderItemImplToJson(_$OrderItemImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'sku': instance.sku,
-      'name': instance.name,
-      'price': instance.price,
-      'quantity': instance.quantity,
-      if (instance.rowTotal case final value?) 'rowTotal': value,
-      if (instance.image case final value?) 'image': value,
-      if (instance.options?.map((e) => e.toJson()).toList() case final value?)
-        'options': value,
-      if (instance.customAttributes case final value?)
-        'customAttributes': value,
-    };
+Map<String, dynamic> _$$OrderItemImplToJson(_$OrderItemImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'sku': instance.sku,
+    'name': instance.name,
+    'price': instance.price,
+    'quantity': instance.quantity,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('rowTotal', instance.rowTotal);
+  writeNotNull('image', instance.image);
+  writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());
+  writeNotNull('customAttributes', instance.customAttributes);
+  return val;
+}
 
 _$OrderItemOptionImpl _$$OrderItemOptionImplFromJson(
         Map<String, dynamic> json) =>
@@ -113,14 +124,23 @@ _$OrderItemOptionImpl _$$OrderItemOptionImplFromJson(
     );
 
 Map<String, dynamic> _$$OrderItemOptionImplToJson(
-        _$OrderItemOptionImpl instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'label': instance.label,
-      'value': instance.value,
-      if (instance.price case final value?) 'price': value,
-      if (instance.priceType case final value?) 'priceType': value,
-    };
+    _$OrderItemOptionImpl instance) {
+  final val = <String, dynamic>{
+    'code': instance.code,
+    'label': instance.label,
+    'value': instance.value,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('price', instance.price);
+  writeNotNull('priceType', instance.priceType);
+  return val;
+}
 
 _$OrderAddressImpl _$$OrderAddressImplFromJson(Map<String, dynamic> json) =>
     _$OrderAddressImpl(
@@ -140,23 +160,32 @@ _$OrderAddressImpl _$$OrderAddressImplFromJson(Map<String, dynamic> json) =>
       vatId: json['vatId'] as String?,
     );
 
-Map<String, dynamic> _$$OrderAddressImplToJson(_$OrderAddressImpl instance) =>
-    <String, dynamic>{
-      'firstname': instance.firstname,
-      'lastname': instance.lastname,
-      if (instance.middlename case final value?) 'middlename': value,
-      if (instance.prefix case final value?) 'prefix': value,
-      if (instance.suffix case final value?) 'suffix': value,
-      if (instance.company case final value?) 'company': value,
-      'street': instance.street,
-      'city': instance.city,
-      'region': instance.region,
-      'postcode': instance.postcode,
-      'countryId': instance.countryId,
-      if (instance.telephone case final value?) 'telephone': value,
-      if (instance.fax case final value?) 'fax': value,
-      if (instance.vatId case final value?) 'vatId': value,
-    };
+Map<String, dynamic> _$$OrderAddressImplToJson(_$OrderAddressImpl instance) {
+  final val = <String, dynamic>{
+    'firstname': instance.firstname,
+    'lastname': instance.lastname,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('middlename', instance.middlename);
+  writeNotNull('prefix', instance.prefix);
+  writeNotNull('suffix', instance.suffix);
+  writeNotNull('company', instance.company);
+  val['street'] = instance.street;
+  val['city'] = instance.city;
+  val['region'] = instance.region;
+  val['postcode'] = instance.postcode;
+  val['countryId'] = instance.countryId;
+  writeNotNull('telephone', instance.telephone);
+  writeNotNull('fax', instance.fax);
+  writeNotNull('vatId', instance.vatId);
+  return val;
+}
 
 _$OrderPaymentImpl _$$OrderPaymentImplFromJson(Map<String, dynamic> json) =>
     _$OrderPaymentImpl(
@@ -167,14 +196,23 @@ _$OrderPaymentImpl _$$OrderPaymentImplFromJson(Map<String, dynamic> json) =>
       additionalData: json['additionalData'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$OrderPaymentImplToJson(_$OrderPaymentImpl instance) =>
-    <String, dynamic>{
-      'method': instance.method,
-      'title': instance.title,
-      'amount': instance.amount,
-      if (instance.transactionId case final value?) 'transactionId': value,
-      if (instance.additionalData case final value?) 'additionalData': value,
-    };
+Map<String, dynamic> _$$OrderPaymentImplToJson(_$OrderPaymentImpl instance) {
+  final val = <String, dynamic>{
+    'method': instance.method,
+    'title': instance.title,
+    'amount': instance.amount,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('transactionId', instance.transactionId);
+  writeNotNull('additionalData', instance.additionalData);
+  return val;
+}
 
 _$OrderShippingImpl _$$OrderShippingImplFromJson(Map<String, dynamic> json) =>
     _$OrderShippingImpl(
@@ -184,13 +222,22 @@ _$OrderShippingImpl _$$OrderShippingImplFromJson(Map<String, dynamic> json) =>
       additionalData: json['additionalData'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$OrderShippingImplToJson(_$OrderShippingImpl instance) =>
-    <String, dynamic>{
-      'method': instance.method,
-      'title': instance.title,
-      'amount': instance.amount,
-      if (instance.additionalData case final value?) 'additionalData': value,
-    };
+Map<String, dynamic> _$$OrderShippingImplToJson(_$OrderShippingImpl instance) {
+  final val = <String, dynamic>{
+    'method': instance.method,
+    'title': instance.title,
+    'amount': instance.amount,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('additionalData', instance.additionalData);
+  return val;
+}
 
 _$OrderCommentImpl _$$OrderCommentImplFromJson(Map<String, dynamic> json) =>
     _$OrderCommentImpl(
@@ -199,10 +246,18 @@ _$OrderCommentImpl _$$OrderCommentImplFromJson(Map<String, dynamic> json) =>
       isVisibleOnFront: json['isVisibleOnFront'] as bool?,
     );
 
-Map<String, dynamic> _$$OrderCommentImplToJson(_$OrderCommentImpl instance) =>
-    <String, dynamic>{
-      'comment': instance.comment,
-      'createdAt': instance.createdAt.toIso8601String(),
-      if (instance.isVisibleOnFront case final value?)
-        'isVisibleOnFront': value,
-    };
+Map<String, dynamic> _$$OrderCommentImplToJson(_$OrderCommentImpl instance) {
+  final val = <String, dynamic>{
+    'comment': instance.comment,
+    'createdAt': instance.createdAt.toIso8601String(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('isVisibleOnFront', instance.isVisibleOnFront);
+  return val;
+}

@@ -119,7 +119,7 @@ class MagentoApiClient {
   }
 
   /// Store tokens in secure storage
-  Future<void> _storeTokens({
+  Future<void> storeTokens({
     required String accessToken,
     required String refreshToken,
     int? customerId,
@@ -165,7 +165,7 @@ class MagentoApiClient {
       
       if (response.statusCode == 200) {
         final authResponse = AuthResponse.fromJson(response.data);
-        await _storeTokens(
+        await storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,

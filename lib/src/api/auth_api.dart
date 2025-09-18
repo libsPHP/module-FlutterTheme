@@ -26,7 +26,7 @@ class AuthApi {
         final authResponse = AuthResponse.fromJson(response.data!);
         
         // Store tokens
-        await _client._storeTokens(
+        await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,
@@ -212,7 +212,7 @@ class AuthApi {
         final authResponse = AuthResponse.fromJson(response.data!);
         
         // Store tokens
-        await _client._storeTokens(
+        await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,
@@ -245,7 +245,7 @@ class AuthApi {
         final authResponse = AuthResponse.fromJson(response.data!);
         
         // Store new tokens
-        await _client._storeTokens(
+        await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,

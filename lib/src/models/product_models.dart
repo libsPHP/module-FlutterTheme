@@ -33,6 +33,8 @@ class Product with _$Product {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Product;
+  
+  const Product._();
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);

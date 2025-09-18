@@ -43,38 +43,40 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'sku': instance.sku,
-      'name': instance.name,
-      'typeId': instance.typeId,
-      'price': instance.price,
-      if (instance.specialPrice case final value?) 'specialPrice': value,
-      if (instance.description case final value?) 'description': value,
-      if (instance.shortDescription case final value?)
-        'shortDescription': value,
-      if (instance.images case final value?) 'images': value,
-      if (instance.thumbnail case final value?) 'thumbnail': value,
-      if (instance.isInStock case final value?) 'isInStock': value,
-      if (instance.stockQuantity case final value?) 'stockQuantity': value,
-      if (instance.weight case final value?) 'weight': value,
-      if (instance.categories case final value?) 'categories': value,
-      if (instance.attributes?.map((e) => e.toJson()).toList()
-          case final value?)
-        'attributes': value,
-      if (instance.options?.map((e) => e.toJson()).toList() case final value?)
-        'options': value,
-      if (instance.variations?.map((e) => e.toJson()).toList()
-          case final value?)
-        'variations': value,
-      if (instance.customAttributes case final value?)
-        'customAttributes': value,
-      if (instance.createdAt?.toIso8601String() case final value?)
-        'createdAt': value,
-      if (instance.updatedAt?.toIso8601String() case final value?)
-        'updatedAt': value,
-    };
+Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'sku': instance.sku,
+    'name': instance.name,
+    'typeId': instance.typeId,
+    'price': instance.price,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('specialPrice', instance.specialPrice);
+  writeNotNull('description', instance.description);
+  writeNotNull('shortDescription', instance.shortDescription);
+  writeNotNull('images', instance.images);
+  writeNotNull('thumbnail', instance.thumbnail);
+  writeNotNull('isInStock', instance.isInStock);
+  writeNotNull('stockQuantity', instance.stockQuantity);
+  writeNotNull('weight', instance.weight);
+  writeNotNull('categories', instance.categories);
+  writeNotNull(
+      'attributes', instance.attributes?.map((e) => e.toJson()).toList());
+  writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());
+  writeNotNull(
+      'variations', instance.variations?.map((e) => e.toJson()).toList());
+  writeNotNull('customAttributes', instance.customAttributes);
+  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
+  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
+  return val;
+}
 
 _$ProductAttributeImpl _$$ProductAttributeImplFromJson(
         Map<String, dynamic> json) =>
@@ -90,16 +92,25 @@ _$ProductAttributeImpl _$$ProductAttributeImplFromJson(
     );
 
 Map<String, dynamic> _$$ProductAttributeImplToJson(
-        _$ProductAttributeImpl instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'label': instance.label,
-      'value': instance.value,
-      if (instance.type case final value?) 'type': value,
-      if (instance.isRequired case final value?) 'isRequired': value,
-      if (instance.isVisible case final value?) 'isVisible': value,
-      if (instance.options case final value?) 'options': value,
-    };
+    _$ProductAttributeImpl instance) {
+  final val = <String, dynamic>{
+    'code': instance.code,
+    'label': instance.label,
+    'value': instance.value,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('type', instance.type);
+  writeNotNull('isRequired', instance.isRequired);
+  writeNotNull('isVisible', instance.isVisible);
+  writeNotNull('options', instance.options);
+  return val;
+}
 
 _$ProductOptionImpl _$$ProductOptionImplFromJson(Map<String, dynamic> json) =>
     _$ProductOptionImpl(
@@ -114,17 +125,26 @@ _$ProductOptionImpl _$$ProductOptionImplFromJson(Map<String, dynamic> json) =>
       sortOrder: (json['sortOrder'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ProductOptionImplToJson(_$ProductOptionImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'label': instance.label,
-      'type': instance.type,
-      if (instance.isRequired case final value?) 'isRequired': value,
-      if (instance.price case final value?) 'price': value,
-      if (instance.priceType case final value?) 'priceType': value,
-      if (instance.values case final value?) 'values': value,
-      if (instance.sortOrder case final value?) 'sortOrder': value,
-    };
+Map<String, dynamic> _$$ProductOptionImplToJson(_$ProductOptionImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'label': instance.label,
+    'type': instance.type,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('isRequired', instance.isRequired);
+  writeNotNull('price', instance.price);
+  writeNotNull('priceType', instance.priceType);
+  writeNotNull('values', instance.values);
+  writeNotNull('sortOrder', instance.sortOrder);
+  return val;
+}
 
 _$ProductVariationImpl _$$ProductVariationImplFromJson(
         Map<String, dynamic> json) =>
@@ -142,13 +162,22 @@ _$ProductVariationImpl _$$ProductVariationImplFromJson(
     );
 
 Map<String, dynamic> _$$ProductVariationImplToJson(
-        _$ProductVariationImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'sku': instance.sku,
-      'price': instance.price,
-      if (instance.images case final value?) 'images': value,
-      if (instance.attributes case final value?) 'attributes': value,
-      if (instance.isInStock case final value?) 'isInStock': value,
-      if (instance.stockQuantity case final value?) 'stockQuantity': value,
-    };
+    _$ProductVariationImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'sku': instance.sku,
+    'price': instance.price,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('images', instance.images);
+  writeNotNull('attributes', instance.attributes);
+  writeNotNull('isInStock', instance.isInStock);
+  writeNotNull('stockQuantity', instance.stockQuantity);
+  return val;
+}
