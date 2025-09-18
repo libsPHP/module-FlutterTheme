@@ -1,3 +1,11 @@
+## 2.1.2
+
+* **Enhanced Features**: Added new checkout and customer management APIs
+* **Widget Improvements**: Enhanced product card and search bar widgets with better UX
+* **Model Updates**: Extended customer and checkout models with comprehensive data structures
+* **Bug Fixes**: Fixed various analyzer issues and deprecated member usage
+* **Documentation**: Updated documentation structure and improved code examples
+
 ## 2.0.1
 
 * **Documentation Fix**: Fixed conflicting method names that caused dartdoc generation errors
