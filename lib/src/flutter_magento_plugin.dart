@@ -98,7 +98,7 @@ class FlutterMagento {
   WishlistApi get wishlist => _wishlistApi;
 
   /// Get the search API instance
-  SearchApi get search => _searchApi;
+  SearchApi get searchApi => _searchApi;
 
   /// Get the checkout API instance
   CheckoutApi get checkout => _checkoutApi;
