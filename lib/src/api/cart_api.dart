@@ -13,7 +13,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       if (response.statusCode == 200) {
@@ -83,13 +83,13 @@ class CartApi {
       };
 
       if (productOptions != null) {
-        data['cartItem']['product_option'] = productOptions;
+        data['cartItem']!['product_option'] = productOptions;
       }
 
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/items',
-        method: 'POST',
         data: data,
+        options: Options(method: 'POST'),
       );
 
       if (response.statusCode == 200) {
@@ -119,12 +119,12 @@ class CartApi {
       };
 
       if (productOptions != null) {
-        data['cartItem']['product_option'] = productOptions;
+        data['cartItem']!['product_option'] = productOptions;
       }
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/items',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -156,7 +156,7 @@ class CartApi {
 
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/items/$itemId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -186,7 +186,7 @@ class CartApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/items/$itemId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -210,7 +210,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/items/$itemId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       if (response.statusCode == 200) {
@@ -230,7 +230,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/items/$itemId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       if (response.statusCode == 200) {
@@ -253,7 +253,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/coupons/$couponCode',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
       );
 
       if (response.statusCode == 200) {
@@ -273,7 +273,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/coupons/$couponCode',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
       );
 
       if (response.statusCode == 200) {
@@ -293,7 +293,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/coupons',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       if (response.statusCode == 200) {
@@ -313,7 +313,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/coupons',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       if (response.statusCode == 200) {
@@ -374,7 +374,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/estimate-shipping-methods',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'address': address.toJson(),
         },
@@ -398,7 +398,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/estimate-shipping-methods',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'address': address.toJson(),
         },
@@ -427,7 +427,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/shipping-information',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'addressInformation': {
             'shipping_address': address.toJson(),
@@ -459,7 +459,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/shipping-information',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'addressInformation': {
             'shipping_address': address.toJson(),
@@ -504,7 +504,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/merge',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'customer_id': customerId,
         },
@@ -527,7 +527,7 @@ class CartApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       return response.statusCode == 200;
@@ -543,7 +543,7 @@ class CartApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       return response.statusCode == 200;
