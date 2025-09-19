@@ -38,14 +38,31 @@ library flutter_magento;
 // Export models
 export 'src/models/auth_models.dart';
 export 'src/models/product_models.dart';
+export 'src/models/customer.dart';
+export 'src/models/cart_models.dart';
+export 'src/models/localization_models.dart';
+export 'src/models/offline_models.dart';
 
 // Export API classes
 export 'src/api/magento_api_client.dart';
 export 'src/api/auth_api.dart';
 export 'src/api/product_api.dart';
 
+// Export services
+export 'src/services/auth_service.dart';
+export 'src/services/network_service.dart';
+export 'src/services/localization_service.dart';
+export 'src/services/offline_service.dart';
+
+// Export providers
+export 'src/providers/magento_provider.dart';
+export 'src/providers/auth_provider.dart';
+
 // Export widgets
 export 'src/widgets/widgets.dart';
 
 // Export main plugin class
 export 'src/flutter_magento_plugin.dart';
+
+// Export core
+export 'src/flutter_magento_core.dart';

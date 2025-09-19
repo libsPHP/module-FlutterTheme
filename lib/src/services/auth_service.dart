@@ -1,255 +1,494 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'network_service.dart';
+import '../models/auth_models.dart';
 import '../models/customer.dart';
 import '../exceptions/magento_exception.dart';
-import 'magento_api_service.dart';
 
-/// Service for managing customer authentication
-class AuthService {
-  final MagentoApiService _apiService;
-  final FlutterSecureStorage _secureStorage;
-  
+/// Улучшенный сервис аутентификации с JWT и SharedPreferences
+class AuthService extends ChangeNotifier {
+  static const String _tokenKey = 'magento_auth_token';
+  static const String _refreshTokenKey = 'magento_refresh_token';
+  static const String _customerKey = 'magento_customer';
+  static const String _tokenExpiryKey = 'magento_token_expiry';
+  static const String _rememberMeKey = 'magento_remember_me';
+
+  final NetworkService _networkService;
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+
+  bool _isAuthenticated = false;
+  bool _isLoading = false;
+  String? _error;
   Customer? _currentCustomer;
   String? _customerToken;
-  bool _isInitialized = false;
-  
-  // Storage keys
-  static const String _tokenKey = 'magento_customer_token';
-  static const String _customerDataKey = 'magento_customer_data';
-  
-  AuthService(this._apiService) : _secureStorage = const FlutterSecureStorage();
-  
-  /// Get current customer
+  String? _refreshToken;
+  DateTime? _tokenExpiry;
+  Timer? _tokenRefreshTimer;
+
+  AuthService() : _networkService = NetworkService();
+
+  // Геттеры
+  bool get isAuthenticated => _isAuthenticated;
+  bool get isLoading => _isLoading;
+  String? get error => _error;
   Customer? get currentCustomer => _currentCustomer;
-  
-  /// Get customer token
   String? get customerToken => _customerToken;
-  
-  /// Check if customer is authenticated
-  bool get isAuthenticated => _customerToken != null && _currentCustomer != null;
-  
-  /// Check if service is initialized
-  bool get isInitialized => _isInitialized;
-  
-  /// Initialize the authentication service
+  DateTime? get tokenExpiry => _tokenExpiry;
+
+  /// Проверка валидности токена
+  bool get isTokenValid {
+    if (_tokenExpiry == null) return false;
+    return DateTime.now()
+        .isBefore(_tokenExpiry!.subtract(const Duration(minutes: 5)));
+  }
+
+  /// Время до истечения токена
+  Duration? get timeToTokenExpiry {
+    if (_tokenExpiry == null) return null;
+    return _tokenExpiry!.difference(DateTime.now());
+  }
+
+  /// Инициализация сервиса аутентификации
   Future<bool> initialize() async {
     try {
-      // Try to restore session from secure storage
-      await _restoreSession();
-      _isInitialized = true;
+      await _loadStoredCredentials();
+
+      if (_isAuthenticated && !isTokenValid && _refreshToken != null) {
+        await refreshToken();
+      }
+
+      if (_isAuthenticated) {
+        _setupTokenRefreshTimer();
+      }
+
       return true;
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Failed to initialize AuthService: $e');
+        print('❌ AuthService initialization failed: $e');
       }
       return false;
     }
   }
-  
-  /// Restore session from secure storage
-  Future<void> _restoreSession() async {
+
+  /// Загрузка сохраненных учетных данных
+  Future<void> _loadStoredCredentials() async {
     try {
-      final token = await _secureStorage.read(key: _tokenKey);
-      if (token != null) {
-        _customerToken = token;
-        _apiService.setCustomerToken(token);
-        
-        // Try to get current customer info
-        try {
-          _currentCustomer = await _apiService.getCurrentCustomer();
-        } catch (e) {
-          // Token might be expired, clear it
-          await _clearSession();
-        }
+      final prefs = await SharedPreferences.getInstance();
+
+      _customerToken = await _secureStorage.read(key: _tokenKey);
+      _refreshToken = await _secureStorage.read(key: _refreshTokenKey);
+
+      final customerJson = prefs.getString(_customerKey);
+      if (customerJson != null) {
+        _currentCustomer = Customer.fromJson(jsonDecode(customerJson));
+      }
+
+      final expiryString = prefs.getString(_tokenExpiryKey);
+      if (expiryString != null) {
+        _tokenExpiry = DateTime.parse(expiryString);
+      }
+
+      _isAuthenticated =
+          _customerToken != null && _currentCustomer != null && isTokenValid;
+
+      if (_isAuthenticated && _customerToken != null) {
+        _networkService.setAuthToken(_customerToken!);
+      }
+
+      if (kDebugMode && _isAuthenticated) {
+        print(
+            '✅ Пользователь автоматически аутентифицирован: ${_currentCustomer?.email}');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Failed to restore session: $e');
+        print('❌ Ошибка загрузки сохраненных данных: $e');
       }
-      await _clearSession();
     }
   }
-  
-  /// Authenticate customer with email and password
-  Future<Customer> authenticate({
-    required String email,
-    required String password,
+
+  /// Сохранение учетных данных
+  Future<void> _saveCredentials({
+    required String token,
+    required Customer customer,
+    String? refreshToken,
+    DateTime? expiry,
+    bool rememberMe = false,
   }) async {
     try {
-      final response = await _apiService.authenticateCustomer(
-        email: email,
-        password: password,
-      );
-      
-      if (response.containsKey('token')) {
-        _customerToken = response['token'];
-        await _secureStorage.write(key: _tokenKey, value: _customerToken);
-        
-        // Get customer information
-        _currentCustomer = await _apiService.getCurrentCustomer();
-        await _secureStorage.write(
-          key: _customerDataKey,
-          value: _currentCustomer!.toJson().toString(),
-        );
-        
-        return _currentCustomer!;
-      } else {
-        throw MagentoException.authenticationError('Invalid response format');
+      final prefs = await SharedPreferences.getInstance();
+
+      await _secureStorage.write(key: _tokenKey, value: token);
+      if (refreshToken != null) {
+        await _secureStorage.write(key: _refreshTokenKey, value: refreshToken);
       }
+
+      await prefs.setString(_customerKey, jsonEncode(customer.toJson()));
+      if (expiry != null) {
+        await prefs.setString(_tokenExpiryKey, expiry.toIso8601String());
+      }
+      await prefs.setBool(_rememberMeKey, rememberMe);
     } catch (e) {
-      if (e is MagentoException) {
-        rethrow;
+      if (kDebugMode) {
+        print('❌ Ошибка сохранения учетных данных: $e');
       }
-      throw MagentoException.authenticationError(e.toString());
     }
   }
-  
-  /// Create new customer account
-  Future<Customer> createAccount({
+
+  /// Очистка сохраненных учетных данных
+  Future<void> _clearStoredCredentials() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      await _secureStorage.delete(key: _tokenKey);
+      await _secureStorage.delete(key: _refreshTokenKey);
+      await prefs.remove(_customerKey);
+      await prefs.remove(_tokenExpiryKey);
+      await prefs.remove(_rememberMeKey);
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Ошибка очистки учетных данных: $e');
+      }
+    }
+  }
+
+  /// Аутентификация пользователя
+  Future<bool> authenticate({
+    required String email,
+    required String password,
+    bool rememberMe = false,
+  }) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final response = await _networkService.post(
+        '/rest/V1/integration/customer/token',
+        data: {
+          'username': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final token = response.data as String;
+
+        // Получаем информацию о клиенте
+        _networkService.setAuthToken(token);
+        final customerResponse =
+            await _networkService.get('/rest/V1/customers/me');
+
+        if (customerResponse.statusCode == 200) {
+          final customerData = customerResponse.data as Map<String, dynamic>;
+          final customer = Customer.fromJson(customerData);
+
+          // Вычисляем время истечения токена (обычно 1 час)
+          final expiry = DateTime.now().add(const Duration(hours: 1));
+
+          _customerToken = token;
+          _currentCustomer = customer;
+          _tokenExpiry = expiry;
+          _isAuthenticated = true;
+
+          await _saveCredentials(
+            token: token,
+            customer: customer,
+            expiry: expiry,
+            rememberMe: rememberMe,
+          );
+
+          _setupTokenRefreshTimer();
+
+          if (kDebugMode) {
+            print('✅ Пользователь аутентифицирован: $email');
+          }
+
+          _setLoading(false);
+          return true;
+        }
+      }
+
+      _setError('Неверные учетные данные');
+      return false;
+    } catch (e) {
+      _setError(_parseError(e));
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Создание нового аккаунта
+  Future<bool> createAccount({
     required String email,
     required String password,
     required String firstName,
     required String lastName,
     Map<String, dynamic>? additionalData,
   }) async {
+    _setLoading(true);
+    _clearError();
+
     try {
-      final customer = await _apiService.createCustomer(
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        additionalData: additionalData,
+      final customerData = {
+        'customer': {
+          'email': email,
+          'firstname': firstName,
+          'lastname': lastName,
+          ...?additionalData,
+        },
+        'password': password,
+      };
+
+      final response = await _networkService.post(
+        '/rest/V1/customers',
+        data: customerData,
       );
-      
-      // Automatically authenticate after account creation
-      return await authenticate(email: email, password: password);
-    } catch (e) {
-      if (e is MagentoException) {
-        rethrow;
+
+      if (response.statusCode == 200) {
+        // Автоматически аутентифицируем после регистрации
+        return await authenticate(email: email, password: password);
       }
-      throw MagentoException('Failed to create account: $e');
-    }
-  }
-  
-  /// Update customer information
-  Future<Customer> updateProfile(Map<String, dynamic> customerData) async {
-    if (!isAuthenticated) {
-      throw MagentoException.authenticationError('User not authenticated');
-    }
-    
-    try {
-      final updatedCustomer = await _apiService.updateCustomer(customerData);
-      _currentCustomer = updatedCustomer;
-      
-      // Update stored customer data
-      await _secureStorage.write(
-        key: _customerDataKey,
-        value: _currentCustomer!.toJson().toString(),
-      );
-      
-      return _currentCustomer!;
-    } catch (e) {
-      if (e is MagentoException) {
-        rethrow;
-      }
-      throw MagentoException('Failed to update profile: $e');
-    }
-  }
-  
-  /// Get customer addresses
-  Future<List<Address>> getAddresses() async {
-    if (!isAuthenticated) {
-      throw MagentoException.authenticationError('User not authenticated');
-    }
-    
-    try {
-      return await _apiService.getCustomerAddresses();
-    } catch (e) {
-      if (e is MagentoException) {
-        rethrow;
-      }
-      throw MagentoException('Failed to get addresses: $e');
-    }
-  }
-  
-  /// Logout customer
-  Future<void> logout() async {
-    try {
-      await _clearSession();
-    } catch (e) {
-      if (kDebugMode) {
-        print('❌ Error during logout: $e');
-      }
-    }
-  }
-  
-  /// Clear session data
-  Future<void> _clearSession() async {
-    _customerToken = null;
-    _currentCustomer = null;
-    _apiService.clearCustomerToken();
-    
-    try {
-      await _secureStorage.delete(key: _tokenKey);
-      await _secureStorage.delete(key: _customerDataKey);
-    } catch (e) {
-      if (kDebugMode) {
-        print('❌ Failed to clear secure storage: $e');
-      }
-    }
-  }
-  
-  /// Refresh customer information
-  Future<Customer> refreshProfile() async {
-    if (!isAuthenticated) {
-      throw MagentoException.authenticationError('User not authenticated');
-    }
-    
-    try {
-      _currentCustomer = await _apiService.getCurrentCustomer();
-      await _secureStorage.write(
-        key: _customerDataKey,
-        value: _currentCustomer!.toJson().toString(),
-      );
-      return _currentCustomer!;
-    } catch (e) {
-      if (e is MagentoException) {
-        rethrow;
-      }
-      throw MagentoException('Failed to refresh profile: $e');
-    }
-  }
-  
-  /// Check if token is expired
-  Future<bool> isTokenExpired() async {
-    if (!isAuthenticated) return true;
-    
-    try {
-      await _apiService.getCurrentCustomer();
+
+      _setError('Не удалось создать аккаунт');
       return false;
     } catch (e) {
-      if (e is MagentoException && e.isAuthenticationError) {
+      _setError(_parseError(e));
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  /// Обновление токена
+  Future<bool> refreshToken() async {
+    if (_refreshToken == null) return false;
+
+    try {
+      final response = await _networkService.post(
+        '/rest/V1/integration/customer/token/refresh',
+        data: {'refreshToken': _refreshToken},
+      );
+
+      if (response.statusCode == 200) {
+        final newToken = response.data as String;
+        final expiry = DateTime.now().add(const Duration(hours: 1));
+
+        _customerToken = newToken;
+        _tokenExpiry = expiry;
+
+        _networkService.setAuthToken(newToken);
+
+        if (_currentCustomer != null) {
+          await _saveCredentials(
+            token: newToken,
+            customer: _currentCustomer!,
+            refreshToken: _refreshToken,
+            expiry: expiry,
+          );
+        }
+
+        _setupTokenRefreshTimer();
+
+        if (kDebugMode) {
+          print('✅ Токен обновлен');
+        }
+
+        notifyListeners();
         return true;
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Ошибка обновления токена: $e');
+      }
+    }
+
+    return false;
+  }
+
+  /// Восстановление пароля
+  Future<bool> resetPassword(String email) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final response = await _networkService.post(
+        '/rest/V1/customers/password',
+        data: {'email': email, 'template': 'email_reset'},
+      );
+
+      _setLoading(false);
+      return response.statusCode == 200;
+    } catch (e) {
+      _setError(_parseError(e));
+      _setLoading(false);
       return false;
     }
   }
-  
-  /// Get stored customer data
-  Future<Customer?> getStoredCustomer() async {
+
+  /// Изменение пароля
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    if (!_isAuthenticated) return false;
+
+    _setLoading(true);
+    _clearError();
+
     try {
-      final customerData = await _secureStorage.read(key: _customerDataKey);
-      if (customerData != null) {
-        final json = Map<String, dynamic>.from(
-          jsonDecode(customerData) as Map,
-        );
-        return Customer.fromJson(json);
+      final response = await _networkService.put(
+        '/rest/V1/customers/me/password',
+        data: {
+          'currentPassword': currentPassword,
+          'newPassword': newPassword,
+        },
+      );
+
+      _setLoading(false);
+      return response.statusCode == 200;
+    } catch (e) {
+      _setError(_parseError(e));
+      _setLoading(false);
+      return false;
+    }
+  }
+
+  /// Обновление профиля
+  Future<bool> updateProfile(Map<String, dynamic> profileData) async {
+    if (!_isAuthenticated) return false;
+
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final response = await _networkService.put(
+        '/rest/V1/customers/me',
+        data: {'customer': profileData},
+      );
+
+      if (response.statusCode == 200) {
+        final updatedCustomer = Customer.fromJson(response.data);
+        _currentCustomer = updatedCustomer;
+
+        if (_customerToken != null) {
+          await _saveCredentials(
+            token: _customerToken!,
+            customer: updatedCustomer,
+            refreshToken: _refreshToken,
+            expiry: _tokenExpiry,
+          );
+        }
+
+        _setLoading(false);
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      _setError(_parseError(e));
+      _setLoading(false);
+      return false;
+    }
+  }
+
+  /// Выход из аккаунта
+  Future<void> logout() async {
+    try {
+      if (_isAuthenticated) {
+        await _networkService.post('/rest/V1/customers/logout');
       }
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Failed to parse stored customer data: $e');
+        print('❌ Ошибка выхода: $e');
+      }
+    } finally {
+      _tokenRefreshTimer?.cancel();
+      _networkService.clearAuthToken();
+
+      await _clearStoredCredentials();
+
+      _isAuthenticated = false;
+      _currentCustomer = null;
+      _customerToken = null;
+      _refreshToken = null;
+      _tokenExpiry = null;
+      _clearError();
+
+      notifyListeners();
+
+      if (kDebugMode) {
+        print('✅ Пользователь вышел из аккаунта');
       }
     }
-    return null;
+  }
+
+  /// Настройка таймера для автоматического обновления токена
+  void _setupTokenRefreshTimer() {
+    _tokenRefreshTimer?.cancel();
+
+    if (_tokenExpiry != null) {
+      final refreshTime = _tokenExpiry!.subtract(const Duration(minutes: 10));
+      final timeToRefresh = refreshTime.difference(DateTime.now());
+
+      if (timeToRefresh.isNegative) {
+        // Токен уже истек или скоро истечет, обновляем немедленно
+        refreshToken();
+      } else {
+        _tokenRefreshTimer = Timer(timeToRefresh, () async {
+          await refreshToken();
+        });
+      }
+    }
+  }
+
+  /// Парсинг ошибок
+  String _parseError(dynamic error) {
+    if (error is MagentoException) {
+      return error.message;
+    } else if (error.toString().contains('401')) {
+      return 'Неверные учетные данные';
+    } else if (error.toString().contains('403')) {
+      return 'Доступ запрещен';
+    } else if (error.toString().contains('404')) {
+      return 'Пользователь не найден';
+    } else if (error.toString().contains('timeout')) {
+      return 'Превышено время ожидания';
+    }
+    return 'Произошла ошибка аутентификации';
+  }
+
+  /// Получение статуса аутентификации
+  Map<String, dynamic> get status => {
+        'isAuthenticated': _isAuthenticated,
+        'isLoading': _isLoading,
+        'error': _error,
+        'customerEmail': _currentCustomer?.email,
+        'isTokenValid': isTokenValid,
+        'tokenExpiry': _tokenExpiry?.toIso8601String(),
+        'timeToExpiry': timeToTokenExpiry?.inMinutes,
+      };
+
+  void _setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
+  }
+
+  void _setError(String error) {
+    _error = error;
+    notifyListeners();
+  }
+
+  void _clearError() {
+    _error = null;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _tokenRefreshTimer?.cancel();
+    super.dispose();
   }
 }
