@@ -129,11 +129,10 @@ class MagentoUsageExamples {
       if (searchResults != null) {
         print('✅ Search completed successfully');
         print('🔍 Query: wireless headphones');
-        print('📦 Found: ${searchResults['total_count']} products');
+        print('📦 Found: ${searchResults.totalCount} products');
         
-        final items = searchResults['items'] as List;
-        for (final product in items) {
-          print('🎧 ${product['name']} - \$${product['price']}');
+        for (final product in searchResults.items) {
+          print('🎧 ${product.name} - \$${product.price}');
         }
       }
     } catch (e) {
