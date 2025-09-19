@@ -9,19 +9,19 @@ part 'offline_models.g.dart';
 class CacheEntry {
   @HiveField(0)
   final String key;
-  
+
   @HiveField(1)
   final String data;
-  
+
   @HiveField(2)
   final DateTime? expiry;
-  
+
   @HiveField(3)
   final List<String> tags;
-  
+
   @HiveField(4)
   final DateTime createdAt;
-  
+
   @HiveField(5)
   final DateTime updatedAt;
 
@@ -44,7 +44,7 @@ class CacheEntry {
     return CacheEntry(
       key: row['key'] as String,
       data: row['data'] as String,
-      expiry: row['expiry'] != null 
+      expiry: row['expiry'] != null
           ? DateTime.fromMillisecondsSinceEpoch(row['expiry'] as int)
           : null,
       tags: (row['tags'] as String?)?.split(',') ?? [],
@@ -78,7 +78,9 @@ class CacheEntryAdapter extends TypeAdapter<CacheEntry> {
     return CacheEntry(
       key: reader.readString(),
       data: reader.readString(),
-      expiry: reader.readBool() ? DateTime.fromMillisecondsSinceEpoch(reader.readInt()) : null,
+      expiry: reader.readBool()
+          ? DateTime.fromMillisecondsSinceEpoch(reader.readInt())
+          : null,
       tags: reader.readStringList(),
       createdAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
@@ -109,13 +111,7 @@ enum OfflineOperationStatus {
 }
 
 /// HTTP методы
-enum HttpMethod {
-  get,
-  post,
-  put,
-  patch,
-  delete
-}
+enum HttpMethod { get, post, put, patch, delete }
 
 /// Офлайн операция
 @JsonSerializable()
@@ -123,37 +119,37 @@ enum HttpMethod {
 class OfflineOperation {
   @HiveField(0)
   final String operationId;
-  
+
   @HiveField(1)
   final String type;
-  
+
   @HiveField(2)
   final String endpoint;
-  
+
   @HiveField(3)
   final HttpMethod method;
-  
+
   @HiveField(4)
   final Map<String, dynamic>? data;
-  
+
   @HiveField(5)
   final Map<String, String>? headers;
-  
+
   @HiveField(6)
   final int priority;
-  
+
   @HiveField(7)
   final int retryCount;
-  
+
   @HiveField(8)
   final int maxRetries;
-  
+
   @HiveField(9)
   final DateTime createdAt;
-  
+
   @HiveField(10)
   final DateTime? scheduledAt;
-  
+
   @HiveField(11)
   final OfflineOperationStatus status;
 
@@ -187,15 +183,13 @@ class OfflineOperation {
         (m) => m.name == row['method'],
         orElse: () => HttpMethod.get,
       ),
-      data: row['data'] != null 
+      data: row['data'] != null
           ? Map<String, dynamic>.from(
-              Map.from(Uri.splitQueryString(row['data'] as String))
-            )
+              Map.from(Uri.splitQueryString(row['data'] as String)))
           : null,
       headers: row['headers'] != null
           ? Map<String, String>.from(
-              Map.from(Uri.splitQueryString(row['headers'] as String))
-            )
+              Map.from(Uri.splitQueryString(row['headers'] as String)))
           : null,
       priority: row['priority'] as int? ?? 0,
       retryCount: row['retry_count'] as int? ?? 0,
@@ -273,12 +267,15 @@ class OfflineOperationAdapter extends TypeAdapter<OfflineOperation> {
       endpoint: reader.readString(),
       method: HttpMethod.values[reader.readInt()],
       data: reader.readBool() ? reader.readMap().cast<String, dynamic>() : null,
-      headers: reader.readBool() ? reader.readMap().cast<String, String>() : null,
+      headers:
+          reader.readBool() ? reader.readMap().cast<String, String>() : null,
       priority: reader.readInt(),
       retryCount: reader.readInt(),
       maxRetries: reader.readInt(),
       createdAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-      scheduledAt: reader.readBool() ? DateTime.fromMillisecondsSinceEpoch(reader.readInt()) : null,
+      scheduledAt: reader.readBool()
+          ? DateTime.fromMillisecondsSinceEpoch(reader.readInt())
+          : null,
       status: OfflineOperationStatus.values[reader.readInt()],
     );
   }
@@ -371,10 +368,14 @@ abstract class OfflineEvent {
   factory OfflineEvent.dataCached(String key, dynamic data) = DataCachedEvent;
   factory OfflineEvent.dataRemoved(String key) = DataRemovedEvent;
   factory OfflineEvent.cacheCleared(List<String>? tags) = CacheClearedEvent;
-  factory OfflineEvent.operationQueued(OfflineOperation operation) = OperationQueuedEvent;
-  factory OfflineEvent.operationCompleted(OfflineOperation operation) = OperationCompletedEvent;
-  factory OfflineEvent.operationFailed(OfflineOperation operation, String error) = OperationFailedEvent;
-  factory OfflineEvent.offlineModeChanged(bool enabled) = OfflineModeChangedEvent;
+  factory OfflineEvent.operationQueued(OfflineOperation operation) =
+      OperationQueuedEvent;
+  factory OfflineEvent.operationCompleted(OfflineOperation operation) =
+      OperationCompletedEvent;
+  factory OfflineEvent.operationFailed(
+      OfflineOperation operation, String error) = OperationFailedEvent;
+  factory OfflineEvent.offlineModeChanged(bool enabled) =
+      OfflineModeChangedEvent;
   factory OfflineEvent.syncStarted() = SyncStartedEvent;
   factory OfflineEvent.syncCompleted(int processedCount) = SyncCompletedEvent;
 }

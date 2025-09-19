@@ -1,64 +1,55 @@
-# 🚀 Flutter Magento Plugin
+# 🚀 Flutter Magento Plugin 2.0
 
-A comprehensive Flutter plugin for Magento e-commerce platform integration, providing 200+ functions for building modern mobile commerce applications.
+Унифицированная Flutter библиотека для интеграции с Magento e-commerce платформой. Версия 2.0 устраняет дублирование кода между приложениями и предоставляет 200+ функций для создания современных мобильных коммерческих приложений.
 
-## ✨ Features
+## ✨ Новые возможности в версии 2.0
 
-### 🔐 Authentication & Customer Management
-- Customer login/logout with JWT tokens
-- Customer registration and profile management
-- Password reset and change
-- Social authentication (Google, Facebook, Apple)
-- Address book management
-- Customer preferences and groups
+### 🎯 **Унифицированная архитектура**
+- **Устранение дублирования**: Один API для всех приложений
+- **Модульная структура**: Используйте только нужные компоненты
+- **Типобезопасность**: Строгая типизация с Freezed моделями
+- **Консистентность**: Одинаковый подход во всех приложениях
 
-### 🛍️ Product Catalog & Management
-- Product listing with advanced filters
-- Product search with autocomplete
-- Category management and navigation
-- Product variants and options
-- Product media gallery (images, videos, 360° views)
-- Product reviews and ratings
-- Related products and recommendations
+### 🔐 **Продвинутая аутентификация**
+- JWT токены с автоматическим обновлением
+- Безопасное хранение с FlutterSecureStorage
+- Поддержка "Запомнить меня"
+- Автоматическая валидация токенов
+- Обработка истечения сессии
 
-### 🛒 Shopping Cart & Checkout
-- Guest and customer cart management
-- Add/remove/update cart items
-- Apply coupons and gift cards
-- Cart validation and totals
-- Shipping estimation and methods
-- Payment method selection
-- Order placement and confirmation
+### 🌐 **Унифицированный сетевой слой**
+- Dio + HTTP клиент с автоматическими повторными попытками
+- Мониторинг подключения к интернету
+- Автоматическая обработка ошибок
+- Логирование запросов в debug режиме
+- Кэширование ответов
 
-### 📋 Order Management
-- Order history and details
-- Order status tracking
-- Order cancellation and returns
-- Invoice and shipment management
-- Credit memo processing
-- Reorder functionality
+### 🌍 **Система локализации**
+- **45+ языков** из коробки
+- Автоматическое определение системной локали
+- Поддержка множественного числа
+- RTL поддержка для арабского и иврита
+- Кастомные переводы
 
-### ❤️ Wishlist & Favorites
-- Multiple wishlist support
-- Add/remove products
-- Share wishlists
-- Wishlist to cart conversion
-- Wishlist analytics
+### 📱 **Офлайн режим**
+- Автоматическое кэширование данных
+- Очередь операций для офлайн режима
+- SQLite + Hive для быстрого доступа
+- Автоматическая синхронизация при восстановлении сети
+- Настраиваемые стратегии кэширования
 
-### 🔍 Advanced Search & Filtering
-- Full-text search with suggestions
-- Attribute-based filtering
-- Price range filtering
-- Availability filtering
-- Filter combinations and saving
-- Search analytics and trends
+### 🎨 **Управление состоянием**
+- Provider + ChangeNotifier паттерн
+- Готовые провайдеры для всех сервисов
+- Реактивные обновления UI
+- Централизованное управление состоянием
 
-### 📱 Enhanced User Experience
-- Offline mode support
-- Performance optimization
-- Push notifications
-- Multi-language support
-- Dark/light theme support
+### 🛍️ **Расширенная e-commerce функциональность**
+- Полная интеграция с Magento REST API
+- GraphQL поддержка для сложных запросов
+- Корзина с поддержкой гостевых пользователей
+- Wishlist с множественными списками
+- Продвинутый поиск и фильтрация
 
 ## 🚀 Getting Started
 
@@ -71,30 +62,86 @@ dependencies:
   flutter_magento: ^2.0.0
 ```
 
-### Basic Usage
+### Быстрый старт
 
 ```dart
 import 'package:flutter_magento/flutter_magento.dart';
+import 'package:provider/provider.dart';
 
-void main() async {
-  // Initialize the plugin
-  final magento = FlutterMagento();
-  
-  await magento.initialize(
-    baseUrl: 'https://your-magento-store.com',
-    headers: {'Content-Type': 'application/json'},
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MagentoProvider()),
+        ChangeNotifierProxyProvider<MagentoProvider, AuthProvider>(
+          create: (context) => AuthProvider(context.read<MagentoProvider>().auth),
+          update: (context, magentoProvider, previous) => 
+              previous ?? AuthProvider(magentoProvider.auth),
+        ),
+      ],
+      child: MyApp(),
+    ),
   );
-  
-  // Authenticate customer
-  try {
-    final authResponse = await magento.authenticateCustomer(
-      email: 'customer@example.com',
-      password: 'password123',
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Consumer<MagentoProvider>(
+        builder: (context, magento, child) {
+          if (!magento.isInitialized) {
+            return FutureBuilder(
+              future: magento.initialize(
+                baseUrl: 'https://your-magento-store.com',
+                supportedLanguages: ['en', 'ru', 'de', 'fr', 'es'],
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Scaffold(body: Center(child: CircularProgressIndicator()));
+                }
+                return HomePage();
+              },
+            );
+          }
+          return HomePage();
+        },
+      ),
     );
-    
-    print('Customer authenticated: ${authResponse.customer.firstName}');
-  } catch (e) {
-    print('Authentication failed: $e');
+  }
+}
+
+// Пример использования аутентификации
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthProvider>(
+      builder: (context, auth, child) {
+        return Scaffold(
+          body: Column(
+            children: [
+              TextField(/* email field */),
+              TextField(/* password field */),
+              ElevatedButton(
+                onPressed: auth.isLoading ? null : () async {
+                  final success = await auth.authenticate(
+                    email: emailController.text,
+                    password: passwordController.text,
+                    rememberMe: true,
+                  );
+                  if (success) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  }
+                },
+                child: auth.isLoading 
+                    ? CircularProgressIndicator() 
+                    : Text('Войти'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 ```

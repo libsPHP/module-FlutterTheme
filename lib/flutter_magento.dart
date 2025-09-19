@@ -1,12 +1,11 @@
-
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.
-/// 
+///
 /// This package provides 200+ functions for building modern mobile commerce applications
 /// with support for authentication, product management, cart operations, order processing,
 /// wishlist functionality, and advanced search capabilities.
-/// 
+///
 /// ## Features
-/// 
+///
 /// - **Authentication & Customer Management**: JWT token authentication, customer registration, profile management
 /// - **Product Catalog**: Advanced product listing, search with autocomplete, category management
 /// - **Shopping Cart & Checkout**: Guest and customer cart management, coupon support, payment methods
@@ -14,19 +13,19 @@
 /// - **Wishlist & Favorites**: Multiple wishlist support, sharing, analytics
 /// - **Advanced Search & Filtering**: Full-text search, attribute-based filtering, price range filtering
 /// - **Platform Support**: Android, iOS, Web, Windows, macOS, Linux
-/// 
+///
 /// ## Quick Start
-/// 
+///
 /// ```dart
 /// import 'package:flutter_magento/flutter_magento.dart';
-/// 
+///
 /// // Initialize the plugin
 /// final magento = FlutterMagento();
 /// await magento.initialize(
 ///   baseUrl: 'https://your-magento-store.com',
 ///   headers: {'Content-Type': 'application/json'},
 /// );
-/// 
+///
 /// // Authenticate customer
 /// final authResponse = await magento.authenticateCustomer(
 ///   email: 'customer@example.com',
