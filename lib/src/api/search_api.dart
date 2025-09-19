@@ -202,7 +202,9 @@ class SearchApi {
     try {
       final filterMap = <String, dynamic>{};
       for (final filter in filters) {
-        filterMap[filter.field] = filter.value;
+        if (filter.field != null) {
+          filterMap[filter.field!] = filter.value;
+        }
       }
 
       return await search(
