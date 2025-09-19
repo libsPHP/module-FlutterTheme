@@ -663,7 +663,7 @@ class _TaxLienFilterDialogState extends State<TaxLienFilterDialog> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: _selectedCounty,
+          initialValue: _selectedCounty,
           decoration: InputDecoration(
             hintText: 'Select County',
             border: OutlineInputBorder(

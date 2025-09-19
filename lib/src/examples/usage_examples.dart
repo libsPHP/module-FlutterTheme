@@ -103,12 +103,11 @@ class MagentoUsageExamples {
       
       if (products != null) {
         print('✅ Products retrieved successfully');
-        print('📦 Total products: ${products['total_count']}');
-        print('📄 Current page: ${products['page_info']['current_page']}');
+        print('📦 Total products: ${products.totalCount}');
+        print('📄 Current page: ${products.currentPage}');
         
-        final items = products['items'] as List;
-        for (final product in items) {
-          print('🛍️ ${product['name']} - \$${product['price']}');
+        for (final product in products.items) {
+          print('🛍️ ${product.name} - \$${product.price}');
         }
       }
     } catch (e) {
