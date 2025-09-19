@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import '../models/offline_models.dart';
 import '../exceptions/magento_exception.dart';
 
@@ -86,8 +86,8 @@ class OfflineService extends ChangeNotifier {
 
   /// Инициализация SQLite базы данных
   Future<void> _initializeDatabase() async {
-    final databasesPath = await getDatabasesPath();
-    final dbPath = path.join(databasesPath, 'magento_offline.db');
+    final documentsDirectory = await getApplicationDocumentsDirectory();
+    final dbPath = '${documentsDirectory.path}/magento_offline.db';
 
     _database = await openDatabase(
       dbPath,

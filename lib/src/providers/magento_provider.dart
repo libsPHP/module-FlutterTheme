@@ -3,9 +3,6 @@ import '../services/auth_service.dart';
 import '../services/network_service.dart';
 import '../services/offline_service.dart';
 import '../services/localization_service.dart';
-import '../models/auth_models.dart';
-import '../models/product_models.dart';
-import '../models/cart_models.dart';
 
 /// Главный провайдер для управления состоянием Magento
 class MagentoProvider extends ChangeNotifier {

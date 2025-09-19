@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -16,129 +16,13 @@ dependencies:
     path: ../
   
   # Core dependencies
-  http: ^2.0.0
-  shared_preferences: ^3.0.0
-  sqflite: ^3.0.0
-  path: ^2.0.0
-  url_launcher: ^7.0.0
-  webview_flutter: ^5.0.0
-  
-  # UI/UX improvements
-  cupertino_icons: ^2.0.0
-  google_fonts: ^7.0.0
-  flutter_svg: ^3.0.0
-  cached_network_image: ^4.0.0
-  shimmer: ^4.0.0
-  lottie: ^4.0.0
-  
-  # State management
-  provider: ^7.0.0
-  riverpod: ^3.0.0
-  flutter_riverpod: ^3.0.0
-  
-  # Navigation
-  go_router: ^17.0.0
-  
-  # Forms and validation
-  form_builder_validators: ^12.0.0
-  flutter_form_builder: ^11.0.0
-  
-  # Charts and data visualization
-  fl_chart: ^2.0.0
-  
-  # Animations
-  flutter_animate: ^5.0.0
-  
-  # Localization
-  intl: ^0.21.0
-  
-  # Security
-  crypto: ^4.0.0
-  flutter_secure_storage: ^10.0.0
-  
-  # Networking
-  dio: ^6.0.0
-  connectivity_plus: ^6.0.0
-  
-  # Image handling
-  image_picker: ^2.0.0
-  image_cropper: ^10.0.0
-  
-  # QR Code
-  qr_flutter: ^5.0.0
-  qr_code_scanner: ^2.0.0
-  
-  # Notifications
-  flutter_local_notifications: ^20.0.0
-  
-  # Biometrics
-  local_auth: ^3.0.0
-  
-  # File handling
-  file_picker: ^11.0.0
-  permission_handler: ^13.0.0
-  
-  # Social sharing
-  share_plus: ^12.0.0
-  
-  # Deep linking
-  uni_links: ^0.6.0
-  
-  # Analytics
-  firebase_analytics: ^13.0.0
-  firebase_crashlytics: ^6.0.0
-  
-  # Push notifications
-  firebase_messaging: ^17.0.0
-  
-  # In-app purchases
-  in_app_purchase: ^4.0.0
-  
-  # AdMob
-  google_mobile_ads: ^7.0.0
-  device_info_plus: ^10.0.0
-  package_info_plus: ^5.0.0
-  sentry_flutter: ^8.0.0
+  cupertino_icons: ^1.0.2
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
-  build_runner: ^2.4.7
-  json_annotation: ^4.8.1
-  json_serializable: ^6.7.1
-  freezed: ^2.4.6
-  freezed_annotation: ^2.4.1
-  mockito: ^5.4.2
-  integration_test:
-    sdk: flutter
 
 flutter:
-  generate: true
   uses-material-design: true
-
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/animations/
-    - assets/fonts/
-
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Inter-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Inter-Bold.ttf
-          weight: 700
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 700
