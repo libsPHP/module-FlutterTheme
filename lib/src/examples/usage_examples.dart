@@ -35,7 +35,8 @@ class MagentoUsageExamples {
       // Check if already authenticated
       if (magento.isAuthenticated) {
         print('✅ User is already authenticated');
-        print('👤 Current customer: ${magento.currentCustomer}');
+        final currentCustomer = await magento.getCurrentCustomer();
+        print('👤 Current customer: ${currentCustomer.email}');
         return;
       }
       
@@ -65,10 +66,7 @@ class MagentoUsageExamples {
         password: 'StrongPassword123!',
         firstName: 'John',
         lastName: 'Doe',
-        additionalData: {
-          'telephone': '+1234567890',
-          'date_of_birth': '1990-01-01',
-        },
+        dateOfBirth: '1990-01-01',
       );
       
       if (customer != null) {

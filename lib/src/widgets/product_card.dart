@@ -252,7 +252,7 @@ class ProductCard extends StatelessWidget {
           onPressed: onAddToWishlist,
           icon: const Icon(Icons.favorite_border),
           style: IconButton.styleFrom(
-            backgroundColor: colorScheme.surfaceVariant,
+            backgroundColor: colorScheme.surfaceContainerHighest,
             foregroundColor: colorScheme.onSurfaceVariant,
             padding: const EdgeInsets.all(8),
           ),
