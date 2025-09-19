@@ -39,11 +39,20 @@ LocalizationSettings _$LocalizationSettingsFromJson(
     );
 
 Map<String, dynamic> _$LocalizationSettingsToJson(
-        LocalizationSettings instance) =>
-    <String, dynamic>{
-      'selectedLanguage': instance.selectedLanguage,
-      'selectedCountry': instance.selectedCountry,
-      'autoDetectLocale': instance.autoDetectLocale,
-      'preferredLanguages': instance.preferredLanguages,
-      'customTranslations': instance.customTranslations,
-    };
+    LocalizationSettings instance) {
+  final val = <String, dynamic>{
+    'selectedLanguage': instance.selectedLanguage,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('selectedCountry', instance.selectedCountry);
+  val['autoDetectLocale'] = instance.autoDetectLocale;
+  val['preferredLanguages'] = instance.preferredLanguages;
+  val['customTranslations'] = instance.customTranslations;
+  return val;
+}
