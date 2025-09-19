@@ -150,7 +150,9 @@ class MagentoUsageExamples {
       print('🛒 Cart created with ID: $cartId');
       
       // Add product to cart
+      final cart = await magento.getCustomerCart();
       final added = await magento.addToCart(
+        cartId: cart.id.toString(),
         sku: 'SHIRT-001',
         quantity: 2,
         productOptions: {
