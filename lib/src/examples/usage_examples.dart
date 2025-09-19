@@ -1,4 +1,5 @@
 import 'package:flutter_magento/flutter_magento.dart';
+import 'package:flutter_magento/src/models/cart_models.dart';
 
 /// Examples of how to use the Flutter Magento library
 class MagentoUsageExamples {
@@ -244,13 +245,16 @@ class MagentoUsageExamples {
         wishlistId: wishlist?.id ?? '1',
         productId: 'SHIRT-001',
       );
-      if (added) {
+      if (added == true) {
         print('✅ Product added to wishlist');
       }
       
       // Remove product from wishlist
-      final removed = await magento.removeFromWishlist(1);
-      if (removed) {
+      final removed = await magento.removeFromWishlist(
+        itemId: 1,
+        wishlistId: wishlist?.id ?? '1',
+      );
+      if (removed == true) {
         print('✅ Product removed from wishlist');
       }
     } catch (e) {
@@ -263,30 +267,42 @@ class MagentoUsageExamples {
     try {
       final magento = FlutterMagento();
       
+      // Get or create cart first
+      final cart = await magento.getCustomerCart();
+      
+      // Create address object
+      final address = Address(
+        regionId: '12',
+        region: 'California',
+        countryId: 'US',
+        postcode: '90210',
+        city: 'Beverly Hills',
+        street: ['123 Main St'],
+      );
+      
       // Estimate shipping
-      final shippingMethods = await magento.estimateShipping({
-        'region_id': '12',
-        'region': 'California',
-        'country_id': 'US',
-        'postcode': '90210',
-        'city': 'Beverly Hills',
-        'street': ['123 Main St'],
-      });
+      final shippingMethods = await magento.estimateShipping(
+        cartId: cart.id.toString(),
+        address: address,
+      );
       
       if (shippingMethods.isNotEmpty) {
         print('✅ Shipping methods available:');
         for (final method in shippingMethods) {
-          print('🚚 ${method['method_title']} - \$${method['price']}');
+          print('🚚 ${method.title} - \$${method.amount}');
         }
       }
       
       // Get payment methods
-      final paymentMethods = await magento.getPaymentMethods();
+      final paymentMethods = await magento.getAvailablePaymentMethods(
+        cartId: cart.id.toString(),
+        address: address.toJson(),
+      );
       
       if (paymentMethods.isNotEmpty) {
         print('✅ Payment methods available:');
         for (final method in paymentMethods) {
-          print('💳 ${method['title']}');
+          print('💳 ${method.title}');
         }
       }
       
