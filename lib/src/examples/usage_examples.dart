@@ -236,11 +236,14 @@ class MagentoUsageExamples {
       
       if (wishlist != null) {
         print('✅ Wishlist retrieved');
-        print('💝 Items in wishlist: ${wishlist['items_count'] ?? 0}');
+        print('💝 Items in wishlist: ${wishlist.items?.length ?? 0}');
       }
       
       // Add product to wishlist
-      final added = await magento.addToWishlist('SHIRT-001');
+      final added = await magento.addToWishlist(
+        wishlistId: wishlist?.id ?? '1',
+        productId: 'SHIRT-001',
+      );
       if (added) {
         print('✅ Product added to wishlist');
       }
