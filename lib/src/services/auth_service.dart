@@ -28,7 +28,8 @@ class AuthService extends ChangeNotifier {
   DateTime? _tokenExpiry;
   Timer? _tokenRefreshTimer;
 
-  AuthService([MagentoApiService? apiService]) : _networkService = NetworkService();
+  AuthService([MagentoApiService? apiService])
+      : _networkService = NetworkService();
 
   // Геттеры
   bool get isAuthenticated => _isAuthenticated;

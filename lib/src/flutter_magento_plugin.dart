@@ -18,7 +18,7 @@ import 'models/checkout_models.dart' as checkout;
 import 'models/customer_models.dart';
 
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.
-/// 
+///
 /// This plugin provides methods to interact with Magento REST API,
 /// including authentication, products, cart, orders, and customer operations.
 class FlutterMagento {
@@ -133,7 +133,7 @@ class FlutterMagento {
     List<Address>? addresses,
   }) async {
     _checkInitialization();
-    
+
     final request = CustomerCreateRequest(
       email: email,
       password: password,
@@ -148,7 +148,7 @@ class FlutterMagento {
       isSubscribed: isSubscribed,
       addresses: addresses,
     );
-    
+
     return await _authApi.register(request: request);
   }
 
@@ -172,7 +172,7 @@ class FlutterMagento {
     List<Address>? addresses,
   }) async {
     _checkInitialization();
-    
+
     final request = CustomerUpdateRequest(
       firstname: firstName,
       lastname: lastName,
@@ -185,7 +185,7 @@ class FlutterMagento {
       isSubscribed: isSubscribed,
       addresses: addresses,
     );
-    
+
     return await _authApi.updateCustomer(request: request);
   }
 
@@ -195,12 +195,12 @@ class FlutterMagento {
     required String newPassword,
   }) async {
     _checkInitialization();
-    
+
     final request = PasswordChangeRequest(
       currentPassword: currentPassword,
       newPassword: newPassword,
     );
-    
+
     return await _authApi.changePassword(request: request);
   }
 
@@ -221,7 +221,7 @@ class FlutterMagento {
     String? lastName,
   }) async {
     _checkInitialization();
-    
+
     return await _authApi.socialLogin(
       provider: provider,
       token: token,
@@ -262,7 +262,7 @@ class FlutterMagento {
     List<String>? tags,
   }) async {
     _checkInitialization();
-    
+
     return await _productApi.getProducts(
       page: page,
       pageSize: pageSize,
@@ -283,14 +283,14 @@ class FlutterMagento {
   /// Get product by SKU
   Future<Product> getProduct(String sku) async {
     _checkInitialization();
-    
+
     return await _productApi.getProduct(sku);
   }
 
   /// Get categories
   Future<CategoryTree> getCategories() async {
     _checkInitialization();
-    
+
     return await _productApi.getCategories();
   }
 
@@ -304,7 +304,7 @@ class FlutterMagento {
     String? sortOrder,
   }) async {
     _checkInitialization();
-    
+
     return await _productApi.searchProducts(
       query,
       page: page,
@@ -325,7 +325,7 @@ class FlutterMagento {
     Map<String, dynamic>? filters,
   }) async {
     _checkInitialization();
-    
+
     return await _productApi.getProductsByCategory(
       categoryId,
       page: page,
@@ -339,28 +339,28 @@ class FlutterMagento {
   /// Get product variants
   Future<List<ProductOption>> getProductVariants(String sku) async {
     _checkInitialization();
-    
+
     return await _productApi.getProductVariants(sku);
   }
 
   /// Get related products
   Future<List<Product>> getRelatedProducts(String sku) async {
     _checkInitialization();
-    
+
     return await _productApi.getRelatedProducts(sku);
   }
 
   /// Get cross-sell products
   Future<List<Product>> getCrossSellProducts(String sku) async {
     _checkInitialization();
-    
+
     return await _productApi.getCrossSellProducts(sku);
   }
 
   /// Get up-sell products
   Future<List<Product>> getUpSellProducts(String sku) async {
     _checkInitialization();
-    
+
     return await _productApi.getUpSellProducts(sku);
   }
 
@@ -371,7 +371,7 @@ class FlutterMagento {
     int pageSize = 10,
   }) async {
     _checkInitialization();
-    
+
     return await _productApi.getProductReviews(
       sku,
       page: page,
@@ -407,7 +407,7 @@ class FlutterMagento {
     Map<String, dynamic>? productOptions,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.addToCart(
       cartId: cartId,
       sku: sku,
@@ -423,7 +423,7 @@ class FlutterMagento {
     Map<String, dynamic>? productOptions,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.addToCustomerCart(
       sku: sku,
       quantity: quantity,
@@ -437,7 +437,7 @@ class FlutterMagento {
     required int itemId,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.removeFromCart(
       cartId: cartId,
       itemId: itemId,
@@ -447,7 +447,7 @@ class FlutterMagento {
   /// Remove item from customer cart
   Future<Cart> removeFromCustomerCart(int itemId) async {
     _checkInitialization();
-    
+
     return await _cartApi.removeFromCustomerCart(itemId);
   }
 
@@ -458,7 +458,7 @@ class FlutterMagento {
     required int quantity,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.updateCartItemQuantity(
       cartId: cartId,
       itemId: itemId,
@@ -472,7 +472,7 @@ class FlutterMagento {
     required int quantity,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.updateCustomerCartItemQuantity(
       itemId: itemId,
       quantity: quantity,
@@ -485,7 +485,7 @@ class FlutterMagento {
     required String couponCode,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.applyCoupon(
       cartId: cartId,
       couponCode: couponCode,
@@ -495,35 +495,35 @@ class FlutterMagento {
   /// Apply coupon to customer cart
   Future<Cart> applyCouponToCustomerCart(String couponCode) async {
     _checkInitialization();
-    
+
     return await _cartApi.applyCouponToCustomerCart(couponCode);
   }
 
   /// Remove coupon from cart
   Future<Cart> removeCoupon(String cartId) async {
     _checkInitialization();
-    
+
     return await _cartApi.removeCoupon(cartId);
   }
 
   /// Remove coupon from customer cart
   Future<Cart> removeCouponFromCustomerCart() async {
     _checkInitialization();
-    
+
     return await _cartApi.removeCouponFromCustomerCart();
   }
 
   /// Get cart totals
   Future<CartTotals> getCartTotals(String cartId) async {
     _checkInitialization();
-    
+
     return await _cartApi.getCartTotals(cartId);
   }
 
   /// Get customer cart totals
   Future<CartTotals> getCustomerCartTotals() async {
     _checkInitialization();
-    
+
     return await _cartApi.getCustomerCartTotals();
   }
 
@@ -533,7 +533,7 @@ class FlutterMagento {
     required Address address,
   }) async {
     _checkInitialization();
-    
+
     return await _cartApi.estimateShipping(
       cartId: cartId,
       address: address,
@@ -541,9 +541,10 @@ class FlutterMagento {
   }
 
   /// Estimate shipping for customer cart
-  Future<List<ShippingMethod>> estimateCustomerCartShipping(Address address) async {
+  Future<List<ShippingMethod>> estimateCustomerCartShipping(
+      Address address) async {
     _checkInitialization();
-    
+
     return await _cartApi.estimateCustomerCartShipping(address);
   }
 
@@ -556,7 +557,7 @@ class FlutterMagento {
     Map<String, dynamic>? filters,
   }) async {
     _checkInitialization();
-    
+
     return await _orderApi.getCustomerOrders(
       page: page,
       pageSize: pageSize,
@@ -567,77 +568,77 @@ class FlutterMagento {
   /// Get order by ID
   Future<Order> getOrder(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrder(orderId);
   }
 
   /// Get order by increment ID
   Future<Order> getOrderByIncrementId(String incrementId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderByIncrementId(incrementId);
   }
 
   /// Get order items
   Future<List<OrderItem>> getOrderItems(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderItems(orderId);
   }
 
   /// Get order totals
   Future<OrderTotals> getOrderTotals(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderTotals(orderId);
   }
 
   /// Get order status
   Future<String> getOrderStatus(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderStatus(orderId);
   }
 
   /// Get order comments
   Future<List<OrderComment>> getOrderComments(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderComments(orderId);
   }
 
   /// Get order history
   Future<List<OrderHistory>> getOrderHistory(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.getOrderHistory(orderId);
   }
 
   /// Reorder
   Future<Cart> reorder(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.reorder(orderId);
   }
 
   /// Cancel order
   Future<bool> cancelOrder(String orderId, {String? reason}) async {
     _checkInitialization();
-    
+
     return await _orderApi.cancelOrder(orderId, reason: reason);
   }
 
   /// Hold order
   Future<bool> holdOrder(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.holdOrder(orderId);
   }
 
   /// Unhold order
   Future<bool> unholdOrder(String orderId) async {
     _checkInitialization();
-    
+
     return await _orderApi.unholdOrder(orderId);
   }
 
@@ -646,21 +647,21 @@ class FlutterMagento {
   /// Get customer wishlist
   Future<Wishlist> getWishlist() async {
     _checkInitialization();
-    
+
     return await _wishlistApi.getWishlist();
   }
 
   /// Get all wishlists
   Future<List<Wishlist>> getWishlists() async {
     _checkInitialization();
-    
+
     return await _wishlistApi.getWishlists();
   }
 
   /// Create wishlist
   Future<Wishlist> createWishlist(String name) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.createWishlist(name);
   }
 
@@ -671,7 +672,7 @@ class FlutterMagento {
     List<Map<String, dynamic>>? options,
   }) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.addToWishlist(
       wishlistId: wishlistId,
       productId: productId,
@@ -685,7 +686,7 @@ class FlutterMagento {
     List<Map<String, dynamic>>? options,
   }) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.addToDefaultWishlist(
       productId: productId,
       options: options,
@@ -698,7 +699,7 @@ class FlutterMagento {
     required int itemId,
   }) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.removeFromWishlist(
       wishlistId: wishlistId,
       itemId: itemId,
@@ -708,7 +709,7 @@ class FlutterMagento {
   /// Remove product from default wishlist
   Future<bool> removeFromDefaultWishlist(int itemId) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.removeFromDefaultWishlist(itemId);
   }
 
@@ -719,7 +720,7 @@ class FlutterMagento {
     String? message,
   }) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.shareWishlist(
       wishlistId: wishlistId,
       email: email,
@@ -733,7 +734,7 @@ class FlutterMagento {
     String? message,
   }) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.shareDefaultWishlist(
       email: email,
       message: message,
@@ -743,14 +744,14 @@ class FlutterMagento {
   /// Add all wishlist items to cart
   Future<bool> addAllWishlistToCart(String wishlistId) async {
     _checkInitialization();
-    
+
     return await _wishlistApi.addAllToCart(wishlistId);
   }
 
   /// Add all default wishlist items to cart
   Future<bool> addAllDefaultWishlistToCart() async {
     _checkInitialization();
-    
+
     return await _wishlistApi.addAllDefaultWishlistToCart();
   }
 
@@ -766,7 +767,7 @@ class FlutterMagento {
     String? sortOrder,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.search(
       query: query,
       filters: filters,
@@ -788,7 +789,7 @@ class FlutterMagento {
     String? sortOrder,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.searchByCategory(
       categoryId: categoryId,
       query: query,
@@ -811,7 +812,7 @@ class FlutterMagento {
     String? sortOrder,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.searchByAttribute(
       attribute: attribute,
       value: value,
@@ -826,42 +827,43 @@ class FlutterMagento {
   /// Get search suggestions
   Future<List<SearchSuggestion>> getSearchSuggestions(String query) async {
     _checkInitialization();
-    
+
     return await _searchApi.getSearchSuggestions(query);
   }
 
   /// Get popular searches
   Future<List<String>> getPopularSearches() async {
     _checkInitialization();
-    
+
     return await _searchApi.getPopularSearches();
   }
 
   /// Get search history
   Future<List<String>> getSearchHistory() async {
     _checkInitialization();
-    
+
     return await _searchApi.getSearchHistory();
   }
 
   /// Save search query
   Future<bool> saveSearchQuery(String query) async {
     _checkInitialization();
-    
+
     return await _searchApi.saveSearchQuery(query);
   }
 
   /// Get filterable attributes
   Future<List<FilterableAttribute>> getFilterableAttributes() async {
     _checkInitialization();
-    
+
     return await _searchApi.getFilterableAttributes();
   }
 
   /// Get attribute options
-  Future<List<AttributeOption>> getAttributeOptions(String attributeCode) async {
+  Future<List<AttributeOption>> getAttributeOptions(
+      String attributeCode) async {
     _checkInitialization();
-    
+
     return await _searchApi.getAttributeOptions(attributeCode);
   }
 
@@ -873,7 +875,7 @@ class FlutterMagento {
     int pageSize = 20,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.applyAttributeFilter(
       attributeCode: attributeCode,
       values: values,
@@ -885,7 +887,7 @@ class FlutterMagento {
   /// Get price range
   Future<PriceRange> getPriceRange() async {
     _checkInitialization();
-    
+
     return await _searchApi.getPriceRange();
   }
 
@@ -897,7 +899,7 @@ class FlutterMagento {
     int pageSize = 20,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.applyPriceFilter(
       minPrice: minPrice,
       maxPrice: maxPrice,
@@ -909,7 +911,7 @@ class FlutterMagento {
   /// Get availability filters
   Future<List<AvailabilityFilter>> getAvailabilityFilters() async {
     _checkInitialization();
-    
+
     return await _searchApi.getAvailabilityFilters();
   }
 
@@ -920,7 +922,7 @@ class FlutterMagento {
     int pageSize = 20,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.applyAvailabilityFilter(
       availability: availability,
       page: page,
@@ -935,7 +937,7 @@ class FlutterMagento {
     int pageSize = 20,
   }) async {
     _checkInitialization();
-    
+
     return await _searchApi.combineFilters(
       filters: filters,
       page: page,
@@ -955,7 +957,7 @@ class FlutterMagento {
     String? paymentMethod,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.createCheckoutSession(
       cartId: cartId,
       email: email,
@@ -969,7 +971,7 @@ class FlutterMagento {
   /// Get checkout session
   Future<CheckoutSession> getCheckoutSession(String sessionId) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.getCheckoutSession(sessionId);
   }
 
@@ -983,7 +985,7 @@ class FlutterMagento {
     Map<String, dynamic>? additionalData,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.updateCheckoutSession(
       sessionId: sessionId,
       shippingAddress: shippingAddress,
@@ -1000,7 +1002,7 @@ class FlutterMagento {
     Map<String, dynamic>? address,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.getShippingMethods(
       cartId: cartId,
       address: address,
@@ -1013,7 +1015,7 @@ class FlutterMagento {
     Map<String, dynamic>? address,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.getPaymentMethods(
       cartId: cartId,
       address: address,
@@ -1021,13 +1023,13 @@ class FlutterMagento {
   }
 
   /// Place order
-  Future<Order> placeOrder({
+  Future<order.Order> placeOrder({
     required String cartId,
     Map<String, dynamic>? paymentData,
     Map<String, dynamic>? additionalData,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.placeOrder(
       cartId: cartId,
       paymentData: paymentData,
@@ -1044,7 +1046,7 @@ class FlutterMagento {
     String? paymentMethod,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.validateCheckout(
       cartId: cartId,
       shippingAddress: shippingAddress,
@@ -1062,7 +1064,7 @@ class FlutterMagento {
     String? paymentMethod,
   }) async {
     _checkInitialization();
-    
+
     return await _checkoutApi.getCheckoutTotals(
       cartId: cartId,
       shippingAddress: shippingAddress,
@@ -1074,14 +1076,14 @@ class FlutterMagento {
   // ==================== CUSTOMER MANAGEMENT ====================
 
   /// Get customer profile
-  Future<Customer> getCustomerProfile() async {
+  Future<auth.Customer> getCustomerProfile() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerProfile();
   }
 
   /// Update customer profile
-  Future<Customer> updateCustomerProfile({
+  Future<auth.Customer> updateCustomerProfile({
     String? firstName,
     String? lastName,
     String? middleName,
@@ -1093,7 +1095,7 @@ class FlutterMagento {
     bool? isSubscribed,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.updateCustomerProfile(
       firstName: firstName,
       lastName: lastName,
@@ -1110,7 +1112,7 @@ class FlutterMagento {
   /// Get customer addresses
   Future<List<CustomerAddress>> getCustomerAddresses() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerAddresses();
   }
 
@@ -1136,7 +1138,7 @@ class FlutterMagento {
     Map<String, dynamic>? customAttributes,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.addCustomerAddress(
       firstName: firstName,
       lastName: lastName,
@@ -1182,7 +1184,7 @@ class FlutterMagento {
     Map<String, dynamic>? customAttributes,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.updateCustomerAddress(
       addressId: addressId,
       firstName: firstName,
@@ -1209,21 +1211,21 @@ class FlutterMagento {
   /// Delete customer address
   Future<bool> deleteCustomerAddress(int addressId) async {
     _checkInitialization();
-    
+
     return await _customerApi.deleteCustomerAddress(addressId);
   }
 
   /// Get customer groups
   Future<List<CustomerGroup>> getCustomerGroups() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerGroups();
   }
 
   /// Get customer attributes
   Future<List<CustomerAttribute>> getCustomerAttributes() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerAttributes();
   }
 
@@ -1233,7 +1235,7 @@ class FlutterMagento {
     required dynamic value,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.updateCustomerAttributeValue(
       attributeCode: attributeCode,
       value: value,
@@ -1243,7 +1245,7 @@ class FlutterMagento {
   /// Get customer preferences
   Future<CustomerPreferences> getCustomerPreferences() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerPreferences();
   }
 
@@ -1256,7 +1258,7 @@ class FlutterMagento {
     Map<String, dynamic>? additionalPreferences,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.updateCustomerPreferences(
       language: language,
       currency: currency,
@@ -1273,7 +1275,7 @@ class FlutterMagento {
     String? activityType,
   }) async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerActivity(
       page: page,
       pageSize: pageSize,
@@ -1284,7 +1286,7 @@ class FlutterMagento {
   /// Get customer statistics
   Future<CustomerStatistics> getCustomerStatistics() async {
     _checkInitialization();
-    
+
     return await _customerApi.getCustomerStatistics();
   }
 
@@ -1293,7 +1295,8 @@ class FlutterMagento {
   /// Check if the plugin is initialized
   void _checkInitialization() {
     if (!_isInitialized) {
-      throw StateError('FlutterMagento is not initialized. Call initialize() first.');
+      throw StateError(
+          'FlutterMagento is not initialized. Call initialize() first.');
     }
   }
 
@@ -1307,5 +1310,6 @@ class FlutterMagento {
   String get version => '2.0.0';
 
   /// Get plugin description
-  String get description => 'A comprehensive Flutter plugin for Magento e-commerce platform integration';
+  String get description =>
+      'A comprehensive Flutter plugin for Magento e-commerce platform integration';
 }
