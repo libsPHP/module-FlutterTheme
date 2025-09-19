@@ -98,7 +98,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
               side: BorderSide(
-                color: colorScheme.outline.withOpacity(0.2),
+                color: colorScheme.outline.withValues(0.2),
                 width: 1,
               ),
             ),
@@ -213,11 +213,11 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       decoration: BoxDecoration(
         color: isActive 
             ? colorScheme.primary 
-            : colorScheme.surface.withOpacity(0.9),
+            : colorScheme.surface.withValues(0.9),
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -446,10 +446,10 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       margin: const EdgeInsets.only(top: 4),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: badgeColor.withOpacity(0.1),
+        color: badgeColor.withValues(0.1),
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: badgeColor.withOpacity(0.3),
+          color: badgeColor.withValues(0.3),
           width: 1,
         ),
       ),

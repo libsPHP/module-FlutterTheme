@@ -165,18 +165,19 @@ class MagentoUsageExamples {
         print('✅ Product added to cart');
         
         // Get cart information
-        final cart = await magento.getCart();
-        if (cart != null) {
-          print('🛒 Cart total: \$${cart.grandTotal}');
-          print('📦 Items in cart: ${cart.items.length}');
+        final cartInfo = await magento.getCart(cart.id.toString());
+        if (cartInfo != null) {
+          print('🛒 Cart total: \$${cartInfo.grandTotal}');
+          print('📦 Items in cart: ${cartInfo.items.length}');
           
-          for (final item in cart.items) {
+          for (final item in cartInfo.items) {
             print('  - ${item.name} x${item.quantity} - \$${item.price}');
           }
         }
         
         // Update quantity
         final updated = await magento.updateCartItemQuantity(
+          cartId: cart.id.toString(),
           itemId: 1,
           quantity: 3,
         );
@@ -186,7 +187,10 @@ class MagentoUsageExamples {
         }
         
         // Apply coupon
-        final couponApplied = await magento.applyCoupon('SAVE20');
+        final couponApplied = await magento.applyCoupon(
+          cartId: cart.id.toString(),
+          couponCode: 'SAVE20',
+        );
         if (couponApplied) {
           print('✅ Coupon applied');
         }
