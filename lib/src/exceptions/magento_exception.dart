@@ -63,4 +63,17 @@ class MagentoException implements Exception {
 
   @override
   int get hashCode => message.hashCode ^ code.hashCode ^ statusCode.hashCode;
+
+  /// Create exception for not found errors
+  factory MagentoException.notFoundError(String message) {
+    return MagentoException(message, code: 'NOT_FOUND');
+  }
+
+  /// Create exception from Dio exception
+  factory MagentoException.fromDioException(dynamic dioException) {
+    return MagentoException(
+      dioException.toString(),
+      code: 'DIO_ERROR',
+    );
+  }
 }

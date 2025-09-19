@@ -8,13 +8,13 @@ import 'api/wishlist_api.dart';
 import 'api/search_api.dart';
 import 'api/checkout_api.dart';
 import 'api/customer_api.dart';
-import 'models/auth_models.dart';
+import 'models/auth_models.dart' as auth;
 import 'models/product_models.dart';
-import 'models/cart_models.dart';
-import 'models/order_models.dart';
+import 'models/cart_models.dart' as cart;
+import 'models/order_models.dart' as order;
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
-import 'models/checkout_models.dart';
+import 'models/checkout_models.dart' as checkout;
 import 'models/customer_models.dart';
 
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.

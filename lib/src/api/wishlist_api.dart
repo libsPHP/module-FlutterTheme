@@ -159,7 +159,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return WishlistItem.fromJson(response.data!);
       } else {
-        throw Exception('Failed to add to default wishlist: ${response.statusMessage}');
+        throw Exception(
+            'Failed to add to default wishlist: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to add to default wishlist: ${e.message}');
@@ -219,7 +220,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return WishlistItem.fromJson(response.data!);
       } else {
-        throw Exception('Failed to update wishlist item: ${response.statusMessage}');
+        throw Exception(
+            'Failed to update wishlist item: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to update wishlist item: ${e.message}');
@@ -243,7 +245,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return WishlistItem.fromJson(response.data!);
       } else {
-        throw Exception('Failed to update default wishlist item: ${response.statusMessage}');
+        throw Exception(
+            'Failed to update default wishlist item: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to update default wishlist item: ${e.message}');
@@ -261,20 +264,20 @@ class WishlistApi {
     try {
       // First get the item details
       final item = await getWishlistItem(fromWishlistId, itemId);
-      
+
       // Add to target wishlist
       await addToWishlist(
         wishlistId: toWishlistId,
         productId: item.productId.toString(),
         options: item.options,
       );
-      
+
       // Remove from source wishlist
       await removeFromWishlist(
         wishlistId: fromWishlistId,
         itemId: itemId,
       );
-      
+
       return true;
     } catch (e) {
       throw Exception('Failed to move wishlist item: $e');
@@ -291,7 +294,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return WishlistItem.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get wishlist item: ${response.statusMessage}');
+        throw Exception(
+            'Failed to get wishlist item: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to get wishlist item: ${e.message}');
@@ -310,7 +314,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return WishlistItem.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get default wishlist item: ${response.statusMessage}');
+        throw Exception(
+            'Failed to get default wishlist item: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to get default wishlist item: ${e.message}');
@@ -386,7 +391,8 @@ class WishlistApi {
       if (response.statusCode == 200) {
         return Wishlist.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get shared wishlist: ${response.statusMessage}');
+        throw Exception(
+            'Failed to get shared wishlist: ${response.statusMessage}');
       }
     } on DioException catch (e) {
       throw Exception('Failed to get shared wishlist: ${e.message}');
@@ -421,7 +427,8 @@ class WishlistApi {
 
       return response.statusCode == 200;
     } on DioException catch (e) {
-      throw Exception('Failed to add all default wishlist to cart: ${e.message}');
+      throw Exception(
+          'Failed to add all default wishlist to cart: ${e.message}');
     } catch (e) {
       throw Exception('Failed to add all default wishlist to cart: $e');
     }
@@ -462,7 +469,8 @@ class WishlistApi {
 
       return response.statusCode == 200;
     } on DioException catch (e) {
-      throw Exception('Failed to add selected default wishlist to cart: ${e.message}');
+      throw Exception(
+          'Failed to add selected default wishlist to cart: ${e.message}');
     } catch (e) {
       throw Exception('Failed to add selected default wishlist to cart: $e');
     }

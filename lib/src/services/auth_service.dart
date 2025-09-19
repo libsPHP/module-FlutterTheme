@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'network_service.dart';
+import 'magento_api_service.dart';
 import '../models/auth_models.dart';
-import '../models/customer.dart';
 import '../exceptions/magento_exception.dart';
 
 /// Улучшенный сервис аутентификации с JWT и SharedPreferences
@@ -28,7 +28,7 @@ class AuthService extends ChangeNotifier {
   DateTime? _tokenExpiry;
   Timer? _tokenRefreshTimer;
 
-  AuthService() : _networkService = NetworkService();
+  AuthService([MagentoApiService? apiService]) : _networkService = NetworkService();
 
   // Геттеры
   bool get isAuthenticated => _isAuthenticated;
