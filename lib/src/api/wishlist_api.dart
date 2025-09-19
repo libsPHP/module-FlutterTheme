@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import '../models/wishlist_models.dart';
+import '../models/product_models.dart';
 import 'magento_api_client.dart';
 
 /// Wishlist API for Magento
@@ -44,7 +45,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'name': name,
         },
@@ -70,7 +71,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -91,7 +92,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       return response.statusCode == 200;
@@ -109,7 +110,7 @@ class WishlistApi {
     List<Map<String, dynamic>>? options,
   }) async {
     try {
-      final data = {
+      final Map<String, dynamic> data = {
         'product_id': productId,
       };
 
@@ -119,7 +120,7 @@ class WishlistApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/items',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -141,7 +142,7 @@ class WishlistApi {
     List<Map<String, dynamic>>? options,
   }) async {
     try {
-      final data = {
+      final Map<String, dynamic> data = {
         'product_id': productId,
       };
 
@@ -151,7 +152,7 @@ class WishlistApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/items',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -175,7 +176,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/items/$itemId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       return response.statusCode == 200;
@@ -191,7 +192,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/items/$itemId',
-        method: 'DELETE',
+        options: Options(method: 'DELETE'),
       );
 
       return response.statusCode == 200;
@@ -211,7 +212,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/items/$itemId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -235,7 +236,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/items/$itemId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -335,7 +336,7 @@ class WishlistApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/share',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -363,7 +364,7 @@ class WishlistApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/share',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -399,7 +400,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/add-to-cart',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       return response.statusCode == 200;
@@ -415,7 +416,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/add-to-cart',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       return response.statusCode == 200;
@@ -434,7 +435,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/add-selected-to-cart',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'item_ids': itemIds,
         },
@@ -453,7 +454,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/add-selected-to-cart',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: {
           'item_ids': itemIds,
         },
@@ -472,7 +473,7 @@ class WishlistApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/set-default',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
       );
 
       return response.statusCode == 200;

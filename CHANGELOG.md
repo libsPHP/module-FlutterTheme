@@ -1,3 +1,10 @@
+## 2.3.4
+
+* **Bug Fixes**: Fixed critical analyzer errors in API classes
+* **API Improvements**: Fixed method parameter issues in order_api.dart and wishlist_api.dart
+* **Type Safety**: Improved type declarations and imports across API classes
+* **Code Quality**: Resolved undefined parameter errors and type assignment issues
+
 ## 2.2.3
 
 * **Унифицированная архитектура**: Устранение дублирования кода между приложениями (сокращение на 70%)

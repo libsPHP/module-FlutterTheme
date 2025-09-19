@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import '../models/order_models.dart';
+import '../models/cart_models.dart';
 import 'magento_api_client.dart';
 
 /// Order API for Magento
@@ -155,7 +156,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/orders/$orderId/reorder',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       if (response.statusCode == 200) {
@@ -182,7 +183,7 @@ class OrderApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/orders/$orderId/cancel',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -199,7 +200,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/orders/$orderId/hold',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       return response.statusCode == 200;
@@ -215,7 +216,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/orders/$orderId/unhold',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       return response.statusCode == 200;
@@ -270,7 +271,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<String>(
         '/rest/V1/invoices/$invoiceId/pdf',
-        responseType: ResponseType.plain,
+        options: Options(responseType: ResponseType.plain),
       );
 
       if (response.statusCode == 200) {
@@ -349,7 +350,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<String>(
         '/rest/V1/shipments/$shipmentId/labels',
-        responseType: ResponseType.plain,
+        options: Options(responseType: ResponseType.plain),
       );
 
       if (response.statusCode == 200) {
@@ -408,7 +409,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<String>(
         '/rest/V1/creditmemos/$creditMemoId/pdf',
-        responseType: ResponseType.plain,
+        options: Options(responseType: ResponseType.plain),
       );
 
       if (response.statusCode == 200) {
@@ -430,7 +431,7 @@ class OrderApi {
     String? comment,
   }) async {
     try {
-      final data = {
+      final Map<String, dynamic> data = {
         'items': items.map((item) => item.toJson()).toList(),
       };
 
@@ -440,7 +441,7 @@ class OrderApi {
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/orders/$orderId/returns',
-        method: 'POST',
+        options: Options(method: 'POST'),
         data: data,
       );
 
@@ -513,7 +514,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/returns/$returnId',
-        method: 'PUT',
+        options: Options(method: 'PUT'),
         data: data,
       );
 
@@ -534,7 +535,7 @@ class OrderApi {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/returns/$returnId/cancel',
-        method: 'POST',
+        options: Options(method: 'POST'),
       );
 
       return response.statusCode == 200;
