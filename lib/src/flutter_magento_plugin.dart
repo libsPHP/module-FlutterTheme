@@ -558,9 +558,9 @@ class FlutterMagento {
   }
 
   /// Estimate shipping for cart
-  Future<List<ShippingMethod>> estimateShipping({
+  Future<List<cart_models.ShippingMethod>> estimateShipping({
     required String cartId,
-    required customer_models.Address address,
+    required cart_models.Address address,
   }) async {
     _checkInitialization();
 
@@ -571,8 +571,8 @@ class FlutterMagento {
   }
 
   /// Estimate shipping for customer cart
-  Future<List<ShippingMethod>> estimateCustomerCartShipping(
-      customer_models.Address address) async {
+  Future<List<cart_models.ShippingMethod>> estimateCustomerCartShipping(
+      cart_models.Address address) async {
     _checkInitialization();
 
     return await _cartApi.estimateCustomerCartShipping(address);
