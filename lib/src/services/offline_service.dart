@@ -119,51 +119,6 @@ class OfflineService extends ChangeNotifier {
     );
   }
 
-  /// Создание таблиц в базе данных
-  Future<void> _createTables(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE cache_entries (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        key TEXT UNIQUE NOT NULL,
-        data TEXT NOT NULL,
-        expiry INTEGER,
-        tags TEXT,
-        created_at INTEGER NOT NULL,
-        updated_at INTEGER NOT NULL
-      )
-    ''');
-
-    await db.execute('''
-      CREATE TABLE offline_operations (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        operation_id TEXT UNIQUE NOT NULL,
-        type TEXT NOT NULL,
-        endpoint TEXT NOT NULL,
-        method TEXT NOT NULL,
-        data TEXT,
-        headers TEXT,
-        priority INTEGER DEFAULT 0,
-        retry_count INTEGER DEFAULT 0,
-        max_retries INTEGER DEFAULT 3,
-        created_at INTEGER NOT NULL,
-        scheduled_at INTEGER,
-        status TEXT DEFAULT 'pending'
-      )
-    ''');
-
-    await db.execute('''
-      CREATE INDEX idx_cache_key ON cache_entries(key);
-    ''');
-
-    await db.execute('''
-      CREATE INDEX idx_cache_expiry ON cache_entries(expiry);
-    ''');
-
-    await db.execute('''
-      CREATE INDEX idx_operations_status ON offline_operations(status);
-    ''');
-  }
-
   /// Обновление схемы базы данных
   Future<void> _upgradeDatabase(
       Database db, int oldVersion, int newVersion) async {
@@ -555,7 +510,7 @@ class OfflineService extends ChangeNotifier {
         'isInitialized': _isInitialized,
         'isOfflineMode': _isOfflineMode,
         'pendingOperationsCount': _pendingOperations.length,
-        'cacheSize': totalEntries.first['count'],
+        'cacheSize': 0, // Будет обновлено при запросе к БД
         'autoSyncEnabled': _settings.autoSyncEnabled,
         'autoSyncInterval': _settings.autoSyncInterval?.inMinutes,
       };

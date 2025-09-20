@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'offline_models.g.dart';
-
 /// Запись кэша
 @JsonSerializable()
 class CacheEntry {
@@ -21,10 +19,29 @@ class CacheEntry {
     required this.updatedAt,
   });
 
-  factory CacheEntry.fromJson(Map<String, dynamic> json) =>
-      _$CacheEntryFromJson(json);
+  factory CacheEntry.fromJson(Map<String, dynamic> json) {
+    return CacheEntry(
+      key: json['key'] as String,
+      data: json['data'] as String,
+      expiry: json['expiry'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(json['expiry'] as int)
+          : null,
+      tags: (json['tags'] as List<dynamic>?)?.cast<String>() ?? [],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] as int),
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$CacheEntryToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'key': key,
+      'data': data,
+      'expiry': expiry?.millisecondsSinceEpoch,
+      'tags': tags,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
+    };
+  }
 
   /// Создание из строки базы данных
   factory CacheEntry.fromDatabaseRow(Map<String, dynamic> row) {
@@ -99,10 +116,47 @@ class OfflineOperation {
     this.status = OfflineOperationStatus.pending,
   });
 
-  factory OfflineOperation.fromJson(Map<String, dynamic> json) =>
-      _$OfflineOperationFromJson(json);
+  factory OfflineOperation.fromJson(Map<String, dynamic> json) {
+    return OfflineOperation(
+      operationId: json['operationId'] as String,
+      type: json['type'] as String,
+      endpoint: json['endpoint'] as String,
+      method: HttpMethod.values.firstWhere(
+        (e) => e.name == json['method'],
+        orElse: () => HttpMethod.get,
+      ),
+      data: json['data'] as Map<String, dynamic>?,
+      headers: (json['headers'] as Map<String, dynamic>?)?.cast<String, String>(),
+      priority: json['priority'] as int? ?? 0,
+      retryCount: json['retryCount'] as int? ?? 0,
+      maxRetries: json['maxRetries'] as int? ?? 3,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
+      scheduledAt: json['scheduledAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(json['scheduledAt'] as int)
+          : null,
+      status: OfflineOperationStatus.values.firstWhere(
+        (e) => e.name == json['status'],
+        orElse: () => OfflineOperationStatus.pending,
+      ),
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$OfflineOperationToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'operationId': operationId,
+      'type': type,
+      'endpoint': endpoint,
+      'method': method.name,
+      'data': data,
+      'headers': headers,
+      'priority': priority,
+      'retryCount': retryCount,
+      'maxRetries': maxRetries,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'scheduledAt': scheduledAt?.millisecondsSinceEpoch,
+      'status': status.name,
+    };
+  }
 
   /// Создание из строки базы данных
   factory OfflineOperation.fromDatabaseRow(Map<String, dynamic> row) {
@@ -211,10 +265,39 @@ class OfflineSettings {
     this.encryptSensitiveData = true,
   });
 
-  factory OfflineSettings.fromJson(Map<String, dynamic> json) =>
-      _$OfflineSettingsFromJson(json);
+  factory OfflineSettings.fromJson(Map<String, dynamic> json) {
+    return OfflineSettings(
+      autoSyncEnabled: json['autoSyncEnabled'] as bool? ?? true,
+      autoSyncInterval: json['autoSyncInterval'] != null
+          ? Duration(milliseconds: json['autoSyncInterval'] as int)
+          : const Duration(minutes: 15),
+      forceOfflineMode: json['forceOfflineMode'] as bool? ?? false,
+      maxCacheSize: json['maxCacheSize'] as int? ?? 100 * 1024 * 1024,
+      defaultCacheTtl: json['defaultCacheTtl'] != null
+          ? Duration(milliseconds: json['defaultCacheTtl'] as int)
+          : const Duration(hours: 24),
+      maxRetries: json['maxRetries'] as int? ?? 3,
+      retryDelay: json['retryDelay'] != null
+          ? Duration(milliseconds: json['retryDelay'] as int)
+          : const Duration(seconds: 5),
+      compressData: json['compressData'] as bool? ?? false,
+      encryptSensitiveData: json['encryptSensitiveData'] as bool? ?? false,
+    );
+  }
 
-  Map<String, dynamic> toJson() => _$OfflineSettingsToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'autoSyncEnabled': autoSyncEnabled,
+      'autoSyncInterval': autoSyncInterval?.inMilliseconds,
+      'forceOfflineMode': forceOfflineMode,
+      'maxCacheSize': maxCacheSize,
+      'defaultCacheTtl': defaultCacheTtl.inMilliseconds,
+      'maxRetries': maxRetries,
+      'retryDelay': retryDelay.inMilliseconds,
+      'compressData': compressData,
+      'encryptSensitiveData': encryptSensitiveData,
+    };
+  }
 
   OfflineSettings copyWith({
     bool? autoSyncEnabled,
