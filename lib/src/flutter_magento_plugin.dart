@@ -610,14 +610,14 @@ class FlutterMagento {
   }
 
   /// Get order items
-  Future<List<OrderItem>> getOrderItems(String orderId) async {
+  Future<List<order.OrderItem>> getOrderItems(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.getOrderItems(orderId);
   }
 
   /// Get order totals
-  Future<OrderTotals> getOrderTotals(String orderId) async {
+  Future<order.OrderTotals> getOrderTotals(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.getOrderTotals(orderId);
