@@ -1,8 +1,8 @@
-# Files to ignore when publishing to pub.dev
-
-# Legacy examples and documentation
-legacy_example/
-doc_backup/
+# Example and test files
+example/
+test/
+*.test.dart
+*_test.dart
 
 # Build artifacts
 build/
@@ -10,43 +10,36 @@ build/
 .packages
 pubspec.lock
 
-# IDE and editor files
+# IDE files
+*.iml
 .vscode/
 .idea/
-*.iml
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Git files
-.git/
-.gitignore
+# Documentation files that are not needed for the package
+doc/
+doc_backup/
+*.md
+!README.md
+!CHANGELOG.md
+!LICENSE
 
 # Development files
-gitlab-variables.md
+DEVELOPMENT.md
+IMPLEMENTATION_SUMMARY.md
+MIGRATION_GUIDE.md
+REFACTORING_SUMMARY.md
+UNIVERSAL_CUSTOM_ATTRIBUTES.md
+README_FLUTTER_MAGENTO_CUSTOM_ATTRIBUTES*.md
+README_*.md
+
+# Docker files
+Dockerfile*
 docker-compose.yml
-Dockerfile.web
+
+# Scripts
 update.sh
-
-# Generated files that are in gitignore
-**/*.freezed.dart
-**/*.g.dart
-!lib/src/models/localization_models.g.dart
-!lib/src/models/offline_models.g.dart
-
-# Platform specific ephemeral files
-**/ephemeral/
-**/.plugin_symlinks/
-**/Flutter/Generated.xcconfig
-**/flutter_export_environment.sh
-**/GeneratedPluginRegistrant.*
-
-# Large example files
-example/lib/core/
-example/lib/features/
-example/lib/screens/
-example/linux/
-example/macos/
-example/windows/
-example/ios/Runner/Assets.xcassets/
+gitlab-variables.md

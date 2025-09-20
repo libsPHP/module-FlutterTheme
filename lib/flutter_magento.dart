@@ -28,7 +28,7 @@ export 'src/api/customer_api.dart';
 export 'src/models/auth_models.dart' hide Address;
 export 'src/models/product_models.dart';
 export 'src/models/enhanced_product.dart';
-export 'src/models/cart_models.dart';
+export 'src/models/cart_models.dart' hide ShippingMethod;
 export 'src/models/order_models.dart';
 export 'src/models/wishlist_models.dart';
 export 'src/models/search_models.dart';
@@ -59,24 +59,10 @@ export 'src/services/sync_service.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';
-export 'src/providers/cart_provider.dart';
 export 'src/providers/magento_provider.dart';
 
 // Widgets
-export 'src/widgets/adaptive_image.dart';
-export 'src/widgets/cart_badge.dart';
-export 'src/widgets/loading_overlay.dart';
-export 'src/widgets/magento_app.dart';
-export 'src/widgets/network_image_with_fallback.dart';
 export 'src/widgets/product_card.dart';
-export 'src/widgets/product_grid.dart';
-export 'src/widgets/search_bar.dart';
-
-// Utils
-export 'src/utils/extensions.dart';
 
 // Exceptions
 export 'src/exceptions/magento_exception.dart';
-
-// Constants
-export 'src/constants/api_constants.dart';
