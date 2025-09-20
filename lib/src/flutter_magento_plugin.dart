@@ -159,7 +159,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<customer_models.Address>? addresses,
+    List<auth_models.Address>? addresses,
   }) async {
     _checkInitialization();
 
@@ -198,7 +198,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<customer_models.Address>? addresses,
+    List<auth_models.Address>? addresses,
   }) async {
     _checkInitialization();
 
