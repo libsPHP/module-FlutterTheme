@@ -2,20 +2,24 @@ import '../flutter_magento_platform_interface.dart';
 import 'api/magento_api_client.dart';
 import 'api/auth_api.dart';
 import 'api/product_api.dart';
+import 'api/enhanced_product_api.dart';
 import 'api/cart_api.dart';
 import 'api/order_api.dart';
 import 'api/wishlist_api.dart';
 import 'api/search_api.dart';
 import 'api/checkout_api.dart';
 import 'api/customer_api.dart';
-import 'models/auth_models.dart' as auth;
+import 'models/auth_models.dart' as auth_models;
 import 'models/product_models.dart';
+import 'models/enhanced_product.dart';
 import 'models/cart_models.dart' as cart;
 import 'models/order_models.dart' as order;
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
 import 'models/checkout_models.dart' as checkout;
 import 'models/customer_models.dart';
+import 'adapters/custom_attributes_adapter.dart';
+import 'adapters/custom_attributes_manager.dart';
 
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.
 ///
@@ -25,6 +29,7 @@ class FlutterMagento {
   late final MagentoApiClient _apiClient;
   late final AuthApi _authApi;
   late final ProductApi _productApi;
+  late final EnhancedProductApi _enhancedProductApi;
   late final CartApi _cartApi;
   late final OrderApi _orderApi;
   late final WishlistApi _wishlistApi;
@@ -44,6 +49,8 @@ class FlutterMagento {
     Map<String, String>? headers,
     int? connectionTimeout,
     int? receiveTimeout,
+    List<CustomAttributesAdapter>? customAdapters,
+    bool enableCustomAttributesDebugLogging = false,
   }) async {
     try {
       _apiClient = MagentoApiClient.instance;
@@ -57,12 +64,30 @@ class FlutterMagento {
       if (success) {
         _authApi = AuthApi(_apiClient);
         _productApi = ProductApi(_apiClient);
+        _enhancedProductApi = EnhancedProductApi(_apiClient);
         _cartApi = CartApi(_apiClient);
         _orderApi = OrderApi(_apiClient);
         _wishlistApi = WishlistApi(_apiClient);
         _searchApi = SearchApi(_apiClient);
         _checkoutApi = CheckoutApi(_apiClient);
         _customerApi = CustomerApi(_apiClient);
+
+        // Initialize custom attributes manager
+        CustomAttributesManager.instance.enableDebugLogging =
+            enableCustomAttributesDebugLogging;
+
+        // Register custom adapters if provided
+        if (customAdapters != null) {
+          for (int i = 0; i < customAdapters.length; i++) {
+            final adapter = customAdapters[i];
+            CustomAttributesManager.instance.registerAdapter(
+              adapter.adapterId.isNotEmpty ? adapter.adapterId : 'adapter_$i',
+              adapter,
+              priority: i, // First adapters get higher priority
+            );
+          }
+        }
+
         _isInitialized = true;
         return true;
       }
@@ -88,6 +113,9 @@ class FlutterMagento {
   /// Get the product API instance
   ProductApi get products => _productApi;
 
+  /// Get the enhanced product API instance
+  EnhancedProductApi get enhancedProducts => _enhancedProductApi;
+
   /// Get the cart API instance
   CartApi get cart => _cartApi;
 
@@ -109,7 +137,7 @@ class FlutterMagento {
   // ==================== AUTHENTICATION ====================
 
   /// Authenticate customer with email and password
-  Future<AuthResponse> authenticateCustomer({
+  Future<auth_models.AuthResponse> authenticateCustomer({
     required String email,
     required String password,
   }) async {
@@ -118,7 +146,7 @@ class FlutterMagento {
   }
 
   /// Create a new customer account
-  Future<Customer> createCustomer({
+  Future<auth_models.Customer> createCustomer({
     required String email,
     required String password,
     required String firstName,
@@ -1312,4 +1340,44 @@ class FlutterMagento {
   /// Get plugin description
   String get description =>
       'A comprehensive Flutter plugin for Magento e-commerce platform integration';
+
+  // ==================== CUSTOM ATTRIBUTES MANAGEMENT ====================
+
+  /// Register a custom attributes adapter
+  void registerCustomAttributesAdapter<T>(
+    String adapterId,
+    CustomAttributesAdapter<T> adapter, {
+    int priority = 0,
+  }) {
+    _checkInitialization();
+    CustomAttributesManager.instance
+        .registerAdapter(adapterId, adapter, priority: priority);
+  }
+
+  /// Unregister a custom attributes adapter
+  void unregisterCustomAttributesAdapter(String adapterId) {
+    _checkInitialization();
+    CustomAttributesManager.instance.unregisterAdapter(adapterId);
+  }
+
+  /// Get registered custom attributes adapters
+  Map<String, CustomAttributesAdapter> get registeredAdapters =>
+      CustomAttributesManager.instance.registeredAdapters;
+
+  /// Get custom attributes manager instance
+  CustomAttributesManager get customAttributesManager =>
+      CustomAttributesManager.instance;
+
+  /// Check if custom attributes adapter is registered
+  bool isCustomAttributesAdapterRegistered(String adapterId) =>
+      CustomAttributesManager.instance.isAdapterRegistered(adapterId);
+
+  /// Get custom attributes statistics
+  Map<String, dynamic> get customAttributesStatistics =>
+      CustomAttributesManager.instance.getStatistics();
+
+  /// Enable/disable custom attributes debug logging
+  set enableCustomAttributesDebugLogging(bool enabled) {
+    CustomAttributesManager.instance.enableDebugLogging = enabled;
+  }
 }

@@ -1,69 +1,82 @@
-/// A comprehensive Flutter plugin for Magento e-commerce platform integration.
+/// Flutter Magento - A comprehensive Flutter plugin for Magento e-commerce integration
 ///
-/// This package provides 200+ functions for building modern mobile commerce applications
-/// with support for authentication, product management, cart operations, order processing,
-/// wishlist functionality, and advanced search capabilities.
-///
-/// ## Features
-///
-/// - **Authentication & Customer Management**: JWT token authentication, customer registration, profile management
-/// - **Product Catalog**: Advanced product listing, search with autocomplete, category management
-/// - **Shopping Cart & Checkout**: Guest and customer cart management, coupon support, payment methods
-/// - **Order Management**: Order history, status tracking, cancellation, returns, reorder functionality
-/// - **Wishlist & Favorites**: Multiple wishlist support, sharing, analytics
-/// - **Advanced Search & Filtering**: Full-text search, attribute-based filtering, price range filtering
-/// - **Platform Support**: Android, iOS, Web, Windows, macOS, Linux
-///
-/// ## Quick Start
-///
-/// ```dart
-/// import 'package:flutter_magento/flutter_magento.dart';
-///
-/// // Initialize the plugin
-/// final magento = FlutterMagento();
-/// await magento.initialize(
-///   baseUrl: 'https://your-magento-store.com',
-///   headers: {'Content-Type': 'application/json'},
-/// );
-///
-/// // Authenticate customer
-/// final authResponse = await magento.authenticateCustomer(
-///   email: 'customer@example.com',
-///   password: 'password123',
-/// );
-/// ```
+/// This library provides a complete solution for integrating Flutter applications
+/// with Magento e-commerce platforms, including support for universal custom attributes.
 library flutter_magento;
 
-// Export core models
-export 'src/models/localization_models.dart';
-export 'src/models/offline_models.dart';
-export 'src/models/result_models.dart';
+// Core plugin
+export 'flutter_magento_platform_interface.dart';
+export 'flutter_magento_method_channel.dart';
 
-// Export API classes
+// Main plugin class
+export 'src/flutter_magento_plugin.dart';
+export 'src/flutter_magento_core.dart';
+
+// API clients and services
 export 'src/api/magento_api_client.dart';
 export 'src/api/auth_api.dart';
 export 'src/api/product_api.dart';
+export 'src/api/enhanced_product_api.dart';
+export 'src/api/cart_api.dart';
+export 'src/api/order_api.dart';
+export 'src/api/wishlist_api.dart';
+export 'src/api/search_api.dart';
+export 'src/api/checkout_api.dart';
+export 'src/api/customer_api.dart';
 
-// Export services
-export 'src/services/network_service.dart';
-export 'src/services/localization_service.dart';
-export 'src/services/offline_service.dart';
-export 'src/services/sync_service.dart';
+// Models
+export 'src/models/auth_models.dart';
+export 'src/models/product_models.dart';
+export 'src/models/enhanced_product.dart';
+export 'src/models/cart_models.dart';
+export 'src/models/order_models.dart';
+export 'src/models/wishlist_models.dart';
+export 'src/models/search_models.dart';
+export 'src/models/checkout_models.dart';
+export 'src/models/customer_models.dart';
+export 'src/models/result_models.dart';
+
+// Universal Custom Attributes System
+export 'src/adapters/custom_attributes_adapter.dart';
+export 'src/adapters/custom_attributes_manager.dart';
+export 'src/adapters/validation_result.dart';
+
+// Example adapters (for reference and extension)
+export 'src/examples/ar_attributes_adapter.dart';
+export 'src/examples/fashion_attributes_adapter.dart';
+
+// Services
+export 'src/services/auth_service.dart';
+export 'src/services/cart_service.dart';
 export 'src/services/cache_service.dart';
 export 'src/services/cloud_feature_service.dart';
-export 'src/services/service_manager.dart';
+export 'src/services/localization_service.dart';
+export 'src/services/network_service.dart';
 export 'src/services/notification_service.dart';
+export 'src/services/offline_service.dart';
+export 'src/services/service_manager.dart';
+export 'src/services/sync_service.dart';
 
-// Export providers
+// Providers
+export 'src/providers/auth_provider.dart';
+export 'src/providers/cart_provider.dart';
 export 'src/providers/magento_provider.dart';
 
-// Export widgets
-export 'src/widgets/widgets.dart';
-export 'src/widgets/status_widgets.dart';
-export 'src/widgets/notification_widgets.dart';
+// Widgets
+export 'src/widgets/adaptive_image.dart';
+export 'src/widgets/cart_badge.dart';
+export 'src/widgets/loading_overlay.dart';
+export 'src/widgets/magento_app.dart';
+export 'src/widgets/network_image_with_fallback.dart';
+export 'src/widgets/product_card.dart';
+export 'src/widgets/product_grid.dart';
+export 'src/widgets/search_bar.dart';
 
-// Export main plugin class
-export 'src/flutter_magento_plugin.dart';
+// Utils
+export 'src/utils/extensions.dart';
 
-// Export core
-export 'src/flutter_magento_core.dart';
+// Exceptions
+export 'src/exceptions/magento_exception.dart';
+
+// Constants
+export 'src/constants/api_constants.dart';
