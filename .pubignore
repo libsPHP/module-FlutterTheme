@@ -3,6 +3,7 @@ example/
 test/
 *.test.dart
 *_test.dart
+lib/src/examples/
 
 # Build artifacts
 build/

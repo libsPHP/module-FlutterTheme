@@ -42,8 +42,8 @@ export 'src/adapters/custom_attributes_manager.dart';
 export 'src/adapters/validation_result.dart';
 
 // Example adapters (for reference and extension)
-export 'src/examples/ar_attributes_adapter.dart';
-export 'src/examples/fashion_attributes_adapter.dart';
+// Note: Example adapters are excluded from package distribution
+// They are available in the source repository for reference
 
 // Services
 export 'src/services/auth_service.dart';
