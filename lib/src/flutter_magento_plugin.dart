@@ -18,6 +18,7 @@ import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
 import 'models/checkout_models.dart' as checkout;
 import 'models/customer_models.dart';
+import 'models/customer.dart' as customer;
 import 'adapters/custom_attributes_adapter.dart';
 import 'adapters/custom_attributes_manager.dart';
 
@@ -158,11 +159,11 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<Address>? addresses,
+    List<customer.Address>? addresses,
   }) async {
     _checkInitialization();
 
-    final request = CustomerCreateRequest(
+    final request = auth_models.CustomerCreateRequest(
       email: email,
       password: password,
       firstname: firstName,
@@ -197,7 +198,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<Address>? addresses,
+    List<customer.Address>? addresses,
   }) async {
     _checkInitialization();
 
@@ -558,7 +559,7 @@ class FlutterMagento {
   /// Estimate shipping for cart
   Future<List<ShippingMethod>> estimateShipping({
     required String cartId,
-    required Address address,
+    required customer.Address address,
   }) async {
     _checkInitialization();
 
@@ -570,7 +571,7 @@ class FlutterMagento {
 
   /// Estimate shipping for customer cart
   Future<List<ShippingMethod>> estimateCustomerCartShipping(
-      Address address) async {
+      customer.Address address) async {
     _checkInitialization();
 
     return await _cartApi.estimateCustomerCartShipping(address);
