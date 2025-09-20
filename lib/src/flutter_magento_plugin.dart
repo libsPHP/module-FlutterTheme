@@ -581,7 +581,7 @@ class FlutterMagento {
   // ==================== ORDERS ====================
 
   /// Get customer orders
-  Future<OrderListResponse> getCustomerOrders({
+  Future<order.OrderListResponse> getCustomerOrders({
     int page = 1,
     int pageSize = 20,
     Map<String, dynamic>? filters,
@@ -596,14 +596,14 @@ class FlutterMagento {
   }
 
   /// Get order by ID
-  Future<Order> getOrder(String orderId) async {
+  Future<order.Order> getOrder(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.getOrder(orderId);
   }
 
   /// Get order by increment ID
-  Future<Order> getOrderByIncrementId(String incrementId) async {
+  Future<order.Order> getOrderByIncrementId(String incrementId) async {
     _checkInitialization();
 
     return await _orderApi.getOrderByIncrementId(incrementId);
