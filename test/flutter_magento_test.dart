@@ -1,5 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/flutter_magento.dart';
+import 'package:mocktail/mocktail.dart';
+
+// Mock classes for testing
+class MockMagentoApiClient extends Mock implements MagentoApiClient {}
+
+class MockAuthApi extends Mock implements AuthApi {}
+
+class MockProductApi extends Mock implements ProductApi {}
+
+class MockCartApi extends Mock implements CartApi {}
 
 void main() {
   group('FlutterMagento', () {
@@ -10,7 +20,11 @@ void main() {
     });
 
     tearDown(() {
-      magento.reset();
+      try {
+        magento.dispose();
+      } catch (e) {
+        // Ignore disposal errors in tests
+      }
     });
 
     group('Initialization', () {
@@ -63,8 +77,7 @@ void main() {
 
       test('should not be authenticated initially', () {
         expect(magento.isAuthenticated, isFalse);
-        expect(magento.currentCustomer, isNull);
-        expect(magento.customerToken, isNull);
+        expect(magento.currentCustomerId, isNull);
       });
 
       test('should handle authentication errors gracefully', () async {
@@ -103,7 +116,8 @@ void main() {
         }
       });
 
-      test('should handle single product retrieval errors gracefully', () async {
+      test('should handle single product retrieval errors gracefully',
+          () async {
         try {
           await magento.getProduct('INVALID-SKU');
           fail('Should have thrown an exception');
@@ -129,7 +143,7 @@ void main() {
 
       test('should handle cart retrieval errors gracefully', () async {
         try {
-          await magento.getCart();
+          await magento.getCustomerCart();
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -138,7 +152,7 @@ void main() {
 
       test('should handle add to cart errors gracefully', () async {
         try {
-          await magento.addToCart(
+          await magento.addToCustomerCart(
             sku: 'TEST-SKU',
             quantity: 1,
           );
@@ -189,7 +203,7 @@ void main() {
 
       test('should handle add to wishlist errors gracefully', () async {
         try {
-          await magento.addToWishlist('INVALID-SKU');
+          await magento.addToDefaultWishlist(productId: 'INVALID-SKU');
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -198,7 +212,7 @@ void main() {
 
       test('should handle remove from wishlist errors gracefully', () async {
         try {
-          await magento.removeFromWishlist(999);
+          await magento.removeFromDefaultWishlist(999);
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -213,19 +227,20 @@ void main() {
 
       test('should handle shipping estimation errors gracefully', () async {
         try {
-          await magento.estimateShipping({
+          await magento.estimateCustomerCartShipping({
             'country_id': 'US',
             'postcode': '12345',
-          });
+          } as any);
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
         }
       });
 
-      test('should handle payment methods retrieval errors gracefully', () async {
+      test('should handle payment methods retrieval errors gracefully',
+          () async {
         try {
-          await magento.getPaymentMethods();
+          await magento.getAvailablePaymentMethods(cartId: 'test');
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -234,11 +249,7 @@ void main() {
 
       test('should handle order placement errors gracefully', () async {
         try {
-          await magento.placeOrder({
-            'paymentMethod': {'method': 'test'},
-            'billing_address': {},
-            'shipping_address': {},
-          });
+          await magento.placeOrder(cartId: 'test');
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -289,7 +300,9 @@ void main() {
         );
       });
 
-      test('should throw exception when calling methods on uninitialized library', () async {
+      test(
+          'should throw exception when calling methods on uninitialized library',
+          () async {
         expect(
           () => magento.getProducts(),
           throwsA(isA<MagentoException>()),

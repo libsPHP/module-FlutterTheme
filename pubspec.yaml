@@ -1,7 +1,7 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration
 license: NativeMindNONC
-version: 2.6.0
+version: 2.7.0
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 
 environment:
@@ -64,7 +64,7 @@ dev_dependencies:
     sdk: flutter
   
   # Code Generation (Modern 2025)
-  build_runner: ^2.8.0
+  build_runner: ^2.6.0
   json_serializable: ^6.11.1  
   drift_dev: ^2.0.0  # Современная альтернатива hive_generator
   
@@ -76,6 +76,9 @@ dev_dependencies:
   test: ^1.24.9  # Стабильная версия
   alchemist: ^0.8.0  # Современная альтернатива golden_toolkit
   patrol: ^3.0.0  # Современная альтернатива integration_test
+  
+  # Test Coverage
+  coverage: ^1.9.2
 
 
 flutter:
