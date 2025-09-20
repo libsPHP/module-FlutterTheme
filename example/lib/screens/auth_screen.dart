@@ -130,7 +130,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                     _InfoRow(
                       icon: Icons.person,
                       label: 'Name',
-                      value: '${provider.currentCustomer!.firstname} ${provider.currentCustomer!.lastname}',
+                      value: '${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}',
                     ),
                     const SizedBox(height: 8),
                     _InfoRow(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_magento/flutter_magento.dart';
 import '../providers/app_provider.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -230,7 +229,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
   
-  Future<void> _addToCart(AppProvider provider, Product product) async {
+  Future<void> _addToCart(AppProvider provider, SimpleProduct product) async {
     await provider.addToCart(product.sku, 1);
     
     if (mounted) {
@@ -245,7 +244,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 }
 
 class _ProductCard extends StatelessWidget {
-  final Product product;
+  final SimpleProduct product;
   final VoidCallback? onAddToCart;
   
   const _ProductCard({
@@ -268,29 +267,7 @@ class _ProductCard extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
             ),
-            child: (product.mediaGalleryEntries?.isNotEmpty ?? false)
-                ? ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-                    child: Image.network(
-                      product.mediaGalleryEntries?.first.file ?? '',
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return _buildPlaceholderImage();
-                      },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : _buildPlaceholderImage(),
+            child: _buildPlaceholderImage(),
           ),
           
           // Product Info
@@ -339,15 +316,15 @@ class _ProductCard extends StatelessWidget {
                           Row(
                             children: [
                               Icon(
-                                product.status == 1 ? Icons.check_circle : Icons.cancel,
+                                product.inStock ? Icons.check_circle : Icons.cancel,
                                 size: 16,
-                                color: product.status == 1 ? Colors.green : Colors.red,
+                                color: product.inStock ? Colors.green : Colors.red,
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                product.status == 1 ? 'In Stock' : 'Out of Stock',
+                                product.inStock ? 'In Stock' : 'Out of Stock',
                                 style: TextStyle(
-                                  color: product.status == 1 ? Colors.green : Colors.red,
+                                  color: product.inStock ? Colors.green : Colors.red,
                                   fontSize: 12,
                                 ),
                               ),
@@ -357,7 +334,7 @@ class _ProductCard extends StatelessWidget {
                       ),
                     ),
                     
-                    if (onAddToCart != null && product.status == 1)
+                    if (onAddToCart != null && product.inStock)
                       ElevatedButton.icon(
                         onPressed: onAddToCart,
                         icon: const Icon(Icons.add_shopping_cart, size: 16),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_magento/flutter_magento.dart';
 import '../providers/app_provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -30,8 +29,7 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           Consumer<AppProvider>(
             builder: (context, provider, child) {
-              if (provider.currentCart != null &&
-                  (provider.currentCart!.items?.isNotEmpty ?? false)) {
+              if (provider.currentCart.items.isNotEmpty) {
                 return IconButton(
                   icon: const Icon(Icons.refresh),
                   onPressed: provider.isLoading
@@ -113,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildCartView(AppProvider provider) {
-    if (provider.isLoading && provider.currentCart == null) {
+    if (provider.isLoading && provider.currentCart.items.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
@@ -144,8 +142,7 @@ class _CartScreenState extends State<CartScreen> {
       );
     }
 
-    if (provider.currentCart == null ||
-        (provider.currentCart!.items?.isEmpty ?? true)) {
+    if (provider.currentCart.items.isEmpty) {
       return _buildEmptyCartView();
     }
 
@@ -182,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildCartItems(AppProvider provider) {
-    final cart = provider.currentCart!;
+    final cart = provider.currentCart;
 
     return Column(
       children: [
@@ -214,9 +211,9 @@ class _CartScreenState extends State<CartScreen> {
             onRefresh: () => provider.loadCart(),
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
-              itemCount: cart.items?.length ?? 0,
+              itemCount: cart.items.length,
               itemBuilder: (context, index) {
-                final item = cart.items![index];
+                final item = cart.items[index];
                 return _CartItemCard(
                   item: item,
                   onQuantityChanged: (newQuantity) =>
@@ -229,7 +226,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
 
         // Checkout Button
-        if (cart.items?.isNotEmpty ?? false)
+        if (cart.items.isNotEmpty)
           Container(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -281,7 +278,7 @@ class _CartScreenState extends State<CartScreen> {
 
   Future<void> _updateQuantity(
     AppProvider provider,
-    CartItem item,
+    SimpleCartItem item,
     int newQuantity,
   ) async {
     if (newQuantity <= 0) {
@@ -298,7 +295,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Future<void> _removeItem(AppProvider provider, CartItem item) async {
+  Future<void> _removeItem(AppProvider provider, SimpleCartItem item) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -339,7 +336,7 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 class _CartItemCard extends StatelessWidget {
-  final CartItem item;
+  final SimpleCartItem item;
   final Function(int) onQuantityChanged;
   final VoidCallback onRemove;
 
@@ -379,7 +376,7 @@ class _CartItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name ?? 'Unknown Product',
+                    item.name,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -390,7 +387,7 @@ class _CartItemCard extends StatelessWidget {
                   const SizedBox(height: 4),
 
                   Text(
-                    'SKU: ${item.sku ?? 'N/A'}',
+                    'Product ID: ${item.productId}',
                     style: TextStyle(color: Colors.grey[600], fontSize: 12),
                   ),
 
@@ -401,7 +398,7 @@ class _CartItemCard extends StatelessWidget {
                     children: [
                       // Price
                       Text(
-                        '\$${(item.price ?? 0.0).toStringAsFixed(2)}',
+                        '\$${item.price.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: Theme.of(context).primaryColor,
@@ -462,7 +459,7 @@ class _CartItemCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Subtotal: \$${((item.price ?? 0.0) * item.quantity).toStringAsFixed(2)}',
+                        'Subtotal: \$${(item.price * item.quantity).toStringAsFixed(2)}',
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
 

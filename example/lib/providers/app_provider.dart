@@ -1,21 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_magento/flutter_magento.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Extension to add helper methods to Cart
-extension CartExtension on Cart {
-  int get itemsCount => items?.length ?? 0;
-  double get grandTotal => totals?.grandTotal ?? 0.0;
+// Простые модели для демо
+class SimpleProduct {
+  final String id;
+  final String name;
+  final String sku;
+  final double price;
+  final bool inStock;
+
+  SimpleProduct({
+    required this.id,
+    required this.name,
+    required this.sku,
+    required this.price,
+    this.inStock = true,
+  });
 }
 
-// Extension to add helper methods to CartItem
-extension CartItemExtension on CartItem {
-  int get quantity => qty ?? 0;
+class SimpleCustomer {
+  final String id;
+  final String email;
+  final String firstName;
+  final String lastName;
+
+  SimpleCustomer({
+    required this.id,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+  });
+}
+
+class SimpleCartItem {
+  final String productId;
+  final String name;
+  final double price;
+  final int quantity;
+
+  SimpleCartItem({
+    required this.productId,
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+}
+
+class SimpleCart {
+  final List<SimpleCartItem> items;
+  
+  SimpleCart({this.items = const []});
+  
+  int get itemsCount => items.length;
+  double get grandTotal => items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
 }
 
 class AppProvider extends ChangeNotifier {
-  final FlutterMagento _magento = FlutterMagento();
-  
   bool _isInitialized = false;
   bool _isLoading = false;
   String? _error;
@@ -23,26 +63,25 @@ class AppProvider extends ChangeNotifier {
   
   // Auth state
   bool _isAuthenticated = false;
-  Customer? _currentCustomer;
+  SimpleCustomer? _currentCustomer;
   
   // Cart state
-  Cart? _currentCart;
+  SimpleCart _currentCart = SimpleCart();
   
   // Products state
-  List<Product> _products = [];
-  List<Product> _searchResults = [];
+  List<SimpleProduct> _products = [];
+  List<SimpleProduct> _searchResults = [];
   
   // Getters
-  FlutterMagento get magento => _magento;
   bool get isInitialized => _isInitialized;
   bool get isLoading => _isLoading;
   String? get error => _error;
   String? get baseUrl => _baseUrl;
   bool get isAuthenticated => _isAuthenticated;
-  Customer? get currentCustomer => _currentCustomer;
-  Cart? get currentCart => _currentCart;
-  List<Product> get products => _products;
-  List<Product> get searchResults => _searchResults;
+  SimpleCustomer? get currentCustomer => _currentCustomer;
+  SimpleCart get currentCart => _currentCart;
+  List<SimpleProduct> get products => _products;
+  List<SimpleProduct> get searchResults => _searchResults;
   
   AppProvider() {
     _loadConfiguration();
@@ -65,27 +104,21 @@ class AppProvider extends ChangeNotifier {
     _clearError();
     
     try {
-      final success = await _magento.initialize(
-        baseUrl: baseUrl,
-        connectionTimeout: 30,
-        receiveTimeout: 30,
-        enableCustomAttributesDebugLogging: true,
-      );
+      // Симуляция инициализации
+      await Future.delayed(const Duration(seconds: 1));
       
-      if (success) {
-        _isInitialized = true;
-        _baseUrl = baseUrl;
-        
-        // Save configuration
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('magento_base_url', baseUrl);
-        
-        notifyListeners();
-        return true;
-      } else {
-        _setError('Failed to initialize Magento');
-        return false;
-      }
+      _isInitialized = true;
+      _baseUrl = baseUrl;
+      
+      // Save configuration
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('magento_base_url', baseUrl);
+      
+      // Загружаем демо продукты
+      _loadDemoProducts();
+      
+      notifyListeners();
+      return true;
     } catch (e) {
       _setError('Initialization error: $e');
       return false;
@@ -104,15 +137,23 @@ class AppProvider extends ChangeNotifier {
     _clearError();
     
     try {
-      final authResponse = await _magento.auth.login(
-        email: email,
-        password: password,
-      );
+      // Симуляция логина
+      await Future.delayed(const Duration(seconds: 1));
       
-      _isAuthenticated = true;
-      _currentCustomer = authResponse.customer;
-      notifyListeners();
-      return true;
+      if (email.isNotEmpty && password.isNotEmpty) {
+        _isAuthenticated = true;
+        _currentCustomer = SimpleCustomer(
+          id: '1',
+          email: email,
+          firstName: 'Demo',
+          lastName: 'User',
+        );
+        notifyListeners();
+        return true;
+      } else {
+        _setError('Invalid credentials');
+        return false;
+      }
     } catch (e) {
       _setError('Login error: $e');
       return false;
@@ -136,17 +177,18 @@ class AppProvider extends ChangeNotifier {
     _clearError();
     
     try {
-      final registerRequest = CustomerCreateRequest(
+      // Симуляция регистрации
+      await Future.delayed(const Duration(seconds: 1));
+      
+      _isAuthenticated = true;
+      _currentCustomer = SimpleCustomer(
+        id: '2',
         email: email,
-        password: password,
-        firstname: firstName,
-        lastname: lastName,
+        firstName: firstName,
+        lastName: lastName,
       );
-      
-      await _magento.auth.register(request: registerRequest);
-      
-      // After registration, automatically login
-      return await login(email, password);
+      notifyListeners();
+      return true;
     } catch (e) {
       _setError('Registration error: $e');
       return false;
@@ -156,17 +198,10 @@ class AppProvider extends ChangeNotifier {
   }
   
   Future<void> logout() async {
-    if (!_isInitialized) return;
-    
-    try {
-      await _magento.auth.logout();
-      _isAuthenticated = false;
-      _currentCustomer = null;
-      _currentCart = null;
-      notifyListeners();
-    } catch (e) {
-      _setError('Logout error: $e');
-    }
+    _isAuthenticated = false;
+    _currentCustomer = null;
+    _currentCart = SimpleCart();
+    notifyListeners();
   }
   
   Future<void> loadProducts({int page = 1, int pageSize = 20}) async {
@@ -179,15 +214,11 @@ class AppProvider extends ChangeNotifier {
     _clearError();
     
     try {
-      final result = await _magento.products.getProducts(
-        page: page,
-        pageSize: pageSize,
-      );
+      // Симуляция загрузки продуктов
+      await Future.delayed(const Duration(seconds: 1));
       
       if (page == 1) {
-        _products = result.items;
-      } else {
-        _products.addAll(result.items);
+        _products = _getDemoProducts();
       }
       notifyListeners();
     } catch (e) {
@@ -213,12 +244,12 @@ class AppProvider extends ChangeNotifier {
     _clearError();
     
     try {
-      final result = await _magento.products.getProducts(
-        searchQuery: query,
-        pageSize: 20,
-      );
+      // Симуляция поиска
+      await Future.delayed(const Duration(milliseconds: 500));
       
-      _searchResults = result.items;
+      _searchResults = _getDemoProducts()
+          .where((product) => product.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
       notifyListeners();
     } catch (e) {
       _setError('Search error: $e');
@@ -238,35 +269,99 @@ class AppProvider extends ChangeNotifier {
       return;
     }
     
-    _setLoading(true);
-    _clearError();
-    
     try {
-      final cart = await _magento.cart.addToCustomerCart(
-        sku: productSku,
-        quantity: quantity,
+      final product = _products.firstWhere(
+        (p) => p.sku == productSku,
+        orElse: () => SimpleProduct(id: '0', name: 'Unknown', sku: productSku, price: 0.0),
       );
       
-      _currentCart = cart;
+      final existingItemIndex = _currentCart.items.indexWhere(
+        (item) => item.productId == product.id,
+      );
+      
+      if (existingItemIndex >= 0) {
+        // Обновляем количество
+        final existingItem = _currentCart.items[existingItemIndex];
+        final updatedItems = List<SimpleCartItem>.from(_currentCart.items);
+        updatedItems[existingItemIndex] = SimpleCartItem(
+          productId: existingItem.productId,
+          name: existingItem.name,
+          price: existingItem.price,
+          quantity: existingItem.quantity + quantity,
+        );
+        _currentCart = SimpleCart(items: updatedItems);
+      } else {
+        // Добавляем новый товар
+        final updatedItems = List<SimpleCartItem>.from(_currentCart.items);
+        updatedItems.add(SimpleCartItem(
+          productId: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: quantity,
+        ));
+        _currentCart = SimpleCart(items: updatedItems);
+      }
+      
       notifyListeners();
     } catch (e) {
       _setError('Add to cart error: $e');
-    } finally {
-      _setLoading(false);
     }
   }
   
   Future<void> loadCart() async {
-    if (!_isInitialized || !_isAuthenticated) return;
-    
-    try {
-      final cart = await _magento.cart.getCustomerCart();
-      
-      _currentCart = cart;
-      notifyListeners();
-    } catch (e) {
-      _setError('Error loading cart: $e');
-    }
+    // Корзина уже загружена в памяти
+    notifyListeners();
+  }
+  
+  void _loadDemoProducts() {
+    _products = _getDemoProducts();
+  }
+  
+  List<SimpleProduct> _getDemoProducts() {
+    return [
+      SimpleProduct(
+        id: '1',
+        name: 'iPhone 15 Pro',
+        sku: 'IPHONE-15-PRO',
+        price: 999.99,
+        inStock: true,
+      ),
+      SimpleProduct(
+        id: '2',
+        name: 'MacBook Air M3',
+        sku: 'MACBOOK-AIR-M3',
+        price: 1299.99,
+        inStock: true,
+      ),
+      SimpleProduct(
+        id: '3',
+        name: 'iPad Pro 12.9"',
+        sku: 'IPAD-PRO-129',
+        price: 799.99,
+        inStock: true,
+      ),
+      SimpleProduct(
+        id: '4',
+        name: 'Apple Watch Series 9',
+        sku: 'WATCH-S9',
+        price: 399.99,
+        inStock: false,
+      ),
+      SimpleProduct(
+        id: '5',
+        name: 'AirPods Pro',
+        sku: 'AIRPODS-PRO',
+        price: 249.99,
+        inStock: true,
+      ),
+      SimpleProduct(
+        id: '6',
+        name: 'Magic Keyboard',
+        sku: 'MAGIC-KEYBOARD',
+        price: 299.99,
+        inStock: true,
+      ),
+    ];
   }
   
   void _setLoading(bool loading) {

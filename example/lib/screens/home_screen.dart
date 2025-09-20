@@ -94,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         if (provider.currentCustomer != null) ...[
                           const SizedBox(height: 8),
-                          Text('Welcome, ${provider.currentCustomer!.firstname} ${provider.currentCustomer!.lastname}!'),
+                          Text('Welcome, ${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}!'),
                           Text('Email: ${provider.currentCustomer!.email}'),
                         ],
                       ],
@@ -117,12 +117,8 @@ class HomeScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 8),
-                          if (provider.currentCart != null) ...[
-                            Text('Items in cart: ${provider.currentCart!.itemsCount}'),
-                            Text('Total: \$${provider.currentCart!.grandTotal.toStringAsFixed(2)}'),
-                          ] else ...[
-                            const Text('Cart is empty'),
-                          ],
+                          Text('Items in cart: ${provider.currentCart.itemsCount}'),
+                          Text('Total: \$${provider.currentCart.grandTotal.toStringAsFixed(2)}'),
                         ],
                       ),
                     ),
