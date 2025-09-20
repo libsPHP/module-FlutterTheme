@@ -123,7 +123,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLoadingImage(AsyncSnapshotWidgetBuilder<ImageChunkEvent> loadingProgress) {
+  Widget _buildLoadingImage(Widget Function(BuildContext, Widget, ImageChunkEvent?)? loadingBuilder) {
     return Container(
       width: double.infinity,
       height: double.infinity,

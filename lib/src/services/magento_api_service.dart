@@ -240,7 +240,7 @@ class MagentoApiService {
   Future<String> createCart() async {
     final response =
         await _authenticatedRequest<Map<String, dynamic>>('guest-carts');
-    return response.data['quote_id'];
+    return response.data?['quote_id'] ?? '';
   }
 
   Future<Cart> getCart(String cartId) async {

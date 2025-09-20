@@ -183,9 +183,9 @@ class ProductListWithFilters extends StatefulWidget {
     bool? inStock,
   }) onLoadProducts;
   
-  final VoidCallback? onProductTap;
-  final VoidCallback? onAddToCart;
-  final VoidCallback? onAddToWishlist;
+  final Function(Product)? onProductTap;
+  final Function(Product)? onAddToCart;
+  final Function(Product)? onAddToWishlist;
   final String? initialSearchQuery;
   final String? initialCategoryId;
   final Map<String, dynamic>? initialFilters;

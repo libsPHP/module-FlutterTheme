@@ -114,7 +114,7 @@ class MagentoAuthResult extends MagentoResult<MagentoAuthData> {
 /// Authentication data container
 @immutable
 class MagentoAuthData {
- MagentoAuthData({
+  MagentoAuthData({
     required this.token,
     required this.customerId,
     this.customerData,
@@ -150,7 +150,7 @@ class MagentoAuthData {
 
 /// Result for synchronization operations
 class MagentoSyncResult<T> extends MagentoResult<List<T>> {
- MagentoSyncResult._({
+  MagentoSyncResult._({
     required super.success,
     super.data,
     super.error,
@@ -159,9 +159,9 @@ class MagentoSyncResult<T> extends MagentoResult<List<T>> {
     this.failedCount = 0,
     this.conflictCount = 0,
     this.syncType = MagentoSyncType.full,
-    this.syncedItems =  [],
-    this.failedItems =  [],
-    this.conflicts =  [],
+    this.syncedItems = const [],
+    this.failedItems = const [],
+    this.conflicts = const [],
   }) : super._();
 
   /// Number of successfully synced items
@@ -206,9 +206,9 @@ class MagentoSyncResult<T> extends MagentoResult<List<T>> {
     int failedCount = 0,
     int conflictCount = 0,
     MagentoSyncType syncType = MagentoSyncType.full,
-    List<String> syncedItems =  [],
-    List<String> failedItems =  [],
-    List<MagentoSyncConflict> conflicts =  [],
+    List<String> syncedItems = const [],
+    List<String> failedItems = const [],
+    List<MagentoSyncConflict> conflicts = const [],
   }) {
     return MagentoSyncResult._(
       success: true,
@@ -264,7 +264,7 @@ enum MagentoSyncType {
 /// Represents a sync conflict that needs resolution
 @immutable
 class MagentoSyncConflict {
- MagentoSyncConflict({
+  MagentoSyncConflict({
     required this.itemId,
     required this.conflictType,
     required this.localData,
@@ -323,7 +323,7 @@ enum MagentoSyncConflictType {
 
 /// Result for cache operations
 class MagentoCacheResult<T> extends MagentoResult<T> {
- MagentoCacheResult._({
+  MagentoCacheResult._({
     required super.success,
     super.data,
     super.error,
@@ -385,7 +385,7 @@ class MagentoCacheResult<T> extends MagentoResult<T> {
 
 /// Result for cloud feature operations
 class MagentoCloudFeatureResult<T> extends MagentoResult<T> {
- MagentoCloudFeatureResult._({
+  MagentoCloudFeatureResult._({
     required super.success,
     super.data,
     super.error,

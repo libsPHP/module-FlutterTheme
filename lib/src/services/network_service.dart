@@ -21,7 +21,7 @@ class NetworkService extends ChangeNotifier {
   bool _isInitialized = false;
   String? _baseUrl;
   Map<String, String> _defaultHeaders = {};
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   // Конфигурация
   int _connectionTimeout = 30000;
@@ -34,6 +34,9 @@ class NetworkService extends ChangeNotifier {
   String? get baseUrl => _baseUrl;
   Dio get dio => _dio;
   http.Client get httpClient => _httpClient;
+  
+  /// Stream of connectivity changes
+  Stream<List<ConnectivityResult>> get connectionStream => _connectivity.onConnectivityChanged;
 
   /// Инициализация сетевого сервиса
   Future<void> initialize({
@@ -188,9 +191,9 @@ class NetworkService extends ChangeNotifier {
   /// Настройка слушателя изменений подключения
   void _setupConnectivityListener() {
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
-      (ConnectivityResult result) {
+      (List<ConnectivityResult> results) {
         final wasOnline = _isOnline;
-        _isOnline = result != ConnectivityResult.none;
+        _isOnline = results.isNotEmpty && !results.every((result) => result == ConnectivityResult.none);
 
         if (wasOnline != _isOnline) {
           notifyListeners();

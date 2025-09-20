@@ -167,7 +167,7 @@ class AuthProvider extends ChangeNotifier {
         'error': error,
         'customerEmail': currentCustomer?.email,
         'customerName': currentCustomer != null
-            ? '${currentCustomer!.firstName} ${currentCustomer!.lastName}'
+            ? '${currentCustomer!.firstname} ${currentCustomer!.lastname}'
             : null,
         'tokenExpiry': tokenExpiry?.toIso8601String(),
         'isTokenValid': isTokenValid,

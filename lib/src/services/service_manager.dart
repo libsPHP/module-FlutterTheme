@@ -27,6 +27,7 @@ class MagentoServiceManager extends ChangeNotifier {
   // Service state
   MagentoServiceMode _currentMode = MagentoServiceMode.initializing;
   bool _isInitialized = false;
+  String? _baseUrl;
   final Map<Type, bool> _serviceStates = {};
 
   // Stream controllers
@@ -81,6 +82,7 @@ class MagentoServiceManager extends ChangeNotifier {
 
   /// Initialize all services
   Future<MagentoOperationResult<bool>> initializeServices({
+    required String baseUrl,
     MagentoServiceConfig? config,
   }) async {
     if (_isInitialized) {
@@ -88,6 +90,7 @@ class MagentoServiceManager extends ChangeNotifier {
     }
 
     try {
+      _baseUrl = baseUrl;
       _setMode(MagentoServiceMode.initializing, 'Initializing services');
 
       // Initialize core services
@@ -247,7 +250,7 @@ class MagentoServiceManager extends ChangeNotifier {
 
   Future<void> _initializeNetworkService() async {
     try {
-      await networkService.initialize();
+      await networkService.initialize(baseUrl: _baseUrl!);
       _serviceStates[NetworkService] = true;
     } catch (e) {
       _serviceStates[NetworkService] = false;
