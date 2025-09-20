@@ -13,7 +13,7 @@ import 'models/auth_models.dart' as auth_models;
 import 'models/product_models.dart';
 import 'models/enhanced_product.dart';
 import 'models/cart_models.dart' as cart_models;
-import 'models/cart.dart' as cart;
+import 'models/cart.dart' as cart_model;
 import 'models/order_models.dart' as order;
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
@@ -412,19 +412,19 @@ class FlutterMagento {
   // ==================== CART ====================
 
   /// Create a new cart
-  Future<cart.Cart> createCart() async {
+  Future<cart_model.Cart> createCart() async {
     _checkInitialization();
     return await _cartApi.createCart();
   }
 
   /// Get cart information
-  Future<cart.Cart> getCart(String cartId) async {
+  Future<cart_model.Cart> getCart(String cartId) async {
     _checkInitialization();
     return await _cartApi.getCart(cartId);
   }
 
   /// Get customer cart
-  Future<cart.Cart> getCustomerCart() async {
+  Future<cart_model.Cart> getCustomerCart() async {
     _checkInitialization();
     return await _cartApi.getCustomerCart();
   }
