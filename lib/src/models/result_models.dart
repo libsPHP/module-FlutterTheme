@@ -47,7 +47,7 @@ abstract class MagentoResult<T> {
 
 /// Generic success/error result for Magento operations
 class MagentoOperationResult<T> extends MagentoResult<T> {
-  MagentoOperationResult._({
+  const MagentoOperationResult._({
     required super.success,
     super.data,
     super.error,
@@ -150,7 +150,7 @@ class MagentoAuthData {
 
 /// Result for synchronization operations
 class MagentoSyncResult<T> extends MagentoResult<List<T>> {
-  MagentoSyncResult._({
+  const MagentoSyncResult._({
     required super.success,
     super.data,
     super.error,

@@ -1,0 +1,85 @@
+Analyzing lib...
+
+  error - src/widgets/language_selector.dart:74:38 - The method 'withOpacity' isn't defined for the type 'int'. Try correcting the name to the name of an existing method, or defining a method named 'withOpacity'. - undefined_method
+  error - src/widgets/language_selector.dart:82:37 - The argument type 'int' can't be assigned to the parameter type 'Color'.  - argument_type_not_assignable
+  error - src/widgets/language_selector.dart:91:37 - The method 'withOpacity' isn't defined for the type 'int'. Try correcting the name to the name of an existing method, or defining a method named 'withOpacity'. - undefined_method
+  error - src/widgets/language_selector.dart:95:19 - The argument type 'String' can't be assigned to the parameter type 'IconData?'.  - argument_type_not_assignable
+  error - src/widgets/language_selector.dart:96:26 - The argument type 'int' can't be assigned to the parameter type 'Color?'.  - argument_type_not_assignable
+  error - src/widgets/language_selector.dart:107:30 - The argument type 'Map<String, dynamic>' can't be assigned to the parameter type 'TextStyle?'.  - argument_type_not_assignable
+  error - src/widgets/language_selector.dart:109:25 - Too many positional arguments: 1 expected, but 2 found. Try removing the extra arguments. - extra_positional_arguments
+  error - src/widgets/language_selector.dart:129:26 - The argument type 'int' can't be assigned to the parameter type 'Color?'.  - argument_type_not_assignable
+  error - src/widgets/language_selector.dart:158:20 - The argument type 'int' can't be assigned to the parameter type 'Color?'.  - argument_type_not_assignable
+warning - src/utils/localization_manager.dart:295:11 - The value of the local variable 'locale' isn't used. Try removing the variable or using it. - unused_local_variable
+   info - flutter_magento.dart:1:1 - Dangling library doc comment. Add a 'library' directive after the library comment. - dangling_library_doc_comments
+   info - src/api/product_api.dart:73:9 - Local variables should be final. Try making the variable final. - prefer_final_locals
+   info - src/flutter_magento_core.dart:68:15 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/flutter_magento_core.dart:80:15 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/flutter_magento_core.dart:119:7 - Missing type annotation. Try adding a type annotation. - strict_top_level_inference
+   info - src/flutter_magento_core.dart:125:7 - Missing type annotation. Try adding a type annotation. - strict_top_level_inference
+   info - src/flutter_magento_core.dart:345:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/models/enhanced_product.dart:123:55 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:132:55 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:218:57 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:258:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:262:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:268:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:275:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:281:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:288:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/result_models.dart:117:3 - Constructors in '@immutable' classes should be declared as 'const'. Try adding 'const' to the constructor declaration. - prefer_const_constructors_in_immutables
+   info - src/models/result_models.dart:267:3 - Constructors in '@immutable' classes should be declared as 'const'. Try adding 'const' to the constructor declaration. - prefer_const_constructors_in_immutables
+   info - src/services/cache_service.dart:89:38 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:89:58 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:111:29 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:387:42 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cart_service.dart:64:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:85:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:115:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:145:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:222:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:244:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:264:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:281:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:298:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:155:22 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/services/cloud_feature_service.dart:257:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:263:15 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:267:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:273:15 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:290:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:296:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:300:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:306:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:310:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:316:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/magento_api_service.dart:138:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:187:36 - The type of the right operand ('ConnectivityResult') isn't a subtype or a supertype of the left operand ('List<ConnectivityResult>'). Try changing one or both of the operands. - unrelated_type_equality_checks
+   info - src/services/network_service.dart:351:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:353:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:355:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:362:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:364:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:374:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/notification_service.dart:284:60 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/notification_service.dart:287:9 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/notification_service.dart:315:11 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/service_manager.dart:119:28 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/service_manager.dart:140:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:142:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:144:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:146:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:148:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:223:26 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/service_manager.dart:244:26 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/widgets/enhanced_search_bar.dart:286:12 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - src/widgets/language_selector.dart:56:12 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - src/widgets/notification_widgets.dart:469:22 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - src/widgets/notification_widgets.dart:494:22 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - src/widgets/notification_widgets.dart:542:56 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:46:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:48:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:213:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:215:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:467:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+
+81 issues found.

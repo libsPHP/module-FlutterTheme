@@ -292,8 +292,6 @@ class LocalizationManager {
 
   /// Get number format for locale
   static String formatNumber(double number, String languageCode) {
-    final locale = getLocaleFromCode(languageCode);
-    
     // Simple number formatting based on locale
     if (languageCode == 'ru' || languageCode == 'de' || languageCode == 'fr') {
       return number.toStringAsFixed(2).replaceAll('.', ',');

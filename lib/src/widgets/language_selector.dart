@@ -71,7 +71,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       elevation: isSelected ? 4 : 1,
-      color: isSelected ? themeColor.withOpacity(0.1) : null,
+      color: isSelected ? Color(themeColor).withValues(alpha: 0.1) : null,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),
@@ -79,7 +79,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             border: isSelected
-                ? Border.all(color: themeColor, width: 2)
+                ? Border.all(color: Color(themeColor), width: 2)
                 : null,
             borderRadius: BorderRadius.circular(8),
           ),
@@ -88,12 +88,12 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: themeColor.withOpacity(0.2),
+                  color: Color(themeColor).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
+                child: Text(
                   icon,
-                  color: themeColor,
+                  style: TextStyle(color: Color(themeColor)),
                   size: 24,
                 ),
               ),
@@ -104,11 +104,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                   children: [
                     Text(
                       languageName,
-                      style: LocalizationManager.getLanguageTextStyle(
-                        languageCode,
-                        Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ) ?? const TextStyle(),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Color(themeColor),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     if (widget.showDescriptions) ...[
@@ -126,7 +124,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               if (isSelected)
                 Icon(
                   Icons.check_circle,
-                  color: themeColor,
+                  color: Color(themeColor),
                   size: 24,
                 ),
             ],
@@ -155,7 +153,7 @@ class LanguageSelectorDialog extends StatelessWidget {
         children: [
           Icon(
             Icons.language,
-            color: LocalizationManager.getLanguageThemeColor(currentLanguage),
+            color: Color(LocalizationManager.getLanguageThemeColor(currentLanguage)),
           ),
           const SizedBox(width: 8),
           const Text('Выбор языка'),

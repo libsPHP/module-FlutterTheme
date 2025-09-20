@@ -5,7 +5,7 @@ import '../utils/localization_manager.dart';
 /// Провайдер для управления локализацией
 class LocalizationProvider extends ChangeNotifier {
   static const String _languageKey = 'selected_language';
-  
+
   String _currentLanguage = 'en';
   Locale _currentLocale = const Locale('en');
 
@@ -58,13 +58,13 @@ class LocalizationProvider extends ChangeNotifier {
   }
 
   /// Получить иконку текущего языка
-  IconData getCurrentLanguageIcon() {
+  String getCurrentLanguageIcon() {
     return LocalizationManager.getLanguageIcon(_currentLanguage);
   }
 
   /// Получить цвет темы для текущего языка
   Color getCurrentLanguageThemeColor() {
-    return LocalizationManager.getLanguageThemeColor(_currentLanguage);
+    return Color(LocalizationManager.getLanguageThemeColor(_currentLanguage));
   }
 
   /// Проверить, является ли текущий язык Харконнским

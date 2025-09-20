@@ -539,7 +539,7 @@ class _MagentoNotificationListState extends State<MagentoNotificationList> {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor:
-              _getNotificationColor(notification.type).withOpacity(0.2),
+              _getNotificationColor(notification.type).withValues(alpha: 0.2),
           child: Icon(
             _getNotificationIcon(notification.type),
             color: _getNotificationColor(notification.type),
