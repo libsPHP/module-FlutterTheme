@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/offline_models.dart';
@@ -10,13 +9,10 @@ import '../exceptions/magento_exception.dart';
 
 /// Сервис для работы в офлайн режиме
 class OfflineService extends ChangeNotifier {
-  static const String _cacheBoxName = 'magento_cache';
-  static const String _queueBoxName = 'magento_queue';
   static const String _settingsKey = 'offline_settings';
 
   Database? _database;
-  Box<dynamic>? _cacheBox;
-  Box<dynamic>? _queueBox;
+  SharedPreferences? _prefs;
 
   bool _isInitialized = false;
   bool _isOfflineMode = false;
@@ -37,10 +33,10 @@ class OfflineService extends ChangeNotifier {
   /// Инициализация офлайн сервиса
   Future<bool> initialize() async {
     try {
-      // Инициализация Hive для кэширования
-      await _initializeHive();
+      // Инициализация SharedPreferences
+      _prefs = await SharedPreferences.getInstance();
 
-      // Инициализация SQLite для сложных данных
+      // Инициализация SQLite для данных и кэша
       await _initializeDatabase();
 
       // Загрузка настроек
@@ -71,17 +67,43 @@ class OfflineService extends ChangeNotifier {
     }
   }
 
-  /// Инициализация Hive
-  Future<void> _initializeHive() async {
-    if (!Hive.isAdapterRegistered(0)) {
-      Hive.registerAdapter(CacheEntryAdapter());
-    }
-    if (!Hive.isAdapterRegistered(1)) {
-      Hive.registerAdapter(OfflineOperationAdapter());
-    }
+  /// Создание таблиц в базе данных
+  Future<void> _createTables(Database db, int version) async {
+    // Таблица для кэша
+    await db.execute('''
+      CREATE TABLE cache_entries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        key TEXT UNIQUE NOT NULL,
+        data TEXT NOT NULL,
+        expiry INTEGER,
+        tags TEXT,
+        created_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL
+      )
+    ''');
 
-    _cacheBox = await Hive.openBox(_cacheBoxName);
-    _queueBox = await Hive.openBox(_queueBoxName);
+    // Таблица для отложенных операций
+    await db.execute('''
+      CREATE TABLE offline_operations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        operation_id TEXT UNIQUE NOT NULL,
+        type TEXT NOT NULL,
+        method TEXT NOT NULL,
+        endpoint TEXT NOT NULL,
+        data TEXT,
+        headers TEXT,
+        priority INTEGER DEFAULT 0,
+        retry_count INTEGER DEFAULT 0,
+        max_retries INTEGER DEFAULT 3,
+        created_at INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL
+      )
+    ''');
+
+    // Индексы для оптимизации
+    await db.execute('CREATE INDEX idx_cache_key ON cache_entries(key)');
+    await db.execute('CREATE INDEX idx_cache_expiry ON cache_entries(expiry)');
+    await db.execute('CREATE INDEX idx_operations_priority ON offline_operations(priority DESC)');
   }
 
   /// Инициализация SQLite базы данных
@@ -219,10 +241,7 @@ class OfflineService extends ChangeNotifier {
         updatedAt: DateTime.now(),
       );
 
-      // Сохраняем в Hive для быстрого доступа
-      await _cacheBox?.put(key, entry);
-
-      // Сохраняем в SQLite для постоянного хранения
+      // Сохраняем в SQLite
       if (_database != null) {
         await _database!.insert(
           'cache_entries',
@@ -251,11 +270,8 @@ class OfflineService extends ChangeNotifier {
     try {
       CacheEntry? entry;
 
-      // Сначала проверяем Hive
-      entry = _cacheBox?.get(key);
-
-      // Если не найдено, проверяем SQLite
-      if (entry == null && _database != null) {
+      // Проверяем SQLite
+      if (_database != null) {
         final results = await _database!.query(
           'cache_entries',
           where: 'key = ?',
@@ -265,8 +281,6 @@ class OfflineService extends ChangeNotifier {
 
         if (results.isNotEmpty) {
           entry = CacheEntry.fromDatabaseRow(results.first);
-          // Кэшируем в Hive для быстрого доступа
-          await _cacheBox?.put(key, entry);
         }
       }
 
@@ -299,7 +313,7 @@ class OfflineService extends ChangeNotifier {
     if (!_isInitialized) return;
 
     try {
-      await _cacheBox?.delete(key);
+      // Удаляем из SQLite
 
       if (_database != null) {
         await _database!.delete(
@@ -324,7 +338,6 @@ class OfflineService extends ChangeNotifier {
     try {
       if (tags == null) {
         // Очищаем весь кэш
-        await _cacheBox?.clear();
         if (_database != null) {
           await _database!.delete('cache_entries');
         }
@@ -509,7 +522,7 @@ class OfflineService extends ChangeNotifier {
         'totalEntries': totalEntries.first['count'],
         'expiredEntries': expiredEntries.first['count'],
         'pendingOperations': _pendingOperations.length,
-        'cacheSize': _cacheBox?.length ?? 0,
+        'cacheSize': totalEntries.first['count'],
       };
     } catch (e) {
       return {'error': e.toString()};
@@ -542,7 +555,7 @@ class OfflineService extends ChangeNotifier {
         'isInitialized': _isInitialized,
         'isOfflineMode': _isOfflineMode,
         'pendingOperationsCount': _pendingOperations.length,
-        'cacheSize': _cacheBox?.length ?? 0,
+        'cacheSize': totalEntries.first['count'],
         'autoSyncEnabled': _settings.autoSyncEnabled,
         'autoSyncInterval': _settings.autoSyncInterval?.inMinutes,
       };
@@ -556,8 +569,6 @@ class OfflineService extends ChangeNotifier {
   void dispose() {
     _syncTimer?.cancel();
     _eventController?.close();
-    _cacheBox?.close();
-    _queueBox?.close();
     _database?.close();
     super.dispose();
   }

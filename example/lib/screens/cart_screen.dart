@@ -30,11 +30,13 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           Consumer<AppProvider>(
             builder: (context, provider, child) {
-              if (provider.currentCart != null && 
+              if (provider.currentCart != null &&
                   (provider.currentCart!.items?.isNotEmpty ?? false)) {
                 return IconButton(
                   icon: const Icon(Icons.refresh),
-                  onPressed: provider.isLoading ? null : () => provider.loadCart(),
+                  onPressed: provider.isLoading
+                      ? null
+                      : () => provider.loadCart(),
                 );
               }
               return const SizedBox.shrink();
@@ -47,27 +49,23 @@ class _CartScreenState extends State<CartScreen> {
           if (!provider.isInitialized) {
             return _buildNotInitializedView();
           }
-          
+
           if (!provider.isAuthenticated) {
             return _buildNotAuthenticatedView();
           }
-          
+
           return _buildCartView(provider);
         },
       ),
     );
   }
-  
+
   Widget _buildNotInitializedView() {
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.settings,
-            size: 64,
-            color: Colors.grey,
-          ),
+          Icon(Icons.settings, size: 64, color: Colors.grey),
           SizedBox(height: 16),
           Text(
             'Magento not configured',
@@ -87,17 +85,13 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  
+
   Widget _buildNotAuthenticatedView() {
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.person_outline,
-            size: 64,
-            color: Colors.grey,
-          ),
+          Icon(Icons.person_outline, size: 64, color: Colors.grey),
           SizedBox(height: 16),
           Text(
             'Please login first',
@@ -117,24 +111,18 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  
+
   Widget _buildCartView(AppProvider provider) {
     if (provider.isLoading && provider.currentCart == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
-    
+
     if (provider.error != null) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Colors.red,
-            ),
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
             const SizedBox(height: 16),
             Text(
               'Error loading cart',
@@ -155,30 +143,27 @@ class _CartScreenState extends State<CartScreen> {
         ),
       );
     }
-    
-    if (provider.currentCart == null || (provider.currentCart!.items?.isEmpty ?? true)) {
+
+    if (provider.currentCart == null ||
+        (provider.currentCart!.items?.isEmpty ?? true)) {
       return _buildEmptyCartView();
     }
-    
+
     return _buildCartItems(provider);
   }
-  
+
   Widget _buildEmptyCartView() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 64,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
             'Your cart is empty',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Colors.grey,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: Colors.grey),
           ),
           const SizedBox(height: 8),
           Text(
@@ -195,10 +180,10 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  
+
   Widget _buildCartItems(AppProvider provider) {
     final cart = provider.currentCart!;
-    
+
     return Column(
       children: [
         // Cart Summary
@@ -214,15 +199,15 @@ class _CartScreenState extends State<CartScreen> {
               ),
               Text(
                 'Total: \$${cart.grandTotal.toStringAsFixed(2)}',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
                 ),
+              ),
             ],
           ),
         ),
-        
+
         // Cart Items List
         Expanded(
           child: RefreshIndicator(
@@ -234,14 +219,15 @@ class _CartScreenState extends State<CartScreen> {
                 final item = cart.items![index];
                 return _CartItemCard(
                   item: item,
-                  onQuantityChanged: (newQuantity) => _updateQuantity(provider, item, newQuantity),
+                  onQuantityChanged: (newQuantity) =>
+                      _updateQuantity(provider, item, newQuantity),
                   onRemove: () => _removeItem(provider, item),
                 );
               },
             ),
           ),
         ),
-        
+
         // Checkout Button
         if (cart.items?.isNotEmpty ?? false)
           Container(
@@ -251,7 +237,9 @@ class _CartScreenState extends State<CartScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: provider.isLoading ? null : () => _proceedToCheckout(provider),
+                    onPressed: provider.isLoading
+                        ? null
+                        : () => _proceedToCheckout(provider),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
@@ -267,9 +255,9 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 8),
-                
+
                 TextButton(
                   onPressed: () => _navigateToProducts(),
                   child: const Text('Continue Shopping'),
@@ -280,22 +268,27 @@ class _CartScreenState extends State<CartScreen> {
       ],
     );
   }
-  
+
   void _navigateToProducts() {
-    final mainScreenState = context.findAncestorStateOfType<State<StatefulWidget>>();
+    final mainScreenState = context
+        .findAncestorStateOfType<State<StatefulWidget>>();
     if (mainScreenState != null && mainScreenState.mounted) {
       (mainScreenState as dynamic).setState(() {
         (mainScreenState as dynamic)._currentIndex = 2; // Products tab
       });
     }
   }
-  
-  Future<void> _updateQuantity(AppProvider provider, CartItem item, int newQuantity) async {
+
+  Future<void> _updateQuantity(
+    AppProvider provider,
+    CartItem item,
+    int newQuantity,
+  ) async {
     if (newQuantity <= 0) {
       await _removeItem(provider, item);
       return;
     }
-    
+
     // In a real implementation, you would call an API to update the quantity
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -304,7 +297,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  
+
   Future<void> _removeItem(AppProvider provider, CartItem item) async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -323,7 +316,7 @@ class _CartScreenState extends State<CartScreen> {
         ],
       ),
     );
-    
+
     if (confirmed == true) {
       // In a real implementation, you would call an API to remove the item
       ScaffoldMessenger.of(context).showSnackBar(
@@ -334,7 +327,7 @@ class _CartScreenState extends State<CartScreen> {
       );
     }
   }
-  
+
   Future<void> _proceedToCheckout(AppProvider provider) async {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -349,7 +342,7 @@ class _CartItemCard extends StatelessWidget {
   final CartItem item;
   final Function(int) onQuantityChanged;
   final VoidCallback onRemove;
-  
+
   const _CartItemCard({
     required this.item,
     required this.onQuantityChanged,
@@ -374,60 +367,55 @@ class _CartItemCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Center(
-                child: Icon(
-                  Icons.image,
-                  color: Colors.grey,
-                  size: 32,
-                ),
+                child: Icon(Icons.image, color: Colors.grey, size: 32),
               ),
             ),
-            
+
             const SizedBox(width: 16),
-            
+
             // Product Info
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name,
+                    item.name ?? 'Unknown Product',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   const SizedBox(height: 4),
-                  
+
                   Text(
                     'SKU: ${item.sku ?? 'N/A'}',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Price
                       Text(
                         '\$${(item.price ?? 0.0).toStringAsFixed(2)}',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                      
+
                       // Quantity Controls
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            onPressed: () => onQuantityChanged(item.quantity - 1),
+                            onPressed: () =>
+                                onQuantityChanged(item.quantity - 1),
                             icon: const Icon(Icons.remove_circle_outline),
                             constraints: const BoxConstraints(
                               minWidth: 32,
@@ -435,21 +423,27 @@ class _CartItemCard extends StatelessWidget {
                             ),
                             padding: EdgeInsets.zero,
                           ),
-                          
+
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey[300]!),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child:                           Text(
-                            item.quantity.toString(),
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            child: Text(
+                              item.quantity.toString(),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          
+
                           IconButton(
-                            onPressed: () => onQuantityChanged(item.quantity + 1),
+                            onPressed: () =>
+                                onQuantityChanged(item.quantity + 1),
                             icon: const Icon(Icons.add_circle_outline),
                             constraints: const BoxConstraints(
                               minWidth: 32,
@@ -461,9 +455,9 @@ class _CartItemCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -471,7 +465,7 @@ class _CartItemCard extends StatelessWidget {
                         'Subtotal: \$${((item.price ?? 0.0) * item.quantity).toStringAsFixed(2)}',
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
-                      
+
                       TextButton.icon(
                         onPressed: onRemove,
                         icon: const Icon(Icons.delete_outline, size: 16),

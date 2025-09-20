@@ -12,7 +12,7 @@ class ConfigScreen extends StatefulWidget {
 class _ConfigScreenState extends State<ConfigScreen> {
   final _formKey = GlobalKey<FormState>();
   final _baseUrlController = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -21,7 +21,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
       _baseUrlController.text = provider.baseUrl!;
     }
   }
-  
+
   @override
   void dispose() {
     _baseUrlController.dispose();
@@ -31,9 +31,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Magento Configuration'),
-      ),
+      appBar: AppBar(title: const Text('Magento Configuration')),
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
           return Padding(
@@ -55,7 +53,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 16),
-                          
+
                           TextFormField(
                             controller: _baseUrlController,
                             decoration: const InputDecoration(
@@ -68,29 +66,34 @@ class _ConfigScreenState extends State<ConfigScreen> {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter a base URL';
                               }
-                              if (!Uri.tryParse(value)?.hasAbsolutePath == true) {
+                              if (!(Uri.tryParse(value)?.hasAbsolutePath ??
+                                  false)) {
                                 return 'Please enter a valid URL';
                               }
                               return null;
                             },
                           ),
-                          
+
                           const SizedBox(height: 16),
-                          
+
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: provider.isLoading ? null : _saveConfiguration,
+                              onPressed: provider.isLoading
+                                  ? null
+                                  : _saveConfiguration,
                               child: provider.isLoading
                                   ? const SizedBox(
                                       height: 20,
                                       width: 20,
-                                      child: CircularProgressIndicator(strokeWidth: 2),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
                                     )
                                   : const Text('Save & Initialize'),
                             ),
                           ),
-                          
+
                           if (provider.error != null) ...[
                             const SizedBox(height: 16),
                             Container(
@@ -107,7 +110,9 @@ class _ConfigScreenState extends State<ConfigScreen> {
                                   Expanded(
                                     child: Text(
                                       provider.error!,
-                                      style: TextStyle(color: Colors.red.shade700),
+                                      style: TextStyle(
+                                        color: Colors.red.shade700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -118,9 +123,9 @@ class _ConfigScreenState extends State<ConfigScreen> {
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Current Status
                   Card(
                     child: Padding(
@@ -133,38 +138,48 @@ class _ConfigScreenState extends State<ConfigScreen> {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 16),
-                          
+
                           _StatusRow(
                             icon: Icons.link,
                             label: 'Connection',
-                            value: provider.isInitialized ? 'Connected' : 'Not Connected',
-                            color: provider.isInitialized ? Colors.green : Colors.red,
+                            value: provider.isInitialized
+                                ? 'Connected'
+                                : 'Not Connected',
+                            color: provider.isInitialized
+                                ? Colors.green
+                                : Colors.red,
                           ),
-                          
+
                           const SizedBox(height: 8),
-                          
+
                           _StatusRow(
                             icon: Icons.public,
                             label: 'Base URL',
                             value: provider.baseUrl ?? 'Not configured',
-                            color: (provider.baseUrl?.isNotEmpty ?? false) ? Colors.blue : Colors.grey,
+                            color: (provider.baseUrl?.isNotEmpty ?? false)
+                                ? Colors.blue
+                                : Colors.grey,
                           ),
-                          
+
                           const SizedBox(height: 8),
-                          
+
                           _StatusRow(
                             icon: Icons.person,
                             label: 'Authentication',
-                            value: provider.isAuthenticated ? 'Logged In' : 'Not Logged In',
-                            color: provider.isAuthenticated ? Colors.green : Colors.grey,
+                            value: provider.isAuthenticated
+                                ? 'Logged In'
+                                : 'Not Logged In',
+                            color: provider.isAuthenticated
+                                ? Colors.green
+                                : Colors.grey,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Sample URLs
                   Card(
                     child: Padding(
@@ -177,33 +192,35 @@ class _ConfigScreenState extends State<ConfigScreen> {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 16),
-                          
+
                           const Text(
                             'You can use these sample URLs for testing:',
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(height: 8),
-                          
-                          ..._sampleUrls.map((url) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    url,
-                                    style: const TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 12,
+
+                          ..._sampleUrls.map(
+                            (url) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      url,
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontSize: 12,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.copy, size: 16),
-                                  onPressed: () => _copyToClipboard(url),
-                                ),
-                              ],
+                                  IconButton(
+                                    icon: const Icon(Icons.copy, size: 16),
+                                    onPressed: () => _copyToClipboard(url),
+                                  ),
+                                ],
+                              ),
                             ),
-                          )),
+                          ),
                         ],
                       ),
                     ),
@@ -216,12 +233,14 @@ class _ConfigScreenState extends State<ConfigScreen> {
       ),
     );
   }
-  
+
   Future<void> _saveConfiguration() async {
     if (_formKey.currentState!.validate()) {
       final provider = context.read<AppProvider>();
-      final success = await provider.initializeMagento(_baseUrlController.text.trim());
-      
+      final success = await provider.initializeMagento(
+        _baseUrlController.text.trim(),
+      );
+
       if (success) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -234,7 +253,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
       }
     }
   }
-  
+
   void _copyToClipboard(String text) {
     // In a real app, you would use Clipboard.setData
     ScaffoldMessenger.of(context).showSnackBar(
@@ -244,7 +263,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
       ),
     );
   }
-  
+
   static const List<String> _sampleUrls = [
     'https://demo.magento.com',
     'https://magento2-demo.nexcess.net',
@@ -257,7 +276,7 @@ class _StatusRow extends StatelessWidget {
   final String label;
   final String value;
   final Color color;
-  
+
   const _StatusRow({
     required this.icon,
     required this.label,
@@ -279,10 +298,7 @@ class _StatusRow extends StatelessWidget {
         ),
         Text(
           value,
-          style: TextStyle(
-            color: color,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: color, fontWeight: FontWeight.bold),
         ),
       ],
     );

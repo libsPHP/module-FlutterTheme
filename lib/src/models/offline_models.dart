@@ -1,28 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'offline_models.g.dart';
 
 /// Запись кэша
 @JsonSerializable()
-@HiveType(typeId: 0)
 class CacheEntry {
-  @HiveField(0)
   final String key;
-
-  @HiveField(1)
   final String data;
-
-  @HiveField(2)
   final DateTime? expiry;
-
-  @HiveField(3)
   final List<String> tags;
-
-  @HiveField(4)
   final DateTime createdAt;
-
-  @HiveField(5)
   final DateTime updatedAt;
 
   const CacheEntry({
@@ -68,38 +55,6 @@ class CacheEntry {
   bool get isExpired => expiry != null && DateTime.now().isAfter(expiry!);
 }
 
-/// Адаптер для Hive
-class CacheEntryAdapter extends TypeAdapter<CacheEntry> {
-  @override
-  final int typeId = 0;
-
-  @override
-  CacheEntry read(BinaryReader reader) {
-    return CacheEntry(
-      key: reader.readString(),
-      data: reader.readString(),
-      expiry: reader.readBool()
-          ? DateTime.fromMillisecondsSinceEpoch(reader.readInt())
-          : null,
-      tags: reader.readStringList(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, CacheEntry obj) {
-    writer.writeString(obj.key);
-    writer.writeString(obj.data);
-    writer.writeBool(obj.expiry != null);
-    if (obj.expiry != null) {
-      writer.writeInt(obj.expiry!.millisecondsSinceEpoch);
-    }
-    writer.writeStringList(obj.tags);
-    writer.writeInt(obj.createdAt.millisecondsSinceEpoch);
-    writer.writeInt(obj.updatedAt.millisecondsSinceEpoch);
-  }
-}
 
 /// Статус офлайн операции
 enum OfflineOperationStatus {
@@ -115,42 +70,18 @@ enum HttpMethod { get, post, put, patch, delete }
 
 /// Офлайн операция
 @JsonSerializable()
-@HiveType(typeId: 1)
 class OfflineOperation {
-  @HiveField(0)
   final String operationId;
-
-  @HiveField(1)
   final String type;
-
-  @HiveField(2)
   final String endpoint;
-
-  @HiveField(3)
   final HttpMethod method;
-
-  @HiveField(4)
   final Map<String, dynamic>? data;
-
-  @HiveField(5)
   final Map<String, String>? headers;
-
-  @HiveField(6)
   final int priority;
-
-  @HiveField(7)
   final int retryCount;
-
-  @HiveField(8)
   final int maxRetries;
-
-  @HiveField(9)
   final DateTime createdAt;
-
-  @HiveField(10)
   final DateTime? scheduledAt;
-
-  @HiveField(11)
   final OfflineOperationStatus status;
 
   const OfflineOperation({
@@ -254,57 +185,6 @@ class OfflineOperation {
   }
 }
 
-/// Адаптер для Hive
-class OfflineOperationAdapter extends TypeAdapter<OfflineOperation> {
-  @override
-  final int typeId = 1;
-
-  @override
-  OfflineOperation read(BinaryReader reader) {
-    return OfflineOperation(
-      operationId: reader.readString(),
-      type: reader.readString(),
-      endpoint: reader.readString(),
-      method: HttpMethod.values[reader.readInt()],
-      data: reader.readBool() ? reader.readMap().cast<String, dynamic>() : null,
-      headers:
-          reader.readBool() ? reader.readMap().cast<String, String>() : null,
-      priority: reader.readInt(),
-      retryCount: reader.readInt(),
-      maxRetries: reader.readInt(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-      scheduledAt: reader.readBool()
-          ? DateTime.fromMillisecondsSinceEpoch(reader.readInt())
-          : null,
-      status: OfflineOperationStatus.values[reader.readInt()],
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, OfflineOperation obj) {
-    writer.writeString(obj.operationId);
-    writer.writeString(obj.type);
-    writer.writeString(obj.endpoint);
-    writer.writeInt(obj.method.index);
-    writer.writeBool(obj.data != null);
-    if (obj.data != null) {
-      writer.writeMap(obj.data!);
-    }
-    writer.writeBool(obj.headers != null);
-    if (obj.headers != null) {
-      writer.writeMap(obj.headers!);
-    }
-    writer.writeInt(obj.priority);
-    writer.writeInt(obj.retryCount);
-    writer.writeInt(obj.maxRetries);
-    writer.writeInt(obj.createdAt.millisecondsSinceEpoch);
-    writer.writeBool(obj.scheduledAt != null);
-    if (obj.scheduledAt != null) {
-      writer.writeInt(obj.scheduledAt!.millisecondsSinceEpoch);
-    }
-    writer.writeInt(obj.status.index);
-  }
-}
 
 /// Настройки офлайн режима
 @JsonSerializable()
