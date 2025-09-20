@@ -18,7 +18,7 @@ import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
 import 'models/checkout_models.dart' as checkout;
 import 'models/customer_models.dart';
-import 'models/customer.dart' as customer;
+import 'models/customer.dart' as customer_models;
 import 'adapters/custom_attributes_adapter.dart';
 import 'adapters/custom_attributes_manager.dart';
 
@@ -159,7 +159,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<customer.Address>? addresses,
+    List<customer_models.Address>? addresses,
   }) async {
     _checkInitialization();
 
@@ -182,13 +182,13 @@ class FlutterMagento {
   }
 
   /// Get current customer information
-  Future<Customer> getCurrentCustomer() async {
+  Future<auth_models.Customer> getCurrentCustomer() async {
     _checkInitialization();
     return await _authApi.getCurrentCustomer();
   }
 
   /// Update customer information
-  Future<Customer> updateCustomer({
+  Future<auth_models.Customer> updateCustomer({
     String? firstName,
     String? lastName,
     String? middleName,
@@ -198,7 +198,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<customer.Address>? addresses,
+    List<customer_models.Address>? addresses,
   }) async {
     _checkInitialization();
 
@@ -559,7 +559,7 @@ class FlutterMagento {
   /// Estimate shipping for cart
   Future<List<ShippingMethod>> estimateShipping({
     required String cartId,
-    required customer.Address address,
+    required customer_models.Address address,
   }) async {
     _checkInitialization();
 
@@ -571,7 +571,7 @@ class FlutterMagento {
 
   /// Estimate shipping for customer cart
   Future<List<ShippingMethod>> estimateCustomerCartShipping(
-      customer.Address address) async {
+      customer_models.Address address) async {
     _checkInitialization();
 
     return await _cartApi.estimateCustomerCartShipping(address);
