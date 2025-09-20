@@ -1,7 +1,7 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration
 license: NativeMindNONC
-version: 2.3.4
+version: 2.5.1
 homepage: https://github.com/nativemind/flutter_magento
 
 environment:
