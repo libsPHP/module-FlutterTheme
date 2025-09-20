@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 /// Base abstract class for all Magento operation results
 @immutable
 abstract class MagentoResult<T> {
-  MagentoResult._({
+  const MagentoResult._({
     required this.success,
     this.data,
     this.error,
