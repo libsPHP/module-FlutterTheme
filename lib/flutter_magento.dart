@@ -25,7 +25,7 @@ export 'src/api/checkout_api.dart';
 export 'src/api/customer_api.dart';
 
 // Models
-export 'src/models/auth_models.dart';
+export 'src/models/auth_models.dart' hide Address;
 export 'src/models/product_models.dart';
 export 'src/models/enhanced_product.dart';
 export 'src/models/cart_models.dart';
