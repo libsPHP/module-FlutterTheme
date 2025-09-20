@@ -430,7 +430,7 @@ class FlutterMagento {
   }
 
   /// Add item to cart
-  Future<Cart> addToCart({
+  Future<cart_model.Cart> addToCart({
     required String cartId,
     required String sku,
     required int quantity,
@@ -447,7 +447,7 @@ class FlutterMagento {
   }
 
   /// Add item to customer cart
-  Future<Cart> addToCustomerCart({
+  Future<cart_model.Cart> addToCustomerCart({
     required String sku,
     required int quantity,
     Map<String, dynamic>? productOptions,
@@ -462,7 +462,7 @@ class FlutterMagento {
   }
 
   /// Remove item from cart
-  Future<Cart> removeFromCart({
+  Future<cart_model.Cart> removeFromCart({
     required String cartId,
     required int itemId,
   }) async {
@@ -475,14 +475,14 @@ class FlutterMagento {
   }
 
   /// Remove item from customer cart
-  Future<Cart> removeFromCustomerCart(int itemId) async {
+  Future<cart_model.Cart> removeFromCustomerCart(int itemId) async {
     _checkInitialization();
 
     return await _cartApi.removeFromCustomerCart(itemId);
   }
 
   /// Update cart item quantity
-  Future<Cart> updateCartItemQuantity({
+  Future<cart_model.Cart> updateCartItemQuantity({
     required String cartId,
     required int itemId,
     required int quantity,
@@ -497,7 +497,7 @@ class FlutterMagento {
   }
 
   /// Update customer cart item quantity
-  Future<Cart> updateCustomerCartItemQuantity({
+  Future<cart_model.Cart> updateCustomerCartItemQuantity({
     required int itemId,
     required int quantity,
   }) async {
@@ -510,7 +510,7 @@ class FlutterMagento {
   }
 
   /// Apply coupon to cart
-  Future<Cart> applyCoupon({
+  Future<cart_model.Cart> applyCoupon({
     required String cartId,
     required String couponCode,
   }) async {
@@ -523,21 +523,21 @@ class FlutterMagento {
   }
 
   /// Apply coupon to customer cart
-  Future<Cart> applyCouponToCustomerCart(String couponCode) async {
+  Future<cart_model.Cart> applyCouponToCustomerCart(String couponCode) async {
     _checkInitialization();
 
     return await _cartApi.applyCouponToCustomerCart(couponCode);
   }
 
   /// Remove coupon from cart
-  Future<Cart> removeCoupon(String cartId) async {
+  Future<cart_model.Cart> removeCoupon(String cartId) async {
     _checkInitialization();
 
     return await _cartApi.removeCoupon(cartId);
   }
 
   /// Remove coupon from customer cart
-  Future<Cart> removeCouponFromCustomerCart() async {
+  Future<cart_model.Cart> removeCouponFromCustomerCart() async {
     _checkInitialization();
 
     return await _cartApi.removeCouponFromCustomerCart();
@@ -645,7 +645,7 @@ class FlutterMagento {
   }
 
   /// Reorder
-  Future<Cart> reorder(String orderId) async {
+  Future<cart_model.Cart> reorder(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.reorder(orderId);
