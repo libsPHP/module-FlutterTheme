@@ -28,7 +28,7 @@ export 'src/api/customer_api.dart';
 export 'src/models/auth_models.dart' hide Address;
 export 'src/models/product_models.dart';
 export 'src/models/enhanced_product.dart';
-export 'src/models/cart_models.dart' hide ShippingMethod;
+export 'src/models/cart_models.dart' hide ShippingMethod, PaymentMethod;
 export 'src/models/order_models.dart';
 export 'src/models/wishlist_models.dart';
 export 'src/models/search_models.dart';
