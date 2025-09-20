@@ -1,3 +1,11 @@
+## 2.7.0
+
+* **Type Safety**: Fixed critical return type issues in cart API methods
+* **Code Quality**: Resolved analyzer errors and improved type consistency
+* **API Improvements**: Standardized cart model usage across all cart operations
+* **Bug Fixes**: Fixed return type mismatches in flutter_magento_plugin.dart
+* **Compatibility**: Prepared package for pub.dev publishing requirements
+
 ## 2.3.4
 
 * **Bug Fixes**: Fixed critical analyzer errors in API classes

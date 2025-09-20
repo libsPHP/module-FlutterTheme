@@ -412,25 +412,25 @@ class FlutterMagento {
   // ==================== CART ====================
 
   /// Create a new cart
-  Future<cart_model.Cart> createCart() async {
+  Future<cart_models.Cart> createCart() async {
     _checkInitialization();
     return await _cartApi.createCart();
   }
 
   /// Get cart information
-  Future<cart_model.Cart> getCart(String cartId) async {
+  Future<cart_models.Cart> getCart(String cartId) async {
     _checkInitialization();
     return await _cartApi.getCart(cartId);
   }
 
   /// Get customer cart
-  Future<cart_model.Cart> getCustomerCart() async {
+  Future<cart_models.Cart> getCustomerCart() async {
     _checkInitialization();
     return await _cartApi.getCustomerCart();
   }
 
   /// Add item to cart
-  Future<cart_model.Cart> addToCart({
+  Future<cart_models.Cart> addToCart({
     required String cartId,
     required String sku,
     required int quantity,
@@ -447,7 +447,7 @@ class FlutterMagento {
   }
 
   /// Add item to customer cart
-  Future<cart_model.Cart> addToCustomerCart({
+  Future<cart_models.Cart> addToCustomerCart({
     required String sku,
     required int quantity,
     Map<String, dynamic>? productOptions,
@@ -462,7 +462,7 @@ class FlutterMagento {
   }
 
   /// Remove item from cart
-  Future<cart_model.Cart> removeFromCart({
+  Future<cart_models.Cart> removeFromCart({
     required String cartId,
     required int itemId,
   }) async {
@@ -475,14 +475,14 @@ class FlutterMagento {
   }
 
   /// Remove item from customer cart
-  Future<cart_model.Cart> removeFromCustomerCart(int itemId) async {
+  Future<cart_models.Cart> removeFromCustomerCart(int itemId) async {
     _checkInitialization();
 
     return await _cartApi.removeFromCustomerCart(itemId);
   }
 
   /// Update cart item quantity
-  Future<cart_model.Cart> updateCartItemQuantity({
+  Future<cart_models.Cart> updateCartItemQuantity({
     required String cartId,
     required int itemId,
     required int quantity,
@@ -497,7 +497,7 @@ class FlutterMagento {
   }
 
   /// Update customer cart item quantity
-  Future<cart_model.Cart> updateCustomerCartItemQuantity({
+  Future<cart_models.Cart> updateCustomerCartItemQuantity({
     required int itemId,
     required int quantity,
   }) async {
@@ -510,7 +510,7 @@ class FlutterMagento {
   }
 
   /// Apply coupon to cart
-  Future<cart_model.Cart> applyCoupon({
+  Future<cart_models.Cart> applyCoupon({
     required String cartId,
     required String couponCode,
   }) async {
@@ -523,35 +523,35 @@ class FlutterMagento {
   }
 
   /// Apply coupon to customer cart
-  Future<cart_model.Cart> applyCouponToCustomerCart(String couponCode) async {
+  Future<cart_models.Cart> applyCouponToCustomerCart(String couponCode) async {
     _checkInitialization();
 
     return await _cartApi.applyCouponToCustomerCart(couponCode);
   }
 
   /// Remove coupon from cart
-  Future<cart_model.Cart> removeCoupon(String cartId) async {
+  Future<cart_models.Cart> removeCoupon(String cartId) async {
     _checkInitialization();
 
     return await _cartApi.removeCoupon(cartId);
   }
 
   /// Remove coupon from customer cart
-  Future<cart_model.Cart> removeCouponFromCustomerCart() async {
+  Future<cart_models.Cart> removeCouponFromCustomerCart() async {
     _checkInitialization();
 
     return await _cartApi.removeCouponFromCustomerCart();
   }
 
   /// Get cart totals
-  Future<CartTotals> getCartTotals(String cartId) async {
+  Future<cart_models.CartTotals> getCartTotals(String cartId) async {
     _checkInitialization();
 
     return await _cartApi.getCartTotals(cartId);
   }
 
   /// Get customer cart totals
-  Future<CartTotals> getCustomerCartTotals() async {
+  Future<cart_models.CartTotals> getCustomerCartTotals() async {
     _checkInitialization();
 
     return await _cartApi.getCustomerCartTotals();
@@ -645,7 +645,7 @@ class FlutterMagento {
   }
 
   /// Reorder
-  Future<cart_model.Cart> reorder(String orderId) async {
+  Future<cart_models.Cart> reorder(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.reorder(orderId);
