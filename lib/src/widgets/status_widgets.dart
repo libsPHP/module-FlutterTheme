@@ -474,7 +474,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
         const Spacer(),
         Chip(
           label: Text(status.mode.name.toUpperCase()),
-          backgroundColor: _getModeColor(status.mode).withOpacity(0.2),
+          backgroundColor: _getModeColor(status.mode).withValues(alpha: 0.2),
           labelStyle: TextStyle(color: _getModeColor(status.mode)),
         ),
       ],
@@ -513,7 +513,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
               ],
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }

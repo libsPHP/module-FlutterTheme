@@ -17,6 +17,7 @@ import 'models/order_models.dart' as order;
 import 'models/checkout_models.dart' as checkout_models;
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
+import 'models/customer.dart' as customer_freezed;
 import 'models/customer_models.dart' as customer_models;
 import 'adapters/custom_attributes_adapter.dart';
 import 'adapters/custom_attributes_manager.dart';
@@ -1104,14 +1105,14 @@ class FlutterMagento {
   // ==================== CUSTOMER MANAGEMENT ====================
 
   /// Get customer profile
-  Future<customer_models.Customer> getCustomerProfile() async {
+  Future<customer_freezed.Customer> getCustomerProfile() async {
     _checkInitialization();
 
     return await _customerApi.getCustomerProfile();
   }
 
   /// Update customer profile
-  Future<customer_models.Customer> updateCustomerProfile({
+  Future<customer_freezed.Customer> updateCustomerProfile({
     String? firstName,
     String? lastName,
     String? middleName,
