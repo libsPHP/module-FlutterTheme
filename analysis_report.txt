@@ -1,0 +1,160 @@
+Analyzing lib...
+
+  error - src/flutter_magento_plugin.dart:634:15 - The name 'OrderComment' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'OrderComment'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:641:15 - The name 'OrderHistory' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'OrderHistory'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:981:10 - The name 'CheckoutSession' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'CheckoutSession'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1002:10 - The name 'CheckoutSession' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'CheckoutSession'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1009:10 - The name 'CheckoutSession' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'CheckoutSession'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1030:15 - The name 'ShippingMethod' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'ShippingMethod'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1043:15 - The name 'PaymentMethod' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'PaymentMethod'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1063:12 - A value of type 'Order' can't be returned from the method 'placeOrder' because it has a return type of 'Future<Order>'. - return_of_invalid_type
+  error - src/flutter_magento_plugin.dart:1071:10 - The name 'CheckoutValidationResult' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'CheckoutValidationResult'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1090:10 - The name 'CheckoutTotals' isn't a type, so it can't be used as a type argument. Try correcting the name to an existing type, or defining a type named 'CheckoutTotals'. - non_type_as_type_argument
+  error - src/flutter_magento_plugin.dart:1109:10 - The prefix 'auth' can't be used here because it's shadowed by a local declaration. Try renaming either the prefix or the local declaration. - prefix_shadowed_by_local_declaration
+  error - src/flutter_magento_plugin.dart:1116:10 - The prefix 'auth' can't be used here because it's shadowed by a local declaration. Try renaming either the prefix or the local declaration. - prefix_shadowed_by_local_declaration
+  error - src/models/result_models.dart:162:25 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/models/result_models.dart:163:25 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/models/result_models.dart:164:23 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/models/result_models.dart:209:33 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/models/result_models.dart:210:33 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/models/result_models.dart:211:44 - The default value of an optional parameter must be constant. - non_constant_default_value
+  error - src/providers/auth_provider.dart:170:35 - The getter 'firstName' isn't defined for the type 'Customer'. Try importing the library that defines 'firstName', correcting the name to the name of an existing getter, or defining a getter or field named 'firstName'. - undefined_getter
+  error - src/providers/auth_provider.dart:170:65 - The getter 'lastName' isn't defined for the type 'Customer'. Try importing the library that defines 'lastName', correcting the name to the name of an existing getter, or defining a getter or field named 'lastName'. - undefined_getter
+  error - src/providers/localization_provider.dart:3:8 - Target of URI doesn't exist: '../utils/localization_manager.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - src/providers/localization_provider.dart:37:22 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:52:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:57:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:62:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:67:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:72:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:77:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:82:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:86:17 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:87:24 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:88:17 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/providers/localization_provider.dart:89:23 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/services/magento_api_service.dart:243:25 - The method '[]' can't be unconditionally invoked because the receiver can be 'null'. Try making the call conditional (using '?.') or adding a null check to the target ('!'). - unchecked_use_of_nullable_value
+  error - src/services/network_service.dart:190:33 - A value of type 'StreamSubscription<List<ConnectivityResult>>' can't be assigned to a variable of type 'StreamSubscription<ConnectivityResult>?'. Try changing the type of the variable, or casting the right-hand type to 'StreamSubscription<ConnectivityResult>?'. - invalid_assignment
+  error - src/services/network_service.dart:191:7 - The argument type 'void Function(ConnectivityResult)' can't be assigned to the parameter type 'void Function(List<ConnectivityResult>)?'.  - argument_type_not_assignable
+  error - src/services/service_manager.dart:250:28 - The named parameter 'baseUrl' is required, but there's no corresponding argument. Try adding the required argument. - missing_required_argument
+  error - src/services/service_manager.dart:300:20 - The getter 'connectionStream' isn't defined for the type 'NetworkService'. Try importing the library that defines 'connectionStream', correcting the name to the name of an existing getter, or defining a getter or field named 'connectionStream'. - undefined_getter
+  error - src/widgets/enhanced_product_card.dart:101:55 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_product_card.dart:216:46 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_product_card.dart:220:44 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_product_card.dart:449:38 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_product_card.dart:452:40 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:97:57 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:146:48 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:159:53 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:166:52 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:177:61 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:203:48 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:223:58 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:262:49 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:276:55 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:333:35 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:336:33 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:506:59 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/enhanced_search_bar.dart:645:61 - Too many positional arguments: 0 expected, but 1 found. Try removing the extra positional arguments, or specifying the name for named arguments. - extra_positional_arguments_could_be_named
+  error - src/widgets/language_selector.dart:2:8 - Target of URI doesn't exist: '../utils/localization_manager.dart'. Try creating the file referenced by the URI, or try using a URI for a file that does exist. - uri_does_not_exist
+  error - src/widgets/language_selector.dart:42:12 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:66:26 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:67:25 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:68:18 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:69:24 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:107:30 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/language_selector.dart:158:20 - Undefined name 'LocalizationManager'. Try correcting the name to one that is defined, or defining the name. - undefined_identifier
+  error - src/widgets/product_card.dart:126:29 - Undefined class 'AsyncSnapshotWidgetBuilder'. Try changing the name to the name of an existing class, or creating a class with the name 'AsyncSnapshotWidgetBuilder'. - undefined_class
+  error - src/widgets/product_list.dart:314:27 - The argument type 'VoidCallback?' can't be assigned to the parameter type 'dynamic Function(Product)?'.  - argument_type_not_assignable
+  error - src/widgets/product_list.dart:315:26 - The argument type 'VoidCallback?' can't be assigned to the parameter type 'dynamic Function(Product)?'.  - argument_type_not_assignable
+  error - src/widgets/product_list.dart:316:30 - The argument type 'VoidCallback?' can't be assigned to the parameter type 'dynamic Function(Product)?'.  - argument_type_not_assignable
+warning - src/api/checkout_api.dart:1:8 - Unused import: 'package:dio/dio.dart'. Try removing the import directive. - unused_import
+warning - src/api/magento_api_client.dart:4:8 - Unused import: '../models/product_models.dart'. Try removing the import directive. - unused_import
+warning - src/api/search_api.dart:3:8 - Unused import: '../models/product_models.dart'. Try removing the import directive. - unused_import
+warning - src/flutter_magento_plugin.dart:14:8 - Unused import: 'models/enhanced_product.dart'. Try removing the import directive. - unused_import
+warning - src/flutter_magento_plugin.dart:16:8 - Unused import: 'models/cart.dart'. Try removing the import directive. - unused_import
+warning - src/flutter_magento_plugin.dart:20:8 - Unused import: 'models/checkout_models.dart'. Try removing the import directive. - unused_import
+warning - src/flutter_magento_plugin.dart:22:8 - Unused import: 'models/customer.dart'. Try removing the import directive. - unused_import
+warning - src/services/cart_service.dart:3:8 - Unused import: '../models/product.dart'. Try removing the import directive. - unused_import
+warning - src/services/cloud_feature_service.dart:2:8 - Unused import: 'dart:convert'. Try removing the import directive. - unused_import
+warning - src/services/magento_api_service.dart:1:8 - Unused import: 'dart:convert'. Try removing the import directive. - unused_import
+warning - src/services/magento_api_service.dart:2:8 - Unused import: 'dart:io'. Try removing the import directive. - unused_import
+warning - src/services/offline_service.dart:8:8 - Unused import: '../exceptions/magento_exception.dart'. Try removing the import directive. - unused_import
+warning - src/services/offline_service.dart:15:22 - The value of the field '_prefs' isn't used. Try removing the field, or using it. - unused_field
+warning - src/utils/magento_utils.dart:1:8 - Unused import: 'dart:convert'. Try removing the import directive. - unused_import
+warning - src/widgets/enhanced_product_card.dart:47:26 - The value of the field '_fadeAnimation' isn't used. Try removing the field, or using it. - unused_field
+warning - src/widgets/status_widgets.dart:449:43 - Unnecessary cast. Try removing the cast. - unnecessary_cast
+   info - flutter_magento.dart:5:9 - Library names are not necessary. Remove the library name. - unnecessary_library_name
+   info - src/api/product_api.dart:73:9 - Local variables should be final. Try making the variable final. - prefer_final_locals
+   info - src/flutter_magento_core.dart:68:15 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/flutter_magento_core.dart:80:15 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/flutter_magento_core.dart:119:7 - Missing type annotation. Try adding a type annotation. - strict_top_level_inference
+   info - src/flutter_magento_core.dart:125:7 - Missing type annotation. Try adding a type annotation. - strict_top_level_inference
+   info - src/flutter_magento_core.dart:345:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/models/enhanced_product.dart:123:55 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:132:55 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:218:57 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/models/enhanced_product.dart:258:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:262:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:268:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:275:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:281:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/enhanced_product.dart:288:13 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/models/result_models.dart:117:2 - Constructors in '@immutable' classes should be declared as 'const'. Try adding 'const' to the constructor declaration. - prefer_const_constructors_in_immutables
+   info - src/models/result_models.dart:267:2 - Constructors in '@immutable' classes should be declared as 'const'. Try adding 'const' to the constructor declaration. - prefer_const_constructors_in_immutables
+   info - src/services/cache_service.dart:89:38 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:89:58 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:111:29 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cache_service.dart:387:42 - Unnecessary braces in a string interpolation. Try removing the braces. - unnecessary_brace_in_string_interps
+   info - src/services/cart_service.dart:65:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:86:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:116:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:146:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:223:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:245:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:265:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:282:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cart_service.dart:299:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:156:22 - The null check operator shouldn't be used on a variable whose type is a potentially nullable type parameter. Try explicitly testing for 'null'. - null_check_on_nullable_type_parameter
+   info - src/services/cloud_feature_service.dart:258:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:264:15 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:268:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:274:15 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:291:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:297:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:301:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:307:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/cloud_feature_service.dart:311:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/cloud_feature_service.dart:317:17 - Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal. - prefer_const_literals_to_create_immutables
+   info - src/services/magento_api_service.dart:140:11 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:184:36 - The type of the right operand ('ConnectivityResult') isn't a subtype or a supertype of the left operand ('List<ConnectivityResult>'). Try changing one or both of the operands. - unrelated_type_equality_checks
+   info - src/services/network_service.dart:348:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:350:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:352:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:359:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:361:16 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/network_service.dart:371:13 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/notification_service.dart:284:60 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/notification_service.dart:287:9 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/notification_service.dart:315:11 - Statements in an if should be enclosed in a block. Try wrapping the statement in a block. - curly_braces_in_flow_control_structures
+   info - src/services/service_manager.dart:115:28 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/service_manager.dart:136:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:138:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:140:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:142:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:144:12 - Use 'TypeName _' instead of a type literal. Replace with 'TypeName _'. - type_literal_in_constant_pattern
+   info - src/services/service_manager.dart:219:26 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/services/service_manager.dart:240:26 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/widgets/enhanced_search_bar.dart:286:12 - Use a 'SizedBox' to add whitespace to a layout. Try using a 'SizedBox' rather than a 'Container'. - sized_box_for_whitespace
+   info - src/widgets/notification_widgets.dart:469:22 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - src/widgets/notification_widgets.dart:494:22 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+   info - src/widgets/notification_widgets.dart:542:56 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:46:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:48:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:213:22 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:215:41 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:469:9 - Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation. - prefer_const_constructors
+   info - src/widgets/status_widgets.dart:479:55 - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss. Try replacing the use of the deprecated member with the replacement. - deprecated_member_use
+   info - src/widgets/status_widgets.dart:518:12 - Unnecessary use of 'toList' in a spread. Try removing the invocation of 'toList'. - unnecessary_to_list_in_spreads
+
+156 issues found.

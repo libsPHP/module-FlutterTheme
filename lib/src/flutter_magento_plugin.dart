@@ -14,6 +14,7 @@ import 'models/product_models.dart';
 import 'models/enhanced_product.dart';
 import 'models/cart_models.dart' as cart_models;
 import 'models/cart.dart' as cart_model;
+import 'models/order.dart' as order_freezed;
 import 'models/order_models.dart' as order;
 import 'models/wishlist_models.dart';
 import 'models/search_models.dart';
@@ -631,14 +632,14 @@ class FlutterMagento {
   }
 
   /// Get order comments
-  Future<List<OrderComment>> getOrderComments(String orderId) async {
+  Future<List<order.OrderComment>> getOrderComments(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.getOrderComments(orderId);
   }
 
   /// Get order history
-  Future<List<OrderHistory>> getOrderHistory(String orderId) async {
+  Future<List<order.OrderHistory>> getOrderHistory(String orderId) async {
     _checkInitialization();
 
     return await _orderApi.getOrderHistory(orderId);
@@ -978,7 +979,7 @@ class FlutterMagento {
   // ==================== CHECKOUT ====================
 
   /// Create checkout session
-  Future<CheckoutSession> createCheckoutSession({
+  Future<checkout.CheckoutSession> createCheckoutSession({
     required String cartId,
     String? email,
     Map<String, dynamic>? shippingAddress,
@@ -999,14 +1000,14 @@ class FlutterMagento {
   }
 
   /// Get checkout session
-  Future<CheckoutSession> getCheckoutSession(String sessionId) async {
+  Future<checkout.CheckoutSession> getCheckoutSession(String sessionId) async {
     _checkInitialization();
 
     return await _checkoutApi.getCheckoutSession(sessionId);
   }
 
   /// Update checkout session
-  Future<CheckoutSession> updateCheckoutSession({
+  Future<checkout.CheckoutSession> updateCheckoutSession({
     required String sessionId,
     Map<String, dynamic>? shippingAddress,
     Map<String, dynamic>? billingAddress,
@@ -1027,7 +1028,7 @@ class FlutterMagento {
   }
 
   /// Get available shipping methods
-  Future<List<ShippingMethod>> getAvailableShippingMethods({
+  Future<List<checkout.ShippingMethod>> getAvailableShippingMethods({
     required String cartId,
     Map<String, dynamic>? address,
   }) async {
@@ -1040,7 +1041,7 @@ class FlutterMagento {
   }
 
   /// Get available payment methods
-  Future<List<PaymentMethod>> getAvailablePaymentMethods({
+  Future<List<checkout.PaymentMethod>> getAvailablePaymentMethods({
     required String cartId,
     Map<String, dynamic>? address,
   }) async {
@@ -1053,7 +1054,7 @@ class FlutterMagento {
   }
 
   /// Place order
-  Future<order.Order> placeOrder({
+  Future<order_freezed.Order> placeOrder({
     required String cartId,
     Map<String, dynamic>? paymentData,
     Map<String, dynamic>? additionalData,
@@ -1068,7 +1069,7 @@ class FlutterMagento {
   }
 
   /// Validate checkout
-  Future<CheckoutValidationResult> validateCheckout({
+  Future<checkout.CheckoutValidationResult> validateCheckout({
     required String cartId,
     Map<String, dynamic>? shippingAddress,
     Map<String, dynamic>? billingAddress,
@@ -1087,7 +1088,7 @@ class FlutterMagento {
   }
 
   /// Get checkout totals
-  Future<CheckoutTotals> getCheckoutTotals({
+  Future<checkout.CheckoutTotals> getCheckoutTotals({
     required String cartId,
     Map<String, dynamic>? shippingAddress,
     String? shippingMethod,
@@ -1106,14 +1107,14 @@ class FlutterMagento {
   // ==================== CUSTOMER MANAGEMENT ====================
 
   /// Get customer profile
-  Future<auth.Customer> getCustomerProfile() async {
+  Future<customer_models.Customer> getCustomerProfile() async {
     _checkInitialization();
 
     return await _customerApi.getCustomerProfile();
   }
 
   /// Update customer profile
-  Future<auth.Customer> updateCustomerProfile({
+  Future<customer_models.Customer> updateCustomerProfile({
     String? firstName,
     String? lastName,
     String? middleName,
