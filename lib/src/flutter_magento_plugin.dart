@@ -202,7 +202,7 @@ class FlutterMagento {
   }) async {
     _checkInitialization();
 
-    final request = CustomerUpdateRequest(
+    final request = auth_models.CustomerUpdateRequest(
       firstname: firstName,
       lastname: lastName,
       middlename: middleName,
@@ -225,7 +225,7 @@ class FlutterMagento {
   }) async {
     _checkInitialization();
 
-    final request = PasswordChangeRequest(
+    final request = auth_models.PasswordChangeRequest(
       currentPassword: currentPassword,
       newPassword: newPassword,
     );
