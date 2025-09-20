@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../models/result_models.dart';
 import 'network_service.dart';
@@ -300,7 +301,8 @@ class MagentoServiceManager extends ChangeNotifier {
 
   void _setupServiceListeners() {
     // Listen to network changes
-    networkService.connectionStream.listen((isOnline) {
+    networkService.connectionStream.listen((results) {
+      final isOnline = results.isNotEmpty && !results.every((result) => result == ConnectivityResult.none);
       if (isOnline && _currentMode == MagentoServiceMode.offline) {
         switchMode(MagentoServiceMode.hybrid,
             reason: 'Network became available');

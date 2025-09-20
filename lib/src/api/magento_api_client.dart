@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/auth_models.dart';
-import '../models/product_models.dart';
 
 /// Main API client for Magento integration
 class MagentoApiClient {

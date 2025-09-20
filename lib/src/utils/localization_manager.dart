@@ -57,7 +57,6 @@ class LocalizationManager {
     'my': 'မြန်မာ',
     'km': 'ខ្មែរ',
     'lo': 'ລາວ',
-    'ka': 'ქართული',
     'az': 'Azərbaycan',
     'kk': 'Қазақ',
     'ky': 'Кыргыз',
@@ -147,6 +146,9 @@ class LocalizationManager {
   static List<Locale> getSupportedLocales() {
     return _supportedLocales.values.toList();
   }
+  
+  /// Get supported locales (alias for backward compatibility)
+  static List<Locale> get supportedLocales => getSupportedLocales();
 
   /// Check if language code is supported
   static bool isLanguageSupported(String languageCode) {
@@ -307,5 +309,67 @@ class LocalizationManager {
     }
     
     return _supportedLocales.containsKey(languageCode);
+  }
+
+  /// Get language description (extended info)
+  static String getLanguageDescription(String languageCode) {
+    final name = _languageNames[languageCode] ?? 'Unknown';
+    final locale = _supportedLocales[languageCode];
+    if (locale != null) {
+      return '$name (${locale.languageCode}-${locale.countryCode})';
+    }
+    return name;
+  }
+
+  /// Get language icon (flag emoji or similar)
+  static String getLanguageIcon(String languageCode) {
+    const flagEmojis = {
+      'en': '🇺🇸', 'ru': '🇷🇺', 'es': '🇪🇸', 'fr': '🇫🇷', 'de': '🇩🇪',
+      'it': '🇮🇹', 'pt': '🇵🇹', 'zh': '🇨🇳', 'ja': '🇯🇵', 'ko': '🇰🇷',
+      'ar': '🇸🇦', 'hi': '🇮🇳', 'th': '🇹🇭', 'vi': '🇻🇳', 'tr': '🇹🇷',
+      'pl': '🇵🇱', 'nl': '🇳🇱', 'sv': '🇸🇪', 'da': '🇩🇰', 'no': '🇳🇴',
+      'fi': '🇫🇮', 'cs': '🇨🇿', 'sk': '🇸🇰', 'hu': '🇭🇺', 'ro': '🇷🇴',
+      'bg': '🇧🇬', 'hr': '🇭🇷', 'sl': '🇸🇮', 'et': '🇪🇪', 'lv': '🇱🇻',
+      'lt': '🇱🇹', 'uk': '🇺🇦', 'be': '🇧🇾', 'ka': '🇬🇪', 'he': '🇮🇱',
+      'fa': '🇮🇷', 'ur': '🇵🇰', 'bn': '🇧🇩', 'ta': '🇮🇳', 'te': '🇮🇳',
+      'ml': '🇮🇳', 'kn': '🇮🇳', 'gu': '🇮🇳', 'mr': '🇮🇳', 'pa': '🇮🇳',
+      'or': '🇮🇳', 'as': '🇮🇳', 'ne': '🇳🇵', 'si': '🇱🇰', 'my': '🇲🇲',
+      'km': '🇰🇭', 'lo': '🇱🇦', 'az': '🇦🇿', 'kk': '🇰🇿', 'ky': '🇰🇬',
+      'uz': '🇺🇿', 'tg': '🇹🇯', 'mn': '🇲🇳',
+    };
+    return flagEmojis[languageCode] ?? '🌐';
+  }
+
+  /// Get theme color for language
+  static int getLanguageThemeColor(String languageCode) {
+    const themeColors = {
+      'en': 0xFF2196F3, 'ru': 0xFFFF5722, 'es': 0xFFFF9800, 'fr': 0xFF3F51B5,
+      'de': 0xFF607D8B, 'it': 0xFF4CAF50, 'pt': 0xFF9C27B0, 'zh': 0xFFF44336,
+      'ja': 0xFFE91E63, 'ko': 0xFF673AB7, 'ar': 0xFF795548, 'hi': 0xFFFF5722,
+      'th': 0xFFFFEB3B, 'vi': 0xFF8BC34A, 'tr': 0xFF00BCD4, 'pl': 0xFFCDDC39,
+    };
+    return themeColors[languageCode] ?? 0xFF9E9E9E;
+  }
+
+  /// Check if language is Harkonnen style (fictional - for theme purposes)
+  static bool isHarkonnenLanguage(String languageCode) {
+    const harkonnenLanguages = {'de', 'ru', 'pl', 'cs', 'hu'};
+    return harkonnenLanguages.contains(languageCode);
+  }
+
+  /// Check if language is Atreides style (fictional - for theme purposes)
+  static bool isAtreidesLanguage(String languageCode) {
+    const atreidesLanguages = {'en', 'fr', 'es', 'it', 'pt'};
+    return atreidesLanguages.contains(languageCode);
+  }
+
+  /// Get text style for language
+  static Map<String, dynamic> getLanguageTextStyle(String languageCode) {
+    return {
+      'fontFamily': getTextDirection(languageCode) == TextDirection.rtl 
+          ? 'Arabic' : 'Default',
+      'fontSize': 14.0,
+      'color': getLanguageThemeColor(languageCode),
+    };
   }
 }

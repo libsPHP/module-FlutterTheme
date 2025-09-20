@@ -99,7 +99,7 @@ class ProductCard extends StatelessWidget {
                 },
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-                  return _buildLoadingImage(loadingProgress);
+                  return _buildLoadingImage(context, child, loadingProgress);
                 },
               ),
             )
@@ -123,7 +123,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLoadingImage(Widget Function(BuildContext, Widget, ImageChunkEvent?)? loadingBuilder) {
+  Widget _buildLoadingImage(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -133,8 +133,8 @@ class ProductCard extends StatelessWidget {
       ),
       child: Center(
         child: CircularProgressIndicator(
-          value: loadingProgress.expectedTotalBytes != null
-              ? loadingProgress.cumulativeBytesLoaded / 
+          value: loadingProgress?.expectedTotalBytes != null
+              ? loadingProgress!.cumulativeBytesLoaded / 
                 loadingProgress.expectedTotalBytes!
               : null,
         ),

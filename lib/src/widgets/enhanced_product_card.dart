@@ -44,7 +44,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
   late AnimationController _scaleController;
   late AnimationController _fadeController;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _fadeAnimation;
+  // late Animation<double> _fadeAnimation; // Unused field removed
 
   @override
   void initState() {
@@ -66,13 +66,13 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       curve: Curves.easeInOut,
     ));
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _fadeController,
-      curve: Curves.easeInOut,
-    ));
+    // _fadeAnimation = Tween<double>( // Unused animation removed
+    //   begin: 0.0,
+    //   end: 1.0,
+    // ).animate(CurvedAnimation(
+    //   parent: _fadeController,
+    //   curve: Curves.easeInOut,
+    // ));
   }
 
   @override

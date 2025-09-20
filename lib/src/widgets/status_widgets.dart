@@ -446,9 +446,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
                 ],
                 if (status.cloudFeatureStats != null) ...[
                   const SizedBox(height: 16),
-                  _buildCloudFeatureStats(status.cloudFeatureStats! as Map<
-                      models.MagentoCloudFeatureType,
-                      MagentoCloudFeatureStats>),
+                  _buildCloudFeatureStats(status.cloudFeatureStats!),
                 ],
               ],
             ),

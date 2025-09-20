@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import '../models/search_models.dart';
-import '../models/product_models.dart';
 import 'magento_api_client.dart';
 
 /// Search API for Magento

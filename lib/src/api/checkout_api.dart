@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import '../models/checkout_models.dart';
 import '../models/order.dart';
 import 'magento_api_client.dart';

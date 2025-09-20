@@ -5,14 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/offline_models.dart';
-import '../exceptions/magento_exception.dart';
 
 /// Сервис для работы в офлайн режиме
 class OfflineService extends ChangeNotifier {
   static const String _settingsKey = 'offline_settings';
 
   Database? _database;
-  SharedPreferences? _prefs;
+  // SharedPreferences? _prefs; // Unused field removed
 
   bool _isInitialized = false;
   bool _isOfflineMode = false;
@@ -34,7 +33,7 @@ class OfflineService extends ChangeNotifier {
   Future<bool> initialize() async {
     try {
       // Инициализация SharedPreferences
-      _prefs = await SharedPreferences.getInstance();
+      // _prefs = await SharedPreferences.getInstance(); // Unused
 
       // Инициализация SQLite для данных и кэша
       await _initializeDatabase();

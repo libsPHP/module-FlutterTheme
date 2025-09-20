@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import '../models/cart.dart';
-import '../models/product.dart';
 import '../exceptions/magento_exception.dart';
 import 'magento_api_service.dart';
 
