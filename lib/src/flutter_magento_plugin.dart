@@ -242,7 +242,7 @@ class FlutterMagento {
   }
 
   /// Social login
-  Future<AuthResponse> socialLogin({
+  Future<auth_models.AuthResponse> socialLogin({
     required String provider,
     required String token,
     String? email,
@@ -411,19 +411,19 @@ class FlutterMagento {
   // ==================== CART ====================
 
   /// Create a new cart
-  Future<Cart> createCart() async {
+  Future<cart.Cart> createCart() async {
     _checkInitialization();
     return await _cartApi.createCart();
   }
 
   /// Get cart information
-  Future<Cart> getCart(String cartId) async {
+  Future<cart.Cart> getCart(String cartId) async {
     _checkInitialization();
     return await _cartApi.getCart(cartId);
   }
 
   /// Get customer cart
-  Future<Cart> getCustomerCart() async {
+  Future<cart.Cart> getCustomerCart() async {
     _checkInitialization();
     return await _cartApi.getCustomerCart();
   }
