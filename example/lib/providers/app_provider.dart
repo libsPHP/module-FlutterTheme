@@ -250,7 +250,10 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Try real authentication
-      final result = await _magento.login(email, password);
+      final result = await _magento.authenticateCustomer(
+        email: email,
+        password: password,
+      );
 
       if (result.isSuccess && result.data != null) {
         _isAuthenticated = true;
@@ -316,7 +319,7 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Try real registration
-      final result = await _magento.register(
+      final result = await _magento.createCustomer(
         email: email,
         password: password,
         firstName: firstName,

@@ -8,6 +8,7 @@ import 'screens/products_screen.dart';
 import 'screens/cart_screen.dart';
 import 'screens/config_screen.dart';
 import 'screens/categories_screen.dart';
+import 'screens/device_info_screen.dart';
 import 'providers/app_provider.dart';
 
 void main() async {
@@ -72,6 +73,7 @@ class _MainScreenState extends State<MainScreen> {
     const ProductsScreen(),
     const CategoriesScreen(),
     const CartScreen(),
+    const DeviceInfoScreen(),
     const ConfigScreen(),
   ];
 
@@ -90,6 +92,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: Icon(Icons.shopping_cart),
       label: 'Cart',
     ),
+    const BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Device'),
     const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Config'),
   ];
 

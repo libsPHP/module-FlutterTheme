@@ -36,12 +36,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
         .map((p) => p.imageUrl!)
         .toList();
 
+    // Preload images using precacheImage
     if (imageUrls.isNotEmpty) {
-      await ImageCacheService().preloadImages(
-        imageUrls,
-        width: 300,
-        height: 200,
-      );
+      for (final url in imageUrls) {
+        try {
+          await precacheImage(NetworkImage(url), context);
+        } catch (e) {
+          // Ignore preload errors
+        }
+      }
     }
   }
 
@@ -402,14 +405,16 @@ class _ProductCard extends StatelessWidget {
   Widget _buildProductImage() {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-      child: ImageCacheService().buildCachedImage(
-        imageUrl: product.imageUrl ?? '',
+      child: Image.network(
+        product.imageUrl ?? '',
         width: 300,
         height: 200,
         fit: BoxFit.cover,
-        enableLazyLoading: true,
-        placeholder: (context, url) => _buildPlaceholderImage(),
-        errorWidget: (context, url, error) => _buildPlaceholderImage(),
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return _buildPlaceholderImage();
+        },
+        errorBuilder: (context, error, stackTrace) => _buildPlaceholderImage(),
       ),
     );
   }

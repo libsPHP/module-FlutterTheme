@@ -34,6 +34,7 @@ export 'src/models/search_models.dart';
 export 'src/models/checkout_models.dart';
 export 'src/models/customer_models.dart';
 export 'src/models/result_models.dart';
+export 'src/models/device_info_model.dart';
 
 // Universal Custom Attributes System
 export 'src/adapters/custom_attributes_adapter.dart';
@@ -56,13 +57,19 @@ export 'src/services/notification_service.dart';
 export 'src/services/offline_service.dart';
 export 'src/services/service_manager.dart';
 export 'src/services/sync_service.dart';
+export 'src/services/device_info_service.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';
 export 'src/providers/magento_provider.dart';
+export 'src/providers/device_info_provider.dart';
 
 // Widgets
 export 'src/widgets/product_card.dart';
+export 'src/widgets/device_info_widget.dart';
+
+// Utils
+export 'src/utils/device_utils.dart';
 
 // Exceptions
 export 'src/exceptions/magento_exception.dart';
