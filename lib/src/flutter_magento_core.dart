@@ -116,13 +116,13 @@ class FlutterMagentoCore {
   bool get isAuthenticated => _authService.isAuthenticated;
 
   /// Get current customer
-  get currentCustomer => _authService.currentCustomer;
+  Customer? get currentCustomer => _authService.currentCustomer;
 
   /// Get customer token
   String? get customerToken => _authService.customerToken;
 
   /// Get cart information
-  get currentCart => _cartService.currentCart;
+  Cart? get currentCart => _cartService.currentCart;
 
   /// Get cart items count
   int get cartItemsCount => _cartService.itemsCount;

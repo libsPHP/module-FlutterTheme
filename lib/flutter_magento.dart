@@ -2,6 +2,7 @@
 ///
 /// This library provides a complete solution for integrating Flutter applications
 /// with Magento e-commerce platforms, including support for universal custom attributes.
+library flutter_magento;
 
 // Core plugin
 export 'flutter_magento_platform_interface.dart';

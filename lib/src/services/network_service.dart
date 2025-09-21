@@ -184,7 +184,7 @@ class NetworkService extends ChangeNotifier {
   /// Проверка подключения к интернету
   Future<void> _checkConnectivity() async {
     final connectivityResult = await _connectivity.checkConnectivity();
-    _isOnline = connectivityResult != ConnectivityResult.none;
+    _isOnline = !connectivityResult.contains(ConnectivityResult.none);
     notifyListeners();
   }
 

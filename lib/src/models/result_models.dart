@@ -80,7 +80,7 @@ class MagentoOperationResult<T> extends MagentoResult<T> {
 
 /// Result for authentication operations
 class MagentoAuthResult extends MagentoResult<MagentoAuthData> {
-  MagentoAuthResult._({
+  const MagentoAuthResult._({
     required super.success,
     super.data,
     super.error,

@@ -555,5 +555,5 @@ class _InfoItem {
   final IconData? icon;
   final bool copyable;
 
-  const _InfoItem(this.title, this.value, [this.icon, this.copyable = false]);
+  const _InfoItem(this.title, this.value, [this.icon]) : copyable = false;
 }
