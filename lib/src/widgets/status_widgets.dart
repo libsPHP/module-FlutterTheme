@@ -480,7 +480,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Services',
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         ...status.serviceStates.entries.map((entry) {
@@ -517,7 +517,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Cache',
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Row(
@@ -566,7 +566,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Cloud Features',
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Row(

@@ -3,7 +3,7 @@ import 'services/magento_api_service.dart';
 import 'services/auth_service.dart';
 import 'services/cart_service.dart';
 import 'exceptions/magento_exception.dart';
-import 'models/customer.dart';
+import 'models/auth_models.dart';
 import 'models/cart.dart';
 
 /// Main class for Flutter Magento library
