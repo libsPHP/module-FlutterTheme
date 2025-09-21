@@ -478,10 +478,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Services',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
+        const Text('Services', style: TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         ...status.serviceStates.entries.map((entry) {
           return Padding(
@@ -515,10 +512,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Cache',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
+        const Text('Cache', style: TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Row(
           children: [
