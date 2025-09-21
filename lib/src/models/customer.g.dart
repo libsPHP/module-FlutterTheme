@@ -34,27 +34,31 @@ _$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'email': instance.email,
-      'firstname': instance.firstname,
-      'lastname': instance.lastname,
-      'middlename': ?instance.middlename,
-      'prefix': ?instance.prefix,
-      'suffix': ?instance.suffix,
-      'gender': ?instance.gender,
-      'dateOfBirth': ?instance.dateOfBirth,
-      'taxvat': ?instance.taxvat,
-      'isSubscribed': ?instance.isSubscribed,
-      'groupId': ?instance.groupId,
-      'defaultBilling': ?instance.defaultBilling,
-      'defaultShipping': ?instance.defaultShipping,
-      'createdAt': ?instance.createdAt?.toIso8601String(),
-      'updatedAt': ?instance.updatedAt?.toIso8601String(),
-      'customAttributes': ?instance.customAttributes,
-      'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$$CustomerImplToJson(
+  _$CustomerImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'email': instance.email,
+  'firstname': instance.firstname,
+  'lastname': instance.lastname,
+  if (instance.middlename case final value?) 'middlename': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.gender case final value?) 'gender': value,
+  if (instance.dateOfBirth case final value?) 'dateOfBirth': value,
+  if (instance.taxvat case final value?) 'taxvat': value,
+  if (instance.isSubscribed case final value?) 'isSubscribed': value,
+  if (instance.groupId case final value?) 'groupId': value,
+  if (instance.defaultBilling case final value?) 'defaultBilling': value,
+  if (instance.defaultShipping case final value?) 'defaultShipping': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
+  if (instance.customAttributes case final value?) 'customAttributes': value,
+  if (instance.addresses?.map((e) => e.toJson()).toList() case final value?)
+    'addresses': value,
+};
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
@@ -78,24 +82,25 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       customAttributes: json['customAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'firstname': instance.firstname,
-      'lastname': instance.lastname,
-      'middlename': ?instance.middlename,
-      'prefix': ?instance.prefix,
-      'suffix': ?instance.suffix,
-      'company': ?instance.company,
-      'street': instance.street,
-      'city': instance.city,
-      'region': instance.region,
-      'postcode': instance.postcode,
-      'countryId': instance.countryId,
-      'telephone': ?instance.telephone,
-      'fax': ?instance.fax,
-      'vatId': ?instance.vatId,
-      'isDefaultBilling': ?instance.isDefaultBilling,
-      'isDefaultShipping': ?instance.isDefaultShipping,
-      'customAttributes': ?instance.customAttributes,
-    };
+Map<String, dynamic> _$$AddressImplToJson(
+  _$AddressImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'firstname': instance.firstname,
+  'lastname': instance.lastname,
+  if (instance.middlename case final value?) 'middlename': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.company case final value?) 'company': value,
+  'street': instance.street,
+  'city': instance.city,
+  'region': instance.region,
+  'postcode': instance.postcode,
+  'countryId': instance.countryId,
+  if (instance.telephone case final value?) 'telephone': value,
+  if (instance.fax case final value?) 'fax': value,
+  if (instance.vatId case final value?) 'vatId': value,
+  if (instance.isDefaultBilling case final value?) 'isDefaultBilling': value,
+  if (instance.isDefaultShipping case final value?) 'isDefaultShipping': value,
+  if (instance.customAttributes case final value?) 'customAttributes': value,
+};

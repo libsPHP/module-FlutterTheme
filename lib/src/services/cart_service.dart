@@ -3,7 +3,36 @@ import '../models/cart.dart';
 import '../exceptions/magento_exception.dart';
 import 'magento_api_service.dart';
 
-/// Service for managing shopping cart
+/// Service for managing shopping cart operations.
+///
+/// This service provides high-level cart management functionality including
+/// cart creation, item management, and cart state tracking. It works with
+/// the MagentoApiService to handle all cart-related operations.
+///
+/// ## Features
+///
+/// - **Cart Management**: Create, retrieve, and manage shopping carts
+/// - **Item Operations**: Add, update, and remove items from cart
+/// - **State Tracking**: Track cart state and item counts
+/// - **Total Calculation**: Calculate cart totals and subtotals
+/// - **Cart Validation**: Validate cart contents and availability
+/// - **Session Management**: Handle cart session persistence
+/// - **Error Handling**: Comprehensive error handling and reporting
+///
+/// ## Usage
+///
+/// ```dart
+/// final cartService = CartService(apiService);
+///
+/// // Initialize service
+/// await cartService.initialize();
+///
+/// // Create new cart
+/// final cartId = await cartService.createCart();
+///
+/// // Add item to cart
+/// await cartService.addItem('SKU123', 2);
+/// ```
 class CartService {
   final MagentoApiService _apiService;
 

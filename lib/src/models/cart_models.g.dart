@@ -33,19 +33,24 @@ Cart _$CartFromJson(Map<String, dynamic> json) => Cart(
 );
 
 Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
-  'id': ?instance.id,
-  'customerId': ?instance.customerId,
-  'customerEmail': ?instance.customerEmail,
-  'items': ?instance.items?.map((e) => e.toJson()).toList(),
-  'totals': ?instance.totals?.toJson(),
-  'appliedCoupons': ?instance.appliedCoupons?.map((e) => e.toJson()).toList(),
-  'appliedGiftCards': ?instance.appliedGiftCards
-      ?.map((e) => e.toJson())
-      .toList(),
-  'currencyCode': ?instance.currencyCode,
-  'isActive': ?instance.isActive,
-  'createdAt': ?instance.createdAt?.toIso8601String(),
-  'updatedAt': ?instance.updatedAt?.toIso8601String(),
+  if (instance.id case final value?) 'id': value,
+  if (instance.customerId case final value?) 'customerId': value,
+  if (instance.customerEmail case final value?) 'customerEmail': value,
+  if (instance.items?.map((e) => e.toJson()).toList() case final value?)
+    'items': value,
+  if (instance.totals?.toJson() case final value?) 'totals': value,
+  if (instance.appliedCoupons?.map((e) => e.toJson()).toList()
+      case final value?)
+    'appliedCoupons': value,
+  if (instance.appliedGiftCards?.map((e) => e.toJson()).toList()
+      case final value?)
+    'appliedGiftCards': value,
+  if (instance.currencyCode case final value?) 'currencyCode': value,
+  if (instance.isActive case final value?) 'isActive': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
 };
 
 CartItem _$CartItemFromJson(Map<String, dynamic> json) => CartItem(
@@ -68,20 +73,21 @@ CartItem _$CartItemFromJson(Map<String, dynamic> json) => CartItem(
 );
 
 Map<String, dynamic> _$CartItemToJson(CartItem instance) => <String, dynamic>{
-  'itemId': ?instance.itemId,
-  'sku': ?instance.sku,
-  'name': ?instance.name,
-  'qty': ?instance.qty,
-  'price': ?instance.price,
-  'rowTotal': ?instance.rowTotal,
-  'taxAmount': ?instance.taxAmount,
-  'discountAmount': ?instance.discountAmount,
-  'productType': ?instance.productType,
-  'productOptions': ?instance.productOptions,
-  'options': ?instance.options?.map((e) => e.toJson()).toList(),
-  'isVirtual': ?instance.isVirtual,
-  'imageUrl': ?instance.imageUrl,
-  'thumbnailUrl': ?instance.thumbnailUrl,
+  if (instance.itemId case final value?) 'itemId': value,
+  if (instance.sku case final value?) 'sku': value,
+  if (instance.name case final value?) 'name': value,
+  if (instance.qty case final value?) 'qty': value,
+  if (instance.price case final value?) 'price': value,
+  if (instance.rowTotal case final value?) 'rowTotal': value,
+  if (instance.taxAmount case final value?) 'taxAmount': value,
+  if (instance.discountAmount case final value?) 'discountAmount': value,
+  if (instance.productType case final value?) 'productType': value,
+  if (instance.productOptions case final value?) 'productOptions': value,
+  if (instance.options?.map((e) => e.toJson()).toList() case final value?)
+    'options': value,
+  if (instance.isVirtual case final value?) 'isVirtual': value,
+  if (instance.imageUrl case final value?) 'imageUrl': value,
+  if (instance.thumbnailUrl case final value?) 'thumbnailUrl': value,
 };
 
 CartItemOption _$CartItemOptionFromJson(Map<String, dynamic> json) =>
@@ -94,10 +100,10 @@ CartItemOption _$CartItemOptionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CartItemOptionToJson(CartItemOption instance) =>
     <String, dynamic>{
-      'optionId': ?instance.optionId,
-      'optionValue': ?instance.optionValue,
-      'optionLabel': ?instance.optionLabel,
-      'optionCode': ?instance.optionCode,
+      if (instance.optionId case final value?) 'optionId': value,
+      if (instance.optionValue case final value?) 'optionValue': value,
+      if (instance.optionLabel case final value?) 'optionLabel': value,
+      if (instance.optionCode case final value?) 'optionCode': value,
     };
 
 CartTotals _$CartTotalsFromJson(Map<String, dynamic> json) => CartTotals(
@@ -114,18 +120,20 @@ CartTotals _$CartTotalsFromJson(Map<String, dynamic> json) => CartTotals(
   currencyCode: json['currencyCode'] as String?,
 );
 
-Map<String, dynamic> _$CartTotalsToJson(CartTotals instance) =>
-    <String, dynamic>{
-      'grandTotal': ?instance.grandTotal,
-      'subtotal': ?instance.subtotal,
-      'subtotalInclTax': ?instance.subtotalInclTax,
-      'taxAmount': ?instance.taxAmount,
-      'discountAmount': ?instance.discountAmount,
-      'shippingAmount': ?instance.shippingAmount,
-      'shippingInclTax': ?instance.shippingInclTax,
-      'totalSegments': ?instance.totalSegments?.map((e) => e.toJson()).toList(),
-      'currencyCode': ?instance.currencyCode,
-    };
+Map<String, dynamic> _$CartTotalsToJson(
+  CartTotals instance,
+) => <String, dynamic>{
+  if (instance.grandTotal case final value?) 'grandTotal': value,
+  if (instance.subtotal case final value?) 'subtotal': value,
+  if (instance.subtotalInclTax case final value?) 'subtotalInclTax': value,
+  if (instance.taxAmount case final value?) 'taxAmount': value,
+  if (instance.discountAmount case final value?) 'discountAmount': value,
+  if (instance.shippingAmount case final value?) 'shippingAmount': value,
+  if (instance.shippingInclTax case final value?) 'shippingInclTax': value,
+  if (instance.totalSegments?.map((e) => e.toJson()).toList() case final value?)
+    'totalSegments': value,
+  if (instance.currencyCode case final value?) 'currencyCode': value,
+};
 
 CartTotalSegment _$CartTotalSegmentFromJson(Map<String, dynamic> json) =>
     CartTotalSegment(
@@ -137,10 +145,10 @@ CartTotalSegment _$CartTotalSegmentFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CartTotalSegmentToJson(CartTotalSegment instance) =>
     <String, dynamic>{
-      'code': ?instance.code,
-      'title': ?instance.title,
-      'value': ?instance.value,
-      'area': ?instance.area,
+      if (instance.code case final value?) 'code': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.value case final value?) 'value': value,
+      if (instance.area case final value?) 'area': value,
     };
 
 CartCoupon _$CartCouponFromJson(Map<String, dynamic> json) => CartCoupon(
@@ -152,10 +160,10 @@ CartCoupon _$CartCouponFromJson(Map<String, dynamic> json) => CartCoupon(
 
 Map<String, dynamic> _$CartCouponToJson(CartCoupon instance) =>
     <String, dynamic>{
-      'code': ?instance.code,
-      'description': ?instance.description,
-      'amount': ?instance.amount,
-      'type': ?instance.type,
+      if (instance.code case final value?) 'code': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.amount case final value?) 'amount': value,
+      if (instance.type case final value?) 'type': value,
     };
 
 CartGiftCard _$CartGiftCardFromJson(Map<String, dynamic> json) => CartGiftCard(
@@ -166,9 +174,9 @@ CartGiftCard _$CartGiftCardFromJson(Map<String, dynamic> json) => CartGiftCard(
 
 Map<String, dynamic> _$CartGiftCardToJson(CartGiftCard instance) =>
     <String, dynamic>{
-      'code': ?instance.code,
-      'amount': ?instance.amount,
-      'currencyCode': ?instance.currencyCode,
+      if (instance.code case final value?) 'code': value,
+      if (instance.amount case final value?) 'amount': value,
+      if (instance.currencyCode case final value?) 'currencyCode': value,
     };
 
 Address _$AddressFromJson(Map<String, dynamic> json) => Address(
@@ -195,26 +203,26 @@ Address _$AddressFromJson(Map<String, dynamic> json) => Address(
 );
 
 Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
-  'id': ?instance.id,
-  'customerId': ?instance.customerId,
-  'regionId': ?instance.regionId,
-  'regionCode': ?instance.regionCode,
-  'region': ?instance.region,
-  'countryId': ?instance.countryId,
-  'street': ?instance.street,
-  'company': ?instance.company,
-  'telephone': ?instance.telephone,
-  'fax': ?instance.fax,
-  'postcode': ?instance.postcode,
-  'city': ?instance.city,
-  'firstname': ?instance.firstname,
-  'lastname': ?instance.lastname,
-  'middlename': ?instance.middlename,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'vatId': ?instance.vatId,
-  'isDefaultShipping': ?instance.isDefaultShipping,
-  'isDefaultBilling': ?instance.isDefaultBilling,
+  if (instance.id case final value?) 'id': value,
+  if (instance.customerId case final value?) 'customerId': value,
+  if (instance.regionId case final value?) 'regionId': value,
+  if (instance.regionCode case final value?) 'regionCode': value,
+  if (instance.region case final value?) 'region': value,
+  if (instance.countryId case final value?) 'countryId': value,
+  if (instance.street case final value?) 'street': value,
+  if (instance.company case final value?) 'company': value,
+  if (instance.telephone case final value?) 'telephone': value,
+  if (instance.fax case final value?) 'fax': value,
+  if (instance.postcode case final value?) 'postcode': value,
+  if (instance.city case final value?) 'city': value,
+  if (instance.firstname case final value?) 'firstname': value,
+  if (instance.lastname case final value?) 'lastname': value,
+  if (instance.middlename case final value?) 'middlename': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.vatId case final value?) 'vatId': value,
+  if (instance.isDefaultShipping case final value?) 'isDefaultShipping': value,
+  if (instance.isDefaultBilling case final value?) 'isDefaultBilling': value,
 };
 
 ShippingMethod _$ShippingMethodFromJson(Map<String, dynamic> json) =>
@@ -233,16 +241,16 @@ ShippingMethod _$ShippingMethodFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ShippingMethodToJson(ShippingMethod instance) =>
     <String, dynamic>{
-      'methodCode': ?instance.methodCode,
-      'carrierCode': ?instance.carrierCode,
-      'methodTitle': ?instance.methodTitle,
-      'carrierTitle': ?instance.carrierTitle,
-      'amount': ?instance.amount,
-      'currencyCode': ?instance.currencyCode,
-      'available': ?instance.available,
-      'errorMessage': ?instance.errorMessage,
-      'priceExclTax': ?instance.priceExclTax,
-      'priceInclTax': ?instance.priceInclTax,
+      if (instance.methodCode case final value?) 'methodCode': value,
+      if (instance.carrierCode case final value?) 'carrierCode': value,
+      if (instance.methodTitle case final value?) 'methodTitle': value,
+      if (instance.carrierTitle case final value?) 'carrierTitle': value,
+      if (instance.amount case final value?) 'amount': value,
+      if (instance.currencyCode case final value?) 'currencyCode': value,
+      if (instance.available case final value?) 'available': value,
+      if (instance.errorMessage case final value?) 'errorMessage': value,
+      if (instance.priceExclTax case final value?) 'priceExclTax': value,
+      if (instance.priceInclTax case final value?) 'priceInclTax': value,
     };
 
 CartCreateRequest _$CartCreateRequestFromJson(Map<String, dynamic> json) =>
@@ -254,9 +262,9 @@ CartCreateRequest _$CartCreateRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CartCreateRequestToJson(CartCreateRequest instance) =>
     <String, dynamic>{
-      'customerId': ?instance.customerId,
-      'customerEmail': ?instance.customerEmail,
-      'storeId': ?instance.storeId,
+      if (instance.customerId case final value?) 'customerId': value,
+      if (instance.customerEmail case final value?) 'customerEmail': value,
+      if (instance.storeId case final value?) 'storeId': value,
     };
 
 CartItemRequest _$CartItemRequestFromJson(Map<String, dynamic> json) =>
@@ -269,10 +277,10 @@ CartItemRequest _$CartItemRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CartItemRequestToJson(CartItemRequest instance) =>
     <String, dynamic>{
-      'sku': ?instance.sku,
-      'qty': ?instance.qty,
-      'quoteId': ?instance.quoteId,
-      'productOptions': ?instance.productOptions,
+      if (instance.sku case final value?) 'sku': value,
+      if (instance.qty case final value?) 'qty': value,
+      if (instance.quoteId case final value?) 'quoteId': value,
+      if (instance.productOptions case final value?) 'productOptions': value,
     };
 
 CartItemUpdateRequest _$CartItemUpdateRequestFromJson(
@@ -286,9 +294,9 @@ CartItemUpdateRequest _$CartItemUpdateRequestFromJson(
 Map<String, dynamic> _$CartItemUpdateRequestToJson(
   CartItemUpdateRequest instance,
 ) => <String, dynamic>{
-  'qty': ?instance.qty,
-  'quoteId': ?instance.quoteId,
-  'productOptions': ?instance.productOptions,
+  if (instance.qty case final value?) 'qty': value,
+  if (instance.quoteId case final value?) 'quoteId': value,
+  if (instance.productOptions case final value?) 'productOptions': value,
 };
 
 ShippingInformationRequest _$ShippingInformationRequestFromJson(
@@ -308,11 +316,15 @@ ShippingInformationRequest _$ShippingInformationRequestFromJson(
 Map<String, dynamic> _$ShippingInformationRequestToJson(
   ShippingInformationRequest instance,
 ) => <String, dynamic>{
-  'shippingAddress': ?instance.shippingAddress?.toJson(),
-  'billingAddress': ?instance.billingAddress?.toJson(),
-  'shippingMethodCode': ?instance.shippingMethodCode,
-  'shippingCarrierCode': ?instance.shippingCarrierCode,
-  'customAttributes': ?instance.customAttributes,
+  if (instance.shippingAddress?.toJson() case final value?)
+    'shippingAddress': value,
+  if (instance.billingAddress?.toJson() case final value?)
+    'billingAddress': value,
+  if (instance.shippingMethodCode case final value?)
+    'shippingMethodCode': value,
+  if (instance.shippingCarrierCode case final value?)
+    'shippingCarrierCode': value,
+  if (instance.customAttributes case final value?) 'customAttributes': value,
 };
 
 PaymentMethod _$PaymentMethodFromJson(Map<String, dynamic> json) =>
@@ -326,11 +338,11 @@ PaymentMethod _$PaymentMethodFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$PaymentMethodToJson(PaymentMethod instance) =>
     <String, dynamic>{
-      'code': ?instance.code,
-      'title': ?instance.title,
-      'available': ?instance.available,
-      'errorMessage': ?instance.errorMessage,
-      'additionalData': ?instance.additionalData,
+      if (instance.code case final value?) 'code': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.available case final value?) 'available': value,
+      if (instance.errorMessage case final value?) 'errorMessage': value,
+      if (instance.additionalData case final value?) 'additionalData': value,
     };
 
 CartValidationResult _$CartValidationResultFromJson(
@@ -347,8 +359,8 @@ CartValidationResult _$CartValidationResultFromJson(
 Map<String, dynamic> _$CartValidationResultToJson(
   CartValidationResult instance,
 ) => <String, dynamic>{
-  'isValid': ?instance.isValid,
-  'errors': ?instance.errors,
-  'warnings': ?instance.warnings,
-  'additionalData': ?instance.additionalData,
+  if (instance.isValid case final value?) 'isValid': value,
+  if (instance.errors case final value?) 'errors': value,
+  if (instance.warnings case final value?) 'warnings': value,
+  if (instance.additionalData case final value?) 'additionalData': value,
 };

@@ -2,13 +2,48 @@ import 'package:dio/dio.dart';
 import '../models/cart_models.dart';
 import 'magento_api_client.dart';
 
-/// Cart API for Magento
+/// Cart API for Magento integration.
+///
+/// This class provides comprehensive shopping cart functionality for Magento,
+/// supporting both guest and authenticated customer carts.
+///
+/// ## Features
+///
+/// - **Cart Management**: Create, retrieve, and delete carts
+/// - **Item Operations**: Add, update, and remove items from cart
+/// - **Coupon Management**: Apply and remove discount coupons
+/// - **Shipping**: Estimate shipping costs and set shipping information
+/// - **Totals**: Calculate cart totals including taxes and shipping
+/// - **Guest & Customer**: Support for both guest and authenticated user carts
+/// - **Cart Merging**: Merge guest cart with customer cart after login
+///
+/// ## Usage
+///
+/// ```dart
+/// final cartApi = CartApi(apiClient);
+///
+/// // Create a guest cart
+/// final cart = await cartApi.createCart();
+///
+/// // Add item to cart
+/// await cartApi.addToCart(
+///   cartId: cart.id,
+///   sku: 'PRODUCT-SKU',
+///   quantity: 2,
+/// );
+/// ```
 class CartApi {
   final MagentoApiClient _client;
 
   CartApi(this._client);
 
-  /// Create a new cart
+  /// Create a new guest cart.
+  ///
+  /// Creates a new shopping cart for guest users. Guest carts are temporary
+  /// and can be merged with customer carts after authentication.
+  ///
+  /// Returns a [Cart] object representing the newly created cart.
+  /// Throws an exception if cart creation fails.
   Future<Cart> createCart() async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
@@ -57,7 +92,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get customer cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get customer cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get customer cart: ${e.message}');
@@ -66,7 +103,17 @@ class CartApi {
     }
   }
 
-  /// Add item to cart
+  /// Add item to guest cart.
+  ///
+  /// Adds a product to the specified guest cart with the given quantity and options.
+  ///
+  /// [cartId] the ID of the cart to add the item to
+  /// [sku] the product's SKU to add
+  /// [quantity] the quantity to add
+  /// [productOptions] optional product options (size, color, etc.)
+  ///
+  /// Returns the updated [Cart] object.
+  /// Throws an exception if the item cannot be added.
   Future<Cart> addToCart({
     required String cartId,
     required String sku,
@@ -75,11 +122,7 @@ class CartApi {
   }) async {
     try {
       final data = {
-        'cartItem': {
-          'sku': sku,
-          'qty': quantity,
-          'quote_id': cartId,
-        },
+        'cartItem': {'sku': sku, 'qty': quantity, 'quote_id': cartId},
       };
 
       if (productOptions != null) {
@@ -95,7 +138,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to add item to cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to add item to cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to add item to cart: ${e.message}');
@@ -112,10 +157,7 @@ class CartApi {
   }) async {
     try {
       final data = {
-        'cartItem': {
-          'sku': sku,
-          'qty': quantity,
-        },
+        'cartItem': {'sku': sku, 'qty': quantity},
       };
 
       if (productOptions != null) {
@@ -131,7 +173,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to add item to customer cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to add item to customer cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to add item to customer cart: ${e.message}');
@@ -148,10 +192,7 @@ class CartApi {
   }) async {
     try {
       final data = {
-        'cartItem': {
-          'qty': quantity,
-          'quote_id': cartId,
-        },
+        'cartItem': {'qty': quantity, 'quote_id': cartId},
       };
 
       final response = await _client.guestRequest<Map<String, dynamic>>(
@@ -163,7 +204,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to update cart item: ${response.statusMessage}');
+        throw Exception(
+          'Failed to update cart item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to update cart item: ${e.message}');
@@ -179,9 +222,7 @@ class CartApi {
   }) async {
     try {
       final data = {
-        'cartItem': {
-          'qty': quantity,
-        },
+        'cartItem': {'qty': quantity},
       };
 
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
@@ -193,7 +234,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to update customer cart item: ${response.statusMessage}');
+        throw Exception(
+          'Failed to update customer cart item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to update customer cart item: ${e.message}');
@@ -216,7 +259,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to remove item from cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to remove item from cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to remove item from cart: ${e.message}');
@@ -236,7 +281,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to remove item from customer cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to remove item from customer cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to remove item from customer cart: ${e.message}');
@@ -279,7 +326,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to apply coupon to customer cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to apply coupon to customer cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to apply coupon to customer cart: ${e.message}');
@@ -319,10 +368,14 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to remove coupon from customer cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to remove coupon from customer cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
-      throw Exception('Failed to remove coupon from customer cart: ${e.message}');
+      throw Exception(
+        'Failed to remove coupon from customer cart: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to remove coupon from customer cart: $e');
     }
@@ -357,7 +410,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return CartTotals.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get customer cart totals: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get customer cart totals: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get customer cart totals: ${e.message}');
@@ -375,16 +430,18 @@ class CartApi {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/guest-carts/$cartId/estimate-shipping-methods',
         options: Options(method: 'POST'),
-        data: {
-          'address': address.toJson(),
-        },
+        data: {'address': address.toJson()},
       );
 
       if (response.statusCode == 200) {
         final List<dynamic> methods = response.data!['shipping_methods'] ?? [];
-        return methods.map((method) => ShippingMethod.fromJson(method)).toList();
+        return methods
+            .map((method) => ShippingMethod.fromJson(method))
+            .toList();
       } else {
-        throw Exception('Failed to estimate shipping: ${response.statusMessage}');
+        throw Exception(
+          'Failed to estimate shipping: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to estimate shipping: ${e.message}');
@@ -394,24 +451,30 @@ class CartApi {
   }
 
   /// Estimate shipping for customer cart
-  Future<List<ShippingMethod>> estimateCustomerCartShipping(Address address) async {
+  Future<List<ShippingMethod>> estimateCustomerCartShipping(
+    Address address,
+  ) async {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/estimate-shipping-methods',
         options: Options(method: 'POST'),
-        data: {
-          'address': address.toJson(),
-        },
+        data: {'address': address.toJson()},
       );
 
       if (response.statusCode == 200) {
         final List<dynamic> methods = response.data!['shipping_methods'] ?? [];
-        return methods.map((method) => ShippingMethod.fromJson(method)).toList();
+        return methods
+            .map((method) => ShippingMethod.fromJson(method))
+            .toList();
       } else {
-        throw Exception('Failed to estimate customer cart shipping: ${response.statusMessage}');
+        throw Exception(
+          'Failed to estimate customer cart shipping: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
-      throw Exception('Failed to estimate customer cart shipping: ${e.message}');
+      throw Exception(
+        'Failed to estimate customer cart shipping: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to estimate customer cart shipping: $e');
     }
@@ -441,7 +504,9 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to set shipping information: ${response.statusMessage}');
+        throw Exception(
+          'Failed to set shipping information: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to set shipping information: ${e.message}');
@@ -473,10 +538,14 @@ class CartApi {
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to set customer cart shipping information: ${response.statusMessage}');
+        throw Exception(
+          'Failed to set customer cart shipping information: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
-      throw Exception('Failed to set customer cart shipping information: ${e.message}');
+      throw Exception(
+        'Failed to set customer cart shipping information: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to set customer cart shipping information: $e');
     }
@@ -490,7 +559,7 @@ class CartApi {
     try {
       // First remove from cart
       await removeFromCart(cartId: cartId, itemId: itemId);
-      
+
       // TODO: Implement wishlist API integration
       // For now, just return success
       return true;
@@ -505,15 +574,15 @@ class CartApi {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/carts/mine/merge',
         options: Options(method: 'POST'),
-        data: {
-          'customer_id': customerId,
-        },
+        data: {'customer_id': customerId},
       );
 
       if (response.statusCode == 200) {
         return Cart.fromJson(response.data!);
       } else {
-        throw Exception('Failed to merge guest cart: ${response.statusMessage}');
+        throw Exception(
+          'Failed to merge guest cart: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to merge guest cart: ${e.message}');

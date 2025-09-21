@@ -12,7 +12,8 @@ part of 'customer_models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 CustomerAddress _$CustomerAddressFromJson(Map<String, dynamic> json) {
   return _CustomerAddress.fromJson(json);
@@ -46,8 +47,12 @@ mixin _$CustomerAddress {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerAddress to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerAddressCopyWith<CustomerAddress> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,33 +60,35 @@ mixin _$CustomerAddress {
 /// @nodoc
 abstract class $CustomerAddressCopyWith<$Res> {
   factory $CustomerAddressCopyWith(
-          CustomerAddress value, $Res Function(CustomerAddress) then) =
-      _$CustomerAddressCopyWithImpl<$Res, CustomerAddress>;
+    CustomerAddress value,
+    $Res Function(CustomerAddress) then,
+  ) = _$CustomerAddressCopyWithImpl<$Res, CustomerAddress>;
   @useResult
-  $Res call(
-      {int id,
-      String? customerId,
-      String? customerAddressId,
-      String? email,
-      String? firstName,
-      String? lastName,
-      String? middleName,
-      String? prefix,
-      String? suffix,
-      String? company,
-      List<String>? street,
-      String? city,
-      String? region,
-      String? regionId,
-      String? regionCode,
-      String? postcode,
-      String? countryId,
-      String? telephone,
-      String? fax,
-      bool? isDefaultShipping,
-      bool? isDefaultBilling,
-      Map<String, dynamic>? customAttributes,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int id,
+    String? customerId,
+    String? customerAddressId,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? regionId,
+    String? regionCode,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? fax,
+    bool? isDefaultShipping,
+    bool? isDefaultBilling,
+    Map<String, dynamic>? customAttributes,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -94,6 +101,8 @@ class _$CustomerAddressCopyWithImpl<$Res, $Val extends CustomerAddress>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,135 +130,140 @@ class _$CustomerAddressCopyWithImpl<$Res, $Val extends CustomerAddress>
     Object? customAttributes = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      customerId: freezed == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerAddressId: freezed == customerAddressId
-          ? _value.customerAddressId
-          : customerAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      middleName: freezed == middleName
-          ? _value.middleName
-          : middleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionId: freezed == regionId
-          ? _value.regionId
-          : regionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionCode: freezed == regionCode
-          ? _value.regionCode
-          : regionCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postcode: freezed == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryId: freezed == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isDefaultShipping: freezed == isDefaultShipping
-          ? _value.isDefaultShipping
-          : isDefaultShipping // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isDefaultBilling: freezed == isDefaultBilling
-          ? _value.isDefaultBilling
-          : isDefaultBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value.customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            customerId: freezed == customerId
+                ? _value.customerId
+                : customerId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            customerAddressId: freezed == customerAddressId
+                ? _value.customerAddressId
+                : customerAddressId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            email: freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            firstName: freezed == firstName
+                ? _value.firstName
+                : firstName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            lastName: freezed == lastName
+                ? _value.lastName
+                : lastName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            middleName: freezed == middleName
+                ? _value.middleName
+                : middleName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            prefix: freezed == prefix
+                ? _value.prefix
+                : prefix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            suffix: freezed == suffix
+                ? _value.suffix
+                : suffix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            company: freezed == company
+                ? _value.company
+                : company // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            street: freezed == street
+                ? _value.street
+                : street // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            city: freezed == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            region: freezed == region
+                ? _value.region
+                : region // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            regionId: freezed == regionId
+                ? _value.regionId
+                : regionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            regionCode: freezed == regionCode
+                ? _value.regionCode
+                : regionCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            postcode: freezed == postcode
+                ? _value.postcode
+                : postcode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            countryId: freezed == countryId
+                ? _value.countryId
+                : countryId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            telephone: freezed == telephone
+                ? _value.telephone
+                : telephone // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            fax: freezed == fax
+                ? _value.fax
+                : fax // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            isDefaultShipping: freezed == isDefaultShipping
+                ? _value.isDefaultShipping
+                : isDefaultShipping // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            isDefaultBilling: freezed == isDefaultBilling
+                ? _value.isDefaultBilling
+                : isDefaultBilling // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            customAttributes: freezed == customAttributes
+                ? _value.customAttributes
+                : customAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerAddressImplCopyWith<$Res>
     implements $CustomerAddressCopyWith<$Res> {
-  factory _$$CustomerAddressImplCopyWith(_$CustomerAddressImpl value,
-          $Res Function(_$CustomerAddressImpl) then) =
-      __$$CustomerAddressImplCopyWithImpl<$Res>;
+  factory _$$CustomerAddressImplCopyWith(
+    _$CustomerAddressImpl value,
+    $Res Function(_$CustomerAddressImpl) then,
+  ) = __$$CustomerAddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String? customerId,
-      String? customerAddressId,
-      String? email,
-      String? firstName,
-      String? lastName,
-      String? middleName,
-      String? prefix,
-      String? suffix,
-      String? company,
-      List<String>? street,
-      String? city,
-      String? region,
-      String? regionId,
-      String? regionCode,
-      String? postcode,
-      String? countryId,
-      String? telephone,
-      String? fax,
-      bool? isDefaultShipping,
-      bool? isDefaultBilling,
-      Map<String, dynamic>? customAttributes,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int id,
+    String? customerId,
+    String? customerAddressId,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? regionId,
+    String? regionCode,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? fax,
+    bool? isDefaultShipping,
+    bool? isDefaultBilling,
+    Map<String, dynamic>? customAttributes,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -257,9 +271,12 @@ class __$$CustomerAddressImplCopyWithImpl<$Res>
     extends _$CustomerAddressCopyWithImpl<$Res, _$CustomerAddressImpl>
     implements _$$CustomerAddressImplCopyWith<$Res> {
   __$$CustomerAddressImplCopyWithImpl(
-      _$CustomerAddressImpl _value, $Res Function(_$CustomerAddressImpl) _then)
-      : super(_value, _then);
+    _$CustomerAddressImpl _value,
+    $Res Function(_$CustomerAddressImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -287,133 +304,135 @@ class __$$CustomerAddressImplCopyWithImpl<$Res>
     Object? customAttributes = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerAddressImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      customerId: freezed == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerAddressId: freezed == customerAddressId
-          ? _value.customerAddressId
-          : customerAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      middleName: freezed == middleName
-          ? _value.middleName
-          : middleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value._street
-          : street // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionId: freezed == regionId
-          ? _value.regionId
-          : regionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionCode: freezed == regionCode
-          ? _value.regionCode
-          : regionCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postcode: freezed == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryId: freezed == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isDefaultShipping: freezed == isDefaultShipping
-          ? _value.isDefaultShipping
-          : isDefaultShipping // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isDefaultBilling: freezed == isDefaultBilling
-          ? _value.isDefaultBilling
-          : isDefaultBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value._customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerAddressImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        customerId: freezed == customerId
+            ? _value.customerId
+            : customerId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        customerAddressId: freezed == customerAddressId
+            ? _value.customerAddressId
+            : customerAddressId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        email: freezed == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        firstName: freezed == firstName
+            ? _value.firstName
+            : firstName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        lastName: freezed == lastName
+            ? _value.lastName
+            : lastName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        middleName: freezed == middleName
+            ? _value.middleName
+            : middleName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        prefix: freezed == prefix
+            ? _value.prefix
+            : prefix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        suffix: freezed == suffix
+            ? _value.suffix
+            : suffix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        company: freezed == company
+            ? _value.company
+            : company // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        street: freezed == street
+            ? _value._street
+            : street // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        city: freezed == city
+            ? _value.city
+            : city // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        region: freezed == region
+            ? _value.region
+            : region // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        regionId: freezed == regionId
+            ? _value.regionId
+            : regionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        regionCode: freezed == regionCode
+            ? _value.regionCode
+            : regionCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        postcode: freezed == postcode
+            ? _value.postcode
+            : postcode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        countryId: freezed == countryId
+            ? _value.countryId
+            : countryId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        telephone: freezed == telephone
+            ? _value.telephone
+            : telephone // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        fax: freezed == fax
+            ? _value.fax
+            : fax // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        isDefaultShipping: freezed == isDefaultShipping
+            ? _value.isDefaultShipping
+            : isDefaultShipping // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        isDefaultBilling: freezed == isDefaultBilling
+            ? _value.isDefaultBilling
+            : isDefaultBilling // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        customAttributes: freezed == customAttributes
+            ? _value._customAttributes
+            : customAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerAddressImpl implements _CustomerAddress {
-  const _$CustomerAddressImpl(
-      {required this.id,
-      this.customerId,
-      this.customerAddressId,
-      this.email,
-      this.firstName,
-      this.lastName,
-      this.middleName,
-      this.prefix,
-      this.suffix,
-      this.company,
-      final List<String>? street,
-      this.city,
-      this.region,
-      this.regionId,
-      this.regionCode,
-      this.postcode,
-      this.countryId,
-      this.telephone,
-      this.fax,
-      this.isDefaultShipping,
-      this.isDefaultBilling,
-      final Map<String, dynamic>? customAttributes,
-      final Map<String, dynamic>? extensionAttributes})
-      : _street = street,
-        _customAttributes = customAttributes,
-        _extensionAttributes = extensionAttributes;
+  const _$CustomerAddressImpl({
+    required this.id,
+    this.customerId,
+    this.customerAddressId,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.middleName,
+    this.prefix,
+    this.suffix,
+    this.company,
+    final List<String>? street,
+    this.city,
+    this.region,
+    this.regionId,
+    this.regionCode,
+    this.postcode,
+    this.countryId,
+    this.telephone,
+    this.fax,
+    this.isDefaultShipping,
+    this.isDefaultBilling,
+    final Map<String, dynamic>? customAttributes,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _street = street,
+       _customAttributes = customAttributes,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CustomerAddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerAddressImplFromJson(json);
@@ -532,81 +551,88 @@ class _$CustomerAddressImpl implements _CustomerAddress {
                 other.isDefaultShipping == isDefaultShipping) &&
             (identical(other.isDefaultBilling, isDefaultBilling) ||
                 other.isDefaultBilling == isDefaultBilling) &&
-            const DeepCollectionEquality()
-                .equals(other._customAttributes, _customAttributes) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._customAttributes,
+              _customAttributes,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        customerId,
-        customerAddressId,
-        email,
-        firstName,
-        lastName,
-        middleName,
-        prefix,
-        suffix,
-        company,
-        const DeepCollectionEquality().hash(_street),
-        city,
-        region,
-        regionId,
-        regionCode,
-        postcode,
-        countryId,
-        telephone,
-        fax,
-        isDefaultShipping,
-        isDefaultBilling,
-        const DeepCollectionEquality().hash(_customAttributes),
-        const DeepCollectionEquality().hash(_extensionAttributes)
-      ]);
+    runtimeType,
+    id,
+    customerId,
+    customerAddressId,
+    email,
+    firstName,
+    lastName,
+    middleName,
+    prefix,
+    suffix,
+    company,
+    const DeepCollectionEquality().hash(_street),
+    city,
+    region,
+    regionId,
+    regionCode,
+    postcode,
+    countryId,
+    telephone,
+    fax,
+    isDefaultShipping,
+    isDefaultBilling,
+    const DeepCollectionEquality().hash(_customAttributes),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerAddressImplCopyWith<_$CustomerAddressImpl> get copyWith =>
       __$$CustomerAddressImplCopyWithImpl<_$CustomerAddressImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerAddressImplToJson(
-      this,
-    );
+    return _$$CustomerAddressImplToJson(this);
   }
 }
 
 abstract class _CustomerAddress implements CustomerAddress {
-  const factory _CustomerAddress(
-      {required final int id,
-      final String? customerId,
-      final String? customerAddressId,
-      final String? email,
-      final String? firstName,
-      final String? lastName,
-      final String? middleName,
-      final String? prefix,
-      final String? suffix,
-      final String? company,
-      final List<String>? street,
-      final String? city,
-      final String? region,
-      final String? regionId,
-      final String? regionCode,
-      final String? postcode,
-      final String? countryId,
-      final String? telephone,
-      final String? fax,
-      final bool? isDefaultShipping,
-      final bool? isDefaultBilling,
-      final Map<String, dynamic>? customAttributes,
-      final Map<String, dynamic>? extensionAttributes}) = _$CustomerAddressImpl;
+  const factory _CustomerAddress({
+    required final int id,
+    final String? customerId,
+    final String? customerAddressId,
+    final String? email,
+    final String? firstName,
+    final String? lastName,
+    final String? middleName,
+    final String? prefix,
+    final String? suffix,
+    final String? company,
+    final List<String>? street,
+    final String? city,
+    final String? region,
+    final String? regionId,
+    final String? regionCode,
+    final String? postcode,
+    final String? countryId,
+    final String? telephone,
+    final String? fax,
+    final bool? isDefaultShipping,
+    final bool? isDefaultBilling,
+    final Map<String, dynamic>? customAttributes,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerAddressImpl;
 
   factory _CustomerAddress.fromJson(Map<String, dynamic> json) =
       _$CustomerAddressImpl.fromJson;
@@ -657,8 +683,11 @@ abstract class _CustomerAddress implements CustomerAddress {
   Map<String, dynamic>? get customAttributes;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerAddress
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerAddressImplCopyWith<_$CustomerAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -675,8 +704,12 @@ mixin _$CustomerGroup {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerGroup to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerGroup
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerGroupCopyWith<CustomerGroup> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -684,14 +717,16 @@ mixin _$CustomerGroup {
 /// @nodoc
 abstract class $CustomerGroupCopyWith<$Res> {
   factory $CustomerGroupCopyWith(
-          CustomerGroup value, $Res Function(CustomerGroup) then) =
-      _$CustomerGroupCopyWithImpl<$Res, CustomerGroup>;
+    CustomerGroup value,
+    $Res Function(CustomerGroup) then,
+  ) = _$CustomerGroupCopyWithImpl<$Res, CustomerGroup>;
   @useResult
-  $Res call(
-      {int id,
-      String code,
-      String taxClassName,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int id,
+    String code,
+    String taxClassName,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -704,6 +739,8 @@ class _$CustomerGroupCopyWithImpl<$Res, $Val extends CustomerGroup>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerGroup
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -712,24 +749,27 @@ class _$CustomerGroupCopyWithImpl<$Res, $Val extends CustomerGroup>
     Object? taxClassName = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      taxClassName: null == taxClassName
-          ? _value.taxClassName
-          : taxClassName // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            code: null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                      as String,
+            taxClassName: null == taxClassName
+                ? _value.taxClassName
+                : taxClassName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -737,15 +777,17 @@ class _$CustomerGroupCopyWithImpl<$Res, $Val extends CustomerGroup>
 abstract class _$$CustomerGroupImplCopyWith<$Res>
     implements $CustomerGroupCopyWith<$Res> {
   factory _$$CustomerGroupImplCopyWith(
-          _$CustomerGroupImpl value, $Res Function(_$CustomerGroupImpl) then) =
-      __$$CustomerGroupImplCopyWithImpl<$Res>;
+    _$CustomerGroupImpl value,
+    $Res Function(_$CustomerGroupImpl) then,
+  ) = __$$CustomerGroupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String code,
-      String taxClassName,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int id,
+    String code,
+    String taxClassName,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -753,9 +795,12 @@ class __$$CustomerGroupImplCopyWithImpl<$Res>
     extends _$CustomerGroupCopyWithImpl<$Res, _$CustomerGroupImpl>
     implements _$$CustomerGroupImplCopyWith<$Res> {
   __$$CustomerGroupImplCopyWithImpl(
-      _$CustomerGroupImpl _value, $Res Function(_$CustomerGroupImpl) _then)
-      : super(_value, _then);
+    _$CustomerGroupImpl _value,
+    $Res Function(_$CustomerGroupImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerGroup
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -764,36 +809,38 @@ class __$$CustomerGroupImplCopyWithImpl<$Res>
     Object? taxClassName = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerGroupImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      taxClassName: null == taxClassName
-          ? _value.taxClassName
-          : taxClassName // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerGroupImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        code: null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String,
+        taxClassName: null == taxClassName
+            ? _value.taxClassName
+            : taxClassName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerGroupImpl implements _CustomerGroup {
-  const _$CustomerGroupImpl(
-      {required this.id,
-      required this.code,
-      required this.taxClassName,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerGroupImpl({
+    required this.id,
+    required this.code,
+    required this.taxClassName,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerGroupImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerGroupImplFromJson(json);
@@ -829,16 +876,25 @@ class _$CustomerGroupImpl implements _CustomerGroup {
             (identical(other.code, code) || other.code == code) &&
             (identical(other.taxClassName, taxClassName) ||
                 other.taxClassName == taxClassName) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, code, taxClassName,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    code,
+    taxClassName,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerGroup
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerGroupImplCopyWith<_$CustomerGroupImpl> get copyWith =>
@@ -846,18 +902,17 @@ class _$CustomerGroupImpl implements _CustomerGroup {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerGroupImplToJson(
-      this,
-    );
+    return _$$CustomerGroupImplToJson(this);
   }
 }
 
 abstract class _CustomerGroup implements CustomerGroup {
-  const factory _CustomerGroup(
-      {required final int id,
-      required final String code,
-      required final String taxClassName,
-      final Map<String, dynamic>? extensionAttributes}) = _$CustomerGroupImpl;
+  const factory _CustomerGroup({
+    required final int id,
+    required final String code,
+    required final String taxClassName,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerGroupImpl;
 
   factory _CustomerGroup.fromJson(Map<String, dynamic> json) =
       _$CustomerGroupImpl.fromJson;
@@ -870,8 +925,11 @@ abstract class _CustomerGroup implements CustomerGroup {
   String get taxClassName;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerGroup
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerGroupImplCopyWith<_$CustomerGroupImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -898,8 +956,12 @@ mixin _$CustomerAttribute {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerAttribute to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerAttribute
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerAttributeCopyWith<CustomerAttribute> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -907,22 +969,24 @@ mixin _$CustomerAttribute {
 /// @nodoc
 abstract class $CustomerAttributeCopyWith<$Res> {
   factory $CustomerAttributeCopyWith(
-          CustomerAttribute value, $Res Function(CustomerAttribute) then) =
-      _$CustomerAttributeCopyWithImpl<$Res, CustomerAttribute>;
+    CustomerAttribute value,
+    $Res Function(CustomerAttribute) then,
+  ) = _$CustomerAttributeCopyWithImpl<$Res, CustomerAttribute>;
   @useResult
-  $Res call(
-      {String attributeCode,
-      String frontendInput,
-      String frontendLabel,
-      bool isRequired,
-      bool isUserDefined,
-      bool isVisible,
-      bool isSystem,
-      int sortOrder,
-      String? defaultValue,
-      List<CustomerAttributeOption>? options,
-      Map<String, dynamic>? validationRules,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String attributeCode,
+    String frontendInput,
+    String frontendLabel,
+    bool isRequired,
+    bool isUserDefined,
+    bool isVisible,
+    bool isSystem,
+    int sortOrder,
+    String? defaultValue,
+    List<CustomerAttributeOption>? options,
+    Map<String, dynamic>? validationRules,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -935,6 +999,8 @@ class _$CustomerAttributeCopyWithImpl<$Res, $Val extends CustomerAttribute>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerAttribute
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -951,90 +1017,98 @@ class _$CustomerAttributeCopyWithImpl<$Res, $Val extends CustomerAttribute>
     Object? validationRules = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      attributeCode: null == attributeCode
-          ? _value.attributeCode
-          : attributeCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      frontendInput: null == frontendInput
-          ? _value.frontendInput
-          : frontendInput // ignore: cast_nullable_to_non_nullable
-              as String,
-      frontendLabel: null == frontendLabel
-          ? _value.frontendLabel
-          : frontendLabel // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRequired: null == isRequired
-          ? _value.isRequired
-          : isRequired // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isUserDefined: null == isUserDefined
-          ? _value.isUserDefined
-          : isUserDefined // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVisible: null == isVisible
-          ? _value.isVisible
-          : isVisible // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSystem: null == isSystem
-          ? _value.isSystem
-          : isSystem // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sortOrder: null == sortOrder
-          ? _value.sortOrder
-          : sortOrder // ignore: cast_nullable_to_non_nullable
-              as int,
-      defaultValue: freezed == defaultValue
-          ? _value.defaultValue
-          : defaultValue // ignore: cast_nullable_to_non_nullable
-              as String?,
-      options: freezed == options
-          ? _value.options
-          : options // ignore: cast_nullable_to_non_nullable
-              as List<CustomerAttributeOption>?,
-      validationRules: freezed == validationRules
-          ? _value.validationRules
-          : validationRules // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            attributeCode: null == attributeCode
+                ? _value.attributeCode
+                : attributeCode // ignore: cast_nullable_to_non_nullable
+                      as String,
+            frontendInput: null == frontendInput
+                ? _value.frontendInput
+                : frontendInput // ignore: cast_nullable_to_non_nullable
+                      as String,
+            frontendLabel: null == frontendLabel
+                ? _value.frontendLabel
+                : frontendLabel // ignore: cast_nullable_to_non_nullable
+                      as String,
+            isRequired: null == isRequired
+                ? _value.isRequired
+                : isRequired // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isUserDefined: null == isUserDefined
+                ? _value.isUserDefined
+                : isUserDefined // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isVisible: null == isVisible
+                ? _value.isVisible
+                : isVisible // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isSystem: null == isSystem
+                ? _value.isSystem
+                : isSystem // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            sortOrder: null == sortOrder
+                ? _value.sortOrder
+                : sortOrder // ignore: cast_nullable_to_non_nullable
+                      as int,
+            defaultValue: freezed == defaultValue
+                ? _value.defaultValue
+                : defaultValue // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            options: freezed == options
+                ? _value.options
+                : options // ignore: cast_nullable_to_non_nullable
+                      as List<CustomerAttributeOption>?,
+            validationRules: freezed == validationRules
+                ? _value.validationRules
+                : validationRules // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerAttributeImplCopyWith<$Res>
     implements $CustomerAttributeCopyWith<$Res> {
-  factory _$$CustomerAttributeImplCopyWith(_$CustomerAttributeImpl value,
-          $Res Function(_$CustomerAttributeImpl) then) =
-      __$$CustomerAttributeImplCopyWithImpl<$Res>;
+  factory _$$CustomerAttributeImplCopyWith(
+    _$CustomerAttributeImpl value,
+    $Res Function(_$CustomerAttributeImpl) then,
+  ) = __$$CustomerAttributeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String attributeCode,
-      String frontendInput,
-      String frontendLabel,
-      bool isRequired,
-      bool isUserDefined,
-      bool isVisible,
-      bool isSystem,
-      int sortOrder,
-      String? defaultValue,
-      List<CustomerAttributeOption>? options,
-      Map<String, dynamic>? validationRules,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String attributeCode,
+    String frontendInput,
+    String frontendLabel,
+    bool isRequired,
+    bool isUserDefined,
+    bool isVisible,
+    bool isSystem,
+    int sortOrder,
+    String? defaultValue,
+    List<CustomerAttributeOption>? options,
+    Map<String, dynamic>? validationRules,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerAttributeImplCopyWithImpl<$Res>
     extends _$CustomerAttributeCopyWithImpl<$Res, _$CustomerAttributeImpl>
     implements _$$CustomerAttributeImplCopyWith<$Res> {
-  __$$CustomerAttributeImplCopyWithImpl(_$CustomerAttributeImpl _value,
-      $Res Function(_$CustomerAttributeImpl) _then)
-      : super(_value, _then);
+  __$$CustomerAttributeImplCopyWithImpl(
+    _$CustomerAttributeImpl _value,
+    $Res Function(_$CustomerAttributeImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerAttribute
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1051,78 +1125,80 @@ class __$$CustomerAttributeImplCopyWithImpl<$Res>
     Object? validationRules = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerAttributeImpl(
-      attributeCode: null == attributeCode
-          ? _value.attributeCode
-          : attributeCode // ignore: cast_nullable_to_non_nullable
-              as String,
-      frontendInput: null == frontendInput
-          ? _value.frontendInput
-          : frontendInput // ignore: cast_nullable_to_non_nullable
-              as String,
-      frontendLabel: null == frontendLabel
-          ? _value.frontendLabel
-          : frontendLabel // ignore: cast_nullable_to_non_nullable
-              as String,
-      isRequired: null == isRequired
-          ? _value.isRequired
-          : isRequired // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isUserDefined: null == isUserDefined
-          ? _value.isUserDefined
-          : isUserDefined // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isVisible: null == isVisible
-          ? _value.isVisible
-          : isVisible // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSystem: null == isSystem
-          ? _value.isSystem
-          : isSystem // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sortOrder: null == sortOrder
-          ? _value.sortOrder
-          : sortOrder // ignore: cast_nullable_to_non_nullable
-              as int,
-      defaultValue: freezed == defaultValue
-          ? _value.defaultValue
-          : defaultValue // ignore: cast_nullable_to_non_nullable
-              as String?,
-      options: freezed == options
-          ? _value._options
-          : options // ignore: cast_nullable_to_non_nullable
-              as List<CustomerAttributeOption>?,
-      validationRules: freezed == validationRules
-          ? _value._validationRules
-          : validationRules // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerAttributeImpl(
+        attributeCode: null == attributeCode
+            ? _value.attributeCode
+            : attributeCode // ignore: cast_nullable_to_non_nullable
+                  as String,
+        frontendInput: null == frontendInput
+            ? _value.frontendInput
+            : frontendInput // ignore: cast_nullable_to_non_nullable
+                  as String,
+        frontendLabel: null == frontendLabel
+            ? _value.frontendLabel
+            : frontendLabel // ignore: cast_nullable_to_non_nullable
+                  as String,
+        isRequired: null == isRequired
+            ? _value.isRequired
+            : isRequired // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isUserDefined: null == isUserDefined
+            ? _value.isUserDefined
+            : isUserDefined // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isVisible: null == isVisible
+            ? _value.isVisible
+            : isVisible // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isSystem: null == isSystem
+            ? _value.isSystem
+            : isSystem // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        sortOrder: null == sortOrder
+            ? _value.sortOrder
+            : sortOrder // ignore: cast_nullable_to_non_nullable
+                  as int,
+        defaultValue: freezed == defaultValue
+            ? _value.defaultValue
+            : defaultValue // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        options: freezed == options
+            ? _value._options
+            : options // ignore: cast_nullable_to_non_nullable
+                  as List<CustomerAttributeOption>?,
+        validationRules: freezed == validationRules
+            ? _value._validationRules
+            : validationRules // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerAttributeImpl implements _CustomerAttribute {
-  const _$CustomerAttributeImpl(
-      {required this.attributeCode,
-      required this.frontendInput,
-      required this.frontendLabel,
-      required this.isRequired,
-      required this.isUserDefined,
-      required this.isVisible,
-      required this.isSystem,
-      required this.sortOrder,
-      this.defaultValue,
-      final List<CustomerAttributeOption>? options,
-      final Map<String, dynamic>? validationRules,
-      final Map<String, dynamic>? extensionAttributes})
-      : _options = options,
-        _validationRules = validationRules,
-        _extensionAttributes = extensionAttributes;
+  const _$CustomerAttributeImpl({
+    required this.attributeCode,
+    required this.frontendInput,
+    required this.frontendLabel,
+    required this.isRequired,
+    required this.isUserDefined,
+    required this.isVisible,
+    required this.isSystem,
+    required this.sortOrder,
+    this.defaultValue,
+    final List<CustomerAttributeOption>? options,
+    final Map<String, dynamic>? validationRules,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _options = options,
+       _validationRules = validationRules,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CustomerAttributeImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerAttributeImplFromJson(json);
@@ -1205,59 +1281,66 @@ class _$CustomerAttributeImpl implements _CustomerAttribute {
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
             const DeepCollectionEquality().equals(other._options, _options) &&
-            const DeepCollectionEquality()
-                .equals(other._validationRules, _validationRules) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._validationRules,
+              _validationRules,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      attributeCode,
-      frontendInput,
-      frontendLabel,
-      isRequired,
-      isUserDefined,
-      isVisible,
-      isSystem,
-      sortOrder,
-      defaultValue,
-      const DeepCollectionEquality().hash(_options),
-      const DeepCollectionEquality().hash(_validationRules),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    attributeCode,
+    frontendInput,
+    frontendLabel,
+    isRequired,
+    isUserDefined,
+    isVisible,
+    isSystem,
+    sortOrder,
+    defaultValue,
+    const DeepCollectionEquality().hash(_options),
+    const DeepCollectionEquality().hash(_validationRules),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerAttribute
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerAttributeImplCopyWith<_$CustomerAttributeImpl> get copyWith =>
       __$$CustomerAttributeImplCopyWithImpl<_$CustomerAttributeImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerAttributeImplToJson(
-      this,
-    );
+    return _$$CustomerAttributeImplToJson(this);
   }
 }
 
 abstract class _CustomerAttribute implements CustomerAttribute {
-  const factory _CustomerAttribute(
-          {required final String attributeCode,
-          required final String frontendInput,
-          required final String frontendLabel,
-          required final bool isRequired,
-          required final bool isUserDefined,
-          required final bool isVisible,
-          required final bool isSystem,
-          required final int sortOrder,
-          final String? defaultValue,
-          final List<CustomerAttributeOption>? options,
-          final Map<String, dynamic>? validationRules,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerAttributeImpl;
+  const factory _CustomerAttribute({
+    required final String attributeCode,
+    required final String frontendInput,
+    required final String frontendLabel,
+    required final bool isRequired,
+    required final bool isUserDefined,
+    required final bool isVisible,
+    required final bool isSystem,
+    required final int sortOrder,
+    final String? defaultValue,
+    final List<CustomerAttributeOption>? options,
+    final Map<String, dynamic>? validationRules,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerAttributeImpl;
 
   factory _CustomerAttribute.fromJson(Map<String, dynamic> json) =
       _$CustomerAttributeImpl.fromJson;
@@ -1286,14 +1369,18 @@ abstract class _CustomerAttribute implements CustomerAttribute {
   Map<String, dynamic>? get validationRules;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerAttribute
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerAttributeImplCopyWith<_$CustomerAttributeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 CustomerAttributeOption _$CustomerAttributeOptionFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return _CustomerAttributeOption.fromJson(json);
 }
 
@@ -1304,25 +1391,35 @@ mixin _$CustomerAttributeOption {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerAttributeOption to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerAttributeOption
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerAttributeOptionCopyWith<CustomerAttributeOption> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CustomerAttributeOptionCopyWith<$Res> {
-  factory $CustomerAttributeOptionCopyWith(CustomerAttributeOption value,
-          $Res Function(CustomerAttributeOption) then) =
-      _$CustomerAttributeOptionCopyWithImpl<$Res, CustomerAttributeOption>;
+  factory $CustomerAttributeOptionCopyWith(
+    CustomerAttributeOption value,
+    $Res Function(CustomerAttributeOption) then,
+  ) = _$CustomerAttributeOptionCopyWithImpl<$Res, CustomerAttributeOption>;
   @useResult
-  $Res call(
-      {String value, String label, Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String value,
+    String label,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
-class _$CustomerAttributeOptionCopyWithImpl<$Res,
-        $Val extends CustomerAttributeOption>
+class _$CustomerAttributeOptionCopyWithImpl<
+  $Res,
+  $Val extends CustomerAttributeOption
+>
     implements $CustomerAttributeOptionCopyWith<$Res> {
   _$CustomerAttributeOptionCopyWithImpl(this._value, this._then);
 
@@ -1331,6 +1428,8 @@ class _$CustomerAttributeOptionCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerAttributeOption
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1338,20 +1437,23 @@ class _$CustomerAttributeOptionCopyWithImpl<$Res,
     Object? label = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-      label: null == label
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            value: null == value
+                ? _value.value
+                : value // ignore: cast_nullable_to_non_nullable
+                      as String,
+            label: null == label
+                ? _value.label
+                : label // ignore: cast_nullable_to_non_nullable
+                      as String,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -1359,25 +1461,33 @@ class _$CustomerAttributeOptionCopyWithImpl<$Res,
 abstract class _$$CustomerAttributeOptionImplCopyWith<$Res>
     implements $CustomerAttributeOptionCopyWith<$Res> {
   factory _$$CustomerAttributeOptionImplCopyWith(
-          _$CustomerAttributeOptionImpl value,
-          $Res Function(_$CustomerAttributeOptionImpl) then) =
-      __$$CustomerAttributeOptionImplCopyWithImpl<$Res>;
+    _$CustomerAttributeOptionImpl value,
+    $Res Function(_$CustomerAttributeOptionImpl) then,
+  ) = __$$CustomerAttributeOptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String value, String label, Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String value,
+    String label,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerAttributeOptionImplCopyWithImpl<$Res>
-    extends _$CustomerAttributeOptionCopyWithImpl<$Res,
-        _$CustomerAttributeOptionImpl>
+    extends
+        _$CustomerAttributeOptionCopyWithImpl<
+          $Res,
+          _$CustomerAttributeOptionImpl
+        >
     implements _$$CustomerAttributeOptionImplCopyWith<$Res> {
   __$$CustomerAttributeOptionImplCopyWithImpl(
-      _$CustomerAttributeOptionImpl _value,
-      $Res Function(_$CustomerAttributeOptionImpl) _then)
-      : super(_value, _then);
+    _$CustomerAttributeOptionImpl _value,
+    $Res Function(_$CustomerAttributeOptionImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerAttributeOption
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1385,31 +1495,33 @@ class __$$CustomerAttributeOptionImplCopyWithImpl<$Res>
     Object? label = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerAttributeOptionImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-      label: null == label
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerAttributeOptionImpl(
+        value: null == value
+            ? _value.value
+            : value // ignore: cast_nullable_to_non_nullable
+                  as String,
+        label: null == label
+            ? _value.label
+            : label // ignore: cast_nullable_to_non_nullable
+                  as String,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerAttributeOptionImpl implements _CustomerAttributeOption {
-  const _$CustomerAttributeOptionImpl(
-      {required this.value,
-      required this.label,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerAttributeOptionImpl({
+    required this.value,
+    required this.label,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerAttributeOptionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerAttributeOptionImplFromJson(json);
@@ -1441,36 +1553,44 @@ class _$CustomerAttributeOptionImpl implements _CustomerAttributeOption {
             other is _$CustomerAttributeOptionImpl &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.label, label) || other.label == label) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, value, label,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+  int get hashCode => Object.hash(
+    runtimeType,
+    value,
+    label,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerAttributeOption
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerAttributeOptionImplCopyWith<_$CustomerAttributeOptionImpl>
-      get copyWith => __$$CustomerAttributeOptionImplCopyWithImpl<
-          _$CustomerAttributeOptionImpl>(this, _$identity);
+  get copyWith =>
+      __$$CustomerAttributeOptionImplCopyWithImpl<
+        _$CustomerAttributeOptionImpl
+      >(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerAttributeOptionImplToJson(
-      this,
-    );
+    return _$$CustomerAttributeOptionImplToJson(this);
   }
 }
 
 abstract class _CustomerAttributeOption implements CustomerAttributeOption {
-  const factory _CustomerAttributeOption(
-          {required final String value,
-          required final String label,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerAttributeOptionImpl;
+  const factory _CustomerAttributeOption({
+    required final String value,
+    required final String label,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerAttributeOptionImpl;
 
   factory _CustomerAttributeOption.fromJson(Map<String, dynamic> json) =
       _$CustomerAttributeOptionImpl.fromJson;
@@ -1481,10 +1601,13 @@ abstract class _CustomerAttributeOption implements CustomerAttributeOption {
   String get label;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerAttributeOption
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerAttributeOptionImplCopyWith<_$CustomerAttributeOptionImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 CustomerPreferences _$CustomerPreferencesFromJson(Map<String, dynamic> json) {
@@ -1502,8 +1625,12 @@ mixin _$CustomerPreferences {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerPreferences to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerPreferences
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerPreferencesCopyWith<CustomerPreferences> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1511,16 +1638,18 @@ mixin _$CustomerPreferences {
 /// @nodoc
 abstract class $CustomerPreferencesCopyWith<$Res> {
   factory $CustomerPreferencesCopyWith(
-          CustomerPreferences value, $Res Function(CustomerPreferences) then) =
-      _$CustomerPreferencesCopyWithImpl<$Res, CustomerPreferences>;
+    CustomerPreferences value,
+    $Res Function(CustomerPreferences) then,
+  ) = _$CustomerPreferencesCopyWithImpl<$Res, CustomerPreferences>;
   @useResult
-  $Res call(
-      {String? language,
-      String? currency,
-      String? timezone,
-      bool? newsletterSubscription,
-      Map<String, dynamic>? additionalPreferences,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String? language,
+    String? currency,
+    String? timezone,
+    bool? newsletterSubscription,
+    Map<String, dynamic>? additionalPreferences,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -1533,6 +1662,8 @@ class _$CustomerPreferencesCopyWithImpl<$Res, $Val extends CustomerPreferences>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1543,60 +1674,68 @@ class _$CustomerPreferencesCopyWithImpl<$Res, $Val extends CustomerPreferences>
     Object? additionalPreferences = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency: freezed == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      timezone: freezed == timezone
-          ? _value.timezone
-          : timezone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      newsletterSubscription: freezed == newsletterSubscription
-          ? _value.newsletterSubscription
-          : newsletterSubscription // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      additionalPreferences: freezed == additionalPreferences
-          ? _value.additionalPreferences
-          : additionalPreferences // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            language: freezed == language
+                ? _value.language
+                : language // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            currency: freezed == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            timezone: freezed == timezone
+                ? _value.timezone
+                : timezone // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            newsletterSubscription: freezed == newsletterSubscription
+                ? _value.newsletterSubscription
+                : newsletterSubscription // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            additionalPreferences: freezed == additionalPreferences
+                ? _value.additionalPreferences
+                : additionalPreferences // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerPreferencesImplCopyWith<$Res>
     implements $CustomerPreferencesCopyWith<$Res> {
-  factory _$$CustomerPreferencesImplCopyWith(_$CustomerPreferencesImpl value,
-          $Res Function(_$CustomerPreferencesImpl) then) =
-      __$$CustomerPreferencesImplCopyWithImpl<$Res>;
+  factory _$$CustomerPreferencesImplCopyWith(
+    _$CustomerPreferencesImpl value,
+    $Res Function(_$CustomerPreferencesImpl) then,
+  ) = __$$CustomerPreferencesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? language,
-      String? currency,
-      String? timezone,
-      bool? newsletterSubscription,
-      Map<String, dynamic>? additionalPreferences,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String? language,
+    String? currency,
+    String? timezone,
+    bool? newsletterSubscription,
+    Map<String, dynamic>? additionalPreferences,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerPreferencesImplCopyWithImpl<$Res>
     extends _$CustomerPreferencesCopyWithImpl<$Res, _$CustomerPreferencesImpl>
     implements _$$CustomerPreferencesImplCopyWith<$Res> {
-  __$$CustomerPreferencesImplCopyWithImpl(_$CustomerPreferencesImpl _value,
-      $Res Function(_$CustomerPreferencesImpl) _then)
-      : super(_value, _then);
+  __$$CustomerPreferencesImplCopyWithImpl(
+    _$CustomerPreferencesImpl _value,
+    $Res Function(_$CustomerPreferencesImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1607,47 +1746,49 @@ class __$$CustomerPreferencesImplCopyWithImpl<$Res>
     Object? additionalPreferences = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerPreferencesImpl(
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String?,
-      currency: freezed == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      timezone: freezed == timezone
-          ? _value.timezone
-          : timezone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      newsletterSubscription: freezed == newsletterSubscription
-          ? _value.newsletterSubscription
-          : newsletterSubscription // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      additionalPreferences: freezed == additionalPreferences
-          ? _value._additionalPreferences
-          : additionalPreferences // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerPreferencesImpl(
+        language: freezed == language
+            ? _value.language
+            : language // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        currency: freezed == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        timezone: freezed == timezone
+            ? _value.timezone
+            : timezone // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        newsletterSubscription: freezed == newsletterSubscription
+            ? _value.newsletterSubscription
+            : newsletterSubscription // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        additionalPreferences: freezed == additionalPreferences
+            ? _value._additionalPreferences
+            : additionalPreferences // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerPreferencesImpl implements _CustomerPreferences {
-  const _$CustomerPreferencesImpl(
-      {this.language,
-      this.currency,
-      this.timezone,
-      this.newsletterSubscription,
-      final Map<String, dynamic>? additionalPreferences,
-      final Map<String, dynamic>? extensionAttributes})
-      : _additionalPreferences = additionalPreferences,
-        _extensionAttributes = extensionAttributes;
+  const _$CustomerPreferencesImpl({
+    this.language,
+    this.currency,
+    this.timezone,
+    this.newsletterSubscription,
+    final Map<String, dynamic>? additionalPreferences,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _additionalPreferences = additionalPreferences,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CustomerPreferencesImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerPreferencesImplFromJson(json);
@@ -1700,47 +1841,54 @@ class _$CustomerPreferencesImpl implements _CustomerPreferences {
                 other.timezone == timezone) &&
             (identical(other.newsletterSubscription, newsletterSubscription) ||
                 other.newsletterSubscription == newsletterSubscription) &&
-            const DeepCollectionEquality()
-                .equals(other._additionalPreferences, _additionalPreferences) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._additionalPreferences,
+              _additionalPreferences,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      language,
-      currency,
-      timezone,
-      newsletterSubscription,
-      const DeepCollectionEquality().hash(_additionalPreferences),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    language,
+    currency,
+    timezone,
+    newsletterSubscription,
+    const DeepCollectionEquality().hash(_additionalPreferences),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerPreferences
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerPreferencesImplCopyWith<_$CustomerPreferencesImpl> get copyWith =>
       __$$CustomerPreferencesImplCopyWithImpl<_$CustomerPreferencesImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerPreferencesImplToJson(
-      this,
-    );
+    return _$$CustomerPreferencesImplToJson(this);
   }
 }
 
 abstract class _CustomerPreferences implements CustomerPreferences {
-  const factory _CustomerPreferences(
-          {final String? language,
-          final String? currency,
-          final String? timezone,
-          final bool? newsletterSubscription,
-          final Map<String, dynamic>? additionalPreferences,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerPreferencesImpl;
+  const factory _CustomerPreferences({
+    final String? language,
+    final String? currency,
+    final String? timezone,
+    final bool? newsletterSubscription,
+    final Map<String, dynamic>? additionalPreferences,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerPreferencesImpl;
 
   factory _CustomerPreferences.fromJson(Map<String, dynamic> json) =
       _$CustomerPreferencesImpl.fromJson;
@@ -1757,8 +1905,11 @@ abstract class _CustomerPreferences implements CustomerPreferences {
   Map<String, dynamic>? get additionalPreferences;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerPreferencesImplCopyWith<_$CustomerPreferencesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1777,8 +1928,12 @@ mixin _$CustomerActivity {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerActivity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerActivity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerActivityCopyWith<CustomerActivity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1786,16 +1941,18 @@ mixin _$CustomerActivity {
 /// @nodoc
 abstract class $CustomerActivityCopyWith<$Res> {
   factory $CustomerActivityCopyWith(
-          CustomerActivity value, $Res Function(CustomerActivity) then) =
-      _$CustomerActivityCopyWithImpl<$Res, CustomerActivity>;
+    CustomerActivity value,
+    $Res Function(CustomerActivity) then,
+  ) = _$CustomerActivityCopyWithImpl<$Res, CustomerActivity>;
   @useResult
-  $Res call(
-      {String id,
-      String type,
-      String description,
-      DateTime timestamp,
-      Map<String, dynamic>? metadata,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String type,
+    String description,
+    DateTime timestamp,
+    Map<String, dynamic>? metadata,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -1808,6 +1965,8 @@ class _$CustomerActivityCopyWithImpl<$Res, $Val extends CustomerActivity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerActivity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1818,60 +1977,68 @@ class _$CustomerActivityCopyWithImpl<$Res, $Val extends CustomerActivity>
     Object? metadata = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      timestamp: null == timestamp
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            timestamp: null == timestamp
+                ? _value.timestamp
+                : timestamp // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            metadata: freezed == metadata
+                ? _value.metadata
+                : metadata // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerActivityImplCopyWith<$Res>
     implements $CustomerActivityCopyWith<$Res> {
-  factory _$$CustomerActivityImplCopyWith(_$CustomerActivityImpl value,
-          $Res Function(_$CustomerActivityImpl) then) =
-      __$$CustomerActivityImplCopyWithImpl<$Res>;
+  factory _$$CustomerActivityImplCopyWith(
+    _$CustomerActivityImpl value,
+    $Res Function(_$CustomerActivityImpl) then,
+  ) = __$$CustomerActivityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String type,
-      String description,
-      DateTime timestamp,
-      Map<String, dynamic>? metadata,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String type,
+    String description,
+    DateTime timestamp,
+    Map<String, dynamic>? metadata,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerActivityImplCopyWithImpl<$Res>
     extends _$CustomerActivityCopyWithImpl<$Res, _$CustomerActivityImpl>
     implements _$$CustomerActivityImplCopyWith<$Res> {
-  __$$CustomerActivityImplCopyWithImpl(_$CustomerActivityImpl _value,
-      $Res Function(_$CustomerActivityImpl) _then)
-      : super(_value, _then);
+  __$$CustomerActivityImplCopyWithImpl(
+    _$CustomerActivityImpl _value,
+    $Res Function(_$CustomerActivityImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerActivity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1882,47 +2049,49 @@ class __$$CustomerActivityImplCopyWithImpl<$Res>
     Object? metadata = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerActivityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      timestamp: null == timestamp
-          ? _value.timestamp
-          : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      metadata: freezed == metadata
-          ? _value._metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerActivityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        timestamp: null == timestamp
+            ? _value.timestamp
+            : timestamp // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        metadata: freezed == metadata
+            ? _value._metadata
+            : metadata // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerActivityImpl implements _CustomerActivity {
-  const _$CustomerActivityImpl(
-      {required this.id,
-      required this.type,
-      required this.description,
-      required this.timestamp,
-      final Map<String, dynamic>? metadata,
-      final Map<String, dynamic>? extensionAttributes})
-      : _metadata = metadata,
-        _extensionAttributes = extensionAttributes;
+  const _$CustomerActivityImpl({
+    required this.id,
+    required this.type,
+    required this.description,
+    required this.timestamp,
+    final Map<String, dynamic>? metadata,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _metadata = metadata,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CustomerActivityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerActivityImplFromJson(json);
@@ -1973,45 +2142,50 @@ class _$CustomerActivityImpl implements _CustomerActivity {
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             const DeepCollectionEquality().equals(other._metadata, _metadata) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      type,
-      description,
-      timestamp,
-      const DeepCollectionEquality().hash(_metadata),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    id,
+    type,
+    description,
+    timestamp,
+    const DeepCollectionEquality().hash(_metadata),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerActivity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerActivityImplCopyWith<_$CustomerActivityImpl> get copyWith =>
       __$$CustomerActivityImplCopyWithImpl<_$CustomerActivityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerActivityImplToJson(
-      this,
-    );
+    return _$$CustomerActivityImplToJson(this);
   }
 }
 
 abstract class _CustomerActivity implements CustomerActivity {
-  const factory _CustomerActivity(
-          {required final String id,
-          required final String type,
-          required final String description,
-          required final DateTime timestamp,
-          final Map<String, dynamic>? metadata,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerActivityImpl;
+  const factory _CustomerActivity({
+    required final String id,
+    required final String type,
+    required final String description,
+    required final DateTime timestamp,
+    final Map<String, dynamic>? metadata,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerActivityImpl;
 
   factory _CustomerActivity.fromJson(Map<String, dynamic> json) =
       _$CustomerActivityImpl.fromJson;
@@ -2028,8 +2202,11 @@ abstract class _CustomerActivity implements CustomerActivity {
   Map<String, dynamic>? get metadata;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerActivity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerActivityImplCopyWith<_$CustomerActivityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2051,8 +2228,12 @@ mixin _$CustomerStatistics {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerStatistics to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerStatistics
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerStatisticsCopyWith<CustomerStatistics> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2060,19 +2241,21 @@ mixin _$CustomerStatistics {
 /// @nodoc
 abstract class $CustomerStatisticsCopyWith<$Res> {
   factory $CustomerStatisticsCopyWith(
-          CustomerStatistics value, $Res Function(CustomerStatistics) then) =
-      _$CustomerStatisticsCopyWithImpl<$Res, CustomerStatistics>;
+    CustomerStatistics value,
+    $Res Function(CustomerStatistics) then,
+  ) = _$CustomerStatisticsCopyWithImpl<$Res, CustomerStatistics>;
   @useResult
-  $Res call(
-      {int totalOrders,
-      double totalSpent,
-      int totalProductsPurchased,
-      DateTime firstOrderDate,
-      DateTime? lastOrderDate,
-      double averageOrderValue,
-      int wishlistItems,
-      int cartItems,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int totalOrders,
+    double totalSpent,
+    int totalProductsPurchased,
+    DateTime firstOrderDate,
+    DateTime? lastOrderDate,
+    double averageOrderValue,
+    int wishlistItems,
+    int cartItems,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -2085,6 +2268,8 @@ class _$CustomerStatisticsCopyWithImpl<$Res, $Val extends CustomerStatistics>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerStatistics
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2098,75 +2283,83 @@ class _$CustomerStatisticsCopyWithImpl<$Res, $Val extends CustomerStatistics>
     Object? cartItems = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      totalOrders: null == totalOrders
-          ? _value.totalOrders
-          : totalOrders // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalSpent: null == totalSpent
-          ? _value.totalSpent
-          : totalSpent // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalProductsPurchased: null == totalProductsPurchased
-          ? _value.totalProductsPurchased
-          : totalProductsPurchased // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstOrderDate: null == firstOrderDate
-          ? _value.firstOrderDate
-          : firstOrderDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastOrderDate: freezed == lastOrderDate
-          ? _value.lastOrderDate
-          : lastOrderDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      averageOrderValue: null == averageOrderValue
-          ? _value.averageOrderValue
-          : averageOrderValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      wishlistItems: null == wishlistItems
-          ? _value.wishlistItems
-          : wishlistItems // ignore: cast_nullable_to_non_nullable
-              as int,
-      cartItems: null == cartItems
-          ? _value.cartItems
-          : cartItems // ignore: cast_nullable_to_non_nullable
-              as int,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            totalOrders: null == totalOrders
+                ? _value.totalOrders
+                : totalOrders // ignore: cast_nullable_to_non_nullable
+                      as int,
+            totalSpent: null == totalSpent
+                ? _value.totalSpent
+                : totalSpent // ignore: cast_nullable_to_non_nullable
+                      as double,
+            totalProductsPurchased: null == totalProductsPurchased
+                ? _value.totalProductsPurchased
+                : totalProductsPurchased // ignore: cast_nullable_to_non_nullable
+                      as int,
+            firstOrderDate: null == firstOrderDate
+                ? _value.firstOrderDate
+                : firstOrderDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            lastOrderDate: freezed == lastOrderDate
+                ? _value.lastOrderDate
+                : lastOrderDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            averageOrderValue: null == averageOrderValue
+                ? _value.averageOrderValue
+                : averageOrderValue // ignore: cast_nullable_to_non_nullable
+                      as double,
+            wishlistItems: null == wishlistItems
+                ? _value.wishlistItems
+                : wishlistItems // ignore: cast_nullable_to_non_nullable
+                      as int,
+            cartItems: null == cartItems
+                ? _value.cartItems
+                : cartItems // ignore: cast_nullable_to_non_nullable
+                      as int,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerStatisticsImplCopyWith<$Res>
     implements $CustomerStatisticsCopyWith<$Res> {
-  factory _$$CustomerStatisticsImplCopyWith(_$CustomerStatisticsImpl value,
-          $Res Function(_$CustomerStatisticsImpl) then) =
-      __$$CustomerStatisticsImplCopyWithImpl<$Res>;
+  factory _$$CustomerStatisticsImplCopyWith(
+    _$CustomerStatisticsImpl value,
+    $Res Function(_$CustomerStatisticsImpl) then,
+  ) = __$$CustomerStatisticsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int totalOrders,
-      double totalSpent,
-      int totalProductsPurchased,
-      DateTime firstOrderDate,
-      DateTime? lastOrderDate,
-      double averageOrderValue,
-      int wishlistItems,
-      int cartItems,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int totalOrders,
+    double totalSpent,
+    int totalProductsPurchased,
+    DateTime firstOrderDate,
+    DateTime? lastOrderDate,
+    double averageOrderValue,
+    int wishlistItems,
+    int cartItems,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerStatisticsImplCopyWithImpl<$Res>
     extends _$CustomerStatisticsCopyWithImpl<$Res, _$CustomerStatisticsImpl>
     implements _$$CustomerStatisticsImplCopyWith<$Res> {
-  __$$CustomerStatisticsImplCopyWithImpl(_$CustomerStatisticsImpl _value,
-      $Res Function(_$CustomerStatisticsImpl) _then)
-      : super(_value, _then);
+  __$$CustomerStatisticsImplCopyWithImpl(
+    _$CustomerStatisticsImpl _value,
+    $Res Function(_$CustomerStatisticsImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerStatistics
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2180,61 +2373,63 @@ class __$$CustomerStatisticsImplCopyWithImpl<$Res>
     Object? cartItems = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerStatisticsImpl(
-      totalOrders: null == totalOrders
-          ? _value.totalOrders
-          : totalOrders // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalSpent: null == totalSpent
-          ? _value.totalSpent
-          : totalSpent // ignore: cast_nullable_to_non_nullable
-              as double,
-      totalProductsPurchased: null == totalProductsPurchased
-          ? _value.totalProductsPurchased
-          : totalProductsPurchased // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstOrderDate: null == firstOrderDate
-          ? _value.firstOrderDate
-          : firstOrderDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      lastOrderDate: freezed == lastOrderDate
-          ? _value.lastOrderDate
-          : lastOrderDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      averageOrderValue: null == averageOrderValue
-          ? _value.averageOrderValue
-          : averageOrderValue // ignore: cast_nullable_to_non_nullable
-              as double,
-      wishlistItems: null == wishlistItems
-          ? _value.wishlistItems
-          : wishlistItems // ignore: cast_nullable_to_non_nullable
-              as int,
-      cartItems: null == cartItems
-          ? _value.cartItems
-          : cartItems // ignore: cast_nullable_to_non_nullable
-              as int,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerStatisticsImpl(
+        totalOrders: null == totalOrders
+            ? _value.totalOrders
+            : totalOrders // ignore: cast_nullable_to_non_nullable
+                  as int,
+        totalSpent: null == totalSpent
+            ? _value.totalSpent
+            : totalSpent // ignore: cast_nullable_to_non_nullable
+                  as double,
+        totalProductsPurchased: null == totalProductsPurchased
+            ? _value.totalProductsPurchased
+            : totalProductsPurchased // ignore: cast_nullable_to_non_nullable
+                  as int,
+        firstOrderDate: null == firstOrderDate
+            ? _value.firstOrderDate
+            : firstOrderDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        lastOrderDate: freezed == lastOrderDate
+            ? _value.lastOrderDate
+            : lastOrderDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        averageOrderValue: null == averageOrderValue
+            ? _value.averageOrderValue
+            : averageOrderValue // ignore: cast_nullable_to_non_nullable
+                  as double,
+        wishlistItems: null == wishlistItems
+            ? _value.wishlistItems
+            : wishlistItems // ignore: cast_nullable_to_non_nullable
+                  as int,
+        cartItems: null == cartItems
+            ? _value.cartItems
+            : cartItems // ignore: cast_nullable_to_non_nullable
+                  as int,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerStatisticsImpl implements _CustomerStatistics {
-  const _$CustomerStatisticsImpl(
-      {required this.totalOrders,
-      required this.totalSpent,
-      required this.totalProductsPurchased,
-      required this.firstOrderDate,
-      this.lastOrderDate,
-      required this.averageOrderValue,
-      required this.wishlistItems,
-      required this.cartItems,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerStatisticsImpl({
+    required this.totalOrders,
+    required this.totalSpent,
+    required this.totalProductsPurchased,
+    required this.firstOrderDate,
+    this.lastOrderDate,
+    required this.averageOrderValue,
+    required this.wishlistItems,
+    required this.cartItems,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerStatisticsImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerStatisticsImplFromJson(json);
@@ -2292,51 +2487,56 @@ class _$CustomerStatisticsImpl implements _CustomerStatistics {
                 other.wishlistItems == wishlistItems) &&
             (identical(other.cartItems, cartItems) ||
                 other.cartItems == cartItems) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      totalOrders,
-      totalSpent,
-      totalProductsPurchased,
-      firstOrderDate,
-      lastOrderDate,
-      averageOrderValue,
-      wishlistItems,
-      cartItems,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    totalOrders,
+    totalSpent,
+    totalProductsPurchased,
+    firstOrderDate,
+    lastOrderDate,
+    averageOrderValue,
+    wishlistItems,
+    cartItems,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerStatistics
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerStatisticsImplCopyWith<_$CustomerStatisticsImpl> get copyWith =>
       __$$CustomerStatisticsImplCopyWithImpl<_$CustomerStatisticsImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerStatisticsImplToJson(
-      this,
-    );
+    return _$$CustomerStatisticsImplToJson(this);
   }
 }
 
 abstract class _CustomerStatistics implements CustomerStatistics {
-  const factory _CustomerStatistics(
-          {required final int totalOrders,
-          required final double totalSpent,
-          required final int totalProductsPurchased,
-          required final DateTime firstOrderDate,
-          final DateTime? lastOrderDate,
-          required final double averageOrderValue,
-          required final int wishlistItems,
-          required final int cartItems,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerStatisticsImpl;
+  const factory _CustomerStatistics({
+    required final int totalOrders,
+    required final double totalSpent,
+    required final int totalProductsPurchased,
+    required final DateTime firstOrderDate,
+    final DateTime? lastOrderDate,
+    required final double averageOrderValue,
+    required final int wishlistItems,
+    required final int cartItems,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerStatisticsImpl;
 
   factory _CustomerStatistics.fromJson(Map<String, dynamic> json) =
       _$CustomerStatisticsImpl.fromJson;
@@ -2359,14 +2559,18 @@ abstract class _CustomerStatistics implements CustomerStatistics {
   int get cartItems;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerStatistics
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerStatisticsImplCopyWith<_$CustomerStatisticsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 CustomerNotificationPreferences _$CustomerNotificationPreferencesFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return _CustomerNotificationPreferences.fromJson(json);
 }
 
@@ -2382,34 +2586,44 @@ mixin _$CustomerNotificationPreferences {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerNotificationPreferences to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerNotificationPreferences
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerNotificationPreferencesCopyWith<CustomerNotificationPreferences>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CustomerNotificationPreferencesCopyWith<$Res> {
   factory $CustomerNotificationPreferencesCopyWith(
-          CustomerNotificationPreferences value,
-          $Res Function(CustomerNotificationPreferences) then) =
-      _$CustomerNotificationPreferencesCopyWithImpl<$Res,
-          CustomerNotificationPreferences>;
+    CustomerNotificationPreferences value,
+    $Res Function(CustomerNotificationPreferences) then,
+  ) =
+      _$CustomerNotificationPreferencesCopyWithImpl<
+        $Res,
+        CustomerNotificationPreferences
+      >;
   @useResult
-  $Res call(
-      {bool emailNotifications,
-      bool smsNotifications,
-      bool pushNotifications,
-      bool orderUpdates,
-      bool promotionalOffers,
-      bool productRecommendations,
-      bool priceAlerts,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    bool emailNotifications,
+    bool smsNotifications,
+    bool pushNotifications,
+    bool orderUpdates,
+    bool promotionalOffers,
+    bool productRecommendations,
+    bool priceAlerts,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
-class _$CustomerNotificationPreferencesCopyWithImpl<$Res,
-        $Val extends CustomerNotificationPreferences>
+class _$CustomerNotificationPreferencesCopyWithImpl<
+  $Res,
+  $Val extends CustomerNotificationPreferences
+>
     implements $CustomerNotificationPreferencesCopyWith<$Res> {
   _$CustomerNotificationPreferencesCopyWithImpl(this._value, this._then);
 
@@ -2418,6 +2632,8 @@ class _$CustomerNotificationPreferencesCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerNotificationPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2430,40 +2646,43 @@ class _$CustomerNotificationPreferencesCopyWithImpl<$Res,
     Object? priceAlerts = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      emailNotifications: null == emailNotifications
-          ? _value.emailNotifications
-          : emailNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      smsNotifications: null == smsNotifications
-          ? _value.smsNotifications
-          : smsNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      pushNotifications: null == pushNotifications
-          ? _value.pushNotifications
-          : pushNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      orderUpdates: null == orderUpdates
-          ? _value.orderUpdates
-          : orderUpdates // ignore: cast_nullable_to_non_nullable
-              as bool,
-      promotionalOffers: null == promotionalOffers
-          ? _value.promotionalOffers
-          : promotionalOffers // ignore: cast_nullable_to_non_nullable
-              as bool,
-      productRecommendations: null == productRecommendations
-          ? _value.productRecommendations
-          : productRecommendations // ignore: cast_nullable_to_non_nullable
-              as bool,
-      priceAlerts: null == priceAlerts
-          ? _value.priceAlerts
-          : priceAlerts // ignore: cast_nullable_to_non_nullable
-              as bool,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            emailNotifications: null == emailNotifications
+                ? _value.emailNotifications
+                : emailNotifications // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            smsNotifications: null == smsNotifications
+                ? _value.smsNotifications
+                : smsNotifications // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            pushNotifications: null == pushNotifications
+                ? _value.pushNotifications
+                : pushNotifications // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            orderUpdates: null == orderUpdates
+                ? _value.orderUpdates
+                : orderUpdates // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            promotionalOffers: null == promotionalOffers
+                ? _value.promotionalOffers
+                : promotionalOffers // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            productRecommendations: null == productRecommendations
+                ? _value.productRecommendations
+                : productRecommendations // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            priceAlerts: null == priceAlerts
+                ? _value.priceAlerts
+                : priceAlerts // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -2471,32 +2690,38 @@ class _$CustomerNotificationPreferencesCopyWithImpl<$Res,
 abstract class _$$CustomerNotificationPreferencesImplCopyWith<$Res>
     implements $CustomerNotificationPreferencesCopyWith<$Res> {
   factory _$$CustomerNotificationPreferencesImplCopyWith(
-          _$CustomerNotificationPreferencesImpl value,
-          $Res Function(_$CustomerNotificationPreferencesImpl) then) =
-      __$$CustomerNotificationPreferencesImplCopyWithImpl<$Res>;
+    _$CustomerNotificationPreferencesImpl value,
+    $Res Function(_$CustomerNotificationPreferencesImpl) then,
+  ) = __$$CustomerNotificationPreferencesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool emailNotifications,
-      bool smsNotifications,
-      bool pushNotifications,
-      bool orderUpdates,
-      bool promotionalOffers,
-      bool productRecommendations,
-      bool priceAlerts,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    bool emailNotifications,
+    bool smsNotifications,
+    bool pushNotifications,
+    bool orderUpdates,
+    bool promotionalOffers,
+    bool productRecommendations,
+    bool priceAlerts,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerNotificationPreferencesImplCopyWithImpl<$Res>
-    extends _$CustomerNotificationPreferencesCopyWithImpl<$Res,
-        _$CustomerNotificationPreferencesImpl>
+    extends
+        _$CustomerNotificationPreferencesCopyWithImpl<
+          $Res,
+          _$CustomerNotificationPreferencesImpl
+        >
     implements _$$CustomerNotificationPreferencesImplCopyWith<$Res> {
   __$$CustomerNotificationPreferencesImplCopyWithImpl(
-      _$CustomerNotificationPreferencesImpl _value,
-      $Res Function(_$CustomerNotificationPreferencesImpl) _then)
-      : super(_value, _then);
+    _$CustomerNotificationPreferencesImpl _value,
+    $Res Function(_$CustomerNotificationPreferencesImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerNotificationPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2509,40 +2734,42 @@ class __$$CustomerNotificationPreferencesImplCopyWithImpl<$Res>
     Object? priceAlerts = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerNotificationPreferencesImpl(
-      emailNotifications: null == emailNotifications
-          ? _value.emailNotifications
-          : emailNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      smsNotifications: null == smsNotifications
-          ? _value.smsNotifications
-          : smsNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      pushNotifications: null == pushNotifications
-          ? _value.pushNotifications
-          : pushNotifications // ignore: cast_nullable_to_non_nullable
-              as bool,
-      orderUpdates: null == orderUpdates
-          ? _value.orderUpdates
-          : orderUpdates // ignore: cast_nullable_to_non_nullable
-              as bool,
-      promotionalOffers: null == promotionalOffers
-          ? _value.promotionalOffers
-          : promotionalOffers // ignore: cast_nullable_to_non_nullable
-              as bool,
-      productRecommendations: null == productRecommendations
-          ? _value.productRecommendations
-          : productRecommendations // ignore: cast_nullable_to_non_nullable
-              as bool,
-      priceAlerts: null == priceAlerts
-          ? _value.priceAlerts
-          : priceAlerts // ignore: cast_nullable_to_non_nullable
-              as bool,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerNotificationPreferencesImpl(
+        emailNotifications: null == emailNotifications
+            ? _value.emailNotifications
+            : emailNotifications // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        smsNotifications: null == smsNotifications
+            ? _value.smsNotifications
+            : smsNotifications // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        pushNotifications: null == pushNotifications
+            ? _value.pushNotifications
+            : pushNotifications // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        orderUpdates: null == orderUpdates
+            ? _value.orderUpdates
+            : orderUpdates // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        promotionalOffers: null == promotionalOffers
+            ? _value.promotionalOffers
+            : promotionalOffers // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        productRecommendations: null == productRecommendations
+            ? _value.productRecommendations
+            : productRecommendations // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        priceAlerts: null == priceAlerts
+            ? _value.priceAlerts
+            : priceAlerts // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
@@ -2550,20 +2777,20 @@ class __$$CustomerNotificationPreferencesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CustomerNotificationPreferencesImpl
     implements _CustomerNotificationPreferences {
-  const _$CustomerNotificationPreferencesImpl(
-      {required this.emailNotifications,
-      required this.smsNotifications,
-      required this.pushNotifications,
-      required this.orderUpdates,
-      required this.promotionalOffers,
-      required this.productRecommendations,
-      required this.priceAlerts,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerNotificationPreferencesImpl({
+    required this.emailNotifications,
+    required this.smsNotifications,
+    required this.pushNotifications,
+    required this.orderUpdates,
+    required this.promotionalOffers,
+    required this.productRecommendations,
+    required this.priceAlerts,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerNotificationPreferencesImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$CustomerNotificationPreferencesImplFromJson(json);
+    Map<String, dynamic> json,
+  ) => _$$CustomerNotificationPreferencesImplFromJson(json);
 
   @override
   final bool emailNotifications;
@@ -2614,51 +2841,57 @@ class _$CustomerNotificationPreferencesImpl
                 other.productRecommendations == productRecommendations) &&
             (identical(other.priceAlerts, priceAlerts) ||
                 other.priceAlerts == priceAlerts) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      emailNotifications,
-      smsNotifications,
-      pushNotifications,
-      orderUpdates,
-      promotionalOffers,
-      productRecommendations,
-      priceAlerts,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    emailNotifications,
+    smsNotifications,
+    pushNotifications,
+    orderUpdates,
+    promotionalOffers,
+    productRecommendations,
+    priceAlerts,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerNotificationPreferences
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerNotificationPreferencesImplCopyWith<
-          _$CustomerNotificationPreferencesImpl>
-      get copyWith => __$$CustomerNotificationPreferencesImplCopyWithImpl<
-          _$CustomerNotificationPreferencesImpl>(this, _$identity);
+    _$CustomerNotificationPreferencesImpl
+  >
+  get copyWith =>
+      __$$CustomerNotificationPreferencesImplCopyWithImpl<
+        _$CustomerNotificationPreferencesImpl
+      >(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerNotificationPreferencesImplToJson(
-      this,
-    );
+    return _$$CustomerNotificationPreferencesImplToJson(this);
   }
 }
 
 abstract class _CustomerNotificationPreferences
     implements CustomerNotificationPreferences {
-  const factory _CustomerNotificationPreferences(
-          {required final bool emailNotifications,
-          required final bool smsNotifications,
-          required final bool pushNotifications,
-          required final bool orderUpdates,
-          required final bool promotionalOffers,
-          required final bool productRecommendations,
-          required final bool priceAlerts,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerNotificationPreferencesImpl;
+  const factory _CustomerNotificationPreferences({
+    required final bool emailNotifications,
+    required final bool smsNotifications,
+    required final bool pushNotifications,
+    required final bool orderUpdates,
+    required final bool promotionalOffers,
+    required final bool productRecommendations,
+    required final bool priceAlerts,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerNotificationPreferencesImpl;
 
   factory _CustomerNotificationPreferences.fromJson(Map<String, dynamic> json) =
       _$CustomerNotificationPreferencesImpl.fromJson;
@@ -2679,15 +2912,20 @@ abstract class _CustomerNotificationPreferences
   bool get priceAlerts;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerNotificationPreferences
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerNotificationPreferencesImplCopyWith<
-          _$CustomerNotificationPreferencesImpl>
-      get copyWith => throw _privateConstructorUsedError;
+    _$CustomerNotificationPreferencesImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 CustomerLoyaltyPoints _$CustomerLoyaltyPointsFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return _CustomerLoyaltyPoints.fromJson(json);
 }
 
@@ -2701,30 +2939,38 @@ mixin _$CustomerLoyaltyPoints {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerLoyaltyPoints to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerLoyaltyPoints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerLoyaltyPointsCopyWith<CustomerLoyaltyPoints> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CustomerLoyaltyPointsCopyWith<$Res> {
-  factory $CustomerLoyaltyPointsCopyWith(CustomerLoyaltyPoints value,
-          $Res Function(CustomerLoyaltyPoints) then) =
-      _$CustomerLoyaltyPointsCopyWithImpl<$Res, CustomerLoyaltyPoints>;
+  factory $CustomerLoyaltyPointsCopyWith(
+    CustomerLoyaltyPoints value,
+    $Res Function(CustomerLoyaltyPoints) then,
+  ) = _$CustomerLoyaltyPointsCopyWithImpl<$Res, CustomerLoyaltyPoints>;
   @useResult
-  $Res call(
-      {int currentPoints,
-      int totalEarned,
-      int totalRedeemed,
-      int pointsToExpire,
-      DateTime? expirationDate,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int currentPoints,
+    int totalEarned,
+    int totalRedeemed,
+    int pointsToExpire,
+    DateTime? expirationDate,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
-class _$CustomerLoyaltyPointsCopyWithImpl<$Res,
-        $Val extends CustomerLoyaltyPoints>
+class _$CustomerLoyaltyPointsCopyWithImpl<
+  $Res,
+  $Val extends CustomerLoyaltyPoints
+>
     implements $CustomerLoyaltyPointsCopyWith<$Res> {
   _$CustomerLoyaltyPointsCopyWithImpl(this._value, this._then);
 
@@ -2733,6 +2979,8 @@ class _$CustomerLoyaltyPointsCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerLoyaltyPoints
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2743,32 +2991,35 @@ class _$CustomerLoyaltyPointsCopyWithImpl<$Res,
     Object? expirationDate = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      currentPoints: null == currentPoints
-          ? _value.currentPoints
-          : currentPoints // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalEarned: null == totalEarned
-          ? _value.totalEarned
-          : totalEarned // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalRedeemed: null == totalRedeemed
-          ? _value.totalRedeemed
-          : totalRedeemed // ignore: cast_nullable_to_non_nullable
-              as int,
-      pointsToExpire: null == pointsToExpire
-          ? _value.pointsToExpire
-          : pointsToExpire // ignore: cast_nullable_to_non_nullable
-              as int,
-      expirationDate: freezed == expirationDate
-          ? _value.expirationDate
-          : expirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            currentPoints: null == currentPoints
+                ? _value.currentPoints
+                : currentPoints // ignore: cast_nullable_to_non_nullable
+                      as int,
+            totalEarned: null == totalEarned
+                ? _value.totalEarned
+                : totalEarned // ignore: cast_nullable_to_non_nullable
+                      as int,
+            totalRedeemed: null == totalRedeemed
+                ? _value.totalRedeemed
+                : totalRedeemed // ignore: cast_nullable_to_non_nullable
+                      as int,
+            pointsToExpire: null == pointsToExpire
+                ? _value.pointsToExpire
+                : pointsToExpire // ignore: cast_nullable_to_non_nullable
+                      as int,
+            expirationDate: freezed == expirationDate
+                ? _value.expirationDate
+                : expirationDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -2776,29 +3027,33 @@ class _$CustomerLoyaltyPointsCopyWithImpl<$Res,
 abstract class _$$CustomerLoyaltyPointsImplCopyWith<$Res>
     implements $CustomerLoyaltyPointsCopyWith<$Res> {
   factory _$$CustomerLoyaltyPointsImplCopyWith(
-          _$CustomerLoyaltyPointsImpl value,
-          $Res Function(_$CustomerLoyaltyPointsImpl) then) =
-      __$$CustomerLoyaltyPointsImplCopyWithImpl<$Res>;
+    _$CustomerLoyaltyPointsImpl value,
+    $Res Function(_$CustomerLoyaltyPointsImpl) then,
+  ) = __$$CustomerLoyaltyPointsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int currentPoints,
-      int totalEarned,
-      int totalRedeemed,
-      int pointsToExpire,
-      DateTime? expirationDate,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    int currentPoints,
+    int totalEarned,
+    int totalRedeemed,
+    int pointsToExpire,
+    DateTime? expirationDate,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerLoyaltyPointsImplCopyWithImpl<$Res>
-    extends _$CustomerLoyaltyPointsCopyWithImpl<$Res,
-        _$CustomerLoyaltyPointsImpl>
+    extends
+        _$CustomerLoyaltyPointsCopyWithImpl<$Res, _$CustomerLoyaltyPointsImpl>
     implements _$$CustomerLoyaltyPointsImplCopyWith<$Res> {
-  __$$CustomerLoyaltyPointsImplCopyWithImpl(_$CustomerLoyaltyPointsImpl _value,
-      $Res Function(_$CustomerLoyaltyPointsImpl) _then)
-      : super(_value, _then);
+  __$$CustomerLoyaltyPointsImplCopyWithImpl(
+    _$CustomerLoyaltyPointsImpl _value,
+    $Res Function(_$CustomerLoyaltyPointsImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerLoyaltyPoints
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2809,46 +3064,48 @@ class __$$CustomerLoyaltyPointsImplCopyWithImpl<$Res>
     Object? expirationDate = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerLoyaltyPointsImpl(
-      currentPoints: null == currentPoints
-          ? _value.currentPoints
-          : currentPoints // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalEarned: null == totalEarned
-          ? _value.totalEarned
-          : totalEarned // ignore: cast_nullable_to_non_nullable
-              as int,
-      totalRedeemed: null == totalRedeemed
-          ? _value.totalRedeemed
-          : totalRedeemed // ignore: cast_nullable_to_non_nullable
-              as int,
-      pointsToExpire: null == pointsToExpire
-          ? _value.pointsToExpire
-          : pointsToExpire // ignore: cast_nullable_to_non_nullable
-              as int,
-      expirationDate: freezed == expirationDate
-          ? _value.expirationDate
-          : expirationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerLoyaltyPointsImpl(
+        currentPoints: null == currentPoints
+            ? _value.currentPoints
+            : currentPoints // ignore: cast_nullable_to_non_nullable
+                  as int,
+        totalEarned: null == totalEarned
+            ? _value.totalEarned
+            : totalEarned // ignore: cast_nullable_to_non_nullable
+                  as int,
+        totalRedeemed: null == totalRedeemed
+            ? _value.totalRedeemed
+            : totalRedeemed // ignore: cast_nullable_to_non_nullable
+                  as int,
+        pointsToExpire: null == pointsToExpire
+            ? _value.pointsToExpire
+            : pointsToExpire // ignore: cast_nullable_to_non_nullable
+                  as int,
+        expirationDate: freezed == expirationDate
+            ? _value.expirationDate
+            : expirationDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerLoyaltyPointsImpl implements _CustomerLoyaltyPoints {
-  const _$CustomerLoyaltyPointsImpl(
-      {required this.currentPoints,
-      required this.totalEarned,
-      required this.totalRedeemed,
-      required this.pointsToExpire,
-      this.expirationDate,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerLoyaltyPointsImpl({
+    required this.currentPoints,
+    required this.totalEarned,
+    required this.totalRedeemed,
+    required this.pointsToExpire,
+    this.expirationDate,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerLoyaltyPointsImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerLoyaltyPointsImplFromJson(json);
@@ -2894,45 +3151,51 @@ class _$CustomerLoyaltyPointsImpl implements _CustomerLoyaltyPoints {
                 other.pointsToExpire == pointsToExpire) &&
             (identical(other.expirationDate, expirationDate) ||
                 other.expirationDate == expirationDate) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      currentPoints,
-      totalEarned,
-      totalRedeemed,
-      pointsToExpire,
-      expirationDate,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    currentPoints,
+    totalEarned,
+    totalRedeemed,
+    pointsToExpire,
+    expirationDate,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerLoyaltyPoints
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerLoyaltyPointsImplCopyWith<_$CustomerLoyaltyPointsImpl>
-      get copyWith => __$$CustomerLoyaltyPointsImplCopyWithImpl<
-          _$CustomerLoyaltyPointsImpl>(this, _$identity);
+  get copyWith =>
+      __$$CustomerLoyaltyPointsImplCopyWithImpl<_$CustomerLoyaltyPointsImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerLoyaltyPointsImplToJson(
-      this,
-    );
+    return _$$CustomerLoyaltyPointsImplToJson(this);
   }
 }
 
 abstract class _CustomerLoyaltyPoints implements CustomerLoyaltyPoints {
-  const factory _CustomerLoyaltyPoints(
-          {required final int currentPoints,
-          required final int totalEarned,
-          required final int totalRedeemed,
-          required final int pointsToExpire,
-          final DateTime? expirationDate,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerLoyaltyPointsImpl;
+  const factory _CustomerLoyaltyPoints({
+    required final int currentPoints,
+    required final int totalEarned,
+    required final int totalRedeemed,
+    required final int pointsToExpire,
+    final DateTime? expirationDate,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerLoyaltyPointsImpl;
 
   factory _CustomerLoyaltyPoints.fromJson(Map<String, dynamic> json) =
       _$CustomerLoyaltyPointsImpl.fromJson;
@@ -2949,10 +3212,13 @@ abstract class _CustomerLoyaltyPoints implements CustomerLoyaltyPoints {
   DateTime? get expirationDate;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerLoyaltyPoints
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerLoyaltyPointsImplCopyWith<_$CustomerLoyaltyPointsImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 CustomerSubscription _$CustomerSubscriptionFromJson(Map<String, dynamic> json) {
@@ -2972,33 +3238,41 @@ mixin _$CustomerSubscription {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerSubscription to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerSubscription
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerSubscriptionCopyWith<CustomerSubscription> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CustomerSubscriptionCopyWith<$Res> {
-  factory $CustomerSubscriptionCopyWith(CustomerSubscription value,
-          $Res Function(CustomerSubscription) then) =
-      _$CustomerSubscriptionCopyWithImpl<$Res, CustomerSubscription>;
+  factory $CustomerSubscriptionCopyWith(
+    CustomerSubscription value,
+    $Res Function(CustomerSubscription) then,
+  ) = _$CustomerSubscriptionCopyWithImpl<$Res, CustomerSubscription>;
   @useResult
-  $Res call(
-      {String id,
-      String status,
-      String type,
-      DateTime startDate,
-      DateTime? endDate,
-      double amount,
-      String currency,
-      String? frequency,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String status,
+    String type,
+    DateTime startDate,
+    DateTime? endDate,
+    double amount,
+    String currency,
+    String? frequency,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
-class _$CustomerSubscriptionCopyWithImpl<$Res,
-        $Val extends CustomerSubscription>
+class _$CustomerSubscriptionCopyWithImpl<
+  $Res,
+  $Val extends CustomerSubscription
+>
     implements $CustomerSubscriptionCopyWith<$Res> {
   _$CustomerSubscriptionCopyWithImpl(this._value, this._then);
 
@@ -3007,6 +3281,8 @@ class _$CustomerSubscriptionCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerSubscription
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3020,75 +3296,83 @@ class _$CustomerSubscriptionCopyWithImpl<$Res,
     Object? frequency = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: freezed == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      frequency: freezed == frequency
-          ? _value.frequency
-          : frequency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as String,
+            startDate: null == startDate
+                ? _value.startDate
+                : startDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            endDate: freezed == endDate
+                ? _value.endDate
+                : endDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            amount: null == amount
+                ? _value.amount
+                : amount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            currency: null == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            frequency: freezed == frequency
+                ? _value.frequency
+                : frequency // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerSubscriptionImplCopyWith<$Res>
     implements $CustomerSubscriptionCopyWith<$Res> {
-  factory _$$CustomerSubscriptionImplCopyWith(_$CustomerSubscriptionImpl value,
-          $Res Function(_$CustomerSubscriptionImpl) then) =
-      __$$CustomerSubscriptionImplCopyWithImpl<$Res>;
+  factory _$$CustomerSubscriptionImplCopyWith(
+    _$CustomerSubscriptionImpl value,
+    $Res Function(_$CustomerSubscriptionImpl) then,
+  ) = __$$CustomerSubscriptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String status,
-      String type,
-      DateTime startDate,
-      DateTime? endDate,
-      double amount,
-      String currency,
-      String? frequency,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String status,
+    String type,
+    DateTime startDate,
+    DateTime? endDate,
+    double amount,
+    String currency,
+    String? frequency,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CustomerSubscriptionImplCopyWithImpl<$Res>
     extends _$CustomerSubscriptionCopyWithImpl<$Res, _$CustomerSubscriptionImpl>
     implements _$$CustomerSubscriptionImplCopyWith<$Res> {
-  __$$CustomerSubscriptionImplCopyWithImpl(_$CustomerSubscriptionImpl _value,
-      $Res Function(_$CustomerSubscriptionImpl) _then)
-      : super(_value, _then);
+  __$$CustomerSubscriptionImplCopyWithImpl(
+    _$CustomerSubscriptionImpl _value,
+    $Res Function(_$CustomerSubscriptionImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerSubscription
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3102,61 +3386,63 @@ class __$$CustomerSubscriptionImplCopyWithImpl<$Res>
     Object? frequency = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerSubscriptionImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: freezed == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      frequency: freezed == frequency
-          ? _value.frequency
-          : frequency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerSubscriptionImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String,
+        startDate: null == startDate
+            ? _value.startDate
+            : startDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        endDate: freezed == endDate
+            ? _value.endDate
+            : endDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        amount: null == amount
+            ? _value.amount
+            : amount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        currency: null == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        frequency: freezed == frequency
+            ? _value.frequency
+            : frequency // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerSubscriptionImpl implements _CustomerSubscription {
-  const _$CustomerSubscriptionImpl(
-      {required this.id,
-      required this.status,
-      required this.type,
-      required this.startDate,
-      this.endDate,
-      required this.amount,
-      required this.currency,
-      this.frequency,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerSubscriptionImpl({
+    required this.id,
+    required this.status,
+    required this.type,
+    required this.startDate,
+    this.endDate,
+    required this.amount,
+    required this.currency,
+    this.frequency,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerSubscriptionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerSubscriptionImplFromJson(json);
@@ -3209,52 +3495,57 @@ class _$CustomerSubscriptionImpl implements _CustomerSubscription {
                 other.currency == currency) &&
             (identical(other.frequency, frequency) ||
                 other.frequency == frequency) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      status,
-      type,
-      startDate,
-      endDate,
-      amount,
-      currency,
-      frequency,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    id,
+    status,
+    type,
+    startDate,
+    endDate,
+    amount,
+    currency,
+    frequency,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerSubscription
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerSubscriptionImplCopyWith<_$CustomerSubscriptionImpl>
-      get copyWith =>
-          __$$CustomerSubscriptionImplCopyWithImpl<_$CustomerSubscriptionImpl>(
-              this, _$identity);
+  get copyWith =>
+      __$$CustomerSubscriptionImplCopyWithImpl<_$CustomerSubscriptionImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerSubscriptionImplToJson(
-      this,
-    );
+    return _$$CustomerSubscriptionImplToJson(this);
   }
 }
 
 abstract class _CustomerSubscription implements CustomerSubscription {
-  const factory _CustomerSubscription(
-          {required final String id,
-          required final String status,
-          required final String type,
-          required final DateTime startDate,
-          final DateTime? endDate,
-          required final double amount,
-          required final String currency,
-          final String? frequency,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CustomerSubscriptionImpl;
+  const factory _CustomerSubscription({
+    required final String id,
+    required final String status,
+    required final String type,
+    required final DateTime startDate,
+    final DateTime? endDate,
+    required final double amount,
+    required final String currency,
+    final String? frequency,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerSubscriptionImpl;
 
   factory _CustomerSubscription.fromJson(Map<String, dynamic> json) =
       _$CustomerSubscriptionImpl.fromJson;
@@ -3277,10 +3568,13 @@ abstract class _CustomerSubscription implements CustomerSubscription {
   String? get frequency;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerSubscription
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerSubscriptionImplCopyWith<_$CustomerSubscriptionImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 CustomerReview _$CustomerReviewFromJson(Map<String, dynamic> json) {
@@ -3301,8 +3595,12 @@ mixin _$CustomerReview {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CustomerReview to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CustomerReview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerReviewCopyWith<CustomerReview> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3310,20 +3608,22 @@ mixin _$CustomerReview {
 /// @nodoc
 abstract class $CustomerReviewCopyWith<$Res> {
   factory $CustomerReviewCopyWith(
-          CustomerReview value, $Res Function(CustomerReview) then) =
-      _$CustomerReviewCopyWithImpl<$Res, CustomerReview>;
+    CustomerReview value,
+    $Res Function(CustomerReview) then,
+  ) = _$CustomerReviewCopyWithImpl<$Res, CustomerReview>;
   @useResult
-  $Res call(
-      {String id,
-      String productId,
-      String productName,
-      String title,
-      String detail,
-      int rating,
-      DateTime createdAt,
-      DateTime? updatedAt,
-      String? status,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String productId,
+    String productName,
+    String title,
+    String detail,
+    int rating,
+    DateTime createdAt,
+    DateTime? updatedAt,
+    String? status,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -3336,6 +3636,8 @@ class _$CustomerReviewCopyWithImpl<$Res, $Val extends CustomerReview>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CustomerReview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3350,70 +3652,75 @@ class _$CustomerReviewCopyWithImpl<$Res, $Val extends CustomerReview>
     Object? status = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      productName: null == productName
-          ? _value.productName
-          : productName // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      detail: null == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            productId: null == productId
+                ? _value.productId
+                : productId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            productName: null == productName
+                ? _value.productName
+                : productName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            detail: null == detail
+                ? _value.detail
+                : detail // ignore: cast_nullable_to_non_nullable
+                      as String,
+            rating: null == rating
+                ? _value.rating
+                : rating // ignore: cast_nullable_to_non_nullable
+                      as int,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            status: freezed == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CustomerReviewImplCopyWith<$Res>
     implements $CustomerReviewCopyWith<$Res> {
-  factory _$$CustomerReviewImplCopyWith(_$CustomerReviewImpl value,
-          $Res Function(_$CustomerReviewImpl) then) =
-      __$$CustomerReviewImplCopyWithImpl<$Res>;
+  factory _$$CustomerReviewImplCopyWith(
+    _$CustomerReviewImpl value,
+    $Res Function(_$CustomerReviewImpl) then,
+  ) = __$$CustomerReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String productId,
-      String productName,
-      String title,
-      String detail,
-      int rating,
-      DateTime createdAt,
-      DateTime? updatedAt,
-      String? status,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String id,
+    String productId,
+    String productName,
+    String title,
+    String detail,
+    int rating,
+    DateTime createdAt,
+    DateTime? updatedAt,
+    String? status,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -3421,9 +3728,12 @@ class __$$CustomerReviewImplCopyWithImpl<$Res>
     extends _$CustomerReviewCopyWithImpl<$Res, _$CustomerReviewImpl>
     implements _$$CustomerReviewImplCopyWith<$Res> {
   __$$CustomerReviewImplCopyWithImpl(
-      _$CustomerReviewImpl _value, $Res Function(_$CustomerReviewImpl) _then)
-      : super(_value, _then);
+    _$CustomerReviewImpl _value,
+    $Res Function(_$CustomerReviewImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CustomerReview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3438,66 +3748,68 @@ class __$$CustomerReviewImplCopyWithImpl<$Res>
     Object? status = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CustomerReviewImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as String,
-      productName: null == productName
-          ? _value.productName
-          : productName // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      detail: null == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as String,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as int,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CustomerReviewImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        productId: null == productId
+            ? _value.productId
+            : productId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        productName: null == productName
+            ? _value.productName
+            : productName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        detail: null == detail
+            ? _value.detail
+            : detail // ignore: cast_nullable_to_non_nullable
+                  as String,
+        rating: null == rating
+            ? _value.rating
+            : rating // ignore: cast_nullable_to_non_nullable
+                  as int,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        status: freezed == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerReviewImpl implements _CustomerReview {
-  const _$CustomerReviewImpl(
-      {required this.id,
-      required this.productId,
-      required this.productName,
-      required this.title,
-      required this.detail,
-      required this.rating,
-      required this.createdAt,
-      this.updatedAt,
-      this.status,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CustomerReviewImpl({
+    required this.id,
+    required this.productId,
+    required this.productName,
+    required this.title,
+    required this.detail,
+    required this.rating,
+    required this.createdAt,
+    this.updatedAt,
+    this.status,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CustomerReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerReviewImplFromJson(json);
@@ -3554,52 +3866,58 @@ class _$CustomerReviewImpl implements _CustomerReview {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      productId,
-      productName,
-      title,
-      detail,
-      rating,
-      createdAt,
-      updatedAt,
-      status,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    id,
+    productId,
+    productName,
+    title,
+    detail,
+    rating,
+    createdAt,
+    updatedAt,
+    status,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CustomerReview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerReviewImplCopyWith<_$CustomerReviewImpl> get copyWith =>
       __$$CustomerReviewImplCopyWithImpl<_$CustomerReviewImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerReviewImplToJson(
-      this,
-    );
+    return _$$CustomerReviewImplToJson(this);
   }
 }
 
 abstract class _CustomerReview implements CustomerReview {
-  const factory _CustomerReview(
-      {required final String id,
-      required final String productId,
-      required final String productName,
-      required final String title,
-      required final String detail,
-      required final int rating,
-      required final DateTime createdAt,
-      final DateTime? updatedAt,
-      final String? status,
-      final Map<String, dynamic>? extensionAttributes}) = _$CustomerReviewImpl;
+  const factory _CustomerReview({
+    required final String id,
+    required final String productId,
+    required final String productName,
+    required final String title,
+    required final String detail,
+    required final int rating,
+    required final DateTime createdAt,
+    final DateTime? updatedAt,
+    final String? status,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CustomerReviewImpl;
 
   factory _CustomerReview.fromJson(Map<String, dynamic> json) =
       _$CustomerReviewImpl.fromJson;
@@ -3624,8 +3942,11 @@ abstract class _CustomerReview implements CustomerReview {
   String? get status;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CustomerReview
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerReviewImplCopyWith<_$CustomerReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

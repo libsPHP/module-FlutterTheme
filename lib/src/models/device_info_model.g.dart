@@ -31,7 +31,7 @@ Map<String, dynamic> _$DeviceInfoModelToJson(DeviceInfoModel instance) =>
       'systemVersion': instance.systemVersion,
       'screenResolution': instance.screenResolution,
       'isPhysicalDevice': instance.isPhysicalDevice,
-      'ramMb': ?instance.ramMb,
-      'storageGb': ?instance.storageGb,
+      if (instance.ramMb case final value?) 'ramMb': value,
+      if (instance.storageGb case final value?) 'storageGb': value,
       'additionalInfo': instance.additionalInfo,
     };

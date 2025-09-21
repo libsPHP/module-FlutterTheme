@@ -2,7 +2,39 @@ import 'package:dio/dio.dart';
 import '../models/search_models.dart';
 import 'magento_api_client.dart';
 
-/// Search API for Magento
+/// Search API for Magento integration.
+///
+/// This class provides comprehensive search functionality for Magento,
+/// including full-text search, category-based search, and advanced filtering.
+///
+/// ## Features
+///
+/// - **Full-Text Search**: Search across products, categories, and content
+/// - **Category Search**: Search within specific product categories
+/// - **Advanced Filtering**: Apply multiple filters to search results
+/// - **Pagination**: Handle large search result sets efficiently
+/// - **Sorting**: Sort search results by various criteria
+/// - **Search Suggestions**: Get search suggestions and autocomplete
+/// - **Search Analytics**: Track search performance and popular queries
+///
+/// ## Usage
+///
+/// ```dart
+/// final searchApi = SearchApi(apiClient);
+///
+/// // Perform full-text search
+/// final results = await searchApi.search(
+///   query: 'smartphone',
+///   page: 1,
+///   pageSize: 20,
+/// );
+///
+/// // Search within category
+/// final categoryResults = await searchApi.searchByCategory(
+///   categoryId: '123',
+///   query: 'accessories',
+/// );
+/// ```
 class SearchApi {
   final MagentoApiClient _client;
 
@@ -18,8 +50,9 @@ class SearchApi {
     String? sortOrder,
   }) async {
     try {
-      String url = '/rest/V1/search?searchCriteria[query]=$query&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
-      
+      String url =
+          '/rest/V1/search?searchCriteria[query]=$query&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
+
       if (sortBy != null) {
         url += '&searchCriteria[sortOrders][0][field]=$sortBy';
         if (sortOrder != null) {
@@ -29,7 +62,8 @@ class SearchApi {
 
       if (filters != null) {
         filters.forEach((key, value) {
-          url += '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
+          url +=
+              '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
         });
       }
 
@@ -58,8 +92,9 @@ class SearchApi {
     String? sortOrder,
   }) async {
     try {
-      String url = '/rest/V1/search?searchCriteria[query]=$query&searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=$categoryId&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
-      
+      String url =
+          '/rest/V1/search?searchCriteria[query]=$query&searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=$categoryId&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
+
       if (sortBy != null) {
         url += '&searchCriteria[sortOrders][0][field]=$sortBy';
         if (sortOrder != null) {
@@ -69,7 +104,8 @@ class SearchApi {
 
       if (filters != null) {
         filters.forEach((key, value) {
-          url += '&searchCriteria[filterGroups][1][filters][0][field]=$key&searchCriteria[filterGroups][1][filters][0][value]=$value';
+          url +=
+              '&searchCriteria[filterGroups][1][filters][0][field]=$key&searchCriteria[filterGroups][1][filters][0][value]=$value';
         });
       }
 
@@ -78,7 +114,9 @@ class SearchApi {
       if (response.statusCode == 200) {
         return SearchResponse.fromJson(response.data!);
       } else {
-        throw Exception('Failed to search by category: ${response.statusMessage}');
+        throw Exception(
+          'Failed to search by category: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to search by category: ${e.message}');
@@ -98,8 +136,9 @@ class SearchApi {
     String? sortOrder,
   }) async {
     try {
-      String url = '/rest/V1/search?searchCriteria[filterGroups][0][filters][0][field]=$attribute&searchCriteria[filterGroups][0][filters][0][value]=$value&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
-      
+      String url =
+          '/rest/V1/search?searchCriteria[filterGroups][0][filters][0][field]=$attribute&searchCriteria[filterGroups][0][filters][0][value]=$value&searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
+
       if (sortBy != null) {
         url += '&searchCriteria[sortOrders][0][field]=$sortBy';
         if (sortOrder != null) {
@@ -109,7 +148,8 @@ class SearchApi {
 
       if (additionalFilters != null) {
         additionalFilters.forEach((key, value) {
-          url += '&searchCriteria[filterGroups][1][filters][0][field]=$key&searchCriteria[filterGroups][1][filters][0][value]=$value';
+          url +=
+              '&searchCriteria[filterGroups][1][filters][0][field]=$key&searchCriteria[filterGroups][1][filters][0][value]=$value';
         });
       }
 
@@ -118,7 +158,9 @@ class SearchApi {
       if (response.statusCode == 200) {
         return SearchResponse.fromJson(response.data!);
       } else {
-        throw Exception('Failed to search by attribute: ${response.statusMessage}');
+        throw Exception(
+          'Failed to search by attribute: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to search by attribute: ${e.message}');
@@ -136,9 +178,13 @@ class SearchApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> suggestions = response.data!['suggestions'] ?? [];
-        return suggestions.map((suggestion) => SearchSuggestion.fromJson(suggestion)).toList();
+        return suggestions
+            .map((suggestion) => SearchSuggestion.fromJson(suggestion))
+            .toList();
       } else {
-        throw Exception('Failed to get search suggestions: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get search suggestions: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get search suggestions: ${e.message}');
@@ -280,9 +326,13 @@ class SearchApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> attributes = response.data!['items'] ?? [];
-        return attributes.map((attr) => FilterableAttribute.fromJson(attr)).toList();
+        return attributes
+            .map((attr) => FilterableAttribute.fromJson(attr))
+            .toList();
       } else {
-        throw Exception('Failed to get filterable attributes: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get filterable attributes: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get filterable attributes: ${e.message}');
@@ -292,7 +342,9 @@ class SearchApi {
   }
 
   /// Get attribute options
-  Future<List<AttributeOption>> getAttributeOptions(String attributeCode) async {
+  Future<List<AttributeOption>> getAttributeOptions(
+    String attributeCode,
+  ) async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/products/attributes/$attributeCode/options',
@@ -300,9 +352,13 @@ class SearchApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> options = response.data!['options'] ?? [];
-        return options.map((option) => AttributeOption.fromJson(option)).toList();
+        return options
+            .map((option) => AttributeOption.fromJson(option))
+            .toList();
       } else {
-        throw Exception('Failed to get attribute options: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get attribute options: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get attribute options: ${e.message}');
@@ -321,7 +377,7 @@ class SearchApi {
     try {
       final filterValue = values.join(',');
       final filters = {attributeCode: filterValue};
-      
+
       return await search(
         query: '',
         filters: filters,
@@ -356,10 +412,8 @@ class SearchApi {
     int pageSize = 20,
   }) async {
     try {
-      final filters = {
-        'price': '$minPrice-$maxPrice',
-      };
-      
+      final filters = {'price': '$minPrice-$maxPrice'};
+
       return await search(
         query: '',
         filters: filters,
@@ -377,11 +431,7 @@ class SearchApi {
       // TODO: Implement availability filters when Magento provides the endpoint
       // For now, return basic availability filters
       return [
-        AvailabilityFilter(
-          code: 'in_stock',
-          label: 'In Stock',
-          value: '1',
-        ),
+        AvailabilityFilter(code: 'in_stock', label: 'In Stock', value: '1'),
         AvailabilityFilter(
           code: 'out_of_stock',
           label: 'Out of Stock',
@@ -400,10 +450,8 @@ class SearchApi {
     int pageSize = 20,
   }) async {
     try {
-      final filters = {
-        'stock_status': availability,
-      };
-      
+      final filters = {'stock_status': availability};
+
       return await search(
         query: '',
         filters: filters,
@@ -423,11 +471,11 @@ class SearchApi {
   }) async {
     try {
       final combinedFilters = <String, dynamic>{};
-      
+
       for (final filter in filters) {
         combinedFilters.addAll(filter);
       }
-      
+
       return await search(
         query: '',
         filters: combinedFilters,

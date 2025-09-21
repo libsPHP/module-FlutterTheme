@@ -1,4 +1,42 @@
-/// Result of custom attributes validation
+/// Result of custom attributes validation.
+///
+/// This class represents the result of validating custom attribute data,
+/// including validation status, error messages, warnings, and optional metadata.
+/// It provides a standardized way to communicate validation results throughout
+/// the custom attributes system.
+///
+/// ## Features
+///
+/// - **Validation Status**: Boolean flag indicating whether validation passed
+/// - **Error Messages**: List of validation error messages
+/// - **Warnings**: List of validation warning messages
+/// - **Metadata**: Optional additional validation information
+/// - **Factory Constructors**: Convenient factory methods for common scenarios
+/// - **JSON Serialization**: Support for JSON serialization/deserialization
+/// - **Equality Support**: Proper equality comparison and hashCode implementation
+///
+/// ## Usage
+///
+/// ```dart
+/// // Create successful validation result
+/// final success = ValidationResult.success();
+///
+/// // Create failed validation result
+/// final failure = ValidationResult.failure(['Invalid email format']);
+///
+/// // Create result with warnings
+/// final withWarnings = ValidationResult.withWarnings(['Price seems high']);
+///
+/// // Check validation status
+/// if (result.isValid) {
+///   // Proceed with valid data
+/// } else {
+///   // Handle validation errors
+///   for (final error in result.errors) {
+///     print('Error: $error');
+///   }
+/// }
+/// ```
 class ValidationResult {
   final bool isValid;
   final List<String> errors;
@@ -31,11 +69,11 @@ class ValidationResult {
 
   /// Convert to JSON
   Map<String, dynamic> toJson() => {
-        'isValid': isValid,
-        'errors': errors,
-        'warnings': warnings,
-        if (metadata != null) 'metadata': metadata,
-      };
+    'isValid': isValid,
+    'errors': errors,
+    'warnings': warnings,
+    if (metadata != null) 'metadata': metadata,
+  };
 
   /// Create from JSON
   factory ValidationResult.fromJson(Map<String, dynamic> json) {

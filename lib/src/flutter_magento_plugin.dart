@@ -25,8 +25,36 @@ import 'adapters/custom_attributes_manager.dart';
 
 /// A comprehensive Flutter plugin for Magento e-commerce platform integration.
 ///
-/// This plugin provides methods to interact with Magento REST API,
-/// including authentication, products, cart, orders, and customer operations.
+/// This plugin provides a complete solution for integrating Flutter applications
+/// with Magento e-commerce platforms. It includes support for:
+///
+/// - **Authentication**: Customer login, registration, and session management
+/// - **Product Catalog**: Browse products, categories, and search functionality
+/// - **Shopping Cart**: Add/remove items, manage quantities, and apply coupons
+/// - **Orders**: Order history, tracking, and status updates
+/// - **Wishlist**: Save products for later purchase
+/// - **Customer Management**: Profile updates and address management
+/// - **Custom Attributes**: Universal custom attributes system for extensibility
+///
+/// ## Usage
+///
+/// ```dart
+/// final flutterMagento = FlutterMagento();
+///
+/// // Initialize the plugin
+/// await flutterMagento.initialize(
+///   baseUrl: 'https://your-magento-store.com',
+/// );
+///
+/// // Authenticate customer
+/// await flutterMagento.authenticateCustomer(
+///   email: 'customer@example.com',
+///   password: 'password123',
+/// );
+///
+/// // Get products
+/// final products = await flutterMagento.getProducts();
+/// ```
 class FlutterMagento {
   late final MagentoApiClient _apiClient;
   late final AuthApi _authApi;
@@ -42,11 +70,26 @@ class FlutterMagento {
   bool _isInitialized = false;
 
   /// Get the platform version.
+  ///
+  /// Returns the version of the platform-specific implementation.
+  /// This is typically used for debugging and compatibility checks.
   Future<String?> getPlatformVersion() {
     return FlutterMagentoPlatform.instance.getPlatformVersion();
   }
 
   /// Initialize the Magento plugin with base URL and configuration.
+  ///
+  /// This method must be called before using any other functionality.
+  /// It sets up the connection to the Magento backend and initializes all API clients.
+  ///
+  /// [baseUrl] is the base URL of your Magento instance (e.g., "https://yourstore.com")
+  /// [headers] optional custom headers to include with all requests
+  /// [connectionTimeout] timeout for establishing connection in milliseconds
+  /// [receiveTimeout] timeout for receiving data in milliseconds
+  /// [customAdapters] list of custom attribute adapters for extensibility
+  /// [enableCustomAttributesDebugLogging] enables debug logging for custom attributes
+  ///
+  /// Returns `true` if initialization was successful, `false` otherwise.
   Future<bool> initialize({
     required String baseUrl,
     Map<String, String>? headers,

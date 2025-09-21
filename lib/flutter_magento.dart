@@ -59,6 +59,8 @@ export 'src/services/service_manager.dart';
 export 'src/services/sync_service.dart';
 export 'src/services/device_info_service.dart';
 export 'src/services/profile_service.dart';
+export 'src/services/enhanced_http_client.dart';
+export 'src/services/socket_manager.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';

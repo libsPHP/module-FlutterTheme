@@ -3,7 +3,34 @@ import '../models/order_models.dart';
 import '../models/cart_models.dart';
 import 'magento_api_client.dart';
 
-/// Order API for Magento
+/// Order API for Magento integration.
+///
+/// This class provides comprehensive order management functionality for Magento,
+/// including order retrieval, tracking, and order-related operations.
+///
+/// ## Features
+///
+/// - **Order Listing**: Get customer orders with pagination and filtering
+/// - **Order Details**: Retrieve detailed order information by ID
+/// - **Order Tracking**: Track order status and shipment information
+/// - **Order History**: Access complete order history for customers
+/// - **Order Search**: Search orders by various criteria
+/// - **Order Status**: Check order status and updates
+///
+/// ## Usage
+///
+/// ```dart
+/// final orderApi = OrderApi(apiClient);
+///
+/// // Get customer orders
+/// final orders = await orderApi.getCustomerOrders(
+///   page: 1,
+///   pageSize: 20,
+/// );
+///
+/// // Get specific order
+/// final order = await orderApi.getOrder('ORDER-123');
+/// ```
 class OrderApi {
   final MagentoApiClient _client;
 
@@ -16,20 +43,26 @@ class OrderApi {
     Map<String, dynamic>? filters,
   }) async {
     try {
-      String url = '/rest/V1/customers/me/orders?searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
-      
+      String url =
+          '/rest/V1/customers/me/orders?searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
+
       if (filters != null) {
         filters.forEach((key, value) {
-          url += '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
+          url +=
+              '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
         });
       }
 
-      final response = await _client.authenticatedRequest<Map<String, dynamic>>(url);
+      final response = await _client.authenticatedRequest<Map<String, dynamic>>(
+        url,
+      );
 
       if (response.statusCode == 200) {
         return OrderListResponse.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get customer orders: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get customer orders: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get customer orders: ${e.message}');
@@ -72,7 +105,9 @@ class OrderApi {
           throw Exception('Order not found with increment ID: $incrementId');
         }
       } else {
-        throw Exception('Failed to get order by increment ID: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order by increment ID: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order by increment ID: ${e.message}');
@@ -120,9 +155,13 @@ class OrderApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> comments = response.data!['items'] ?? [];
-        return comments.map((comment) => OrderComment.fromJson(comment)).toList();
+        return comments
+            .map((comment) => OrderComment.fromJson(comment))
+            .toList();
       } else {
-        throw Exception('Failed to get order comments: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order comments: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order comments: ${e.message}');
@@ -142,7 +181,9 @@ class OrderApi {
         final List<dynamic> history = response.data!['items'] ?? [];
         return history.map((item) => OrderHistory.fromJson(item)).toList();
       } else {
-        throw Exception('Failed to get order history: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order history: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order history: ${e.message}');
@@ -238,7 +279,9 @@ class OrderApi {
         final List<dynamic> invoices = response.data!['items'] ?? [];
         return invoices.map((invoice) => Invoice.fromJson(invoice)).toList();
       } else {
-        throw Exception('Failed to get order invoices: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order invoices: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order invoices: ${e.message}');
@@ -295,9 +338,13 @@ class OrderApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> shipments = response.data!['items'] ?? [];
-        return shipments.map((shipment) => Shipment.fromJson(shipment)).toList();
+        return shipments
+            .map((shipment) => Shipment.fromJson(shipment))
+            .toList();
       } else {
-        throw Exception('Failed to get order shipments: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order shipments: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order shipments: ${e.message}');
@@ -336,7 +383,9 @@ class OrderApi {
         final List<dynamic> tracks = response.data!['items'] ?? [];
         return tracks.map((track) => ShipmentTracking.fromJson(track)).toList();
       } else {
-        throw Exception('Failed to get shipment tracking: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get shipment tracking: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get shipment tracking: ${e.message}');
@@ -356,7 +405,9 @@ class OrderApi {
       if (response.statusCode == 200) {
         return response.data!;
       } else {
-        throw Exception('Failed to get shipping label: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get shipping label: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get shipping label: ${e.message}');
@@ -376,7 +427,9 @@ class OrderApi {
         final List<dynamic> creditMemos = response.data!['items'] ?? [];
         return creditMemos.map((memo) => CreditMemo.fromJson(memo)).toList();
       } else {
-        throw Exception('Failed to get order credit memos: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get order credit memos: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get order credit memos: ${e.message}');
@@ -415,7 +468,9 @@ class OrderApi {
       if (response.statusCode == 200) {
         return response.data!;
       } else {
-        throw Exception('Failed to get credit memo PDF: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get credit memo PDF: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get credit memo PDF: ${e.message}');
@@ -464,21 +519,29 @@ class OrderApi {
     Map<String, dynamic>? filters,
   }) async {
     try {
-      String url = '/rest/V1/returns?searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
-      
+      String url =
+          '/rest/V1/returns?searchCriteria[currentPage]=$page&searchCriteria[pageSize]=$pageSize';
+
       if (filters != null) {
         filters.forEach((key, value) {
-          url += '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
+          url +=
+              '&searchCriteria[filterGroups][0][filters][0][field]=$key&searchCriteria[filterGroups][0][filters][0][value]=$value';
         });
       }
 
-      final response = await _client.authenticatedRequest<Map<String, dynamic>>(url);
+      final response = await _client.authenticatedRequest<Map<String, dynamic>>(
+        url,
+      );
 
       if (response.statusCode == 200) {
         final List<dynamic> returns = response.data!['items'] ?? [];
-        return returns.map((returnItem) => Return.fromJson(returnItem)).toList();
+        return returns
+            .map((returnItem) => Return.fromJson(returnItem))
+            .toList();
       } else {
-        throw Exception('Failed to get customer returns: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get customer returns: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get customer returns: ${e.message}');

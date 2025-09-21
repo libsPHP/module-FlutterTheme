@@ -12,7 +12,8 @@ part of 'checkout_models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 CheckoutSession _$CheckoutSessionFromJson(Map<String, dynamic> json) {
   return _CheckoutSession.fromJson(json);
@@ -34,8 +35,12 @@ mixin _$CheckoutSession {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutSession to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutSession
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutSessionCopyWith<CheckoutSession> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,20 +48,22 @@ mixin _$CheckoutSession {
 /// @nodoc
 abstract class $CheckoutSessionCopyWith<$Res> {
   factory $CheckoutSessionCopyWith(
-          CheckoutSession value, $Res Function(CheckoutSession) then) =
-      _$CheckoutSessionCopyWithImpl<$Res, CheckoutSession>;
+    CheckoutSession value,
+    $Res Function(CheckoutSession) then,
+  ) = _$CheckoutSessionCopyWithImpl<$Res, CheckoutSession>;
   @useResult
-  $Res call(
-      {String id,
-      String cartId,
-      String? email,
-      Map<String, dynamic>? shippingAddress,
-      Map<String, dynamic>? billingAddress,
-      String? shippingMethod,
-      String? paymentMethod,
-      Map<String, dynamic>? additionalData,
-      DateTime? createdAt,
-      DateTime? updatedAt});
+  $Res call({
+    String id,
+    String cartId,
+    String? email,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+    Map<String, dynamic>? additionalData,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  });
 }
 
 /// @nodoc
@@ -69,6 +76,8 @@ class _$CheckoutSessionCopyWithImpl<$Res, $Val extends CheckoutSession>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutSession
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -83,70 +92,75 @@ class _$CheckoutSessionCopyWithImpl<$Res, $Val extends CheckoutSession>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      cartId: null == cartId
-          ? _value.cartId
-          : cartId // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shippingAddress: freezed == shippingAddress
-          ? _value.shippingAddress
-          : shippingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      billingAddress: freezed == billingAddress
-          ? _value.billingAddress
-          : billingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      shippingMethod: freezed == shippingMethod
-          ? _value.shippingMethod
-          : shippingMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
-      paymentMethod: freezed == paymentMethod
-          ? _value.paymentMethod
-          : paymentMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
-      additionalData: freezed == additionalData
-          ? _value.additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            cartId: null == cartId
+                ? _value.cartId
+                : cartId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            email: freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            shippingAddress: freezed == shippingAddress
+                ? _value.shippingAddress
+                : shippingAddress // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            billingAddress: freezed == billingAddress
+                ? _value.billingAddress
+                : billingAddress // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            shippingMethod: freezed == shippingMethod
+                ? _value.shippingMethod
+                : shippingMethod // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            paymentMethod: freezed == paymentMethod
+                ? _value.paymentMethod
+                : paymentMethod // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            additionalData: freezed == additionalData
+                ? _value.additionalData
+                : additionalData // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            createdAt: freezed == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CheckoutSessionImplCopyWith<$Res>
     implements $CheckoutSessionCopyWith<$Res> {
-  factory _$$CheckoutSessionImplCopyWith(_$CheckoutSessionImpl value,
-          $Res Function(_$CheckoutSessionImpl) then) =
-      __$$CheckoutSessionImplCopyWithImpl<$Res>;
+  factory _$$CheckoutSessionImplCopyWith(
+    _$CheckoutSessionImpl value,
+    $Res Function(_$CheckoutSessionImpl) then,
+  ) = __$$CheckoutSessionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String cartId,
-      String? email,
-      Map<String, dynamic>? shippingAddress,
-      Map<String, dynamic>? billingAddress,
-      String? shippingMethod,
-      String? paymentMethod,
-      Map<String, dynamic>? additionalData,
-      DateTime? createdAt,
-      DateTime? updatedAt});
+  $Res call({
+    String id,
+    String cartId,
+    String? email,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    String? shippingMethod,
+    String? paymentMethod,
+    Map<String, dynamic>? additionalData,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  });
 }
 
 /// @nodoc
@@ -154,9 +168,12 @@ class __$$CheckoutSessionImplCopyWithImpl<$Res>
     extends _$CheckoutSessionCopyWithImpl<$Res, _$CheckoutSessionImpl>
     implements _$$CheckoutSessionImplCopyWith<$Res> {
   __$$CheckoutSessionImplCopyWithImpl(
-      _$CheckoutSessionImpl _value, $Res Function(_$CheckoutSessionImpl) _then)
-      : super(_value, _then);
+    _$CheckoutSessionImpl _value,
+    $Res Function(_$CheckoutSessionImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutSession
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,68 +188,70 @@ class __$$CheckoutSessionImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$CheckoutSessionImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      cartId: null == cartId
-          ? _value.cartId
-          : cartId // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shippingAddress: freezed == shippingAddress
-          ? _value._shippingAddress
-          : shippingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      billingAddress: freezed == billingAddress
-          ? _value._billingAddress
-          : billingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      shippingMethod: freezed == shippingMethod
-          ? _value.shippingMethod
-          : shippingMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
-      paymentMethod: freezed == paymentMethod
-          ? _value.paymentMethod
-          : paymentMethod // ignore: cast_nullable_to_non_nullable
-              as String?,
-      additionalData: freezed == additionalData
-          ? _value._additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
+    return _then(
+      _$CheckoutSessionImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        cartId: null == cartId
+            ? _value.cartId
+            : cartId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        email: freezed == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        shippingAddress: freezed == shippingAddress
+            ? _value._shippingAddress
+            : shippingAddress // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        billingAddress: freezed == billingAddress
+            ? _value._billingAddress
+            : billingAddress // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        shippingMethod: freezed == shippingMethod
+            ? _value.shippingMethod
+            : shippingMethod // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        paymentMethod: freezed == paymentMethod
+            ? _value.paymentMethod
+            : paymentMethod // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        additionalData: freezed == additionalData
+            ? _value._additionalData
+            : additionalData // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        createdAt: freezed == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutSessionImpl implements _CheckoutSession {
-  const _$CheckoutSessionImpl(
-      {required this.id,
-      required this.cartId,
-      this.email,
-      final Map<String, dynamic>? shippingAddress,
-      final Map<String, dynamic>? billingAddress,
-      this.shippingMethod,
-      this.paymentMethod,
-      final Map<String, dynamic>? additionalData,
-      this.createdAt,
-      this.updatedAt})
-      : _shippingAddress = shippingAddress,
-        _billingAddress = billingAddress,
-        _additionalData = additionalData;
+  const _$CheckoutSessionImpl({
+    required this.id,
+    required this.cartId,
+    this.email,
+    final Map<String, dynamic>? shippingAddress,
+    final Map<String, dynamic>? billingAddress,
+    this.shippingMethod,
+    this.paymentMethod,
+    final Map<String, dynamic>? additionalData,
+    this.createdAt,
+    this.updatedAt,
+  }) : _shippingAddress = shippingAddress,
+       _billingAddress = billingAddress,
+       _additionalData = additionalData;
 
   factory _$CheckoutSessionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutSessionImplFromJson(json);
@@ -295,64 +314,74 @@ class _$CheckoutSessionImpl implements _CheckoutSession {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.cartId, cartId) || other.cartId == cartId) &&
             (identical(other.email, email) || other.email == email) &&
-            const DeepCollectionEquality()
-                .equals(other._shippingAddress, _shippingAddress) &&
-            const DeepCollectionEquality()
-                .equals(other._billingAddress, _billingAddress) &&
+            const DeepCollectionEquality().equals(
+              other._shippingAddress,
+              _shippingAddress,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._billingAddress,
+              _billingAddress,
+            ) &&
             (identical(other.shippingMethod, shippingMethod) ||
                 other.shippingMethod == shippingMethod) &&
             (identical(other.paymentMethod, paymentMethod) ||
                 other.paymentMethod == paymentMethod) &&
-            const DeepCollectionEquality()
-                .equals(other._additionalData, _additionalData) &&
+            const DeepCollectionEquality().equals(
+              other._additionalData,
+              _additionalData,
+            ) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      cartId,
-      email,
-      const DeepCollectionEquality().hash(_shippingAddress),
-      const DeepCollectionEquality().hash(_billingAddress),
-      shippingMethod,
-      paymentMethod,
-      const DeepCollectionEquality().hash(_additionalData),
-      createdAt,
-      updatedAt);
+    runtimeType,
+    id,
+    cartId,
+    email,
+    const DeepCollectionEquality().hash(_shippingAddress),
+    const DeepCollectionEquality().hash(_billingAddress),
+    shippingMethod,
+    paymentMethod,
+    const DeepCollectionEquality().hash(_additionalData),
+    createdAt,
+    updatedAt,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutSession
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutSessionImplCopyWith<_$CheckoutSessionImpl> get copyWith =>
       __$$CheckoutSessionImplCopyWithImpl<_$CheckoutSessionImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutSessionImplToJson(
-      this,
-    );
+    return _$$CheckoutSessionImplToJson(this);
   }
 }
 
 abstract class _CheckoutSession implements CheckoutSession {
-  const factory _CheckoutSession(
-      {required final String id,
-      required final String cartId,
-      final String? email,
-      final Map<String, dynamic>? shippingAddress,
-      final Map<String, dynamic>? billingAddress,
-      final String? shippingMethod,
-      final String? paymentMethod,
-      final Map<String, dynamic>? additionalData,
-      final DateTime? createdAt,
-      final DateTime? updatedAt}) = _$CheckoutSessionImpl;
+  const factory _CheckoutSession({
+    required final String id,
+    required final String cartId,
+    final String? email,
+    final Map<String, dynamic>? shippingAddress,
+    final Map<String, dynamic>? billingAddress,
+    final String? shippingMethod,
+    final String? paymentMethod,
+    final Map<String, dynamic>? additionalData,
+    final DateTime? createdAt,
+    final DateTime? updatedAt,
+  }) = _$CheckoutSessionImpl;
 
   factory _CheckoutSession.fromJson(Map<String, dynamic> json) =
       _$CheckoutSessionImpl.fromJson;
@@ -377,8 +406,11 @@ abstract class _CheckoutSession implements CheckoutSession {
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
+
+  /// Create a copy of CheckoutSession
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutSessionImplCopyWith<_$CheckoutSessionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -400,8 +432,12 @@ mixin _$ShippingMethod {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this ShippingMethod to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ShippingMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShippingMethodCopyWith<ShippingMethod> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -409,19 +445,21 @@ mixin _$ShippingMethod {
 /// @nodoc
 abstract class $ShippingMethodCopyWith<$Res> {
   factory $ShippingMethodCopyWith(
-          ShippingMethod value, $Res Function(ShippingMethod) then) =
-      _$ShippingMethodCopyWithImpl<$Res, ShippingMethod>;
+    ShippingMethod value,
+    $Res Function(ShippingMethod) then,
+  ) = _$ShippingMethodCopyWithImpl<$Res, ShippingMethod>;
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      double amount,
-      String currency,
-      String? carrierCode,
-      String? carrierTitle,
-      String? methodCode,
-      String? methodTitle,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    double amount,
+    String currency,
+    String? carrierCode,
+    String? carrierTitle,
+    String? methodCode,
+    String? methodTitle,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -434,6 +472,8 @@ class _$ShippingMethodCopyWithImpl<$Res, $Val extends ShippingMethod>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShippingMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -447,65 +487,70 @@ class _$ShippingMethodCopyWithImpl<$Res, $Val extends ShippingMethod>
     Object? methodTitle = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      carrierCode: freezed == carrierCode
-          ? _value.carrierCode
-          : carrierCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      carrierTitle: freezed == carrierTitle
-          ? _value.carrierTitle
-          : carrierTitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      methodCode: freezed == methodCode
-          ? _value.methodCode
-          : methodCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      methodTitle: freezed == methodTitle
-          ? _value.methodTitle
-          : methodTitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            code: null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            amount: null == amount
+                ? _value.amount
+                : amount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            currency: null == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            carrierCode: freezed == carrierCode
+                ? _value.carrierCode
+                : carrierCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            carrierTitle: freezed == carrierTitle
+                ? _value.carrierTitle
+                : carrierTitle // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            methodCode: freezed == methodCode
+                ? _value.methodCode
+                : methodCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            methodTitle: freezed == methodTitle
+                ? _value.methodTitle
+                : methodTitle // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$ShippingMethodImplCopyWith<$Res>
     implements $ShippingMethodCopyWith<$Res> {
-  factory _$$ShippingMethodImplCopyWith(_$ShippingMethodImpl value,
-          $Res Function(_$ShippingMethodImpl) then) =
-      __$$ShippingMethodImplCopyWithImpl<$Res>;
+  factory _$$ShippingMethodImplCopyWith(
+    _$ShippingMethodImpl value,
+    $Res Function(_$ShippingMethodImpl) then,
+  ) = __$$ShippingMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      double amount,
-      String currency,
-      String? carrierCode,
-      String? carrierTitle,
-      String? methodCode,
-      String? methodTitle,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    double amount,
+    String currency,
+    String? carrierCode,
+    String? carrierTitle,
+    String? methodCode,
+    String? methodTitle,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -513,9 +558,12 @@ class __$$ShippingMethodImplCopyWithImpl<$Res>
     extends _$ShippingMethodCopyWithImpl<$Res, _$ShippingMethodImpl>
     implements _$$ShippingMethodImplCopyWith<$Res> {
   __$$ShippingMethodImplCopyWithImpl(
-      _$ShippingMethodImpl _value, $Res Function(_$ShippingMethodImpl) _then)
-      : super(_value, _then);
+    _$ShippingMethodImpl _value,
+    $Res Function(_$ShippingMethodImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of ShippingMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -529,61 +577,63 @@ class __$$ShippingMethodImplCopyWithImpl<$Res>
     Object? methodTitle = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$ShippingMethodImpl(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      amount: null == amount
-          ? _value.amount
-          : amount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      carrierCode: freezed == carrierCode
-          ? _value.carrierCode
-          : carrierCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      carrierTitle: freezed == carrierTitle
-          ? _value.carrierTitle
-          : carrierTitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      methodCode: freezed == methodCode
-          ? _value.methodCode
-          : methodCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      methodTitle: freezed == methodTitle
-          ? _value.methodTitle
-          : methodTitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$ShippingMethodImpl(
+        code: null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        amount: null == amount
+            ? _value.amount
+            : amount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        currency: null == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        carrierCode: freezed == carrierCode
+            ? _value.carrierCode
+            : carrierCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        carrierTitle: freezed == carrierTitle
+            ? _value.carrierTitle
+            : carrierTitle // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        methodCode: freezed == methodCode
+            ? _value.methodCode
+            : methodCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        methodTitle: freezed == methodTitle
+            ? _value.methodTitle
+            : methodTitle // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ShippingMethodImpl implements _ShippingMethod {
-  const _$ShippingMethodImpl(
-      {required this.code,
-      required this.title,
-      required this.amount,
-      required this.currency,
-      this.carrierCode,
-      this.carrierTitle,
-      this.methodCode,
-      this.methodTitle,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$ShippingMethodImpl({
+    required this.code,
+    required this.title,
+    required this.amount,
+    required this.currency,
+    this.carrierCode,
+    this.carrierTitle,
+    this.methodCode,
+    this.methodTitle,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$ShippingMethodImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShippingMethodImplFromJson(json);
@@ -638,50 +688,56 @@ class _$ShippingMethodImpl implements _ShippingMethod {
                 other.methodCode == methodCode) &&
             (identical(other.methodTitle, methodTitle) ||
                 other.methodTitle == methodTitle) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      code,
-      title,
-      amount,
-      currency,
-      carrierCode,
-      carrierTitle,
-      methodCode,
-      methodTitle,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    code,
+    title,
+    amount,
+    currency,
+    carrierCode,
+    carrierTitle,
+    methodCode,
+    methodTitle,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShippingMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShippingMethodImplCopyWith<_$ShippingMethodImpl> get copyWith =>
       __$$ShippingMethodImplCopyWithImpl<_$ShippingMethodImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShippingMethodImplToJson(
-      this,
-    );
+    return _$$ShippingMethodImplToJson(this);
   }
 }
 
 abstract class _ShippingMethod implements ShippingMethod {
-  const factory _ShippingMethod(
-      {required final String code,
-      required final String title,
-      required final double amount,
-      required final String currency,
-      final String? carrierCode,
-      final String? carrierTitle,
-      final String? methodCode,
-      final String? methodTitle,
-      final Map<String, dynamic>? extensionAttributes}) = _$ShippingMethodImpl;
+  const factory _ShippingMethod({
+    required final String code,
+    required final String title,
+    required final double amount,
+    required final String currency,
+    final String? carrierCode,
+    final String? carrierTitle,
+    final String? methodCode,
+    final String? methodTitle,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$ShippingMethodImpl;
 
   factory _ShippingMethod.fromJson(Map<String, dynamic> json) =
       _$ShippingMethodImpl.fromJson;
@@ -704,8 +760,11 @@ abstract class _ShippingMethod implements ShippingMethod {
   String? get methodTitle;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of ShippingMethod
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShippingMethodImplCopyWith<_$ShippingMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -723,8 +782,12 @@ mixin _$PaymentMethod {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this PaymentMethod to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentMethodCopyWith<PaymentMethod> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -732,15 +795,17 @@ mixin _$PaymentMethod {
 /// @nodoc
 abstract class $PaymentMethodCopyWith<$Res> {
   factory $PaymentMethodCopyWith(
-          PaymentMethod value, $Res Function(PaymentMethod) then) =
-      _$PaymentMethodCopyWithImpl<$Res, PaymentMethod>;
+    PaymentMethod value,
+    $Res Function(PaymentMethod) then,
+  ) = _$PaymentMethodCopyWithImpl<$Res, PaymentMethod>;
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      String? description,
-      Map<String, dynamic>? config,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    String? description,
+    Map<String, dynamic>? config,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -753,6 +818,8 @@ class _$PaymentMethodCopyWithImpl<$Res, $Val extends PaymentMethod>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -762,28 +829,31 @@ class _$PaymentMethodCopyWithImpl<$Res, $Val extends PaymentMethod>
     Object? config = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      config: freezed == config
-          ? _value.config
-          : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            code: null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            config: freezed == config
+                ? _value.config
+                : config // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -791,16 +861,18 @@ class _$PaymentMethodCopyWithImpl<$Res, $Val extends PaymentMethod>
 abstract class _$$PaymentMethodImplCopyWith<$Res>
     implements $PaymentMethodCopyWith<$Res> {
   factory _$$PaymentMethodImplCopyWith(
-          _$PaymentMethodImpl value, $Res Function(_$PaymentMethodImpl) then) =
-      __$$PaymentMethodImplCopyWithImpl<$Res>;
+    _$PaymentMethodImpl value,
+    $Res Function(_$PaymentMethodImpl) then,
+  ) = __$$PaymentMethodImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      String? description,
-      Map<String, dynamic>? config,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    String? description,
+    Map<String, dynamic>? config,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -808,9 +880,12 @@ class __$$PaymentMethodImplCopyWithImpl<$Res>
     extends _$PaymentMethodCopyWithImpl<$Res, _$PaymentMethodImpl>
     implements _$$PaymentMethodImplCopyWith<$Res> {
   __$$PaymentMethodImplCopyWithImpl(
-      _$PaymentMethodImpl _value, $Res Function(_$PaymentMethodImpl) _then)
-      : super(_value, _then);
+    _$PaymentMethodImpl _value,
+    $Res Function(_$PaymentMethodImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of PaymentMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -820,42 +895,44 @@ class __$$PaymentMethodImplCopyWithImpl<$Res>
     Object? config = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$PaymentMethodImpl(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      config: freezed == config
-          ? _value._config
-          : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$PaymentMethodImpl(
+        code: null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        config: freezed == config
+            ? _value._config
+            : config // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$PaymentMethodImpl implements _PaymentMethod {
-  const _$PaymentMethodImpl(
-      {required this.code,
-      required this.title,
-      this.description,
-      final Map<String, dynamic>? config,
-      final Map<String, dynamic>? extensionAttributes})
-      : _config = config,
-        _extensionAttributes = extensionAttributes;
+  const _$PaymentMethodImpl({
+    required this.code,
+    required this.title,
+    this.description,
+    final Map<String, dynamic>? config,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _config = config,
+       _extensionAttributes = extensionAttributes;
 
   factory _$PaymentMethodImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaymentMethodImplFromJson(json);
@@ -902,21 +979,26 @@ class _$PaymentMethodImpl implements _PaymentMethod {
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._config, _config) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      code,
-      title,
-      description,
-      const DeepCollectionEquality().hash(_config),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    code,
+    title,
+    description,
+    const DeepCollectionEquality().hash(_config),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentMethodImplCopyWith<_$PaymentMethodImpl> get copyWith =>
@@ -924,19 +1006,18 @@ class _$PaymentMethodImpl implements _PaymentMethod {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PaymentMethodImplToJson(
-      this,
-    );
+    return _$$PaymentMethodImplToJson(this);
   }
 }
 
 abstract class _PaymentMethod implements PaymentMethod {
-  const factory _PaymentMethod(
-      {required final String code,
-      required final String title,
-      final String? description,
-      final Map<String, dynamic>? config,
-      final Map<String, dynamic>? extensionAttributes}) = _$PaymentMethodImpl;
+  const factory _PaymentMethod({
+    required final String code,
+    required final String title,
+    final String? description,
+    final Map<String, dynamic>? config,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$PaymentMethodImpl;
 
   factory _PaymentMethod.fromJson(Map<String, dynamic> json) =
       _$PaymentMethodImpl.fromJson;
@@ -951,14 +1032,18 @@ abstract class _PaymentMethod implements PaymentMethod {
   Map<String, dynamic>? get config;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of PaymentMethod
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentMethodImplCopyWith<_$PaymentMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 CheckoutValidationResult _$CheckoutValidationResultFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return _CheckoutValidationResult.fromJson(json);
 }
 
@@ -970,28 +1055,36 @@ mixin _$CheckoutValidationResult {
   Map<String, dynamic>? get additionalData =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutValidationResult to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutValidationResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutValidationResultCopyWith<CheckoutValidationResult> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CheckoutValidationResultCopyWith<$Res> {
-  factory $CheckoutValidationResultCopyWith(CheckoutValidationResult value,
-          $Res Function(CheckoutValidationResult) then) =
-      _$CheckoutValidationResultCopyWithImpl<$Res, CheckoutValidationResult>;
+  factory $CheckoutValidationResultCopyWith(
+    CheckoutValidationResult value,
+    $Res Function(CheckoutValidationResult) then,
+  ) = _$CheckoutValidationResultCopyWithImpl<$Res, CheckoutValidationResult>;
   @useResult
-  $Res call(
-      {bool isValid,
-      List<String>? errors,
-      List<String>? warnings,
-      Map<String, dynamic>? additionalData});
+  $Res call({
+    bool isValid,
+    List<String>? errors,
+    List<String>? warnings,
+    Map<String, dynamic>? additionalData,
+  });
 }
 
 /// @nodoc
-class _$CheckoutValidationResultCopyWithImpl<$Res,
-        $Val extends CheckoutValidationResult>
+class _$CheckoutValidationResultCopyWithImpl<
+  $Res,
+  $Val extends CheckoutValidationResult
+>
     implements $CheckoutValidationResultCopyWith<$Res> {
   _$CheckoutValidationResultCopyWithImpl(this._value, this._then);
 
@@ -1000,6 +1093,8 @@ class _$CheckoutValidationResultCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutValidationResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1008,24 +1103,27 @@ class _$CheckoutValidationResultCopyWithImpl<$Res,
     Object? warnings = freezed,
     Object? additionalData = freezed,
   }) {
-    return _then(_value.copyWith(
-      isValid: null == isValid
-          ? _value.isValid
-          : isValid // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errors: freezed == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      warnings: freezed == warnings
-          ? _value.warnings
-          : warnings // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalData: freezed == additionalData
-          ? _value.additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            isValid: null == isValid
+                ? _value.isValid
+                : isValid // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            errors: freezed == errors
+                ? _value.errors
+                : errors // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            warnings: freezed == warnings
+                ? _value.warnings
+                : warnings // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            additionalData: freezed == additionalData
+                ? _value.additionalData
+                : additionalData // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -1033,28 +1131,34 @@ class _$CheckoutValidationResultCopyWithImpl<$Res,
 abstract class _$$CheckoutValidationResultImplCopyWith<$Res>
     implements $CheckoutValidationResultCopyWith<$Res> {
   factory _$$CheckoutValidationResultImplCopyWith(
-          _$CheckoutValidationResultImpl value,
-          $Res Function(_$CheckoutValidationResultImpl) then) =
-      __$$CheckoutValidationResultImplCopyWithImpl<$Res>;
+    _$CheckoutValidationResultImpl value,
+    $Res Function(_$CheckoutValidationResultImpl) then,
+  ) = __$$CheckoutValidationResultImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isValid,
-      List<String>? errors,
-      List<String>? warnings,
-      Map<String, dynamic>? additionalData});
+  $Res call({
+    bool isValid,
+    List<String>? errors,
+    List<String>? warnings,
+    Map<String, dynamic>? additionalData,
+  });
 }
 
 /// @nodoc
 class __$$CheckoutValidationResultImplCopyWithImpl<$Res>
-    extends _$CheckoutValidationResultCopyWithImpl<$Res,
-        _$CheckoutValidationResultImpl>
+    extends
+        _$CheckoutValidationResultCopyWithImpl<
+          $Res,
+          _$CheckoutValidationResultImpl
+        >
     implements _$$CheckoutValidationResultImplCopyWith<$Res> {
   __$$CheckoutValidationResultImplCopyWithImpl(
-      _$CheckoutValidationResultImpl _value,
-      $Res Function(_$CheckoutValidationResultImpl) _then)
-      : super(_value, _then);
+    _$CheckoutValidationResultImpl _value,
+    $Res Function(_$CheckoutValidationResultImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutValidationResult
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1063,38 +1167,40 @@ class __$$CheckoutValidationResultImplCopyWithImpl<$Res>
     Object? warnings = freezed,
     Object? additionalData = freezed,
   }) {
-    return _then(_$CheckoutValidationResultImpl(
-      isValid: null == isValid
-          ? _value.isValid
-          : isValid // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errors: freezed == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      warnings: freezed == warnings
-          ? _value._warnings
-          : warnings // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalData: freezed == additionalData
-          ? _value._additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutValidationResultImpl(
+        isValid: null == isValid
+            ? _value.isValid
+            : isValid // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        errors: freezed == errors
+            ? _value._errors
+            : errors // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        warnings: freezed == warnings
+            ? _value._warnings
+            : warnings // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        additionalData: freezed == additionalData
+            ? _value._additionalData
+            : additionalData // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutValidationResultImpl implements _CheckoutValidationResult {
-  const _$CheckoutValidationResultImpl(
-      {required this.isValid,
-      final List<String>? errors,
-      final List<String>? warnings,
-      final Map<String, dynamic>? additionalData})
-      : _errors = errors,
-        _warnings = warnings,
-        _additionalData = additionalData;
+  const _$CheckoutValidationResultImpl({
+    required this.isValid,
+    final List<String>? errors,
+    final List<String>? warnings,
+    final Map<String, dynamic>? additionalData,
+  }) : _errors = errors,
+       _warnings = warnings,
+       _additionalData = additionalData;
 
   factory _$CheckoutValidationResultImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutValidationResultImplFromJson(json);
@@ -1144,41 +1250,46 @@ class _$CheckoutValidationResultImpl implements _CheckoutValidationResult {
             (identical(other.isValid, isValid) || other.isValid == isValid) &&
             const DeepCollectionEquality().equals(other._errors, _errors) &&
             const DeepCollectionEquality().equals(other._warnings, _warnings) &&
-            const DeepCollectionEquality()
-                .equals(other._additionalData, _additionalData));
+            const DeepCollectionEquality().equals(
+              other._additionalData,
+              _additionalData,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      isValid,
-      const DeepCollectionEquality().hash(_errors),
-      const DeepCollectionEquality().hash(_warnings),
-      const DeepCollectionEquality().hash(_additionalData));
+    runtimeType,
+    isValid,
+    const DeepCollectionEquality().hash(_errors),
+    const DeepCollectionEquality().hash(_warnings),
+    const DeepCollectionEquality().hash(_additionalData),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutValidationResult
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutValidationResultImplCopyWith<_$CheckoutValidationResultImpl>
-      get copyWith => __$$CheckoutValidationResultImplCopyWithImpl<
-          _$CheckoutValidationResultImpl>(this, _$identity);
+  get copyWith =>
+      __$$CheckoutValidationResultImplCopyWithImpl<
+        _$CheckoutValidationResultImpl
+      >(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutValidationResultImplToJson(
-      this,
-    );
+    return _$$CheckoutValidationResultImplToJson(this);
   }
 }
 
 abstract class _CheckoutValidationResult implements CheckoutValidationResult {
-  const factory _CheckoutValidationResult(
-          {required final bool isValid,
-          final List<String>? errors,
-          final List<String>? warnings,
-          final Map<String, dynamic>? additionalData}) =
-      _$CheckoutValidationResultImpl;
+  const factory _CheckoutValidationResult({
+    required final bool isValid,
+    final List<String>? errors,
+    final List<String>? warnings,
+    final Map<String, dynamic>? additionalData,
+  }) = _$CheckoutValidationResultImpl;
 
   factory _CheckoutValidationResult.fromJson(Map<String, dynamic> json) =
       _$CheckoutValidationResultImpl.fromJson;
@@ -1191,10 +1302,13 @@ abstract class _CheckoutValidationResult implements CheckoutValidationResult {
   List<String>? get warnings;
   @override
   Map<String, dynamic>? get additionalData;
+
+  /// Create a copy of CheckoutValidationResult
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutValidationResultImplCopyWith<_$CheckoutValidationResultImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 CheckoutTotals _$CheckoutTotalsFromJson(Map<String, dynamic> json) {
@@ -1215,8 +1329,12 @@ mixin _$CheckoutTotals {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutTotals to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutTotals
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutTotalsCopyWith<CheckoutTotals> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1224,20 +1342,22 @@ mixin _$CheckoutTotals {
 /// @nodoc
 abstract class $CheckoutTotalsCopyWith<$Res> {
   factory $CheckoutTotalsCopyWith(
-          CheckoutTotals value, $Res Function(CheckoutTotals) then) =
-      _$CheckoutTotalsCopyWithImpl<$Res, CheckoutTotals>;
+    CheckoutTotals value,
+    $Res Function(CheckoutTotals) then,
+  ) = _$CheckoutTotalsCopyWithImpl<$Res, CheckoutTotals>;
   @useResult
-  $Res call(
-      {double grandTotal,
-      double subtotal,
-      double subtotalInclTax,
-      double shippingAmount,
-      double shippingInclTax,
-      double taxAmount,
-      double discountAmount,
-      String currency,
-      List<CheckoutTotalItem>? items,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    double grandTotal,
+    double subtotal,
+    double subtotalInclTax,
+    double shippingAmount,
+    double shippingInclTax,
+    double taxAmount,
+    double discountAmount,
+    String currency,
+    List<CheckoutTotalItem>? items,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -1250,6 +1370,8 @@ class _$CheckoutTotalsCopyWithImpl<$Res, $Val extends CheckoutTotals>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutTotals
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1264,70 +1386,75 @@ class _$CheckoutTotalsCopyWithImpl<$Res, $Val extends CheckoutTotals>
     Object? items = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      grandTotal: null == grandTotal
-          ? _value.grandTotal
-          : grandTotal // ignore: cast_nullable_to_non_nullable
-              as double,
-      subtotal: null == subtotal
-          ? _value.subtotal
-          : subtotal // ignore: cast_nullable_to_non_nullable
-              as double,
-      subtotalInclTax: null == subtotalInclTax
-          ? _value.subtotalInclTax
-          : subtotalInclTax // ignore: cast_nullable_to_non_nullable
-              as double,
-      shippingAmount: null == shippingAmount
-          ? _value.shippingAmount
-          : shippingAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      shippingInclTax: null == shippingInclTax
-          ? _value.shippingInclTax
-          : shippingInclTax // ignore: cast_nullable_to_non_nullable
-              as double,
-      taxAmount: null == taxAmount
-          ? _value.taxAmount
-          : taxAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      discountAmount: null == discountAmount
-          ? _value.discountAmount
-          : discountAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      items: freezed == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<CheckoutTotalItem>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            grandTotal: null == grandTotal
+                ? _value.grandTotal
+                : grandTotal // ignore: cast_nullable_to_non_nullable
+                      as double,
+            subtotal: null == subtotal
+                ? _value.subtotal
+                : subtotal // ignore: cast_nullable_to_non_nullable
+                      as double,
+            subtotalInclTax: null == subtotalInclTax
+                ? _value.subtotalInclTax
+                : subtotalInclTax // ignore: cast_nullable_to_non_nullable
+                      as double,
+            shippingAmount: null == shippingAmount
+                ? _value.shippingAmount
+                : shippingAmount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            shippingInclTax: null == shippingInclTax
+                ? _value.shippingInclTax
+                : shippingInclTax // ignore: cast_nullable_to_non_nullable
+                      as double,
+            taxAmount: null == taxAmount
+                ? _value.taxAmount
+                : taxAmount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            discountAmount: null == discountAmount
+                ? _value.discountAmount
+                : discountAmount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            currency: null == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            items: freezed == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<CheckoutTotalItem>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CheckoutTotalsImplCopyWith<$Res>
     implements $CheckoutTotalsCopyWith<$Res> {
-  factory _$$CheckoutTotalsImplCopyWith(_$CheckoutTotalsImpl value,
-          $Res Function(_$CheckoutTotalsImpl) then) =
-      __$$CheckoutTotalsImplCopyWithImpl<$Res>;
+  factory _$$CheckoutTotalsImplCopyWith(
+    _$CheckoutTotalsImpl value,
+    $Res Function(_$CheckoutTotalsImpl) then,
+  ) = __$$CheckoutTotalsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {double grandTotal,
-      double subtotal,
-      double subtotalInclTax,
-      double shippingAmount,
-      double shippingInclTax,
-      double taxAmount,
-      double discountAmount,
-      String currency,
-      List<CheckoutTotalItem>? items,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    double grandTotal,
+    double subtotal,
+    double subtotalInclTax,
+    double shippingAmount,
+    double shippingInclTax,
+    double taxAmount,
+    double discountAmount,
+    String currency,
+    List<CheckoutTotalItem>? items,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -1335,9 +1462,12 @@ class __$$CheckoutTotalsImplCopyWithImpl<$Res>
     extends _$CheckoutTotalsCopyWithImpl<$Res, _$CheckoutTotalsImpl>
     implements _$$CheckoutTotalsImplCopyWith<$Res> {
   __$$CheckoutTotalsImplCopyWithImpl(
-      _$CheckoutTotalsImpl _value, $Res Function(_$CheckoutTotalsImpl) _then)
-      : super(_value, _then);
+    _$CheckoutTotalsImpl _value,
+    $Res Function(_$CheckoutTotalsImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutTotals
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1352,67 +1482,69 @@ class __$$CheckoutTotalsImplCopyWithImpl<$Res>
     Object? items = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CheckoutTotalsImpl(
-      grandTotal: null == grandTotal
-          ? _value.grandTotal
-          : grandTotal // ignore: cast_nullable_to_non_nullable
-              as double,
-      subtotal: null == subtotal
-          ? _value.subtotal
-          : subtotal // ignore: cast_nullable_to_non_nullable
-              as double,
-      subtotalInclTax: null == subtotalInclTax
-          ? _value.subtotalInclTax
-          : subtotalInclTax // ignore: cast_nullable_to_non_nullable
-              as double,
-      shippingAmount: null == shippingAmount
-          ? _value.shippingAmount
-          : shippingAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      shippingInclTax: null == shippingInclTax
-          ? _value.shippingInclTax
-          : shippingInclTax // ignore: cast_nullable_to_non_nullable
-              as double,
-      taxAmount: null == taxAmount
-          ? _value.taxAmount
-          : taxAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      discountAmount: null == discountAmount
-          ? _value.discountAmount
-          : discountAmount // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      items: freezed == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<CheckoutTotalItem>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutTotalsImpl(
+        grandTotal: null == grandTotal
+            ? _value.grandTotal
+            : grandTotal // ignore: cast_nullable_to_non_nullable
+                  as double,
+        subtotal: null == subtotal
+            ? _value.subtotal
+            : subtotal // ignore: cast_nullable_to_non_nullable
+                  as double,
+        subtotalInclTax: null == subtotalInclTax
+            ? _value.subtotalInclTax
+            : subtotalInclTax // ignore: cast_nullable_to_non_nullable
+                  as double,
+        shippingAmount: null == shippingAmount
+            ? _value.shippingAmount
+            : shippingAmount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        shippingInclTax: null == shippingInclTax
+            ? _value.shippingInclTax
+            : shippingInclTax // ignore: cast_nullable_to_non_nullable
+                  as double,
+        taxAmount: null == taxAmount
+            ? _value.taxAmount
+            : taxAmount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        discountAmount: null == discountAmount
+            ? _value.discountAmount
+            : discountAmount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        currency: null == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        items: freezed == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<CheckoutTotalItem>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutTotalsImpl implements _CheckoutTotals {
-  const _$CheckoutTotalsImpl(
-      {required this.grandTotal,
-      required this.subtotal,
-      required this.subtotalInclTax,
-      required this.shippingAmount,
-      required this.shippingInclTax,
-      required this.taxAmount,
-      required this.discountAmount,
-      required this.currency,
-      final List<CheckoutTotalItem>? items,
-      final Map<String, dynamic>? extensionAttributes})
-      : _items = items,
-        _extensionAttributes = extensionAttributes;
+  const _$CheckoutTotalsImpl({
+    required this.grandTotal,
+    required this.subtotal,
+    required this.subtotalInclTax,
+    required this.shippingAmount,
+    required this.shippingInclTax,
+    required this.taxAmount,
+    required this.discountAmount,
+    required this.currency,
+    final List<CheckoutTotalItem>? items,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _items = items,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CheckoutTotalsImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutTotalsImplFromJson(json);
@@ -1481,52 +1613,58 @@ class _$CheckoutTotalsImpl implements _CheckoutTotals {
             (identical(other.currency, currency) ||
                 other.currency == currency) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      grandTotal,
-      subtotal,
-      subtotalInclTax,
-      shippingAmount,
-      shippingInclTax,
-      taxAmount,
-      discountAmount,
-      currency,
-      const DeepCollectionEquality().hash(_items),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    grandTotal,
+    subtotal,
+    subtotalInclTax,
+    shippingAmount,
+    shippingInclTax,
+    taxAmount,
+    discountAmount,
+    currency,
+    const DeepCollectionEquality().hash(_items),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutTotals
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutTotalsImplCopyWith<_$CheckoutTotalsImpl> get copyWith =>
       __$$CheckoutTotalsImplCopyWithImpl<_$CheckoutTotalsImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutTotalsImplToJson(
-      this,
-    );
+    return _$$CheckoutTotalsImplToJson(this);
   }
 }
 
 abstract class _CheckoutTotals implements CheckoutTotals {
-  const factory _CheckoutTotals(
-      {required final double grandTotal,
-      required final double subtotal,
-      required final double subtotalInclTax,
-      required final double shippingAmount,
-      required final double shippingInclTax,
-      required final double taxAmount,
-      required final double discountAmount,
-      required final String currency,
-      final List<CheckoutTotalItem>? items,
-      final Map<String, dynamic>? extensionAttributes}) = _$CheckoutTotalsImpl;
+  const factory _CheckoutTotals({
+    required final double grandTotal,
+    required final double subtotal,
+    required final double subtotalInclTax,
+    required final double shippingAmount,
+    required final double shippingInclTax,
+    required final double taxAmount,
+    required final double discountAmount,
+    required final String currency,
+    final List<CheckoutTotalItem>? items,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CheckoutTotalsImpl;
 
   factory _CheckoutTotals.fromJson(Map<String, dynamic> json) =
       _$CheckoutTotalsImpl.fromJson;
@@ -1551,8 +1689,11 @@ abstract class _CheckoutTotals implements CheckoutTotals {
   List<CheckoutTotalItem>? get items;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CheckoutTotals
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutTotalsImplCopyWith<_$CheckoutTotalsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1570,8 +1711,12 @@ mixin _$CheckoutTotalItem {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutTotalItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutTotalItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutTotalItemCopyWith<CheckoutTotalItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1579,15 +1724,17 @@ mixin _$CheckoutTotalItem {
 /// @nodoc
 abstract class $CheckoutTotalItemCopyWith<$Res> {
   factory $CheckoutTotalItemCopyWith(
-          CheckoutTotalItem value, $Res Function(CheckoutTotalItem) then) =
-      _$CheckoutTotalItemCopyWithImpl<$Res, CheckoutTotalItem>;
+    CheckoutTotalItem value,
+    $Res Function(CheckoutTotalItem) then,
+  ) = _$CheckoutTotalItemCopyWithImpl<$Res, CheckoutTotalItem>;
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      double value,
-      String currency,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    double value,
+    String currency,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -1600,6 +1747,8 @@ class _$CheckoutTotalItemCopyWithImpl<$Res, $Val extends CheckoutTotalItem>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutTotalItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1609,55 +1758,63 @@ class _$CheckoutTotalItemCopyWithImpl<$Res, $Val extends CheckoutTotalItem>
     Object? currency = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            code: null == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            value: null == value
+                ? _value.value
+                : value // ignore: cast_nullable_to_non_nullable
+                      as double,
+            currency: null == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CheckoutTotalItemImplCopyWith<$Res>
     implements $CheckoutTotalItemCopyWith<$Res> {
-  factory _$$CheckoutTotalItemImplCopyWith(_$CheckoutTotalItemImpl value,
-          $Res Function(_$CheckoutTotalItemImpl) then) =
-      __$$CheckoutTotalItemImplCopyWithImpl<$Res>;
+  factory _$$CheckoutTotalItemImplCopyWith(
+    _$CheckoutTotalItemImpl value,
+    $Res Function(_$CheckoutTotalItemImpl) then,
+  ) = __$$CheckoutTotalItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String code,
-      String title,
-      double value,
-      String currency,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String code,
+    String title,
+    double value,
+    String currency,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CheckoutTotalItemImplCopyWithImpl<$Res>
     extends _$CheckoutTotalItemCopyWithImpl<$Res, _$CheckoutTotalItemImpl>
     implements _$$CheckoutTotalItemImplCopyWith<$Res> {
-  __$$CheckoutTotalItemImplCopyWithImpl(_$CheckoutTotalItemImpl _value,
-      $Res Function(_$CheckoutTotalItemImpl) _then)
-      : super(_value, _then);
+  __$$CheckoutTotalItemImplCopyWithImpl(
+    _$CheckoutTotalItemImpl _value,
+    $Res Function(_$CheckoutTotalItemImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutTotalItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1667,41 +1824,43 @@ class __$$CheckoutTotalItemImplCopyWithImpl<$Res>
     Object? currency = null,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CheckoutTotalItemImpl(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as double,
-      currency: null == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutTotalItemImpl(
+        code: null == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        value: null == value
+            ? _value.value
+            : value // ignore: cast_nullable_to_non_nullable
+                  as double,
+        currency: null == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutTotalItemImpl implements _CheckoutTotalItem {
-  const _$CheckoutTotalItemImpl(
-      {required this.code,
-      required this.title,
-      required this.value,
-      required this.currency,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CheckoutTotalItemImpl({
+    required this.code,
+    required this.title,
+    required this.value,
+    required this.currency,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CheckoutTotalItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutTotalItemImplFromJson(json);
@@ -1740,38 +1899,48 @@ class _$CheckoutTotalItemImpl implements _CheckoutTotalItem {
             (identical(other.value, value) || other.value == value) &&
             (identical(other.currency, currency) ||
                 other.currency == currency) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, code, title, value, currency,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+  int get hashCode => Object.hash(
+    runtimeType,
+    code,
+    title,
+    value,
+    currency,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutTotalItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutTotalItemImplCopyWith<_$CheckoutTotalItemImpl> get copyWith =>
       __$$CheckoutTotalItemImplCopyWithImpl<_$CheckoutTotalItemImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutTotalItemImplToJson(
-      this,
-    );
+    return _$$CheckoutTotalItemImplToJson(this);
   }
 }
 
 abstract class _CheckoutTotalItem implements CheckoutTotalItem {
-  const factory _CheckoutTotalItem(
-          {required final String code,
-          required final String title,
-          required final double value,
-          required final String currency,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CheckoutTotalItemImpl;
+  const factory _CheckoutTotalItem({
+    required final String code,
+    required final String title,
+    required final double value,
+    required final String currency,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CheckoutTotalItemImpl;
 
   factory _CheckoutTotalItem.fromJson(Map<String, dynamic> json) =
       _$CheckoutTotalItemImpl.fromJson;
@@ -1786,8 +1955,11 @@ abstract class _CheckoutTotalItem implements CheckoutTotalItem {
   String get currency;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CheckoutTotalItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutTotalItemImplCopyWith<_$CheckoutTotalItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1812,8 +1984,12 @@ mixin _$GuestCheckoutInfo {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this GuestCheckoutInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GuestCheckoutInfoCopyWith<GuestCheckoutInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1821,18 +1997,20 @@ mixin _$GuestCheckoutInfo {
 /// @nodoc
 abstract class $GuestCheckoutInfoCopyWith<$Res> {
   factory $GuestCheckoutInfoCopyWith(
-          GuestCheckoutInfo value, $Res Function(GuestCheckoutInfo) then) =
-      _$GuestCheckoutInfoCopyWithImpl<$Res, GuestCheckoutInfo>;
+    GuestCheckoutInfo value,
+    $Res Function(GuestCheckoutInfo) then,
+  ) = _$GuestCheckoutInfoCopyWithImpl<$Res, GuestCheckoutInfo>;
   @useResult
-  $Res call(
-      {String cartId,
-      String? email,
-      Map<String, dynamic>? shippingAddress,
-      Map<String, dynamic>? billingAddress,
-      List<ShippingMethod>? availableShippingMethods,
-      List<PaymentMethod>? availablePaymentMethods,
-      CheckoutTotals? totals,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String cartId,
+    String? email,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    List<ShippingMethod>? availableShippingMethods,
+    List<PaymentMethod>? availablePaymentMethods,
+    CheckoutTotals? totals,
+    Map<String, dynamic>? extensionAttributes,
+  });
 
   $CheckoutTotalsCopyWith<$Res>? get totals;
 }
@@ -1847,6 +2025,8 @@ class _$GuestCheckoutInfoCopyWithImpl<$Res, $Val extends GuestCheckoutInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1859,42 +2039,47 @@ class _$GuestCheckoutInfoCopyWithImpl<$Res, $Val extends GuestCheckoutInfo>
     Object? totals = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      cartId: null == cartId
-          ? _value.cartId
-          : cartId // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shippingAddress: freezed == shippingAddress
-          ? _value.shippingAddress
-          : shippingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      billingAddress: freezed == billingAddress
-          ? _value.billingAddress
-          : billingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      availableShippingMethods: freezed == availableShippingMethods
-          ? _value.availableShippingMethods
-          : availableShippingMethods // ignore: cast_nullable_to_non_nullable
-              as List<ShippingMethod>?,
-      availablePaymentMethods: freezed == availablePaymentMethods
-          ? _value.availablePaymentMethods
-          : availablePaymentMethods // ignore: cast_nullable_to_non_nullable
-              as List<PaymentMethod>?,
-      totals: freezed == totals
-          ? _value.totals
-          : totals // ignore: cast_nullable_to_non_nullable
-              as CheckoutTotals?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            cartId: null == cartId
+                ? _value.cartId
+                : cartId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            email: freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            shippingAddress: freezed == shippingAddress
+                ? _value.shippingAddress
+                : shippingAddress // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            billingAddress: freezed == billingAddress
+                ? _value.billingAddress
+                : billingAddress // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            availableShippingMethods: freezed == availableShippingMethods
+                ? _value.availableShippingMethods
+                : availableShippingMethods // ignore: cast_nullable_to_non_nullable
+                      as List<ShippingMethod>?,
+            availablePaymentMethods: freezed == availablePaymentMethods
+                ? _value.availablePaymentMethods
+                : availablePaymentMethods // ignore: cast_nullable_to_non_nullable
+                      as List<PaymentMethod>?,
+            totals: freezed == totals
+                ? _value.totals
+                : totals // ignore: cast_nullable_to_non_nullable
+                      as CheckoutTotals?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CheckoutTotalsCopyWith<$Res>? get totals {
@@ -1911,20 +2096,22 @@ class _$GuestCheckoutInfoCopyWithImpl<$Res, $Val extends GuestCheckoutInfo>
 /// @nodoc
 abstract class _$$GuestCheckoutInfoImplCopyWith<$Res>
     implements $GuestCheckoutInfoCopyWith<$Res> {
-  factory _$$GuestCheckoutInfoImplCopyWith(_$GuestCheckoutInfoImpl value,
-          $Res Function(_$GuestCheckoutInfoImpl) then) =
-      __$$GuestCheckoutInfoImplCopyWithImpl<$Res>;
+  factory _$$GuestCheckoutInfoImplCopyWith(
+    _$GuestCheckoutInfoImpl value,
+    $Res Function(_$GuestCheckoutInfoImpl) then,
+  ) = __$$GuestCheckoutInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String cartId,
-      String? email,
-      Map<String, dynamic>? shippingAddress,
-      Map<String, dynamic>? billingAddress,
-      List<ShippingMethod>? availableShippingMethods,
-      List<PaymentMethod>? availablePaymentMethods,
-      CheckoutTotals? totals,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String cartId,
+    String? email,
+    Map<String, dynamic>? shippingAddress,
+    Map<String, dynamic>? billingAddress,
+    List<ShippingMethod>? availableShippingMethods,
+    List<PaymentMethod>? availablePaymentMethods,
+    CheckoutTotals? totals,
+    Map<String, dynamic>? extensionAttributes,
+  });
 
   @override
   $CheckoutTotalsCopyWith<$Res>? get totals;
@@ -1934,10 +2121,13 @@ abstract class _$$GuestCheckoutInfoImplCopyWith<$Res>
 class __$$GuestCheckoutInfoImplCopyWithImpl<$Res>
     extends _$GuestCheckoutInfoCopyWithImpl<$Res, _$GuestCheckoutInfoImpl>
     implements _$$GuestCheckoutInfoImplCopyWith<$Res> {
-  __$$GuestCheckoutInfoImplCopyWithImpl(_$GuestCheckoutInfoImpl _value,
-      $Res Function(_$GuestCheckoutInfoImpl) _then)
-      : super(_value, _then);
+  __$$GuestCheckoutInfoImplCopyWithImpl(
+    _$GuestCheckoutInfoImpl _value,
+    $Res Function(_$GuestCheckoutInfoImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1950,60 +2140,62 @@ class __$$GuestCheckoutInfoImplCopyWithImpl<$Res>
     Object? totals = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$GuestCheckoutInfoImpl(
-      cartId: null == cartId
-          ? _value.cartId
-          : cartId // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      shippingAddress: freezed == shippingAddress
-          ? _value._shippingAddress
-          : shippingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      billingAddress: freezed == billingAddress
-          ? _value._billingAddress
-          : billingAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      availableShippingMethods: freezed == availableShippingMethods
-          ? _value._availableShippingMethods
-          : availableShippingMethods // ignore: cast_nullable_to_non_nullable
-              as List<ShippingMethod>?,
-      availablePaymentMethods: freezed == availablePaymentMethods
-          ? _value._availablePaymentMethods
-          : availablePaymentMethods // ignore: cast_nullable_to_non_nullable
-              as List<PaymentMethod>?,
-      totals: freezed == totals
-          ? _value.totals
-          : totals // ignore: cast_nullable_to_non_nullable
-              as CheckoutTotals?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$GuestCheckoutInfoImpl(
+        cartId: null == cartId
+            ? _value.cartId
+            : cartId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        email: freezed == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        shippingAddress: freezed == shippingAddress
+            ? _value._shippingAddress
+            : shippingAddress // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        billingAddress: freezed == billingAddress
+            ? _value._billingAddress
+            : billingAddress // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        availableShippingMethods: freezed == availableShippingMethods
+            ? _value._availableShippingMethods
+            : availableShippingMethods // ignore: cast_nullable_to_non_nullable
+                  as List<ShippingMethod>?,
+        availablePaymentMethods: freezed == availablePaymentMethods
+            ? _value._availablePaymentMethods
+            : availablePaymentMethods // ignore: cast_nullable_to_non_nullable
+                  as List<PaymentMethod>?,
+        totals: freezed == totals
+            ? _value.totals
+            : totals // ignore: cast_nullable_to_non_nullable
+                  as CheckoutTotals?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$GuestCheckoutInfoImpl implements _GuestCheckoutInfo {
-  const _$GuestCheckoutInfoImpl(
-      {required this.cartId,
-      this.email,
-      final Map<String, dynamic>? shippingAddress,
-      final Map<String, dynamic>? billingAddress,
-      final List<ShippingMethod>? availableShippingMethods,
-      final List<PaymentMethod>? availablePaymentMethods,
-      this.totals,
-      final Map<String, dynamic>? extensionAttributes})
-      : _shippingAddress = shippingAddress,
-        _billingAddress = billingAddress,
-        _availableShippingMethods = availableShippingMethods,
-        _availablePaymentMethods = availablePaymentMethods,
-        _extensionAttributes = extensionAttributes;
+  const _$GuestCheckoutInfoImpl({
+    required this.cartId,
+    this.email,
+    final Map<String, dynamic>? shippingAddress,
+    final Map<String, dynamic>? billingAddress,
+    final List<ShippingMethod>? availableShippingMethods,
+    final List<PaymentMethod>? availablePaymentMethods,
+    this.totals,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _shippingAddress = shippingAddress,
+       _billingAddress = billingAddress,
+       _availableShippingMethods = availableShippingMethods,
+       _availablePaymentMethods = availablePaymentMethods,
+       _extensionAttributes = extensionAttributes;
 
   factory _$GuestCheckoutInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$GuestCheckoutInfoImplFromJson(json);
@@ -2079,58 +2271,71 @@ class _$GuestCheckoutInfoImpl implements _GuestCheckoutInfo {
             other is _$GuestCheckoutInfoImpl &&
             (identical(other.cartId, cartId) || other.cartId == cartId) &&
             (identical(other.email, email) || other.email == email) &&
-            const DeepCollectionEquality()
-                .equals(other._shippingAddress, _shippingAddress) &&
-            const DeepCollectionEquality()
-                .equals(other._billingAddress, _billingAddress) &&
             const DeepCollectionEquality().equals(
-                other._availableShippingMethods, _availableShippingMethods) &&
+              other._shippingAddress,
+              _shippingAddress,
+            ) &&
             const DeepCollectionEquality().equals(
-                other._availablePaymentMethods, _availablePaymentMethods) &&
+              other._billingAddress,
+              _billingAddress,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._availableShippingMethods,
+              _availableShippingMethods,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._availablePaymentMethods,
+              _availablePaymentMethods,
+            ) &&
             (identical(other.totals, totals) || other.totals == totals) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      cartId,
-      email,
-      const DeepCollectionEquality().hash(_shippingAddress),
-      const DeepCollectionEquality().hash(_billingAddress),
-      const DeepCollectionEquality().hash(_availableShippingMethods),
-      const DeepCollectionEquality().hash(_availablePaymentMethods),
-      totals,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    cartId,
+    email,
+    const DeepCollectionEquality().hash(_shippingAddress),
+    const DeepCollectionEquality().hash(_billingAddress),
+    const DeepCollectionEquality().hash(_availableShippingMethods),
+    const DeepCollectionEquality().hash(_availablePaymentMethods),
+    totals,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GuestCheckoutInfoImplCopyWith<_$GuestCheckoutInfoImpl> get copyWith =>
       __$$GuestCheckoutInfoImplCopyWithImpl<_$GuestCheckoutInfoImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GuestCheckoutInfoImplToJson(
-      this,
-    );
+    return _$$GuestCheckoutInfoImplToJson(this);
   }
 }
 
 abstract class _GuestCheckoutInfo implements GuestCheckoutInfo {
-  const factory _GuestCheckoutInfo(
-          {required final String cartId,
-          final String? email,
-          final Map<String, dynamic>? shippingAddress,
-          final Map<String, dynamic>? billingAddress,
-          final List<ShippingMethod>? availableShippingMethods,
-          final List<PaymentMethod>? availablePaymentMethods,
-          final CheckoutTotals? totals,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$GuestCheckoutInfoImpl;
+  const factory _GuestCheckoutInfo({
+    required final String cartId,
+    final String? email,
+    final Map<String, dynamic>? shippingAddress,
+    final Map<String, dynamic>? billingAddress,
+    final List<ShippingMethod>? availableShippingMethods,
+    final List<PaymentMethod>? availablePaymentMethods,
+    final CheckoutTotals? totals,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$GuestCheckoutInfoImpl;
 
   factory _GuestCheckoutInfo.fromJson(Map<String, dynamic> json) =
       _$GuestCheckoutInfoImpl.fromJson;
@@ -2151,8 +2356,11 @@ abstract class _GuestCheckoutInfo implements GuestCheckoutInfo {
   CheckoutTotals? get totals;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of GuestCheckoutInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GuestCheckoutInfoImplCopyWith<_$GuestCheckoutInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2189,8 +2397,12 @@ mixin _$CheckoutAddress {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutAddress to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutAddressCopyWith<CheckoutAddress> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2198,33 +2410,35 @@ mixin _$CheckoutAddress {
 /// @nodoc
 abstract class $CheckoutAddressCopyWith<$Res> {
   factory $CheckoutAddressCopyWith(
-          CheckoutAddress value, $Res Function(CheckoutAddress) then) =
-      _$CheckoutAddressCopyWithImpl<$Res, CheckoutAddress>;
+    CheckoutAddress value,
+    $Res Function(CheckoutAddress) then,
+  ) = _$CheckoutAddressCopyWithImpl<$Res, CheckoutAddress>;
   @useResult
-  $Res call(
-      {String? id,
-      String? customerId,
-      String? customerAddressId,
-      String? email,
-      String? firstName,
-      String? lastName,
-      String? middleName,
-      String? prefix,
-      String? suffix,
-      String? company,
-      List<String>? street,
-      String? city,
-      String? region,
-      String? regionId,
-      String? regionCode,
-      String? postcode,
-      String? countryId,
-      String? telephone,
-      String? fax,
-      bool? sameAsBilling,
-      bool? saveInAddressBook,
-      Map<String, dynamic>? customAttributes,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String? id,
+    String? customerId,
+    String? customerAddressId,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? regionId,
+    String? regionCode,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? fax,
+    bool? sameAsBilling,
+    bool? saveInAddressBook,
+    Map<String, dynamic>? customAttributes,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -2237,6 +2451,8 @@ class _$CheckoutAddressCopyWithImpl<$Res, $Val extends CheckoutAddress>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2264,135 +2480,140 @@ class _$CheckoutAddressCopyWithImpl<$Res, $Val extends CheckoutAddress>
     Object? customAttributes = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerId: freezed == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerAddressId: freezed == customerAddressId
-          ? _value.customerAddressId
-          : customerAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      middleName: freezed == middleName
-          ? _value.middleName
-          : middleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionId: freezed == regionId
-          ? _value.regionId
-          : regionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionCode: freezed == regionCode
-          ? _value.regionCode
-          : regionCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postcode: freezed == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryId: freezed == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sameAsBilling: freezed == sameAsBilling
-          ? _value.sameAsBilling
-          : sameAsBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      saveInAddressBook: freezed == saveInAddressBook
-          ? _value.saveInAddressBook
-          : saveInAddressBook // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value.customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: freezed == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            customerId: freezed == customerId
+                ? _value.customerId
+                : customerId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            customerAddressId: freezed == customerAddressId
+                ? _value.customerAddressId
+                : customerAddressId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            email: freezed == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            firstName: freezed == firstName
+                ? _value.firstName
+                : firstName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            lastName: freezed == lastName
+                ? _value.lastName
+                : lastName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            middleName: freezed == middleName
+                ? _value.middleName
+                : middleName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            prefix: freezed == prefix
+                ? _value.prefix
+                : prefix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            suffix: freezed == suffix
+                ? _value.suffix
+                : suffix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            company: freezed == company
+                ? _value.company
+                : company // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            street: freezed == street
+                ? _value.street
+                : street // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            city: freezed == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            region: freezed == region
+                ? _value.region
+                : region // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            regionId: freezed == regionId
+                ? _value.regionId
+                : regionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            regionCode: freezed == regionCode
+                ? _value.regionCode
+                : regionCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            postcode: freezed == postcode
+                ? _value.postcode
+                : postcode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            countryId: freezed == countryId
+                ? _value.countryId
+                : countryId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            telephone: freezed == telephone
+                ? _value.telephone
+                : telephone // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            fax: freezed == fax
+                ? _value.fax
+                : fax // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            sameAsBilling: freezed == sameAsBilling
+                ? _value.sameAsBilling
+                : sameAsBilling // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            saveInAddressBook: freezed == saveInAddressBook
+                ? _value.saveInAddressBook
+                : saveInAddressBook // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            customAttributes: freezed == customAttributes
+                ? _value.customAttributes
+                : customAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CheckoutAddressImplCopyWith<$Res>
     implements $CheckoutAddressCopyWith<$Res> {
-  factory _$$CheckoutAddressImplCopyWith(_$CheckoutAddressImpl value,
-          $Res Function(_$CheckoutAddressImpl) then) =
-      __$$CheckoutAddressImplCopyWithImpl<$Res>;
+  factory _$$CheckoutAddressImplCopyWith(
+    _$CheckoutAddressImpl value,
+    $Res Function(_$CheckoutAddressImpl) then,
+  ) = __$$CheckoutAddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? id,
-      String? customerId,
-      String? customerAddressId,
-      String? email,
-      String? firstName,
-      String? lastName,
-      String? middleName,
-      String? prefix,
-      String? suffix,
-      String? company,
-      List<String>? street,
-      String? city,
-      String? region,
-      String? regionId,
-      String? regionCode,
-      String? postcode,
-      String? countryId,
-      String? telephone,
-      String? fax,
-      bool? sameAsBilling,
-      bool? saveInAddressBook,
-      Map<String, dynamic>? customAttributes,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String? id,
+    String? customerId,
+    String? customerAddressId,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    String? company,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? regionId,
+    String? regionCode,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? fax,
+    bool? sameAsBilling,
+    bool? saveInAddressBook,
+    Map<String, dynamic>? customAttributes,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -2400,9 +2621,12 @@ class __$$CheckoutAddressImplCopyWithImpl<$Res>
     extends _$CheckoutAddressCopyWithImpl<$Res, _$CheckoutAddressImpl>
     implements _$$CheckoutAddressImplCopyWith<$Res> {
   __$$CheckoutAddressImplCopyWithImpl(
-      _$CheckoutAddressImpl _value, $Res Function(_$CheckoutAddressImpl) _then)
-      : super(_value, _then);
+    _$CheckoutAddressImpl _value,
+    $Res Function(_$CheckoutAddressImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutAddress
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2430,133 +2654,135 @@ class __$$CheckoutAddressImplCopyWithImpl<$Res>
     Object? customAttributes = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CheckoutAddressImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerId: freezed == customerId
-          ? _value.customerId
-          : customerId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      customerAddressId: freezed == customerAddressId
-          ? _value.customerAddressId
-          : customerAddressId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      middleName: freezed == middleName
-          ? _value.middleName
-          : middleName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value._street
-          : street // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionId: freezed == regionId
-          ? _value.regionId
-          : regionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      regionCode: freezed == regionCode
-          ? _value.regionCode
-          : regionCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postcode: freezed == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      countryId: freezed == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sameAsBilling: freezed == sameAsBilling
-          ? _value.sameAsBilling
-          : sameAsBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      saveInAddressBook: freezed == saveInAddressBook
-          ? _value.saveInAddressBook
-          : saveInAddressBook // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value._customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutAddressImpl(
+        id: freezed == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        customerId: freezed == customerId
+            ? _value.customerId
+            : customerId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        customerAddressId: freezed == customerAddressId
+            ? _value.customerAddressId
+            : customerAddressId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        email: freezed == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        firstName: freezed == firstName
+            ? _value.firstName
+            : firstName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        lastName: freezed == lastName
+            ? _value.lastName
+            : lastName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        middleName: freezed == middleName
+            ? _value.middleName
+            : middleName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        prefix: freezed == prefix
+            ? _value.prefix
+            : prefix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        suffix: freezed == suffix
+            ? _value.suffix
+            : suffix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        company: freezed == company
+            ? _value.company
+            : company // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        street: freezed == street
+            ? _value._street
+            : street // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        city: freezed == city
+            ? _value.city
+            : city // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        region: freezed == region
+            ? _value.region
+            : region // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        regionId: freezed == regionId
+            ? _value.regionId
+            : regionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        regionCode: freezed == regionCode
+            ? _value.regionCode
+            : regionCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        postcode: freezed == postcode
+            ? _value.postcode
+            : postcode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        countryId: freezed == countryId
+            ? _value.countryId
+            : countryId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        telephone: freezed == telephone
+            ? _value.telephone
+            : telephone // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        fax: freezed == fax
+            ? _value.fax
+            : fax // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        sameAsBilling: freezed == sameAsBilling
+            ? _value.sameAsBilling
+            : sameAsBilling // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        saveInAddressBook: freezed == saveInAddressBook
+            ? _value.saveInAddressBook
+            : saveInAddressBook // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        customAttributes: freezed == customAttributes
+            ? _value._customAttributes
+            : customAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutAddressImpl implements _CheckoutAddress {
-  const _$CheckoutAddressImpl(
-      {this.id,
-      this.customerId,
-      this.customerAddressId,
-      this.email,
-      this.firstName,
-      this.lastName,
-      this.middleName,
-      this.prefix,
-      this.suffix,
-      this.company,
-      final List<String>? street,
-      this.city,
-      this.region,
-      this.regionId,
-      this.regionCode,
-      this.postcode,
-      this.countryId,
-      this.telephone,
-      this.fax,
-      this.sameAsBilling,
-      this.saveInAddressBook,
-      final Map<String, dynamic>? customAttributes,
-      final Map<String, dynamic>? extensionAttributes})
-      : _street = street,
-        _customAttributes = customAttributes,
-        _extensionAttributes = extensionAttributes;
+  const _$CheckoutAddressImpl({
+    this.id,
+    this.customerId,
+    this.customerAddressId,
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.middleName,
+    this.prefix,
+    this.suffix,
+    this.company,
+    final List<String>? street,
+    this.city,
+    this.region,
+    this.regionId,
+    this.regionCode,
+    this.postcode,
+    this.countryId,
+    this.telephone,
+    this.fax,
+    this.sameAsBilling,
+    this.saveInAddressBook,
+    final Map<String, dynamic>? customAttributes,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _street = street,
+       _customAttributes = customAttributes,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CheckoutAddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutAddressImplFromJson(json);
@@ -2675,81 +2901,88 @@ class _$CheckoutAddressImpl implements _CheckoutAddress {
                 other.sameAsBilling == sameAsBilling) &&
             (identical(other.saveInAddressBook, saveInAddressBook) ||
                 other.saveInAddressBook == saveInAddressBook) &&
-            const DeepCollectionEquality()
-                .equals(other._customAttributes, _customAttributes) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._customAttributes,
+              _customAttributes,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        customerId,
-        customerAddressId,
-        email,
-        firstName,
-        lastName,
-        middleName,
-        prefix,
-        suffix,
-        company,
-        const DeepCollectionEquality().hash(_street),
-        city,
-        region,
-        regionId,
-        regionCode,
-        postcode,
-        countryId,
-        telephone,
-        fax,
-        sameAsBilling,
-        saveInAddressBook,
-        const DeepCollectionEquality().hash(_customAttributes),
-        const DeepCollectionEquality().hash(_extensionAttributes)
-      ]);
+    runtimeType,
+    id,
+    customerId,
+    customerAddressId,
+    email,
+    firstName,
+    lastName,
+    middleName,
+    prefix,
+    suffix,
+    company,
+    const DeepCollectionEquality().hash(_street),
+    city,
+    region,
+    regionId,
+    regionCode,
+    postcode,
+    countryId,
+    telephone,
+    fax,
+    sameAsBilling,
+    saveInAddressBook,
+    const DeepCollectionEquality().hash(_customAttributes),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutAddress
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutAddressImplCopyWith<_$CheckoutAddressImpl> get copyWith =>
       __$$CheckoutAddressImplCopyWithImpl<_$CheckoutAddressImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutAddressImplToJson(
-      this,
-    );
+    return _$$CheckoutAddressImplToJson(this);
   }
 }
 
 abstract class _CheckoutAddress implements CheckoutAddress {
-  const factory _CheckoutAddress(
-      {final String? id,
-      final String? customerId,
-      final String? customerAddressId,
-      final String? email,
-      final String? firstName,
-      final String? lastName,
-      final String? middleName,
-      final String? prefix,
-      final String? suffix,
-      final String? company,
-      final List<String>? street,
-      final String? city,
-      final String? region,
-      final String? regionId,
-      final String? regionCode,
-      final String? postcode,
-      final String? countryId,
-      final String? telephone,
-      final String? fax,
-      final bool? sameAsBilling,
-      final bool? saveInAddressBook,
-      final Map<String, dynamic>? customAttributes,
-      final Map<String, dynamic>? extensionAttributes}) = _$CheckoutAddressImpl;
+  const factory _CheckoutAddress({
+    final String? id,
+    final String? customerId,
+    final String? customerAddressId,
+    final String? email,
+    final String? firstName,
+    final String? lastName,
+    final String? middleName,
+    final String? prefix,
+    final String? suffix,
+    final String? company,
+    final List<String>? street,
+    final String? city,
+    final String? region,
+    final String? regionId,
+    final String? regionCode,
+    final String? postcode,
+    final String? countryId,
+    final String? telephone,
+    final String? fax,
+    final bool? sameAsBilling,
+    final bool? saveInAddressBook,
+    final Map<String, dynamic>? customAttributes,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CheckoutAddressImpl;
 
   factory _CheckoutAddress.fromJson(Map<String, dynamic> json) =
       _$CheckoutAddressImpl.fromJson;
@@ -2800,8 +3033,11 @@ abstract class _CheckoutAddress implements CheckoutAddress {
   Map<String, dynamic>? get customAttributes;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CheckoutAddress
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutAddressImplCopyWith<_$CheckoutAddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2818,8 +3054,12 @@ mixin _$CheckoutPaymentInfo {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutPaymentInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutPaymentInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutPaymentInfoCopyWith<CheckoutPaymentInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2827,13 +3067,15 @@ mixin _$CheckoutPaymentInfo {
 /// @nodoc
 abstract class $CheckoutPaymentInfoCopyWith<$Res> {
   factory $CheckoutPaymentInfoCopyWith(
-          CheckoutPaymentInfo value, $Res Function(CheckoutPaymentInfo) then) =
-      _$CheckoutPaymentInfoCopyWithImpl<$Res, CheckoutPaymentInfo>;
+    CheckoutPaymentInfo value,
+    $Res Function(CheckoutPaymentInfo) then,
+  ) = _$CheckoutPaymentInfoCopyWithImpl<$Res, CheckoutPaymentInfo>;
   @useResult
-  $Res call(
-      {String method,
-      Map<String, dynamic>? additionalData,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String method,
+    Map<String, dynamic>? additionalData,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
@@ -2846,6 +3088,8 @@ class _$CheckoutPaymentInfoCopyWithImpl<$Res, $Val extends CheckoutPaymentInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutPaymentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2853,45 +3097,53 @@ class _$CheckoutPaymentInfoCopyWithImpl<$Res, $Val extends CheckoutPaymentInfo>
     Object? additionalData = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      method: null == method
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as String,
-      additionalData: freezed == additionalData
-          ? _value.additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            method: null == method
+                ? _value.method
+                : method // ignore: cast_nullable_to_non_nullable
+                      as String,
+            additionalData: freezed == additionalData
+                ? _value.additionalData
+                : additionalData // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CheckoutPaymentInfoImplCopyWith<$Res>
     implements $CheckoutPaymentInfoCopyWith<$Res> {
-  factory _$$CheckoutPaymentInfoImplCopyWith(_$CheckoutPaymentInfoImpl value,
-          $Res Function(_$CheckoutPaymentInfoImpl) then) =
-      __$$CheckoutPaymentInfoImplCopyWithImpl<$Res>;
+  factory _$$CheckoutPaymentInfoImplCopyWith(
+    _$CheckoutPaymentInfoImpl value,
+    $Res Function(_$CheckoutPaymentInfoImpl) then,
+  ) = __$$CheckoutPaymentInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String method,
-      Map<String, dynamic>? additionalData,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String method,
+    Map<String, dynamic>? additionalData,
+    Map<String, dynamic>? extensionAttributes,
+  });
 }
 
 /// @nodoc
 class __$$CheckoutPaymentInfoImplCopyWithImpl<$Res>
     extends _$CheckoutPaymentInfoCopyWithImpl<$Res, _$CheckoutPaymentInfoImpl>
     implements _$$CheckoutPaymentInfoImplCopyWith<$Res> {
-  __$$CheckoutPaymentInfoImplCopyWithImpl(_$CheckoutPaymentInfoImpl _value,
-      $Res Function(_$CheckoutPaymentInfoImpl) _then)
-      : super(_value, _then);
+  __$$CheckoutPaymentInfoImplCopyWithImpl(
+    _$CheckoutPaymentInfoImpl _value,
+    $Res Function(_$CheckoutPaymentInfoImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutPaymentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2899,32 +3151,34 @@ class __$$CheckoutPaymentInfoImplCopyWithImpl<$Res>
     Object? additionalData = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CheckoutPaymentInfoImpl(
-      method: null == method
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as String,
-      additionalData: freezed == additionalData
-          ? _value._additionalData
-          : additionalData // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutPaymentInfoImpl(
+        method: null == method
+            ? _value.method
+            : method // ignore: cast_nullable_to_non_nullable
+                  as String,
+        additionalData: freezed == additionalData
+            ? _value._additionalData
+            : additionalData // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutPaymentInfoImpl implements _CheckoutPaymentInfo {
-  const _$CheckoutPaymentInfoImpl(
-      {required this.method,
-      final Map<String, dynamic>? additionalData,
-      final Map<String, dynamic>? extensionAttributes})
-      : _additionalData = additionalData,
-        _extensionAttributes = extensionAttributes;
+  const _$CheckoutPaymentInfoImpl({
+    required this.method,
+    final Map<String, dynamic>? additionalData,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _additionalData = additionalData,
+       _extensionAttributes = extensionAttributes;
 
   factory _$CheckoutPaymentInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutPaymentInfoImplFromJson(json);
@@ -2963,41 +3217,48 @@ class _$CheckoutPaymentInfoImpl implements _CheckoutPaymentInfo {
         (other.runtimeType == runtimeType &&
             other is _$CheckoutPaymentInfoImpl &&
             (identical(other.method, method) || other.method == method) &&
-            const DeepCollectionEquality()
-                .equals(other._additionalData, _additionalData) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._additionalData,
+              _additionalData,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      method,
-      const DeepCollectionEquality().hash(_additionalData),
-      const DeepCollectionEquality().hash(_extensionAttributes));
+    runtimeType,
+    method,
+    const DeepCollectionEquality().hash(_additionalData),
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutPaymentInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutPaymentInfoImplCopyWith<_$CheckoutPaymentInfoImpl> get copyWith =>
       __$$CheckoutPaymentInfoImplCopyWithImpl<_$CheckoutPaymentInfoImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutPaymentInfoImplToJson(
-      this,
-    );
+    return _$$CheckoutPaymentInfoImplToJson(this);
   }
 }
 
 abstract class _CheckoutPaymentInfo implements CheckoutPaymentInfo {
-  const factory _CheckoutPaymentInfo(
-          {required final String method,
-          final Map<String, dynamic>? additionalData,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CheckoutPaymentInfoImpl;
+  const factory _CheckoutPaymentInfo({
+    required final String method,
+    final Map<String, dynamic>? additionalData,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CheckoutPaymentInfoImpl;
 
   factory _CheckoutPaymentInfo.fromJson(Map<String, dynamic> json) =
       _$CheckoutPaymentInfoImpl.fromJson;
@@ -3008,8 +3269,11 @@ abstract class _CheckoutPaymentInfo implements CheckoutPaymentInfo {
   Map<String, dynamic>? get additionalData;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CheckoutPaymentInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutPaymentInfoImplCopyWith<_$CheckoutPaymentInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3025,29 +3289,37 @@ mixin _$CheckoutShippingInfo {
   Map<String, dynamic>? get extensionAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this CheckoutShippingInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutShippingInfoCopyWith<CheckoutShippingInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CheckoutShippingInfoCopyWith<$Res> {
-  factory $CheckoutShippingInfoCopyWith(CheckoutShippingInfo value,
-          $Res Function(CheckoutShippingInfo) then) =
-      _$CheckoutShippingInfoCopyWithImpl<$Res, CheckoutShippingInfo>;
+  factory $CheckoutShippingInfoCopyWith(
+    CheckoutShippingInfo value,
+    $Res Function(CheckoutShippingInfo) then,
+  ) = _$CheckoutShippingInfoCopyWithImpl<$Res, CheckoutShippingInfo>;
   @useResult
-  $Res call(
-      {String method,
-      CheckoutAddress? address,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String method,
+    CheckoutAddress? address,
+    Map<String, dynamic>? extensionAttributes,
+  });
 
   $CheckoutAddressCopyWith<$Res>? get address;
 }
 
 /// @nodoc
-class _$CheckoutShippingInfoCopyWithImpl<$Res,
-        $Val extends CheckoutShippingInfo>
+class _$CheckoutShippingInfoCopyWithImpl<
+  $Res,
+  $Val extends CheckoutShippingInfo
+>
     implements $CheckoutShippingInfoCopyWith<$Res> {
   _$CheckoutShippingInfoCopyWithImpl(this._value, this._then);
 
@@ -3056,6 +3328,8 @@ class _$CheckoutShippingInfoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3063,22 +3337,27 @@ class _$CheckoutShippingInfoCopyWithImpl<$Res,
     Object? address = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      method: null == method
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as String,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as CheckoutAddress?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value.extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            method: null == method
+                ? _value.method
+                : method // ignore: cast_nullable_to_non_nullable
+                      as String,
+            address: freezed == address
+                ? _value.address
+                : address // ignore: cast_nullable_to_non_nullable
+                      as CheckoutAddress?,
+            extensionAttributes: freezed == extensionAttributes
+                ? _value.extensionAttributes
+                : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CheckoutAddressCopyWith<$Res>? get address {
@@ -3095,15 +3374,17 @@ class _$CheckoutShippingInfoCopyWithImpl<$Res,
 /// @nodoc
 abstract class _$$CheckoutShippingInfoImplCopyWith<$Res>
     implements $CheckoutShippingInfoCopyWith<$Res> {
-  factory _$$CheckoutShippingInfoImplCopyWith(_$CheckoutShippingInfoImpl value,
-          $Res Function(_$CheckoutShippingInfoImpl) then) =
-      __$$CheckoutShippingInfoImplCopyWithImpl<$Res>;
+  factory _$$CheckoutShippingInfoImplCopyWith(
+    _$CheckoutShippingInfoImpl value,
+    $Res Function(_$CheckoutShippingInfoImpl) then,
+  ) = __$$CheckoutShippingInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String method,
-      CheckoutAddress? address,
-      Map<String, dynamic>? extensionAttributes});
+  $Res call({
+    String method,
+    CheckoutAddress? address,
+    Map<String, dynamic>? extensionAttributes,
+  });
 
   @override
   $CheckoutAddressCopyWith<$Res>? get address;
@@ -3113,10 +3394,13 @@ abstract class _$$CheckoutShippingInfoImplCopyWith<$Res>
 class __$$CheckoutShippingInfoImplCopyWithImpl<$Res>
     extends _$CheckoutShippingInfoCopyWithImpl<$Res, _$CheckoutShippingInfoImpl>
     implements _$$CheckoutShippingInfoImplCopyWith<$Res> {
-  __$$CheckoutShippingInfoImplCopyWithImpl(_$CheckoutShippingInfoImpl _value,
-      $Res Function(_$CheckoutShippingInfoImpl) _then)
-      : super(_value, _then);
+  __$$CheckoutShippingInfoImplCopyWithImpl(
+    _$CheckoutShippingInfoImpl _value,
+    $Res Function(_$CheckoutShippingInfoImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3124,31 +3408,33 @@ class __$$CheckoutShippingInfoImplCopyWithImpl<$Res>
     Object? address = freezed,
     Object? extensionAttributes = freezed,
   }) {
-    return _then(_$CheckoutShippingInfoImpl(
-      method: null == method
-          ? _value.method
-          : method // ignore: cast_nullable_to_non_nullable
-              as String,
-      address: freezed == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as CheckoutAddress?,
-      extensionAttributes: freezed == extensionAttributes
-          ? _value._extensionAttributes
-          : extensionAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$CheckoutShippingInfoImpl(
+        method: null == method
+            ? _value.method
+            : method // ignore: cast_nullable_to_non_nullable
+                  as String,
+        address: freezed == address
+            ? _value.address
+            : address // ignore: cast_nullable_to_non_nullable
+                  as CheckoutAddress?,
+        extensionAttributes: freezed == extensionAttributes
+            ? _value._extensionAttributes
+            : extensionAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CheckoutShippingInfoImpl implements _CheckoutShippingInfo {
-  const _$CheckoutShippingInfoImpl(
-      {required this.method,
-      this.address,
-      final Map<String, dynamic>? extensionAttributes})
-      : _extensionAttributes = extensionAttributes;
+  const _$CheckoutShippingInfoImpl({
+    required this.method,
+    this.address,
+    final Map<String, dynamic>? extensionAttributes,
+  }) : _extensionAttributes = extensionAttributes;
 
   factory _$CheckoutShippingInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CheckoutShippingInfoImplFromJson(json);
@@ -3180,37 +3466,45 @@ class _$CheckoutShippingInfoImpl implements _CheckoutShippingInfo {
             other is _$CheckoutShippingInfoImpl &&
             (identical(other.method, method) || other.method == method) &&
             (identical(other.address, address) || other.address == address) &&
-            const DeepCollectionEquality()
-                .equals(other._extensionAttributes, _extensionAttributes));
+            const DeepCollectionEquality().equals(
+              other._extensionAttributes,
+              _extensionAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, method, address,
-      const DeepCollectionEquality().hash(_extensionAttributes));
+  int get hashCode => Object.hash(
+    runtimeType,
+    method,
+    address,
+    const DeepCollectionEquality().hash(_extensionAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CheckoutShippingInfoImplCopyWith<_$CheckoutShippingInfoImpl>
-      get copyWith =>
-          __$$CheckoutShippingInfoImplCopyWithImpl<_$CheckoutShippingInfoImpl>(
-              this, _$identity);
+  get copyWith =>
+      __$$CheckoutShippingInfoImplCopyWithImpl<_$CheckoutShippingInfoImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CheckoutShippingInfoImplToJson(
-      this,
-    );
+    return _$$CheckoutShippingInfoImplToJson(this);
   }
 }
 
 abstract class _CheckoutShippingInfo implements CheckoutShippingInfo {
-  const factory _CheckoutShippingInfo(
-          {required final String method,
-          final CheckoutAddress? address,
-          final Map<String, dynamic>? extensionAttributes}) =
-      _$CheckoutShippingInfoImpl;
+  const factory _CheckoutShippingInfo({
+    required final String method,
+    final CheckoutAddress? address,
+    final Map<String, dynamic>? extensionAttributes,
+  }) = _$CheckoutShippingInfoImpl;
 
   factory _CheckoutShippingInfo.fromJson(Map<String, dynamic> json) =
       _$CheckoutShippingInfoImpl.fromJson;
@@ -3221,8 +3515,11 @@ abstract class _CheckoutShippingInfo implements CheckoutShippingInfo {
   CheckoutAddress? get address;
   @override
   Map<String, dynamic>? get extensionAttributes;
+
+  /// Create a copy of CheckoutShippingInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CheckoutShippingInfoImplCopyWith<_$CheckoutShippingInfoImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

@@ -30,14 +30,16 @@ Map<String, dynamic> _$$CheckoutSessionImplToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'cartId': instance.cartId,
-  'email': ?instance.email,
-  'shippingAddress': ?instance.shippingAddress,
-  'billingAddress': ?instance.billingAddress,
-  'shippingMethod': ?instance.shippingMethod,
-  'paymentMethod': ?instance.paymentMethod,
-  'additionalData': ?instance.additionalData,
-  'createdAt': ?instance.createdAt?.toIso8601String(),
-  'updatedAt': ?instance.updatedAt?.toIso8601String(),
+  if (instance.email case final value?) 'email': value,
+  if (instance.shippingAddress case final value?) 'shippingAddress': value,
+  if (instance.billingAddress case final value?) 'billingAddress': value,
+  if (instance.shippingMethod case final value?) 'shippingMethod': value,
+  if (instance.paymentMethod case final value?) 'paymentMethod': value,
+  if (instance.additionalData case final value?) 'additionalData': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
 };
 
 _$ShippingMethodImpl _$$ShippingMethodImplFromJson(Map<String, dynamic> json) =>
@@ -60,11 +62,12 @@ Map<String, dynamic> _$$ShippingMethodImplToJson(
   'title': instance.title,
   'amount': instance.amount,
   'currency': instance.currency,
-  'carrierCode': ?instance.carrierCode,
-  'carrierTitle': ?instance.carrierTitle,
-  'methodCode': ?instance.methodCode,
-  'methodTitle': ?instance.methodTitle,
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.carrierCode case final value?) 'carrierCode': value,
+  if (instance.carrierTitle case final value?) 'carrierTitle': value,
+  if (instance.methodCode case final value?) 'methodCode': value,
+  if (instance.methodTitle case final value?) 'methodTitle': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$PaymentMethodImpl _$$PaymentMethodImplFromJson(Map<String, dynamic> json) =>
@@ -80,9 +83,10 @@ Map<String, dynamic> _$$PaymentMethodImplToJson(_$PaymentMethodImpl instance) =>
     <String, dynamic>{
       'code': instance.code,
       'title': instance.title,
-      'description': ?instance.description,
-      'config': ?instance.config,
-      'extensionAttributes': ?instance.extensionAttributes,
+      if (instance.description case final value?) 'description': value,
+      if (instance.config case final value?) 'config': value,
+      if (instance.extensionAttributes case final value?)
+        'extensionAttributes': value,
     };
 
 _$CheckoutValidationResultImpl _$$CheckoutValidationResultImplFromJson(
@@ -100,9 +104,9 @@ Map<String, dynamic> _$$CheckoutValidationResultImplToJson(
   _$CheckoutValidationResultImpl instance,
 ) => <String, dynamic>{
   'isValid': instance.isValid,
-  'errors': ?instance.errors,
-  'warnings': ?instance.warnings,
-  'additionalData': ?instance.additionalData,
+  if (instance.errors case final value?) 'errors': value,
+  if (instance.warnings case final value?) 'warnings': value,
+  if (instance.additionalData case final value?) 'additionalData': value,
 };
 
 _$CheckoutTotalsImpl _$$CheckoutTotalsImplFromJson(Map<String, dynamic> json) =>
@@ -132,8 +136,10 @@ Map<String, dynamic> _$$CheckoutTotalsImplToJson(
   'taxAmount': instance.taxAmount,
   'discountAmount': instance.discountAmount,
   'currency': instance.currency,
-  'items': ?instance.items?.map((e) => e.toJson()).toList(),
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.items?.map((e) => e.toJson()).toList() case final value?)
+    'items': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$CheckoutTotalItemImpl _$$CheckoutTotalItemImplFromJson(
@@ -153,7 +159,8 @@ Map<String, dynamic> _$$CheckoutTotalItemImplToJson(
   'title': instance.title,
   'value': instance.value,
   'currency': instance.currency,
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$GuestCheckoutInfoImpl _$$GuestCheckoutInfoImplFromJson(
@@ -179,17 +186,18 @@ Map<String, dynamic> _$$GuestCheckoutInfoImplToJson(
   _$GuestCheckoutInfoImpl instance,
 ) => <String, dynamic>{
   'cartId': instance.cartId,
-  'email': ?instance.email,
-  'shippingAddress': ?instance.shippingAddress,
-  'billingAddress': ?instance.billingAddress,
-  'availableShippingMethods': ?instance.availableShippingMethods
-      ?.map((e) => e.toJson())
-      .toList(),
-  'availablePaymentMethods': ?instance.availablePaymentMethods
-      ?.map((e) => e.toJson())
-      .toList(),
-  'totals': ?instance.totals?.toJson(),
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.email case final value?) 'email': value,
+  if (instance.shippingAddress case final value?) 'shippingAddress': value,
+  if (instance.billingAddress case final value?) 'billingAddress': value,
+  if (instance.availableShippingMethods?.map((e) => e.toJson()).toList()
+      case final value?)
+    'availableShippingMethods': value,
+  if (instance.availablePaymentMethods?.map((e) => e.toJson()).toList()
+      case final value?)
+    'availablePaymentMethods': value,
+  if (instance.totals?.toJson() case final value?) 'totals': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$CheckoutAddressImpl _$$CheckoutAddressImplFromJson(
@@ -223,29 +231,30 @@ _$CheckoutAddressImpl _$$CheckoutAddressImplFromJson(
 Map<String, dynamic> _$$CheckoutAddressImplToJson(
   _$CheckoutAddressImpl instance,
 ) => <String, dynamic>{
-  'id': ?instance.id,
-  'customerId': ?instance.customerId,
-  'customerAddressId': ?instance.customerAddressId,
-  'email': ?instance.email,
-  'firstName': ?instance.firstName,
-  'lastName': ?instance.lastName,
-  'middleName': ?instance.middleName,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'company': ?instance.company,
-  'street': ?instance.street,
-  'city': ?instance.city,
-  'region': ?instance.region,
-  'regionId': ?instance.regionId,
-  'regionCode': ?instance.regionCode,
-  'postcode': ?instance.postcode,
-  'countryId': ?instance.countryId,
-  'telephone': ?instance.telephone,
-  'fax': ?instance.fax,
-  'sameAsBilling': ?instance.sameAsBilling,
-  'saveInAddressBook': ?instance.saveInAddressBook,
-  'customAttributes': ?instance.customAttributes,
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.id case final value?) 'id': value,
+  if (instance.customerId case final value?) 'customerId': value,
+  if (instance.customerAddressId case final value?) 'customerAddressId': value,
+  if (instance.email case final value?) 'email': value,
+  if (instance.firstName case final value?) 'firstName': value,
+  if (instance.lastName case final value?) 'lastName': value,
+  if (instance.middleName case final value?) 'middleName': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.company case final value?) 'company': value,
+  if (instance.street case final value?) 'street': value,
+  if (instance.city case final value?) 'city': value,
+  if (instance.region case final value?) 'region': value,
+  if (instance.regionId case final value?) 'regionId': value,
+  if (instance.regionCode case final value?) 'regionCode': value,
+  if (instance.postcode case final value?) 'postcode': value,
+  if (instance.countryId case final value?) 'countryId': value,
+  if (instance.telephone case final value?) 'telephone': value,
+  if (instance.fax case final value?) 'fax': value,
+  if (instance.sameAsBilling case final value?) 'sameAsBilling': value,
+  if (instance.saveInAddressBook case final value?) 'saveInAddressBook': value,
+  if (instance.customAttributes case final value?) 'customAttributes': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$CheckoutPaymentInfoImpl _$$CheckoutPaymentInfoImplFromJson(
@@ -260,8 +269,9 @@ Map<String, dynamic> _$$CheckoutPaymentInfoImplToJson(
   _$CheckoutPaymentInfoImpl instance,
 ) => <String, dynamic>{
   'method': instance.method,
-  'additionalData': ?instance.additionalData,
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.additionalData case final value?) 'additionalData': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };
 
 _$CheckoutShippingInfoImpl _$$CheckoutShippingInfoImplFromJson(
@@ -278,6 +288,7 @@ Map<String, dynamic> _$$CheckoutShippingInfoImplToJson(
   _$CheckoutShippingInfoImpl instance,
 ) => <String, dynamic>{
   'method': instance.method,
-  'address': ?instance.address?.toJson(),
-  'extensionAttributes': ?instance.extensionAttributes,
+  if (instance.address?.toJson() case final value?) 'address': value,
+  if (instance.extensionAttributes case final value?)
+    'extensionAttributes': value,
 };

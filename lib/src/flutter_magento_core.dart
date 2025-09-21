@@ -6,8 +6,24 @@ import 'exceptions/magento_exception.dart';
 import 'models/auth_models.dart';
 import 'models/cart.dart';
 
-/// Main class for Flutter Magento library
-/// Provides access to all Magento functionality
+/// Main singleton class for Flutter Magento library.
+///
+/// This class provides centralized access to all Magento functionality through
+/// a singleton pattern. It manages the core services and provides a unified
+/// interface for authentication, API services, and cart operations.
+///
+/// ## Usage
+///
+/// ```dart
+/// final core = FlutterMagentoCore.instance;
+///
+/// // Initialize the library
+/// await core.initialize(baseUrl: 'https://yourstore.com');
+///
+/// // Access services
+/// final authService = core.authService;
+/// final cartService = core.cartService;
+/// ```
 class FlutterMagentoCore {
   static FlutterMagentoCore? _instance;
 
@@ -20,28 +36,51 @@ class FlutterMagentoCore {
 
   FlutterMagentoCore._();
 
-  /// Get singleton instance
+  /// Get singleton instance of FlutterMagentoCore.
+  ///
+  /// Returns the single instance of the core class, creating it if it doesn't exist.
   static FlutterMagentoCore get instance {
     _instance ??= FlutterMagentoCore._();
     return _instance!;
   }
 
-  /// Get API service
+  /// Get the API service instance.
+  ///
+  /// Provides access to the main API service for making HTTP requests to Magento.
   MagentoApiService get apiService => _apiService;
 
-  /// Get authentication service
+  /// Get the authentication service instance.
+  ///
+  /// Provides access to authentication-related operations like login, logout, and token management.
   AuthService get authService => _authService;
 
-  /// Get cart service
+  /// Get the cart service instance.
+  ///
+  /// Provides access to shopping cart operations like adding items, updating quantities, etc.
   CartService get cartService => _cartService;
 
-  /// Check if library is initialized
+  /// Check if the library is initialized.
+  ///
+  /// Returns `true` if the library has been successfully initialized, `false` otherwise.
   bool get isInitialized => _isInitialized;
 
-  /// Get base URL
+  /// Get the base URL of the Magento instance.
+  ///
+  /// Returns the base URL that was used during initialization, or `null` if not initialized.
   String? get baseUrl => _baseUrl;
 
-  /// Initialize the library
+  /// Initialize the Flutter Magento library.
+  ///
+  /// This method must be called before using any other functionality.
+  /// It sets up the API service and initializes all core services.
+  ///
+  /// [baseUrl] is the base URL of your Magento instance (e.g., "https://yourstore.com")
+  /// [headers] optional custom headers to include with all requests
+  /// [connectionTimeout] timeout for establishing connection in milliseconds
+  /// [receiveTimeout] timeout for receiving data in milliseconds
+  /// [adminToken] optional admin token for admin-level operations
+  ///
+  /// Returns `true` if initialization was successful, `false` otherwise.
   Future<bool> initialize({
     required String baseUrl,
     Map<String, String>? headers,

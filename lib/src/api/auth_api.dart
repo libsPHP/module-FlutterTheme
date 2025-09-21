@@ -2,13 +2,52 @@ import 'package:dio/dio.dart';
 import '../models/auth_models.dart';
 import 'magento_api_client.dart';
 
-/// Authentication API for Magento
+/// Authentication API for Magento integration.
+///
+/// This class provides comprehensive authentication functionality for Magento,
+/// including customer login, registration, password management, and social authentication.
+///
+/// ## Features
+///
+/// - **Customer Login**: Authenticate with email and password
+/// - **Customer Registration**: Create new customer accounts
+/// - **Password Management**: Change passwords and reset forgotten passwords
+/// - **Social Login**: Support for social media authentication
+/// - **Token Management**: Automatic token storage and refresh
+/// - **Session Management**: Login/logout functionality
+///
+/// ## Usage
+///
+/// ```dart
+/// final authApi = AuthApi(apiClient);
+///
+/// // Login customer
+/// final response = await authApi.login(
+///   email: 'customer@example.com',
+///   password: 'password123',
+/// );
+///
+/// // Register new customer
+/// final customer = await authApi.register(
+///   request: CustomerCreateRequest(...),
+/// );
+/// ```
 class AuthApi {
   final MagentoApiClient _client;
 
   AuthApi(this._client);
 
-  /// Customer login
+  /// Authenticate customer with email and password.
+  ///
+  /// Attempts to log in a customer using their email and password credentials.
+  /// Upon successful authentication, the customer token is automatically stored
+  /// for subsequent authenticated requests.
+  ///
+  /// [email] the customer's email address
+  /// [password] the customer's password
+  ///
+  /// Returns an [AuthResponse] containing the authentication token and customer data.
+  /// Throws an exception if authentication fails.
   Future<AuthResponse> login({
     required String email,
     required String password,
@@ -16,22 +55,19 @@ class AuthApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/integration/customer/token',
-        data: {
-          'username': email,
-          'password': password,
-        },
+        data: {'username': email, 'password': password},
       );
 
       if (response.statusCode == 200) {
         final authResponse = AuthResponse.fromJson(response.data!);
-        
+
         // Store tokens
         await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,
         );
-        
+
         return authResponse;
       } else {
         throw Exception('Login failed: ${response.statusMessage}');
@@ -46,10 +82,16 @@ class AuthApi {
     }
   }
 
-  /// Customer registration
-  Future<Customer> register({
-    required CustomerCreateRequest request,
-  }) async {
+  /// Register a new customer account.
+  ///
+  /// Creates a new customer account in the Magento system with the provided information.
+  /// The customer will need to authenticate separately after registration.
+  ///
+  /// [request] the customer registration request containing all required fields
+  ///
+  /// Returns a [Customer] object representing the newly created customer.
+  /// Throws an exception if registration fails.
+  Future<Customer> register({required CustomerCreateRequest request}) async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/customers',
@@ -85,7 +127,9 @@ class AuthApi {
       if (response.statusCode == 200) {
         return Customer.fromJson(response.data!);
       } else {
-        throw Exception('Failed to get customer info: ${response.statusMessage}');
+        throw Exception(
+          'Failed to get customer info: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -131,9 +175,7 @@ class AuthApi {
   }
 
   /// Change customer password
-  Future<bool> changePassword({
-    required PasswordChangeRequest request,
-  }) async {
+  Future<bool> changePassword({required PasswordChangeRequest request}) async {
     try {
       final response = await _client.authenticatedRequest(
         '/rest/V1/customers/me/password',
@@ -159,17 +201,11 @@ class AuthApi {
   }
 
   /// Reset customer password
-  Future<bool> resetPassword({
-    required String email,
-  }) async {
+  Future<bool> resetPassword({required String email}) async {
     try {
       final response = await _client.guestRequest(
         '/rest/V1/customers/password',
-        data: {
-          'email': email,
-          'template': 'email_reset',
-          'websiteId': 1,
-        },
+        data: {'email': email, 'template': 'email_reset', 'websiteId': 1},
       );
 
       return response.statusCode == 200;
@@ -210,14 +246,14 @@ class AuthApi {
 
       if (response.statusCode == 200) {
         final authResponse = AuthResponse.fromJson(response.data!);
-        
+
         // Store tokens
         await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,
         );
-        
+
         return authResponse;
       } else {
         throw Exception('Social login failed: ${response.statusMessage}');
@@ -230,27 +266,23 @@ class AuthApi {
   }
 
   /// Refresh access token
-  Future<AuthResponse> refreshToken({
-    required String refreshToken,
-  }) async {
+  Future<AuthResponse> refreshToken({required String refreshToken}) async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/integration/customer/token',
-        data: {
-          'refresh_token': refreshToken,
-        },
+        data: {'refresh_token': refreshToken},
       );
 
       if (response.statusCode == 200) {
         final authResponse = AuthResponse.fromJson(response.data!);
-        
+
         // Store new tokens
         await _client.storeTokens(
           accessToken: authResponse.accessToken,
           refreshToken: authResponse.refreshToken,
           customerId: authResponse.customer.id,
         );
-        
+
         return authResponse;
       } else {
         throw Exception('Token refresh failed: ${response.statusMessage}');

@@ -3,7 +3,34 @@ import '../models/customer_models.dart';
 import '../models/customer.dart';
 import 'magento_api_client.dart';
 
-/// API class for customer management operations
+/// API class for customer management operations.
+///
+/// This class provides comprehensive customer management functionality for Magento,
+/// including profile management, address operations, and customer data handling.
+///
+/// ## Features
+///
+/// - **Profile Management**: Get and update customer profile information
+/// - **Address Management**: Manage customer shipping and billing addresses
+/// - **Customer Data**: Retrieve and modify customer account details
+/// - **Account Operations**: Handle customer account-related operations
+/// - **Address Validation**: Validate customer address information
+/// - **Profile Updates**: Update customer personal information
+///
+/// ## Usage
+///
+/// ```dart
+/// final customerApi = CustomerApi(apiClient);
+///
+/// // Get customer profile
+/// final customer = await customerApi.getCustomerProfile();
+///
+/// // Update customer profile
+/// final updatedCustomer = await customerApi.updateCustomerProfile(
+///   firstName: 'John',
+///   lastName: 'Doe',
+/// );
+/// ```
 class CustomerApi {
   final MagentoApiClient _apiClient;
 
@@ -265,8 +292,10 @@ class CustomerApi {
           if (language != null) 'language': language,
           if (currency != null) 'currency': currency,
           if (timezone != null) 'timezone': timezone,
-          if (newsletterSubscription != null) 'newsletter_subscription': newsletterSubscription,
-          if (additionalPreferences != null) 'additional_preferences': additionalPreferences,
+          if (newsletterSubscription != null)
+            'newsletter_subscription': newsletterSubscription,
+          if (additionalPreferences != null)
+            'additional_preferences': additionalPreferences,
         },
       );
 

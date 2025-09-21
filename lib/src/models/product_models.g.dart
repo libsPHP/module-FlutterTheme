@@ -55,38 +55,45 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'sku': instance.sku,
-      'name': instance.name,
-      'typeId': instance.typeId,
-      'price': instance.price,
-      'specialPrice': ?instance.specialPrice,
-      'status': instance.status,
-      'visibility': instance.visibility,
-      'stockStatus': instance.stockStatus,
-      'stockQuantity': ?instance.stockQuantity,
-      'description': ?instance.description,
-      'shortDescription': ?instance.shortDescription,
-      'metaTitle': ?instance.metaTitle,
-      'metaDescription': ?instance.metaDescription,
-      'metaKeyword': ?instance.metaKeyword,
-      'categories': ?instance.categories,
-      'websites': ?instance.websites,
-      'customAttributes': ?instance.customAttributes
-          ?.map((e) => e.toJson())
-          .toList(),
-      'mediaGalleryEntries': ?instance.mediaGalleryEntries
-          ?.map((e) => e.toJson())
-          .toList(),
-      'options': ?instance.options?.map((e) => e.toJson()).toList(),
-      'productLinks': ?instance.productLinks?.map((e) => e.toJson()).toList(),
-      'tierPrices': ?instance.tierPrices?.map((e) => e.toJson()).toList(),
-      'reviews': ?instance.reviews?.map((e) => e.toJson()).toList(),
-      'createdAt': ?instance.createdAt?.toIso8601String(),
-      'updatedAt': ?instance.updatedAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$$ProductImplToJson(
+  _$ProductImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'sku': instance.sku,
+  'name': instance.name,
+  'typeId': instance.typeId,
+  'price': instance.price,
+  if (instance.specialPrice case final value?) 'specialPrice': value,
+  'status': instance.status,
+  'visibility': instance.visibility,
+  'stockStatus': instance.stockStatus,
+  if (instance.stockQuantity case final value?) 'stockQuantity': value,
+  if (instance.description case final value?) 'description': value,
+  if (instance.shortDescription case final value?) 'shortDescription': value,
+  if (instance.metaTitle case final value?) 'metaTitle': value,
+  if (instance.metaDescription case final value?) 'metaDescription': value,
+  if (instance.metaKeyword case final value?) 'metaKeyword': value,
+  if (instance.categories case final value?) 'categories': value,
+  if (instance.websites case final value?) 'websites': value,
+  if (instance.customAttributes?.map((e) => e.toJson()).toList()
+      case final value?)
+    'customAttributes': value,
+  if (instance.mediaGalleryEntries?.map((e) => e.toJson()).toList()
+      case final value?)
+    'mediaGalleryEntries': value,
+  if (instance.options?.map((e) => e.toJson()).toList() case final value?)
+    'options': value,
+  if (instance.productLinks?.map((e) => e.toJson()).toList() case final value?)
+    'productLinks': value,
+  if (instance.tierPrices?.map((e) => e.toJson()).toList() case final value?)
+    'tierPrices': value,
+  if (instance.reviews?.map((e) => e.toJson()).toList() case final value?)
+    'reviews': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
+};
 
 _$ProductListResponseImpl _$$ProductListResponseImplFromJson(
   Map<String, dynamic> json,
@@ -114,8 +121,10 @@ Map<String, dynamic> _$$ProductListResponseImplToJson(
   'pageSize': instance.pageSize,
   'currentPage': instance.currentPage,
   'totalPages': instance.totalPages,
-  'aggregations': ?instance.aggregations?.map((e) => e.toJson()).toList(),
-  'sortOptions': ?instance.sortOptions?.map((e) => e.toJson()).toList(),
+  if (instance.aggregations?.map((e) => e.toJson()).toList() case final value?)
+    'aggregations': value,
+  if (instance.sortOptions?.map((e) => e.toJson()).toList() case final value?)
+    'sortOptions': value,
 };
 
 _$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
@@ -137,20 +146,23 @@ _$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$CategoryImplToJson(_$CategoryImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': ?instance.description,
-      'image': ?instance.image,
-      'parentId': ?instance.parentId,
-      'level': instance.level,
-      'position': instance.position,
-      'isActive': instance.isActive,
-      'childrenCount': instance.childrenCount,
-      'children': ?instance.children?.map((e) => e.toJson()).toList(),
-      'attributes': ?instance.attributes?.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$$CategoryImplToJson(
+  _$CategoryImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  if (instance.description case final value?) 'description': value,
+  if (instance.image case final value?) 'image': value,
+  if (instance.parentId case final value?) 'parentId': value,
+  'level': instance.level,
+  'position': instance.position,
+  'isActive': instance.isActive,
+  'childrenCount': instance.childrenCount,
+  if (instance.children?.map((e) => e.toJson()).toList() case final value?)
+    'children': value,
+  if (instance.attributes?.map((e) => e.toJson()).toList() case final value?)
+    'attributes': value,
+};
 
 _$CategoryTreeImpl _$$CategoryTreeImplFromJson(Map<String, dynamic> json) =>
     _$CategoryTreeImpl(
@@ -189,19 +201,19 @@ _$ProductFilterParamsImpl _$$ProductFilterParamsImplFromJson(
 Map<String, dynamic> _$$ProductFilterParamsImplToJson(
   _$ProductFilterParamsImpl instance,
 ) => <String, dynamic>{
-  'page': ?instance.page,
-  'pageSize': ?instance.pageSize,
-  'searchQuery': ?instance.searchQuery,
-  'categoryId': ?instance.categoryId,
-  'sortBy': ?instance.sortBy,
-  'sortOrder': ?instance.sortOrder,
-  'filters': ?instance.filters,
-  'minPrice': ?instance.minPrice,
-  'maxPrice': ?instance.maxPrice,
-  'attributes': ?instance.attributes,
-  'inStock': ?instance.inStock,
-  'brand': ?instance.brand,
-  'tags': ?instance.tags,
+  if (instance.page case final value?) 'page': value,
+  if (instance.pageSize case final value?) 'pageSize': value,
+  if (instance.searchQuery case final value?) 'searchQuery': value,
+  if (instance.categoryId case final value?) 'categoryId': value,
+  if (instance.sortBy case final value?) 'sortBy': value,
+  if (instance.sortOrder case final value?) 'sortOrder': value,
+  if (instance.filters case final value?) 'filters': value,
+  if (instance.minPrice case final value?) 'minPrice': value,
+  if (instance.maxPrice case final value?) 'maxPrice': value,
+  if (instance.attributes case final value?) 'attributes': value,
+  if (instance.inStock case final value?) 'inStock': value,
+  if (instance.brand case final value?) 'brand': value,
+  if (instance.tags case final value?) 'tags': value,
 };
 
 _$CustomAttributeImpl _$$CustomAttributeImplFromJson(
@@ -221,9 +233,9 @@ Map<String, dynamic> _$$CustomAttributeImplToJson(
 ) => <String, dynamic>{
   'attributeCode': instance.attributeCode,
   'value': instance.value,
-  'label': ?instance.label,
-  'type': ?instance.type,
-  'options': ?instance.options,
+  if (instance.label case final value?) 'label': value,
+  if (instance.type case final value?) 'type': value,
+  if (instance.options case final value?) 'options': value,
 };
 
 _$MediaGalleryEntryImpl _$$MediaGalleryEntryImplFromJson(
@@ -249,11 +261,11 @@ Map<String, dynamic> _$$MediaGalleryEntryImplToJson(
   'label': instance.label,
   'position': instance.position,
   'disabled': instance.disabled,
-  'types': ?instance.types,
+  if (instance.types case final value?) 'types': value,
   'file': instance.file,
-  'thumbnail': ?instance.thumbnail,
-  'smallImage': ?instance.smallImage,
-  'baseImage': ?instance.baseImage,
+  if (instance.thumbnail case final value?) 'thumbnail': value,
+  if (instance.smallImage case final value?) 'smallImage': value,
+  if (instance.baseImage case final value?) 'baseImage': value,
 };
 
 _$ProductOptionImpl _$$ProductOptionImplFromJson(Map<String, dynamic> json) =>
@@ -278,12 +290,13 @@ Map<String, dynamic> _$$ProductOptionImplToJson(_$ProductOptionImpl instance) =>
       'title': instance.title,
       'type': instance.type,
       'required': instance.required,
-      'values': ?instance.values?.map((e) => e.toJson()).toList(),
-      'defaultValue': ?instance.defaultValue,
-      'maxCharacters': ?instance.maxCharacters,
-      'fileExtension': ?instance.fileExtension,
-      'imageSizeX': ?instance.imageSizeX,
-      'imageSizeY': ?instance.imageSizeY,
+      if (instance.values?.map((e) => e.toJson()).toList() case final value?)
+        'values': value,
+      if (instance.defaultValue case final value?) 'defaultValue': value,
+      if (instance.maxCharacters case final value?) 'maxCharacters': value,
+      if (instance.fileExtension case final value?) 'fileExtension': value,
+      if (instance.imageSizeX case final value?) 'imageSizeX': value,
+      if (instance.imageSizeY case final value?) 'imageSizeY': value,
     };
 
 _$ProductOptionValueImpl _$$ProductOptionValueImplFromJson(
@@ -302,10 +315,10 @@ Map<String, dynamic> _$$ProductOptionValueImplToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
-  'price': ?instance.price,
-  'priceType': ?instance.priceType,
-  'sku': ?instance.sku,
-  'sortOrder': ?instance.sortOrder,
+  if (instance.price case final value?) 'price': value,
+  if (instance.priceType case final value?) 'priceType': value,
+  if (instance.sku case final value?) 'sku': value,
+  if (instance.sortOrder case final value?) 'sortOrder': value,
 };
 
 _$ProductLinkImpl _$$ProductLinkImplFromJson(Map<String, dynamic> json) =>
@@ -323,7 +336,7 @@ Map<String, dynamic> _$$ProductLinkImplToJson(_$ProductLinkImpl instance) =>
       'id': instance.id,
       'linkType': instance.linkType,
       'linkedProduct': instance.linkedProduct.toJson(),
-      'position': ?instance.position,
+      if (instance.position case final value?) 'position': value,
     };
 
 _$TierPriceImpl _$$TierPriceImplFromJson(Map<String, dynamic> json) =>
@@ -341,7 +354,7 @@ Map<String, dynamic> _$$TierPriceImplToJson(_$TierPriceImpl instance) =>
       'customerGroupId': instance.customerGroupId,
       'price': instance.price,
       'qty': instance.qty,
-      'websiteId': ?instance.websiteId,
+      if (instance.websiteId case final value?) 'websiteId': value,
     };
 
 _$ReviewImpl _$$ReviewImplFromJson(Map<String, dynamic> json) => _$ReviewImpl(
@@ -367,8 +380,9 @@ Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) =>
       'customerId': instance.customerId,
       'rating': instance.rating,
       'createdAt': instance.createdAt.toIso8601String(),
-      'status': ?instance.status,
-      'ratings': ?instance.ratings?.map((e) => e.toJson()).toList(),
+      if (instance.status case final value?) 'status': value,
+      if (instance.ratings?.map((e) => e.toJson()).toList() case final value?)
+        'ratings': value,
     };
 
 _$ReviewRatingImpl _$$ReviewRatingImplFromJson(Map<String, dynamic> json) =>
@@ -420,7 +434,7 @@ Map<String, dynamic> _$$AggregationOptionImplToJson(
   'value': instance.value,
   'label': instance.label,
   'count': instance.count,
-  'isSelected': ?instance.isSelected,
+  if (instance.isSelected case final value?) 'isSelected': value,
 };
 
 _$SortOptionImpl _$$SortOptionImplFromJson(Map<String, dynamic> json) =>
@@ -434,7 +448,7 @@ Map<String, dynamic> _$$SortOptionImplToJson(_$SortOptionImpl instance) =>
     <String, dynamic>{
       'value': instance.value,
       'label': instance.label,
-      'isSelected': ?instance.isSelected,
+      if (instance.isSelected case final value?) 'isSelected': value,
     };
 
 _$CategoryAttributeImpl _$$CategoryAttributeImplFromJson(
@@ -450,5 +464,5 @@ Map<String, dynamic> _$$CategoryAttributeImplToJson(
 ) => <String, dynamic>{
   'attributeCode': instance.attributeCode,
   'value': instance.value,
-  'label': ?instance.label,
+  if (instance.label case final value?) 'label': value,
 };

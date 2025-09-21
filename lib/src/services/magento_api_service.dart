@@ -6,7 +6,36 @@ import '../models/cart.dart';
 import '../models/order.dart';
 import '../exceptions/magento_exception.dart';
 
-/// Service for interacting with Magento REST API and GraphQL
+/// Service for interacting with Magento REST API and GraphQL.
+///
+/// This service provides a high-level interface for communicating with Magento
+/// backend services. It handles HTTP requests, authentication, and data transformation
+/// for various Magento operations including products, cart, orders, and customer management.
+///
+/// ## Features
+///
+/// - **REST API Integration**: Full support for Magento REST API endpoints
+/// - **GraphQL Support**: GraphQL query execution for complex data fetching
+/// - **Authentication**: Token-based authentication with automatic refresh
+/// - **Request/Response Handling**: Automatic request formatting and response parsing
+/// - **Error Handling**: Comprehensive error handling with proper exception types
+/// - **Timeout Management**: Configurable connection and receive timeouts
+/// - **Header Management**: Custom header support for API requests
+///
+/// ## Usage
+///
+/// ```dart
+/// final apiService = MagentoApiService();
+///
+/// // Initialize with base URL
+/// await apiService.initialize(
+///   baseUrl: 'https://yourstore.com',
+///   connectionTimeout: 30000,
+/// );
+///
+/// // Make API requests
+/// final products = await apiService.getProducts();
+/// ```
 class MagentoApiService {
   late final Dio _dio;
   late final Dio _graphqlDio;
@@ -31,64 +60,80 @@ class MagentoApiService {
       _baseUrl = baseUrl.endsWith('/') ? baseUrl : '$baseUrl/';
       _adminToken = adminToken;
 
-      _dio = Dio(BaseOptions(
-        baseUrl: '${_baseUrl}rest/$_apiVersion/',
-        connectTimeout: Duration(
-            milliseconds: connectionTimeout ?? _defaultConnectionTimeout),
-        receiveTimeout:
-            Duration(milliseconds: receiveTimeout ?? _defaultReceiveTimeout),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          ...?headers,
-        },
-      ));
+      _dio = Dio(
+        BaseOptions(
+          baseUrl: '${_baseUrl}rest/$_apiVersion/',
+          connectTimeout: Duration(
+            milliseconds: connectionTimeout ?? _defaultConnectionTimeout,
+          ),
+          receiveTimeout: Duration(
+            milliseconds: receiveTimeout ?? _defaultReceiveTimeout,
+          ),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            ...?headers,
+          },
+        ),
+      );
 
       // Initialize GraphQL client
-      _graphqlDio = Dio(BaseOptions(
-        baseUrl: _baseUrl!,
-        connectTimeout: Duration(
-            milliseconds: connectionTimeout ?? _defaultConnectionTimeout),
-        receiveTimeout:
-            Duration(milliseconds: receiveTimeout ?? _defaultReceiveTimeout),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          ...?headers,
-        },
-      ));
+      _graphqlDio = Dio(
+        BaseOptions(
+          baseUrl: _baseUrl!,
+          connectTimeout: Duration(
+            milliseconds: connectionTimeout ?? _defaultConnectionTimeout,
+          ),
+          receiveTimeout: Duration(
+            milliseconds: receiveTimeout ?? _defaultReceiveTimeout,
+          ),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            ...?headers,
+          },
+        ),
+      );
 
       // Add interceptors for REST API logging and error handling
-      _dio.interceptors.add(LogInterceptor(
-        requestBody: kDebugMode,
-        responseBody: kDebugMode,
-        logPrint: (obj) => kDebugMode ? print('🌐 REST API: $obj') : null,
-      ));
+      _dio.interceptors.add(
+        LogInterceptor(
+          requestBody: kDebugMode,
+          responseBody: kDebugMode,
+          logPrint: (obj) => kDebugMode ? print('🌐 REST API: $obj') : null,
+        ),
+      );
 
-      _dio.interceptors.add(InterceptorsWrapper(
-        onError: (error, handler) {
-          if (kDebugMode) {
-            print('❌ REST API Error: ${error.message}');
-          }
-          handler.next(error);
-        },
-      ));
+      _dio.interceptors.add(
+        InterceptorsWrapper(
+          onError: (error, handler) {
+            if (kDebugMode) {
+              print('❌ REST API Error: ${error.message}');
+            }
+            handler.next(error);
+          },
+        ),
+      );
 
       // Add interceptors for GraphQL logging and error handling
-      _graphqlDio.interceptors.add(LogInterceptor(
-        requestBody: kDebugMode,
-        responseBody: kDebugMode,
-        logPrint: (obj) => kDebugMode ? print('🌐 GraphQL: $obj') : null,
-      ));
+      _graphqlDio.interceptors.add(
+        LogInterceptor(
+          requestBody: kDebugMode,
+          responseBody: kDebugMode,
+          logPrint: (obj) => kDebugMode ? print('🌐 GraphQL: $obj') : null,
+        ),
+      );
 
-      _graphqlDio.interceptors.add(InterceptorsWrapper(
-        onError: (error, handler) {
-          if (kDebugMode) {
-            print('❌ GraphQL Error: ${error.message}');
-          }
-          handler.next(error);
-        },
-      ));
+      _graphqlDio.interceptors.add(
+        InterceptorsWrapper(
+          onError: (error, handler) {
+            if (kDebugMode) {
+              print('❌ GraphQL Error: ${error.message}');
+            }
+            handler.next(error);
+          },
+        ),
+      );
 
       return true;
     } catch (e) {
@@ -248,7 +293,8 @@ class MagentoApiService {
     final result = await executeGraphQL(query);
     if (result?['data']?['categories']?['items'] != null) {
       return List<Map<String, dynamic>>.from(
-          result!['data']['categories']['items']);
+        result!['data']['categories']['items'],
+      );
     }
 
     return [];
@@ -287,8 +333,9 @@ class MagentoApiService {
         if (value is String) {
           filterConditions.add('$key: { eq: "$value" }');
         } else if (value is List) {
-          filterConditions
-              .add('$key: { in: [${value.map((v) => '"$v"').join(', ')}] }');
+          filterConditions.add(
+            '$key: { in: [${value.map((v) => '"$v"').join(', ')}] }',
+          );
         }
       });
     }
@@ -357,8 +404,10 @@ class MagentoApiService {
     }
   }''');
 
-    final result =
-        await executeGraphQL(queryBuilder.toString(), variables: variables);
+    final result = await executeGraphQL(
+      queryBuilder.toString(),
+      variables: variables,
+    );
     if (result?['data']?['products'] != null) {
       return result!['data']['products'];
     }
@@ -509,7 +558,8 @@ class MagentoApiService {
       final result = await executeGraphQL(query);
       if (result?['data']?['cmsPages']?['items'] != null) {
         return List<Map<String, dynamic>>.from(
-            result!['data']['cmsPages']['items']);
+          result!['data']['cmsPages']['items'],
+        );
       }
     } catch (e) {
       if (kDebugMode) {
@@ -521,8 +571,9 @@ class MagentoApiService {
   }
 
   /// Get category tree via GraphQL with detailed information
-  Future<Map<String, dynamic>> getCategoryTreeGraphQL(
-      {int rootCategoryId = 2}) async {
+  Future<Map<String, dynamic>> getCategoryTreeGraphQL({
+    int rootCategoryId = 2,
+  }) async {
     const query = '''
       query(\$id: String!) {
         category(id: \$id) {
@@ -562,8 +613,10 @@ class MagentoApiService {
       }
     ''';
 
-    final result = await executeGraphQL(query,
-        variables: {'id': rootCategoryId.toString()});
+    final result = await executeGraphQL(
+      query,
+      variables: {'id': rootCategoryId.toString()},
+    );
     if (result?['data']?['category'] != null) {
       return result!['data']['category'];
     }
@@ -572,8 +625,11 @@ class MagentoApiService {
   }
 
   /// Get product reviews via GraphQL
-  Future<Map<String, dynamic>> getProductReviewsGraphQL(String sku,
-      {int page = 1, int pageSize = 10}) async {
+  Future<Map<String, dynamic>> getProductReviewsGraphQL(
+    String sku, {
+    int page = 1,
+    int pageSize = 10,
+  }) async {
     const query = '''
       query(\$sku: String!, \$currentPage: Int!, \$pageSize: Int!) {
         products(filter: { sku: { eq: \$sku } }) {
@@ -603,11 +659,10 @@ class MagentoApiService {
       }
     ''';
 
-    final result = await executeGraphQL(query, variables: {
-      'sku': sku,
-      'currentPage': page,
-      'pageSize': pageSize,
-    });
+    final result = await executeGraphQL(
+      query,
+      variables: {'sku': sku, 'currentPage': page, 'pageSize': pageSize},
+    );
 
     if (result?['data']?['products']?['items']?.isNotEmpty == true) {
       return result!['data']['products']['items'][0];
@@ -617,13 +672,15 @@ class MagentoApiService {
   }
 
   /// Get product filters/facets via GraphQL
-  Future<Map<String, dynamic>> getProductFiltersGraphQL(
-      {String? categoryId}) async {
+  Future<Map<String, dynamic>> getProductFiltersGraphQL({
+    String? categoryId,
+  }) async {
     final filterCondition = categoryId != null
         ? 'filter: { category_id: { eq: "$categoryId" } }, '
         : '';
 
-    final query = '''
+    final query =
+        '''
       query {
         products(${filterCondition}pageSize: 1) {
           aggregations {
@@ -696,8 +753,10 @@ class MagentoApiService {
   }
 
   /// Get customer orders via GraphQL
-  Future<Map<String, dynamic>> getCustomerOrdersGraphQL(
-      {int page = 1, int pageSize = 10}) async {
+  Future<Map<String, dynamic>> getCustomerOrdersGraphQL({
+    int page = 1,
+    int pageSize = 10,
+  }) async {
     const query = '''
       query(\$currentPage: Int!, \$pageSize: Int!) {
         customer {
@@ -799,10 +858,10 @@ class MagentoApiService {
       }
     ''';
 
-    final result = await executeGraphQL(query, variables: {
-      'currentPage': page,
-      'pageSize': pageSize,
-    });
+    final result = await executeGraphQL(
+      query,
+      variables: {'currentPage': page, 'pageSize': pageSize},
+    );
 
     if (result?['data']?['customer']?['orders'] != null) {
       return result!['data']['customer']['orders'];
@@ -856,7 +915,8 @@ class MagentoApiService {
 
   /// Get product recommendations via GraphQL
   Future<List<Map<String, dynamic>>> getProductRecommendationsGraphQL(
-      String sku) async {
+    String sku,
+  ) async {
     const query = '''
       query(\$sku: String!) {
         products(filter: { sku: { eq: \$sku } }) {
@@ -931,15 +991,18 @@ class MagentoApiService {
       // Combine all recommendation types
       if (product['related_products'] != null) {
         recommendations.addAll(
-            List<Map<String, dynamic>>.from(product['related_products']));
+          List<Map<String, dynamic>>.from(product['related_products']),
+        );
       }
       if (product['upsell_products'] != null) {
         recommendations.addAll(
-            List<Map<String, dynamic>>.from(product['upsell_products']));
+          List<Map<String, dynamic>>.from(product['upsell_products']),
+        );
       }
       if (product['crosssell_products'] != null) {
         recommendations.addAll(
-            List<Map<String, dynamic>>.from(product['crosssell_products']));
+          List<Map<String, dynamic>>.from(product['crosssell_products']),
+        );
       }
 
       return recommendations;
@@ -1005,8 +1068,10 @@ class MagentoApiService {
       }
     ''';
 
-    final result =
-        await executeGraphQL(graphqlQuery, variables: {'query': query});
+    final result = await executeGraphQL(
+      graphqlQuery,
+      variables: {'query': query},
+    );
     if (result?['data']?['products'] != null) {
       return result!['data']['products'];
     }
@@ -1021,10 +1086,10 @@ class MagentoApiService {
     required String email,
     required String password,
   }) async {
-    final response = await _dio.post('integration/customer/token', data: {
-      'username': email,
-      'password': password,
-    });
+    final response = await _dio.post(
+      'integration/customer/token',
+      data: {'username': email, 'password': password},
+    );
 
     if (response.data is String) {
       final token = response.data as String;
@@ -1059,8 +1124,9 @@ class MagentoApiService {
 
   /// Get current customer information
   Future<Customer> getCurrentCustomer() async {
-    final response =
-        await _authenticatedRequest<Map<String, dynamic>>('customers/me');
+    final response = await _authenticatedRequest<Map<String, dynamic>>(
+      'customers/me',
+    );
     return Customer.fromJson(response.data!);
   }
 
@@ -1075,8 +1141,9 @@ class MagentoApiService {
 
   /// Get customer addresses
   Future<List<Address>> getCustomerAddresses() async {
-    final response =
-        await _authenticatedRequest<List<dynamic>>('customers/me/addresses');
+    final response = await _authenticatedRequest<List<dynamic>>(
+      'customers/me/addresses',
+    );
     return response.data!.map((json) => Address.fromJson(json)).toList();
   }
 
@@ -1100,8 +1167,7 @@ class MagentoApiService {
           'name';
       queryParams['searchCriteria[filterGroups][0][filters][0][value]'] =
           '%$searchQuery%';
-      queryParams[
-              'searchCriteria[filterGroups][0][filters][0][conditionType]'] =
+      queryParams['searchCriteria[filterGroups][0][filters][0][conditionType]'] =
           'like';
     }
 
@@ -1110,8 +1176,8 @@ class MagentoApiService {
           'category_id';
       queryParams['searchCriteria[filterGroups][1][filters][0][value]'] =
           categoryId;
-      queryParams[
-          'searchCriteria[filterGroups][1][filters][0][conditionType]'] = 'eq';
+      queryParams['searchCriteria[filterGroups][1][filters][0][conditionType]'] =
+          'eq';
     }
 
     if (sortBy != null) {
@@ -1120,8 +1186,10 @@ class MagentoApiService {
           sortOrder ?? 'ASC';
     }
 
-    final response = await _dio.get<Map<String, dynamic>>('products',
-        queryParameters: queryParams);
+    final response = await _dio.get<Map<String, dynamic>>(
+      'products',
+      queryParameters: queryParams,
+    );
     return response.data!;
   }
 
@@ -1133,19 +1201,25 @@ class MagentoApiService {
 
   /// Cart operations
   Future<String> createCart() async {
-    final response =
-        await _authenticatedRequest<Map<String, dynamic>>('guest-carts');
+    final response = await _authenticatedRequest<Map<String, dynamic>>(
+      'guest-carts',
+    );
     return response.data?['quote_id'] ?? '';
   }
 
   Future<Cart> getCart(String cartId) async {
     final response = await _authenticatedRequest<Map<String, dynamic>>(
-        'guest-carts/$cartId');
+      'guest-carts/$cartId',
+    );
     return Cart.fromJson(response.data!);
   }
 
-  Future<bool> addToCart(String cartId, String sku, int quantity,
-      [Map<String, dynamic>? productOption]) async {
+  Future<bool> addToCart(
+    String cartId,
+    String sku,
+    int quantity, [
+    Map<String, dynamic>? productOption,
+  ]) async {
     final data = {
       'cartItem': {
         'sku': sku,
@@ -1165,15 +1239,14 @@ class MagentoApiService {
 
   Future<bool> updateCartItem(String cartId, int itemId, int quantity) async {
     final data = {
-      'cartItem': {
-        'qty': quantity,
-        'quote_id': cartId,
-      },
+      'cartItem': {'qty': quantity, 'quote_id': cartId},
     };
 
     try {
-      await _authenticatedRequest('guest-carts/$cartId/items/$itemId',
-          data: data);
+      await _authenticatedRequest(
+        'guest-carts/$cartId/items/$itemId',
+        data: data,
+      );
       return true;
     } catch (e) {
       return false;
@@ -1182,8 +1255,10 @@ class MagentoApiService {
 
   Future<bool> removeFromCart(String cartId, int itemId) async {
     try {
-      await _authenticatedRequest('guest-carts/$cartId/items/$itemId',
-          options: Options(method: 'DELETE'));
+      await _authenticatedRequest(
+        'guest-carts/$cartId/items/$itemId',
+        options: Options(method: 'DELETE'),
+      );
       return true;
     } catch (e) {
       return false;
@@ -1192,28 +1267,33 @@ class MagentoApiService {
 
   /// Orders
   Future<List<Order>> getCustomerOrders() async {
-    final response =
-        await _authenticatedRequest<List<dynamic>>('customers/me/orders');
+    final response = await _authenticatedRequest<List<dynamic>>(
+      'customers/me/orders',
+    );
     return response.data!.map((json) => Order.fromJson(json)).toList();
   }
 
   Future<Order> getOrder(String orderId) async {
-    final response =
-        await _authenticatedRequest<Map<String, dynamic>>('orders/$orderId');
+    final response = await _authenticatedRequest<Map<String, dynamic>>(
+      'orders/$orderId',
+    );
     return Order.fromJson(response.data!);
   }
 
   /// Wishlist
   Future<Map<String, dynamic>> getWishlist() async {
     final response = await _authenticatedRequest<Map<String, dynamic>>(
-        'customers/me/wishlist');
+      'customers/me/wishlist',
+    );
     return response.data!;
   }
 
   Future<bool> addToWishlist(String sku) async {
     try {
-      await _authenticatedRequest('customers/me/wishlist/add',
-          data: {'sku': sku});
+      await _authenticatedRequest(
+        'customers/me/wishlist/add',
+        data: {'sku': sku},
+      );
       return true;
     } catch (e) {
       return false;
@@ -1222,8 +1302,10 @@ class MagentoApiService {
 
   Future<bool> removeFromWishlist(int itemId) async {
     try {
-      await _authenticatedRequest('customers/me/wishlist/remove/$itemId',
-          options: Options(method: 'DELETE'));
+      await _authenticatedRequest(
+        'customers/me/wishlist/remove/$itemId',
+        options: Options(method: 'DELETE'),
+      );
       return true;
     } catch (e) {
       return false;
@@ -1237,14 +1319,18 @@ class MagentoApiService {
   }
 
   Future<Map<String, dynamic>> getCategory(int categoryId) async {
-    final response =
-        await _dio.get<Map<String, dynamic>>('categories/$categoryId');
+    final response = await _dio.get<Map<String, dynamic>>(
+      'categories/$categoryId',
+    );
     return response.data!;
   }
 
   /// Search
-  Future<Map<String, dynamic>> searchProducts(String query,
-      {int page = 1, int pageSize = 20}) async {
+  Future<Map<String, dynamic>> searchProducts(
+    String query, {
+    int page = 1,
+    int pageSize = 20,
+  }) async {
     final queryParams = {
       'searchCriteria[requestName]': 'quick_search_container',
       'searchCriteria[filterGroups][0][filters][0][field]': 'search_term',
@@ -1254,14 +1340,18 @@ class MagentoApiService {
       'searchCriteria[pageSize]': pageSize,
     };
 
-    final response = await _dio.get<Map<String, dynamic>>('search',
-        queryParameters: queryParams);
+    final response = await _dio.get<Map<String, dynamic>>(
+      'search',
+      queryParameters: queryParams,
+    );
     return response.data!;
   }
 
   /// Checkout
   Future<Map<String, dynamic>> estimateShippingMethods(
-      String cartId, Map<String, dynamic> address) async {
+    String cartId,
+    Map<String, dynamic> address,
+  ) async {
     final response = await _authenticatedRequest<Map<String, dynamic>>(
       'guest-carts/$cartId/estimate-shipping-methods',
       data: {'address': address},
@@ -1271,12 +1361,15 @@ class MagentoApiService {
 
   Future<Map<String, dynamic>> estimatePaymentMethods(String cartId) async {
     final response = await _authenticatedRequest<Map<String, dynamic>>(
-        'guest-carts/$cartId/payment-methods');
+      'guest-carts/$cartId/payment-methods',
+    );
     return response.data!;
   }
 
   Future<Map<String, dynamic>> placeOrder(
-      String cartId, Map<String, dynamic> orderData) async {
+    String cartId,
+    Map<String, dynamic> orderData,
+  ) async {
     final response = await _authenticatedRequest<Map<String, dynamic>>(
       'guest-carts/$cartId/order',
       data: orderData,

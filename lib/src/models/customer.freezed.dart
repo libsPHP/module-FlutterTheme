@@ -12,7 +12,8 @@ part of 'customer.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) {
   return _Customer.fromJson(json);
@@ -40,8 +41,12 @@ mixin _$Customer {
       throw _privateConstructorUsedError;
   List<Address>? get addresses => throw _privateConstructorUsedError;
 
+  /// Serializes this Customer to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Customer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CustomerCopyWith<Customer> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,25 +56,26 @@ abstract class $CustomerCopyWith<$Res> {
   factory $CustomerCopyWith(Customer value, $Res Function(Customer) then) =
       _$CustomerCopyWithImpl<$Res, Customer>;
   @useResult
-  $Res call(
-      {int id,
-      String email,
-      String firstname,
-      String lastname,
-      String? middlename,
-      String? prefix,
-      String? suffix,
-      String? gender,
-      String? dateOfBirth,
-      String? taxvat,
-      bool? isSubscribed,
-      String? groupId,
-      String? defaultBilling,
-      String? defaultShipping,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      Map<String, dynamic>? customAttributes,
-      List<Address>? addresses});
+  $Res call({
+    int id,
+    String email,
+    String firstname,
+    String lastname,
+    String? middlename,
+    String? prefix,
+    String? suffix,
+    String? gender,
+    String? dateOfBirth,
+    String? taxvat,
+    bool? isSubscribed,
+    String? groupId,
+    String? defaultBilling,
+    String? defaultShipping,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Map<String, dynamic>? customAttributes,
+    List<Address>? addresses,
+  });
 }
 
 /// @nodoc
@@ -82,6 +88,8 @@ class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Customer
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,80 +112,83 @@ class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
     Object? customAttributes = freezed,
     Object? addresses = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
-      middlename: freezed == middlename
-          ? _value.middlename
-          : middlename // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      taxvat: freezed == taxvat
-          ? _value.taxvat
-          : taxvat // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isSubscribed: freezed == isSubscribed
-          ? _value.isSubscribed
-          : isSubscribed // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      groupId: freezed == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      defaultBilling: freezed == defaultBilling
-          ? _value.defaultBilling
-          : defaultBilling // ignore: cast_nullable_to_non_nullable
-              as String?,
-      defaultShipping: freezed == defaultShipping
-          ? _value.defaultShipping
-          : defaultShipping // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      customAttributes: freezed == customAttributes
-          ? _value.customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      addresses: freezed == addresses
-          ? _value.addresses
-          : addresses // ignore: cast_nullable_to_non_nullable
-              as List<Address>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
+                      as String,
+            firstname: null == firstname
+                ? _value.firstname
+                : firstname // ignore: cast_nullable_to_non_nullable
+                      as String,
+            lastname: null == lastname
+                ? _value.lastname
+                : lastname // ignore: cast_nullable_to_non_nullable
+                      as String,
+            middlename: freezed == middlename
+                ? _value.middlename
+                : middlename // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            prefix: freezed == prefix
+                ? _value.prefix
+                : prefix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            suffix: freezed == suffix
+                ? _value.suffix
+                : suffix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            gender: freezed == gender
+                ? _value.gender
+                : gender // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            dateOfBirth: freezed == dateOfBirth
+                ? _value.dateOfBirth
+                : dateOfBirth // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            taxvat: freezed == taxvat
+                ? _value.taxvat
+                : taxvat // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            isSubscribed: freezed == isSubscribed
+                ? _value.isSubscribed
+                : isSubscribed // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            groupId: freezed == groupId
+                ? _value.groupId
+                : groupId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            defaultBilling: freezed == defaultBilling
+                ? _value.defaultBilling
+                : defaultBilling // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            defaultShipping: freezed == defaultShipping
+                ? _value.defaultShipping
+                : defaultShipping // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            createdAt: freezed == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            updatedAt: freezed == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            customAttributes: freezed == customAttributes
+                ? _value.customAttributes
+                : customAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+            addresses: freezed == addresses
+                ? _value.addresses
+                : addresses // ignore: cast_nullable_to_non_nullable
+                      as List<Address>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -185,29 +196,31 @@ class _$CustomerCopyWithImpl<$Res, $Val extends Customer>
 abstract class _$$CustomerImplCopyWith<$Res>
     implements $CustomerCopyWith<$Res> {
   factory _$$CustomerImplCopyWith(
-          _$CustomerImpl value, $Res Function(_$CustomerImpl) then) =
-      __$$CustomerImplCopyWithImpl<$Res>;
+    _$CustomerImpl value,
+    $Res Function(_$CustomerImpl) then,
+  ) = __$$CustomerImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String email,
-      String firstname,
-      String lastname,
-      String? middlename,
-      String? prefix,
-      String? suffix,
-      String? gender,
-      String? dateOfBirth,
-      String? taxvat,
-      bool? isSubscribed,
-      String? groupId,
-      String? defaultBilling,
-      String? defaultShipping,
-      DateTime? createdAt,
-      DateTime? updatedAt,
-      Map<String, dynamic>? customAttributes,
-      List<Address>? addresses});
+  $Res call({
+    int id,
+    String email,
+    String firstname,
+    String lastname,
+    String? middlename,
+    String? prefix,
+    String? suffix,
+    String? gender,
+    String? dateOfBirth,
+    String? taxvat,
+    bool? isSubscribed,
+    String? groupId,
+    String? defaultBilling,
+    String? defaultShipping,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    Map<String, dynamic>? customAttributes,
+    List<Address>? addresses,
+  });
 }
 
 /// @nodoc
@@ -215,9 +228,12 @@ class __$$CustomerImplCopyWithImpl<$Res>
     extends _$CustomerCopyWithImpl<$Res, _$CustomerImpl>
     implements _$$CustomerImplCopyWith<$Res> {
   __$$CustomerImplCopyWithImpl(
-      _$CustomerImpl _value, $Res Function(_$CustomerImpl) _then)
-      : super(_value, _then);
+    _$CustomerImpl _value,
+    $Res Function(_$CustomerImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Customer
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,107 +256,109 @@ class __$$CustomerImplCopyWithImpl<$Res>
     Object? customAttributes = freezed,
     Object? addresses = freezed,
   }) {
-    return _then(_$CustomerImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
-      middlename: freezed == middlename
-          ? _value.middlename
-          : middlename // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      gender: freezed == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      taxvat: freezed == taxvat
-          ? _value.taxvat
-          : taxvat // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isSubscribed: freezed == isSubscribed
-          ? _value.isSubscribed
-          : isSubscribed // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      groupId: freezed == groupId
-          ? _value.groupId
-          : groupId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      defaultBilling: freezed == defaultBilling
-          ? _value.defaultBilling
-          : defaultBilling // ignore: cast_nullable_to_non_nullable
-              as String?,
-      defaultShipping: freezed == defaultShipping
-          ? _value.defaultShipping
-          : defaultShipping // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      customAttributes: freezed == customAttributes
-          ? _value._customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-      addresses: freezed == addresses
-          ? _value._addresses
-          : addresses // ignore: cast_nullable_to_non_nullable
-              as List<Address>?,
-    ));
+    return _then(
+      _$CustomerImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
+                  as String,
+        firstname: null == firstname
+            ? _value.firstname
+            : firstname // ignore: cast_nullable_to_non_nullable
+                  as String,
+        lastname: null == lastname
+            ? _value.lastname
+            : lastname // ignore: cast_nullable_to_non_nullable
+                  as String,
+        middlename: freezed == middlename
+            ? _value.middlename
+            : middlename // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        prefix: freezed == prefix
+            ? _value.prefix
+            : prefix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        suffix: freezed == suffix
+            ? _value.suffix
+            : suffix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        gender: freezed == gender
+            ? _value.gender
+            : gender // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        dateOfBirth: freezed == dateOfBirth
+            ? _value.dateOfBirth
+            : dateOfBirth // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        taxvat: freezed == taxvat
+            ? _value.taxvat
+            : taxvat // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        isSubscribed: freezed == isSubscribed
+            ? _value.isSubscribed
+            : isSubscribed // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        groupId: freezed == groupId
+            ? _value.groupId
+            : groupId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        defaultBilling: freezed == defaultBilling
+            ? _value.defaultBilling
+            : defaultBilling // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        defaultShipping: freezed == defaultShipping
+            ? _value.defaultShipping
+            : defaultShipping // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        createdAt: freezed == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        customAttributes: freezed == customAttributes
+            ? _value._customAttributes
+            : customAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+        addresses: freezed == addresses
+            ? _value._addresses
+            : addresses // ignore: cast_nullable_to_non_nullable
+                  as List<Address>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CustomerImpl implements _Customer {
-  const _$CustomerImpl(
-      {required this.id,
-      required this.email,
-      required this.firstname,
-      required this.lastname,
-      this.middlename,
-      this.prefix,
-      this.suffix,
-      this.gender,
-      this.dateOfBirth,
-      this.taxvat,
-      this.isSubscribed,
-      this.groupId,
-      this.defaultBilling,
-      this.defaultShipping,
-      this.createdAt,
-      this.updatedAt,
-      final Map<String, dynamic>? customAttributes,
-      final List<Address>? addresses})
-      : _customAttributes = customAttributes,
-        _addresses = addresses;
+  const _$CustomerImpl({
+    required this.id,
+    required this.email,
+    required this.firstname,
+    required this.lastname,
+    this.middlename,
+    this.prefix,
+    this.suffix,
+    this.gender,
+    this.dateOfBirth,
+    this.taxvat,
+    this.isSubscribed,
+    this.groupId,
+    this.defaultBilling,
+    this.defaultShipping,
+    this.createdAt,
+    this.updatedAt,
+    final Map<String, dynamic>? customAttributes,
+    final List<Address>? addresses,
+  }) : _customAttributes = customAttributes,
+       _addresses = addresses;
 
   factory _$CustomerImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerImplFromJson(json);
@@ -432,36 +450,43 @@ class _$CustomerImpl implements _Customer {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality()
-                .equals(other._customAttributes, _customAttributes) &&
-            const DeepCollectionEquality()
-                .equals(other._addresses, _addresses));
+            const DeepCollectionEquality().equals(
+              other._customAttributes,
+              _customAttributes,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._addresses,
+              _addresses,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      email,
-      firstname,
-      lastname,
-      middlename,
-      prefix,
-      suffix,
-      gender,
-      dateOfBirth,
-      taxvat,
-      isSubscribed,
-      groupId,
-      defaultBilling,
-      defaultShipping,
-      createdAt,
-      updatedAt,
-      const DeepCollectionEquality().hash(_customAttributes),
-      const DeepCollectionEquality().hash(_addresses));
+    runtimeType,
+    id,
+    email,
+    firstname,
+    lastname,
+    middlename,
+    prefix,
+    suffix,
+    gender,
+    dateOfBirth,
+    taxvat,
+    isSubscribed,
+    groupId,
+    defaultBilling,
+    defaultShipping,
+    createdAt,
+    updatedAt,
+    const DeepCollectionEquality().hash(_customAttributes),
+    const DeepCollectionEquality().hash(_addresses),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Customer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomerImplCopyWith<_$CustomerImpl> get copyWith =>
@@ -469,32 +494,31 @@ class _$CustomerImpl implements _Customer {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CustomerImplToJson(
-      this,
-    );
+    return _$$CustomerImplToJson(this);
   }
 }
 
 abstract class _Customer implements Customer {
-  const factory _Customer(
-      {required final int id,
-      required final String email,
-      required final String firstname,
-      required final String lastname,
-      final String? middlename,
-      final String? prefix,
-      final String? suffix,
-      final String? gender,
-      final String? dateOfBirth,
-      final String? taxvat,
-      final bool? isSubscribed,
-      final String? groupId,
-      final String? defaultBilling,
-      final String? defaultShipping,
-      final DateTime? createdAt,
-      final DateTime? updatedAt,
-      final Map<String, dynamic>? customAttributes,
-      final List<Address>? addresses}) = _$CustomerImpl;
+  const factory _Customer({
+    required final int id,
+    required final String email,
+    required final String firstname,
+    required final String lastname,
+    final String? middlename,
+    final String? prefix,
+    final String? suffix,
+    final String? gender,
+    final String? dateOfBirth,
+    final String? taxvat,
+    final bool? isSubscribed,
+    final String? groupId,
+    final String? defaultBilling,
+    final String? defaultShipping,
+    final DateTime? createdAt,
+    final DateTime? updatedAt,
+    final Map<String, dynamic>? customAttributes,
+    final List<Address>? addresses,
+  }) = _$CustomerImpl;
 
   factory _Customer.fromJson(Map<String, dynamic> json) =
       _$CustomerImpl.fromJson;
@@ -535,8 +559,11 @@ abstract class _Customer implements Customer {
   Map<String, dynamic>? get customAttributes;
   @override
   List<Address>? get addresses;
+
+  /// Create a copy of Customer
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomerImplCopyWith<_$CustomerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -567,8 +594,12 @@ mixin _$Address {
   Map<String, dynamic>? get customAttributes =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this Address to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddressCopyWith<Address> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -577,25 +608,26 @@ abstract class $AddressCopyWith<$Res> {
   factory $AddressCopyWith(Address value, $Res Function(Address) then) =
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
-  $Res call(
-      {int id,
-      String firstname,
-      String lastname,
-      String? middlename,
-      String? prefix,
-      String? suffix,
-      String? company,
-      String street,
-      String city,
-      String region,
-      String postcode,
-      String countryId,
-      String? telephone,
-      String? fax,
-      String? vatId,
-      bool? isDefaultBilling,
-      bool? isDefaultShipping,
-      Map<String, dynamic>? customAttributes});
+  $Res call({
+    int id,
+    String firstname,
+    String lastname,
+    String? middlename,
+    String? prefix,
+    String? suffix,
+    String? company,
+    String street,
+    String city,
+    String region,
+    String postcode,
+    String countryId,
+    String? telephone,
+    String? fax,
+    String? vatId,
+    bool? isDefaultBilling,
+    bool? isDefaultShipping,
+    Map<String, dynamic>? customAttributes,
+  });
 }
 
 /// @nodoc
@@ -608,6 +640,8 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -630,109 +664,114 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? isDefaultShipping = freezed,
     Object? customAttributes = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
-      middlename: freezed == middlename
-          ? _value.middlename
-          : middlename // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: null == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      city: null == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String,
-      region: null == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String,
-      postcode: null == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryId: null == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vatId: freezed == vatId
-          ? _value.vatId
-          : vatId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isDefaultBilling: freezed == isDefaultBilling
-          ? _value.isDefaultBilling
-          : isDefaultBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isDefaultShipping: freezed == isDefaultShipping
-          ? _value.isDefaultShipping
-          : isDefaultShipping // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value.customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            firstname: null == firstname
+                ? _value.firstname
+                : firstname // ignore: cast_nullable_to_non_nullable
+                      as String,
+            lastname: null == lastname
+                ? _value.lastname
+                : lastname // ignore: cast_nullable_to_non_nullable
+                      as String,
+            middlename: freezed == middlename
+                ? _value.middlename
+                : middlename // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            prefix: freezed == prefix
+                ? _value.prefix
+                : prefix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            suffix: freezed == suffix
+                ? _value.suffix
+                : suffix // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            company: freezed == company
+                ? _value.company
+                : company // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            street: null == street
+                ? _value.street
+                : street // ignore: cast_nullable_to_non_nullable
+                      as String,
+            city: null == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
+                      as String,
+            region: null == region
+                ? _value.region
+                : region // ignore: cast_nullable_to_non_nullable
+                      as String,
+            postcode: null == postcode
+                ? _value.postcode
+                : postcode // ignore: cast_nullable_to_non_nullable
+                      as String,
+            countryId: null == countryId
+                ? _value.countryId
+                : countryId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            telephone: freezed == telephone
+                ? _value.telephone
+                : telephone // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            fax: freezed == fax
+                ? _value.fax
+                : fax // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            vatId: freezed == vatId
+                ? _value.vatId
+                : vatId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            isDefaultBilling: freezed == isDefaultBilling
+                ? _value.isDefaultBilling
+                : isDefaultBilling // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            isDefaultShipping: freezed == isDefaultShipping
+                ? _value.isDefaultShipping
+                : isDefaultShipping // ignore: cast_nullable_to_non_nullable
+                      as bool?,
+            customAttributes: freezed == customAttributes
+                ? _value.customAttributes
+                : customAttributes // ignore: cast_nullable_to_non_nullable
+                      as Map<String, dynamic>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   factory _$$AddressImplCopyWith(
-          _$AddressImpl value, $Res Function(_$AddressImpl) then) =
-      __$$AddressImplCopyWithImpl<$Res>;
+    _$AddressImpl value,
+    $Res Function(_$AddressImpl) then,
+  ) = __$$AddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String firstname,
-      String lastname,
-      String? middlename,
-      String? prefix,
-      String? suffix,
-      String? company,
-      String street,
-      String city,
-      String region,
-      String postcode,
-      String countryId,
-      String? telephone,
-      String? fax,
-      String? vatId,
-      bool? isDefaultBilling,
-      bool? isDefaultShipping,
-      Map<String, dynamic>? customAttributes});
+  $Res call({
+    int id,
+    String firstname,
+    String lastname,
+    String? middlename,
+    String? prefix,
+    String? suffix,
+    String? company,
+    String street,
+    String city,
+    String region,
+    String postcode,
+    String countryId,
+    String? telephone,
+    String? fax,
+    String? vatId,
+    bool? isDefaultBilling,
+    bool? isDefaultShipping,
+    Map<String, dynamic>? customAttributes,
+  });
 }
 
 /// @nodoc
@@ -740,9 +779,12 @@ class __$$AddressImplCopyWithImpl<$Res>
     extends _$AddressCopyWithImpl<$Res, _$AddressImpl>
     implements _$$AddressImplCopyWith<$Res> {
   __$$AddressImplCopyWithImpl(
-      _$AddressImpl _value, $Res Function(_$AddressImpl) _then)
-      : super(_value, _then);
+    _$AddressImpl _value,
+    $Res Function(_$AddressImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -765,106 +807,108 @@ class __$$AddressImplCopyWithImpl<$Res>
     Object? isDefaultShipping = freezed,
     Object? customAttributes = freezed,
   }) {
-    return _then(_$AddressImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
-      middlename: freezed == middlename
-          ? _value.middlename
-          : middlename // ignore: cast_nullable_to_non_nullable
-              as String?,
-      prefix: freezed == prefix
-          ? _value.prefix
-          : prefix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      suffix: freezed == suffix
-          ? _value.suffix
-          : suffix // ignore: cast_nullable_to_non_nullable
-              as String?,
-      company: freezed == company
-          ? _value.company
-          : company // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: null == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      city: null == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String,
-      region: null == region
-          ? _value.region
-          : region // ignore: cast_nullable_to_non_nullable
-              as String,
-      postcode: null == postcode
-          ? _value.postcode
-          : postcode // ignore: cast_nullable_to_non_nullable
-              as String,
-      countryId: null == countryId
-          ? _value.countryId
-          : countryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      telephone: freezed == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fax: freezed == fax
-          ? _value.fax
-          : fax // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vatId: freezed == vatId
-          ? _value.vatId
-          : vatId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isDefaultBilling: freezed == isDefaultBilling
-          ? _value.isDefaultBilling
-          : isDefaultBilling // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isDefaultShipping: freezed == isDefaultShipping
-          ? _value.isDefaultShipping
-          : isDefaultShipping // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      customAttributes: freezed == customAttributes
-          ? _value._customAttributes
-          : customAttributes // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
-    ));
+    return _then(
+      _$AddressImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        firstname: null == firstname
+            ? _value.firstname
+            : firstname // ignore: cast_nullable_to_non_nullable
+                  as String,
+        lastname: null == lastname
+            ? _value.lastname
+            : lastname // ignore: cast_nullable_to_non_nullable
+                  as String,
+        middlename: freezed == middlename
+            ? _value.middlename
+            : middlename // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        prefix: freezed == prefix
+            ? _value.prefix
+            : prefix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        suffix: freezed == suffix
+            ? _value.suffix
+            : suffix // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        company: freezed == company
+            ? _value.company
+            : company // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        street: null == street
+            ? _value.street
+            : street // ignore: cast_nullable_to_non_nullable
+                  as String,
+        city: null == city
+            ? _value.city
+            : city // ignore: cast_nullable_to_non_nullable
+                  as String,
+        region: null == region
+            ? _value.region
+            : region // ignore: cast_nullable_to_non_nullable
+                  as String,
+        postcode: null == postcode
+            ? _value.postcode
+            : postcode // ignore: cast_nullable_to_non_nullable
+                  as String,
+        countryId: null == countryId
+            ? _value.countryId
+            : countryId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        telephone: freezed == telephone
+            ? _value.telephone
+            : telephone // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        fax: freezed == fax
+            ? _value.fax
+            : fax // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        vatId: freezed == vatId
+            ? _value.vatId
+            : vatId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        isDefaultBilling: freezed == isDefaultBilling
+            ? _value.isDefaultBilling
+            : isDefaultBilling // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        isDefaultShipping: freezed == isDefaultShipping
+            ? _value.isDefaultShipping
+            : isDefaultShipping // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        customAttributes: freezed == customAttributes
+            ? _value._customAttributes
+            : customAttributes // ignore: cast_nullable_to_non_nullable
+                  as Map<String, dynamic>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$AddressImpl implements _Address {
-  const _$AddressImpl(
-      {required this.id,
-      required this.firstname,
-      required this.lastname,
-      this.middlename,
-      this.prefix,
-      this.suffix,
-      this.company,
-      required this.street,
-      required this.city,
-      required this.region,
-      required this.postcode,
-      required this.countryId,
-      this.telephone,
-      this.fax,
-      this.vatId,
-      this.isDefaultBilling,
-      this.isDefaultShipping,
-      final Map<String, dynamic>? customAttributes})
-      : _customAttributes = customAttributes;
+  const _$AddressImpl({
+    required this.id,
+    required this.firstname,
+    required this.lastname,
+    this.middlename,
+    this.prefix,
+    this.suffix,
+    this.company,
+    required this.street,
+    required this.city,
+    required this.region,
+    required this.postcode,
+    required this.countryId,
+    this.telephone,
+    this.fax,
+    this.vatId,
+    this.isDefaultBilling,
+    this.isDefaultShipping,
+    final Map<String, dynamic>? customAttributes,
+  }) : _customAttributes = customAttributes;
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);
@@ -948,34 +992,39 @@ class _$AddressImpl implements _Address {
                 other.isDefaultBilling == isDefaultBilling) &&
             (identical(other.isDefaultShipping, isDefaultShipping) ||
                 other.isDefaultShipping == isDefaultShipping) &&
-            const DeepCollectionEquality()
-                .equals(other._customAttributes, _customAttributes));
+            const DeepCollectionEquality().equals(
+              other._customAttributes,
+              _customAttributes,
+            ));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      firstname,
-      lastname,
-      middlename,
-      prefix,
-      suffix,
-      company,
-      street,
-      city,
-      region,
-      postcode,
-      countryId,
-      telephone,
-      fax,
-      vatId,
-      isDefaultBilling,
-      isDefaultShipping,
-      const DeepCollectionEquality().hash(_customAttributes));
+    runtimeType,
+    id,
+    firstname,
+    lastname,
+    middlename,
+    prefix,
+    suffix,
+    company,
+    street,
+    city,
+    region,
+    postcode,
+    countryId,
+    telephone,
+    fax,
+    vatId,
+    isDefaultBilling,
+    isDefaultShipping,
+    const DeepCollectionEquality().hash(_customAttributes),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>
@@ -983,32 +1032,31 @@ class _$AddressImpl implements _Address {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AddressImplToJson(
-      this,
-    );
+    return _$$AddressImplToJson(this);
   }
 }
 
 abstract class _Address implements Address {
-  const factory _Address(
-      {required final int id,
-      required final String firstname,
-      required final String lastname,
-      final String? middlename,
-      final String? prefix,
-      final String? suffix,
-      final String? company,
-      required final String street,
-      required final String city,
-      required final String region,
-      required final String postcode,
-      required final String countryId,
-      final String? telephone,
-      final String? fax,
-      final String? vatId,
-      final bool? isDefaultBilling,
-      final bool? isDefaultShipping,
-      final Map<String, dynamic>? customAttributes}) = _$AddressImpl;
+  const factory _Address({
+    required final int id,
+    required final String firstname,
+    required final String lastname,
+    final String? middlename,
+    final String? prefix,
+    final String? suffix,
+    final String? company,
+    required final String street,
+    required final String city,
+    required final String region,
+    required final String postcode,
+    required final String countryId,
+    final String? telephone,
+    final String? fax,
+    final String? vatId,
+    final bool? isDefaultBilling,
+    final bool? isDefaultShipping,
+    final Map<String, dynamic>? customAttributes,
+  }) = _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
@@ -1048,8 +1096,11 @@ abstract class _Address implements Address {
   bool? get isDefaultShipping;
   @override
   Map<String, dynamic>? get customAttributes;
+
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

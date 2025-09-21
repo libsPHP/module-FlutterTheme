@@ -39,14 +39,17 @@ Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) =>
       'items': instance.items.map((e) => e.toJson()).toList(),
       'subtotal': instance.subtotal,
       'grandTotal': instance.grandTotal,
-      'shippingAmount': ?instance.shippingAmount,
-      'taxAmount': ?instance.taxAmount,
-      'discountAmount': ?instance.discountAmount,
-      'couponCode': ?instance.couponCode,
-      'discounts': ?instance.discounts?.map((e) => e.toJson()).toList(),
-      'totals': ?instance.totals?.toJson(),
-      'createdAt': ?instance.createdAt?.toIso8601String(),
-      'updatedAt': ?instance.updatedAt?.toIso8601String(),
+      if (instance.shippingAmount case final value?) 'shippingAmount': value,
+      if (instance.taxAmount case final value?) 'taxAmount': value,
+      if (instance.discountAmount case final value?) 'discountAmount': value,
+      if (instance.couponCode case final value?) 'couponCode': value,
+      if (instance.discounts?.map((e) => e.toJson()).toList() case final value?)
+        'discounts': value,
+      if (instance.totals?.toJson() case final value?) 'totals': value,
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'createdAt': value,
+      if (instance.updatedAt?.toIso8601String() case final value?)
+        'updatedAt': value,
     };
 
 _$CartItemImpl _$$CartItemImplFromJson(Map<String, dynamic> json) =>
@@ -64,18 +67,20 @@ _$CartItemImpl _$$CartItemImplFromJson(Map<String, dynamic> json) =>
       customAttributes: json['customAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$CartItemImplToJson(_$CartItemImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'sku': instance.sku,
-      'name': instance.name,
-      'price': instance.price,
-      'quantity': instance.quantity,
-      'rowTotal': ?instance.rowTotal,
-      'image': ?instance.image,
-      'options': ?instance.options?.map((e) => e.toJson()).toList(),
-      'customAttributes': ?instance.customAttributes,
-    };
+Map<String, dynamic> _$$CartItemImplToJson(
+  _$CartItemImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'sku': instance.sku,
+  'name': instance.name,
+  'price': instance.price,
+  'quantity': instance.quantity,
+  if (instance.rowTotal case final value?) 'rowTotal': value,
+  if (instance.image case final value?) 'image': value,
+  if (instance.options?.map((e) => e.toJson()).toList() case final value?)
+    'options': value,
+  if (instance.customAttributes case final value?) 'customAttributes': value,
+};
 
 _$CartItemOptionImpl _$$CartItemOptionImplFromJson(Map<String, dynamic> json) =>
     _$CartItemOptionImpl(
@@ -92,8 +97,8 @@ Map<String, dynamic> _$$CartItemOptionImplToJson(
   'code': instance.code,
   'label': instance.label,
   'value': instance.value,
-  'price': ?instance.price,
-  'priceType': ?instance.priceType,
+  if (instance.price case final value?) 'price': value,
+  if (instance.priceType case final value?) 'priceType': value,
 };
 
 _$CartDiscountImpl _$$CartDiscountImplFromJson(Map<String, dynamic> json) =>
@@ -109,7 +114,7 @@ Map<String, dynamic> _$$CartDiscountImplToJson(_$CartDiscountImpl instance) =>
       'code': instance.code,
       'label': instance.label,
       'amount': instance.amount,
-      'type': ?instance.type,
+      if (instance.type case final value?) 'type': value,
     };
 
 _$CartTotalsImpl _$$CartTotalsImplFromJson(Map<String, dynamic> json) =>
@@ -130,10 +135,10 @@ Map<String, dynamic> _$$CartTotalsImplToJson(_$CartTotalsImpl instance) =>
     <String, dynamic>{
       'subtotal': instance.subtotal,
       'grandTotal': instance.grandTotal,
-      'shippingAmount': ?instance.shippingAmount,
-      'taxAmount': ?instance.taxAmount,
-      'discountAmount': ?instance.discountAmount,
-      'subtotalInclTax': ?instance.subtotalInclTax,
-      'shippingInclTax': ?instance.shippingInclTax,
-      'taxBreakdown': ?instance.taxBreakdown,
+      if (instance.shippingAmount case final value?) 'shippingAmount': value,
+      if (instance.taxAmount case final value?) 'taxAmount': value,
+      if (instance.discountAmount case final value?) 'discountAmount': value,
+      if (instance.subtotalInclTax case final value?) 'subtotalInclTax': value,
+      if (instance.shippingInclTax case final value?) 'shippingInclTax': value,
+      if (instance.taxBreakdown case final value?) 'taxBreakdown': value,
     };

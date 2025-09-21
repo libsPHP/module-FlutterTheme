@@ -6,7 +6,40 @@ import '../adapters/custom_attributes_adapter.dart';
 import '../adapters/custom_attributes_manager.dart';
 import 'product_api.dart';
 
-/// Enhanced ProductApi with custom adapters support
+/// Enhanced Product API with custom adapters support.
+///
+/// This class extends the standard ProductApi to provide enhanced functionality
+/// for working with custom product attributes through the universal custom
+/// attributes system. It allows for type-safe handling of custom product data.
+///
+/// ## Features
+///
+/// - **Custom Attributes**: Support for universal custom attributes system
+/// - **Type Safety**: Generic type support for custom product models
+/// - **Adapter Integration**: Seamless integration with custom attribute adapters
+/// - **Enhanced Filtering**: Filter products by custom attribute values
+/// - **Validation**: Built-in validation for custom attribute data
+/// - **Backward Compatibility**: Extends standard ProductApi functionality
+/// - **Debug Support**: Comprehensive debug logging for custom attributes
+///
+/// ## Usage
+///
+/// ```dart
+/// final enhancedApi = EnhancedProductApi(apiClient);
+///
+/// // Get products with custom adapter
+/// final products = await enhancedApi.getEnhancedProducts<MyProductModel>(
+///   adapterId: 'my_custom_adapter',
+///   page: 1,
+///   pageSize: 20,
+/// );
+///
+/// // Get single enhanced product
+/// final product = await enhancedApi.getEnhancedProduct<MyProductModel>(
+///   'SKU123',
+///   adapterId: 'my_custom_adapter',
+/// );
+/// ```
 class EnhancedProductApi extends ProductApi {
   EnhancedProductApi(super.client);
 
@@ -35,7 +68,8 @@ class EnhancedProductApi extends ProductApi {
           customAttributeFilters != null &&
           customAttributeFilters.isNotEmpty) {
         debugPrint(
-            'EnhancedProductApi: Applying custom attribute filters: $customAttributeFilters');
+          'EnhancedProductApi: Applying custom attribute filters: $customAttributeFilters',
+        );
       }
 
       // Get regular products
@@ -71,7 +105,8 @@ class EnhancedProductApi extends ProductApi {
     try {
       if (kDebugMode) {
         debugPrint(
-            'EnhancedProductApi: Getting enhanced product $sku with adapter ${adapterId ?? 'auto-detect'}');
+          'EnhancedProductApi: Getting enhanced product $sku with adapter ${adapterId ?? 'auto-detect'}',
+        );
       }
 
       final product = await getProduct(sku);
@@ -104,7 +139,8 @@ class EnhancedProductApi extends ProductApi {
   }) async {
     if (kDebugMode) {
       debugPrint(
-          'EnhancedProductApi: Searching by custom attributes: $customAttributeFilters');
+        'EnhancedProductApi: Searching by custom attributes: $customAttributeFilters',
+      );
     }
 
     return getEnhancedProducts<T>(
@@ -153,7 +189,8 @@ class EnhancedProductApi extends ProductApi {
       );
     } on DioException catch (e) {
       throw Exception(
-          'Failed to get enhanced products by category: ${e.message}');
+        'Failed to get enhanced products by category: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to get enhanced products by category: $e');
     }
@@ -229,19 +266,21 @@ class EnhancedProductApi extends ProductApi {
       // Convert each product using auto-detection or specified adapters
       final enhancedItems = response.items.map((product) {
         // Try auto-detection first
-        final detectedAdapter = CustomAttributesManager.instance
-            .detectAdapter(product.customAttributes ?? []);
+        final detectedAdapter = CustomAttributesManager.instance.detectAdapter(
+          product.customAttributes ?? [],
+        );
 
         if (detectedAdapter != null) {
-          final customData =
-              detectedAdapter.fromCustomAttributes(product.customAttributes!);
+          final customData = detectedAdapter.fromCustomAttributes(
+            product.customAttributes!,
+          );
           return EnhancedProduct<dynamic>(
             baseProduct: product,
             customData: customData,
             adapterId: detectedAdapter.adapterId,
             rawCustomAttributes: {
               for (var attr in product.customAttributes ?? [])
-                attr.attributeCode: attr.value
+                attr.attributeCode: attr.value,
             },
             lastUpdated: DateTime.now(),
           );
@@ -252,7 +291,7 @@ class EnhancedProductApi extends ProductApi {
           baseProduct: product,
           rawCustomAttributes: {
             for (var attr in product.customAttributes ?? [])
-              attr.attributeCode: attr.value
+              attr.attributeCode: attr.value,
           },
           lastUpdated: DateTime.now(),
         );
@@ -269,7 +308,8 @@ class EnhancedProductApi extends ProductApi {
       );
     } on DioException catch (e) {
       throw Exception(
-          'Failed to get products with multiple adapters: ${e.message}');
+        'Failed to get products with multiple adapters: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to get products with multiple adapters: $e');
     }
@@ -295,18 +335,16 @@ class EnhancedProductApi extends ProductApi {
     if (!onlyValid) return response;
 
     // Filter only valid products
-    final validItems =
-        response.items.where((item) => item.isCustomDataValid).toList();
+    final validItems = response.items
+        .where((item) => item.isCustomDataValid)
+        .toList();
 
-    return response.copyWith(
-      items: validItems,
-      totalCount: validItems.length,
-    );
+    return response.copyWith(items: validItems, totalCount: validItems.length);
   }
 
   /// Get products grouped by adapter type
   Future<Map<String, EnhancedProductListResponse<dynamic>>>
-      getProductsGroupedByAdapter({
+  getProductsGroupedByAdapter({
     int page = 1,
     int pageSize = 20,
     String? searchQuery,
@@ -327,16 +365,18 @@ class EnhancedProductApi extends ProductApi {
       groupedProducts[adapterId]!.add(product);
     }
 
-    return groupedProducts.map((adapterId, products) => MapEntry(
-          adapterId,
-          EnhancedProductListResponse<dynamic>(
-            items: products,
-            totalCount: products.length,
-            pageSize: pageSize,
-            currentPage: page,
-            totalPages: (products.length / pageSize).ceil(),
-          ),
-        ));
+    return groupedProducts.map(
+      (adapterId, products) => MapEntry(
+        adapterId,
+        EnhancedProductListResponse<dynamic>(
+          items: products,
+          totalCount: products.length,
+          pageSize: pageSize,
+          currentPage: page,
+          totalPages: (products.length / pageSize).ceil(),
+        ),
+      ),
+    );
   }
 
   /// Get custom attribute statistics across products
@@ -414,10 +454,12 @@ class EnhancedProductApi extends ProductApi {
 
         // Convert to CustomAttribute list
         final newCustomAttributes = newRawAttributes.entries
-            .map((entry) => CustomAttribute(
-                  attributeCode: entry.key,
-                  value: entry.value.toString(),
-                ))
+            .map(
+              (entry) => CustomAttribute(
+                attributeCode: entry.key,
+                value: entry.value.toString(),
+              ),
+            )
             .toList();
 
         // Update base product

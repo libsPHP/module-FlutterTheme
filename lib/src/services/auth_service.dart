@@ -8,7 +8,36 @@ import 'magento_api_service.dart';
 import '../models/auth_models.dart';
 import '../exceptions/magento_exception.dart';
 
-/// Улучшенный сервис аутентификации с JWT и SharedPreferences
+/// Enhanced authentication service with JWT token management and secure storage.
+///
+/// This service provides comprehensive authentication functionality including
+/// login, registration, token management, and automatic token refresh.
+/// It extends ChangeNotifier to provide reactive state management for UI updates.
+///
+/// ## Features
+///
+/// - **Secure Token Storage**: Uses Flutter Secure Storage for sensitive data
+/// - **Automatic Token Refresh**: Handles token expiration and refresh automatically
+/// - **Remember Me**: Optional persistent login functionality
+/// - **State Management**: Reactive state updates for UI components
+/// - **Error Handling**: Comprehensive error handling and reporting
+/// - **Network Integration**: Built-in network connectivity checks
+///
+/// ## Usage
+///
+/// ```dart
+/// final authService = AuthService();
+///
+/// // Listen to authentication state changes
+/// authService.addListener(() {
+///   if (authService.isAuthenticated) {
+///     // User is logged in
+///   }
+/// });
+///
+/// // Login user
+/// await authService.login('email@example.com', 'password');
+/// ```
 class AuthService extends ChangeNotifier {
   static const String _tokenKey = 'magento_auth_token';
   static const String _refreshTokenKey = 'magento_refresh_token';
@@ -29,7 +58,7 @@ class AuthService extends ChangeNotifier {
   Timer? _tokenRefreshTimer;
 
   AuthService([MagentoApiService? apiService])
-      : _networkService = NetworkService();
+    : _networkService = NetworkService();
 
   // Геттеры
   bool get isAuthenticated => _isAuthenticated;
@@ -42,8 +71,9 @@ class AuthService extends ChangeNotifier {
   /// Проверка валидности токена
   bool get isTokenValid {
     if (_tokenExpiry == null) return false;
-    return DateTime.now()
-        .isBefore(_tokenExpiry!.subtract(const Duration(minutes: 5)));
+    return DateTime.now().isBefore(
+      _tokenExpiry!.subtract(const Duration(minutes: 5)),
+    );
   }
 
   /// Время до истечения токена
@@ -101,7 +131,8 @@ class AuthService extends ChangeNotifier {
 
       if (kDebugMode && _isAuthenticated) {
         print(
-            '✅ Пользователь автоматически аутентифицирован: ${_currentCustomer?.email}');
+          '✅ Пользователь автоматически аутентифицирован: ${_currentCustomer?.email}',
+        );
       }
     } catch (e) {
       if (kDebugMode) {
@@ -167,10 +198,7 @@ class AuthService extends ChangeNotifier {
     try {
       final response = await _networkService.post(
         '/rest/V1/integration/customer/token',
-        data: {
-          'username': email,
-          'password': password,
-        },
+        data: {'username': email, 'password': password},
       );
 
       if (response.statusCode == 200) {
@@ -178,8 +206,9 @@ class AuthService extends ChangeNotifier {
 
         // Получаем информацию о клиенте
         _networkService.setAuthToken(token);
-        final customerResponse =
-            await _networkService.get('/rest/V1/customers/me');
+        final customerResponse = await _networkService.get(
+          '/rest/V1/customers/me',
+        );
 
         if (customerResponse.statusCode == 200) {
           final customerData = customerResponse.data as Map<String, dynamic>;
@@ -342,10 +371,7 @@ class AuthService extends ChangeNotifier {
     try {
       final response = await _networkService.put(
         '/rest/V1/customers/me/password',
-        data: {
-          'currentPassword': currentPassword,
-          'newPassword': newPassword,
-        },
+        data: {'currentPassword': currentPassword, 'newPassword': newPassword},
       );
 
       _setLoading(false);
@@ -463,14 +489,14 @@ class AuthService extends ChangeNotifier {
 
   /// Получение статуса аутентификации
   Map<String, dynamic> get status => {
-        'isAuthenticated': _isAuthenticated,
-        'isLoading': _isLoading,
-        'error': _error,
-        'customerEmail': _currentCustomer?.email,
-        'isTokenValid': isTokenValid,
-        'tokenExpiry': _tokenExpiry?.toIso8601String(),
-        'timeToExpiry': timeToTokenExpiry?.inMinutes,
-      };
+    'isAuthenticated': _isAuthenticated,
+    'isLoading': _isLoading,
+    'error': _error,
+    'customerEmail': _currentCustomer?.email,
+    'isTokenValid': isTokenValid,
+    'tokenExpiry': _tokenExpiry?.toIso8601String(),
+    'timeToExpiry': timeToTokenExpiry?.inMinutes,
+  };
 
   void _setLoading(bool loading) {
     _isLoading = loading;

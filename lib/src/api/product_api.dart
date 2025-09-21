@@ -2,13 +2,62 @@ import 'package:dio/dio.dart';
 import '../models/product_models.dart';
 import 'magento_api_client.dart';
 
-/// Product API for Magento integration
+/// Product API for Magento integration.
+///
+/// This class provides comprehensive product catalog functionality for Magento,
+/// including product listing, search, categories, and product relationships.
+///
+/// ## Features
+///
+/// - **Product Listing**: Get products with pagination and filtering
+/// - **Product Details**: Retrieve detailed product information by SKU
+/// - **Category Management**: Browse product categories and hierarchy
+/// - **Search Functionality**: Search products by name, SKU, or description
+/// - **Product Relationships**: Get related, cross-sell, and up-sell products
+/// - **Product Reviews**: Retrieve customer reviews for products
+/// - **Advanced Filtering**: Filter by price, stock status, and custom attributes
+///
+/// ## Usage
+///
+/// ```dart
+/// final productApi = ProductApi(apiClient);
+///
+/// // Get products with pagination
+/// final products = await productApi.getProducts(
+///   page: 1,
+///   pageSize: 20,
+///   categoryId: '123',
+/// );
+///
+/// // Get product details
+/// final product = await productApi.getProduct('SKU123');
+/// ```
 class ProductApi {
   final MagentoApiClient _client;
 
   ProductApi(this._client);
 
-  /// Get products with pagination and filters
+  /// Get products with pagination and advanced filtering.
+  ///
+  /// Retrieves a paginated list of products from the catalog with comprehensive
+  /// filtering options including search, category, price range, and stock status.
+  ///
+  /// [params] optional filter parameters object
+  /// [page] the page number to retrieve (starts from 1)
+  /// [pageSize] number of products per page (default: 20)
+  /// [searchQuery] optional search term to filter products by name/description
+  /// [categoryId] optional category ID to filter products by category
+  /// [sortBy] field to sort by (e.g., 'name', 'price', 'created_at')
+  /// [sortOrder] sort direction ('ASC' or 'DESC')
+  /// [filters] additional custom filters to apply
+  /// [minPrice] minimum price filter
+  /// [maxPrice] maximum price filter
+  /// [attributes] specific attributes to include in response
+  /// [inStock] filter by stock availability
+  /// [brand] filter by brand name
+  /// [tags] filter by product tags
+  ///
+  /// Returns a [ProductListResponse] containing the product list and pagination info.
   Future<ProductListResponse> getProducts({
     ProductFilterParams? params,
     int page = 1,
@@ -38,8 +87,7 @@ class ProductApi {
             'name';
         queryParams['searchCriteria[filterGroups][0][filters][0][value]'] =
             '%$searchQuery%';
-        queryParams[
-                'searchCriteria[filterGroups][0][filters][0][conditionType]'] =
+        queryParams['searchCriteria[filterGroups][0][filters][0][conditionType]'] =
             'like';
       }
 
@@ -49,8 +97,7 @@ class ProductApi {
             'category_id';
         queryParams['searchCriteria[filterGroups][1][filters][0][value]'] =
             categoryId;
-        queryParams[
-                'searchCriteria[filterGroups][1][filters][0][conditionType]'] =
+        queryParams['searchCriteria[filterGroups][1][filters][0][conditionType]'] =
             'eq';
       }
 
@@ -60,35 +107,28 @@ class ProductApi {
             'price';
         queryParams['searchCriteria[filterGroups][2][filters][0][value]'] =
             minPrice;
-        queryParams[
-                'searchCriteria[filterGroups][2][filters][0][conditionType]'] =
+        queryParams['searchCriteria[filterGroups][2][filters][0][conditionType]'] =
             'gteq';
       }
 
       if (maxPrice != null) {
         final priceGroupIndex = minPrice != null ? 3 : 2;
-        queryParams[
-                'searchCriteria[filterGroups][$priceGroupIndex][filters][0][field]'] =
+        queryParams['searchCriteria[filterGroups][$priceGroupIndex][filters][0][field]'] =
             'price';
-        queryParams[
-                'searchCriteria[filterGroups][$priceGroupIndex][filters][0][value]'] =
+        queryParams['searchCriteria[filterGroups][$priceGroupIndex][filters][0][value]'] =
             maxPrice;
-        queryParams[
-                'searchCriteria[filterGroups][$priceGroupIndex][filters][0][conditionType]'] =
+        queryParams['searchCriteria[filterGroups][$priceGroupIndex][filters][0][conditionType]'] =
             'lteq';
       }
 
       // Add stock filter if provided
       if (inStock != null) {
         final stockGroupIndex = _getNextFilterGroupIndex(queryParams);
-        queryParams[
-                'searchCriteria[filterGroups][$stockGroupIndex][filters][0][field]'] =
+        queryParams['searchCriteria[filterGroups][$stockGroupIndex][filters][0][field]'] =
             'stock_status';
-        queryParams[
-                'searchCriteria[filterGroups][$stockGroupIndex][filters][0][value]'] =
+        queryParams['searchCriteria[filterGroups][$stockGroupIndex][filters][0][value]'] =
             inStock ? 1 : 0;
-        queryParams[
-                'searchCriteria[filterGroups][$stockGroupIndex][filters][0][conditionType]'] =
+        queryParams['searchCriteria[filterGroups][$stockGroupIndex][filters][0][conditionType]'] =
             'eq';
       }
 
@@ -98,14 +138,11 @@ class ProductApi {
         var filterIndex = 0;
 
         for (final entry in filters.entries) {
-          queryParams[
-                  'searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][field]'] =
+          queryParams['searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][field]'] =
               entry.key;
-          queryParams[
-                  'searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][value]'] =
+          queryParams['searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][value]'] =
               entry.value;
-          queryParams[
-                  'searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][conditionType]'] =
+          queryParams['searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][conditionType]'] =
               'eq';
           filterIndex++;
         }
@@ -139,7 +176,15 @@ class ProductApi {
     }
   }
 
-  /// Get product by SKU
+  /// Get detailed product information by SKU.
+  ///
+  /// Retrieves comprehensive product details including attributes, media,
+  /// options, and pricing information for a specific product.
+  ///
+  /// [sku] the product's SKU (Stock Keeping Unit)
+  ///
+  /// Returns a [Product] object with detailed product information.
+  /// Throws an exception if the product is not found.
   Future<Product> getProduct(String sku) async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
@@ -243,14 +288,11 @@ class ProductApi {
       if (filters != null) {
         var filterIndex = 1;
         for (final entry in filters.entries) {
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][field]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][field]'] =
               entry.key;
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][value]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][value]'] =
               entry.value;
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][conditionType]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][conditionType]'] =
               'eq';
           filterIndex++;
         }
@@ -269,7 +311,8 @@ class ProductApi {
         return ProductListResponse.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to get category products: ${response.statusMessage}');
+          'Failed to get category products: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get category products: ${e.message}');
@@ -300,30 +343,25 @@ class ProductApi {
       queryParams['searchCriteria[filterGroups][0][filters][1][field]'] = 'sku';
       queryParams['searchCriteria[filterGroups][0][filters][1][value]'] =
           '%$query%';
-      queryParams[
-              'searchCriteria[filterGroups][0][filters][1][conditionType]'] =
+      queryParams['searchCriteria[filterGroups][0][filters][1][conditionType]'] =
           'like';
 
       queryParams['searchCriteria[filterGroups][0][filters][2][field]'] =
           'description';
       queryParams['searchCriteria[filterGroups][0][filters][2][value]'] =
           '%$query%';
-      queryParams[
-              'searchCriteria[filterGroups][0][filters][2][conditionType]'] =
+      queryParams['searchCriteria[filterGroups][0][filters][2][conditionType]'] =
           'like';
 
       // Add custom filters if provided
       if (filters != null) {
         var filterIndex = 3;
         for (final entry in filters.entries) {
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][field]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][field]'] =
               entry.key;
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][value]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][value]'] =
               entry.value;
-          queryParams[
-                  'searchCriteria[filterGroups][0][filters][$filterIndex][conditionType]'] =
+          queryParams['searchCriteria[filterGroups][0][filters][$filterIndex][conditionType]'] =
               'eq';
           filterIndex++;
         }
@@ -369,7 +407,8 @@ class ProductApi {
         return optionsData.map((json) => ProductOption.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to get product variants: ${response.statusMessage}');
+          'Failed to get product variants: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get product variants: ${e.message}');
@@ -383,9 +422,7 @@ class ProductApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/products/$sku/links',
-        queryParameters: {
-          'type': 'related',
-        },
+        queryParameters: {'type': 'related'},
       );
 
       if (response.statusCode == 200) {
@@ -393,7 +430,8 @@ class ProductApi {
         return productsData.map((json) => Product.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to get related products: ${response.statusMessage}');
+          'Failed to get related products: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get related products: ${e.message}');
@@ -407,9 +445,7 @@ class ProductApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/products/$sku/links',
-        queryParameters: {
-          'type': 'crosssell',
-        },
+        queryParameters: {'type': 'crosssell'},
       );
 
       if (response.statusCode == 200) {
@@ -417,7 +453,8 @@ class ProductApi {
         return productsData.map((json) => Product.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to get cross-sell products: ${response.statusMessage}');
+          'Failed to get cross-sell products: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get cross-sell products: ${e.message}');
@@ -431,9 +468,7 @@ class ProductApi {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
         '/rest/V1/products/$sku/links',
-        queryParameters: {
-          'type': 'upsell',
-        },
+        queryParameters: {'type': 'upsell'},
       );
 
       if (response.statusCode == 200) {
@@ -441,7 +476,8 @@ class ProductApi {
         return productsData.map((json) => Product.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to get up-sell products: ${response.statusMessage}');
+          'Failed to get up-sell products: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get up-sell products: ${e.message}');
@@ -470,7 +506,8 @@ class ProductApi {
         return reviewsData.map((json) => Review.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to get product reviews: ${response.statusMessage}');
+          'Failed to get product reviews: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get product reviews: ${e.message}');
@@ -485,8 +522,9 @@ class ProductApi {
     for (final key in queryParams.keys) {
       if (key.startsWith('searchCriteria[filterGroups][') &&
           key.contains('][filters]')) {
-        final match =
-            RegExp(r'searchCriteria\[filterGroups\]\[(\d+)\]').firstMatch(key);
+        final match = RegExp(
+          r'searchCriteria\[filterGroups\]\[(\d+)\]',
+        ).firstMatch(key);
         if (match != null) {
           final index = int.tryParse(match.group(1) ?? '0') ?? 0;
           if (index > maxIndex) maxIndex = index;

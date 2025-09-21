@@ -2,7 +2,38 @@ import '../models/checkout_models.dart';
 import '../models/order.dart';
 import 'magento_api_client.dart';
 
-/// API class for checkout operations
+/// API class for checkout operations.
+///
+/// This class provides comprehensive checkout functionality for Magento,
+/// including checkout session management, payment processing, and order creation.
+///
+/// ## Features
+///
+/// - **Checkout Sessions**: Create and manage checkout sessions
+/// - **Payment Processing**: Handle payment method selection and processing
+/// - **Shipping Management**: Set shipping information and methods
+/// - **Address Management**: Handle shipping and billing addresses
+/// - **Order Creation**: Complete checkout and create orders
+/// - **Session Updates**: Update checkout session information
+/// - **Payment Validation**: Validate payment methods and information
+///
+/// ## Usage
+///
+/// ```dart
+/// final checkoutApi = CheckoutApi(apiClient);
+///
+/// // Create checkout session
+/// final session = await checkoutApi.createCheckoutSession(
+///   cartId: 'CART-123',
+///   email: 'customer@example.com',
+/// );
+///
+/// // Update shipping information
+/// final updatedSession = await checkoutApi.updateCheckoutSession(
+///   sessionId: session.id,
+///   shippingAddress: addressData,
+/// );
+/// ```
 class CheckoutApi {
   final MagentoApiClient _apiClient;
 

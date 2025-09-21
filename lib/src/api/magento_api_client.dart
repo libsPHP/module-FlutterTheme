@@ -2,7 +2,34 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../models/auth_models.dart';
 
-/// Main API client for Magento integration
+/// Main API client for Magento integration.
+///
+/// This singleton class handles all HTTP communication with Magento REST API.
+/// It manages authentication tokens, request/response interceptors, and provides
+/// both authenticated and guest request methods.
+///
+/// ## Features
+///
+/// - **Token Management**: Automatic storage and retrieval of authentication tokens
+/// - **Request Interceptors**: Automatic token injection and error handling
+/// - **Secure Storage**: Uses Flutter Secure Storage for token persistence
+/// - **Timeout Configuration**: Configurable connection and receive timeouts
+/// - **Error Handling**: Comprehensive error handling with proper exception types
+///
+/// ## Usage
+///
+/// ```dart
+/// final client = MagentoApiClient.instance;
+///
+/// // Initialize the client
+/// await client.initialize(
+///   baseUrl: 'https://yourstore.com',
+///   connectionTimeout: 30000,
+/// );
+///
+/// // Make authenticated request
+/// final response = await client.authenticatedRequest('/rest/V1/customers/me');
+/// ```
 class MagentoApiClient {
   static const String _storageKeyAccessToken = 'magento_access_token';
   static const String _storageKeyRefreshToken = 'magento_refresh_token';
@@ -10,7 +37,7 @@ class MagentoApiClient {
 
   late final Dio _dio;
   late final FlutterSecureStorage _secureStorage;
-  
+
   String? _baseUrl;
   String? _accessToken;
   String? _refreshToken;
@@ -20,13 +47,25 @@ class MagentoApiClient {
 
   static MagentoApiClient? _instance;
 
-  /// Get singleton instance
+  /// Get singleton instance of MagentoApiClient.
+  ///
+  /// Returns the single instance of the API client, creating it if it doesn't exist.
   static MagentoApiClient get instance {
     _instance ??= MagentoApiClient._();
     return _instance!;
   }
 
-  /// Initialize the API client
+  /// Initialize the API client.
+  ///
+  /// Sets up the HTTP client with base URL, headers, and timeout configuration.
+  /// Also initializes secure storage and loads any previously stored tokens.
+  ///
+  /// [baseUrl] is the base URL of your Magento instance
+  /// [headers] optional custom headers to include with all requests
+  /// [connectionTimeout] timeout for establishing connection in milliseconds
+  /// [receiveTimeout] timeout for receiving data in milliseconds
+  ///
+  /// Returns `true` if initialization was successful, `false` otherwise.
   Future<bool> initialize({
     required String baseUrl,
     Map<String, String>? headers,
@@ -35,28 +74,30 @@ class MagentoApiClient {
   }) async {
     try {
       _baseUrl = baseUrl;
-      
+
       // Initialize secure storage
       _secureStorage = const FlutterSecureStorage();
-      
+
       // Load stored tokens
       await _loadStoredTokens();
-      
+
       // Setup Dio client
-      _dio = Dio(BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: Duration(seconds: connectionTimeout ?? 30),
-        receiveTimeout: Duration(seconds: receiveTimeout ?? 30),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          ...?headers,
-        },
-      ));
+      _dio = Dio(
+        BaseOptions(
+          baseUrl: baseUrl,
+          connectTimeout: Duration(seconds: connectionTimeout ?? 30),
+          receiveTimeout: Duration(seconds: receiveTimeout ?? 30),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            ...?headers,
+          },
+        ),
+      );
 
       // Add interceptors
       _setupInterceptors();
-      
+
       return true;
     } catch (e) {
       print('Failed to initialize MagentoApiClient: $e');
@@ -110,7 +151,9 @@ class MagentoApiClient {
     try {
       _accessToken = await _secureStorage.read(key: _storageKeyAccessToken);
       _refreshToken = await _secureStorage.read(key: _storageKeyRefreshToken);
-      final customerIdStr = await _secureStorage.read(key: _storageKeyCustomerId);
+      final customerIdStr = await _secureStorage.read(
+        key: _storageKeyCustomerId,
+      );
       _customerId = customerIdStr != null ? int.tryParse(customerIdStr) : null;
     } catch (e) {
       print('Failed to load stored tokens: $e');
@@ -124,12 +167,21 @@ class MagentoApiClient {
     int? customerId,
   }) async {
     try {
-      await _secureStorage.write(key: _storageKeyAccessToken, value: accessToken);
-      await _secureStorage.write(key: _storageKeyRefreshToken, value: refreshToken);
+      await _secureStorage.write(
+        key: _storageKeyAccessToken,
+        value: accessToken,
+      );
+      await _secureStorage.write(
+        key: _storageKeyRefreshToken,
+        value: refreshToken,
+      );
       if (customerId != null) {
-        await _secureStorage.write(key: _storageKeyCustomerId, value: customerId.toString());
+        await _secureStorage.write(
+          key: _storageKeyCustomerId,
+          value: customerId.toString(),
+        );
       }
-      
+
       _accessToken = accessToken;
       _refreshToken = refreshToken;
       _customerId = customerId;
@@ -144,7 +196,7 @@ class MagentoApiClient {
       await _secureStorage.delete(key: _storageKeyAccessToken);
       await _secureStorage.delete(key: _storageKeyRefreshToken);
       await _secureStorage.delete(key: _storageKeyCustomerId);
-      
+
       _accessToken = null;
       _refreshToken = null;
       _customerId = null;
@@ -156,12 +208,13 @@ class MagentoApiClient {
   /// Refresh access token
   Future<bool> _refreshAccessToken() async {
     if (_refreshToken == null) return false;
-    
+
     try {
-      final response = await _dio.post('/rest/V1/integration/customer/token', data: {
-        'refresh_token': _refreshToken,
-      });
-      
+      final response = await _dio.post(
+        '/rest/V1/integration/customer/token',
+        data: {'refresh_token': _refreshToken},
+      );
+
       if (response.statusCode == 200) {
         final authResponse = AuthResponse.fromJson(response.data);
         await storeTokens(
@@ -174,7 +227,7 @@ class MagentoApiClient {
     } catch (e) {
       print('Failed to refresh token: $e');
     }
-    
+
     return false;
   }
 
@@ -203,7 +256,7 @@ class MagentoApiClient {
     if (!isAuthenticated) {
       throw Exception('User not authenticated');
     }
-    
+
     return _dio.request<T>(
       path,
       data: data,

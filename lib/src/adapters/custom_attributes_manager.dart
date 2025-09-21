@@ -3,7 +3,40 @@ import '../models/product_models.dart';
 import 'custom_attributes_adapter.dart';
 import 'validation_result.dart';
 
-/// Manager for registering and managing custom attributes adapters
+/// Manager for registering and managing custom attributes adapters.
+///
+/// This singleton class manages the registration and coordination of custom
+/// attribute adapters in the universal custom attributes system. It provides
+/// adapter discovery, priority management, and attribute-to-adapter mapping.
+///
+/// ## Features
+///
+/// - **Adapter Registration**: Register custom attribute adapters with priority
+/// - **Attribute Mapping**: Automatic mapping of attributes to appropriate adapters
+/// - **Priority Management**: Handle adapter conflicts using priority system
+/// - **Adapter Discovery**: Find suitable adapters for specific attributes
+/// - **Debug Support**: Comprehensive debug logging for adapter operations
+/// - **State Management**: Reactive state updates through ChangeNotifier
+/// - **Validation**: Validate adapters and their configurations
+///
+/// ## Usage
+///
+/// ```dart
+/// final manager = CustomAttributesManager.instance;
+///
+/// // Enable debug logging
+/// manager.enableDebugLogging = true;
+///
+/// // Register custom adapter
+/// manager.registerAdapter<MyProductModel>(
+///   'my_adapter',
+///   MyCustomAdapter(),
+///   priority: 10,
+/// );
+///
+/// // Find adapter for attributes
+/// final adapter = manager.findAdapterForAttributes(attributes);
+/// ```
 class CustomAttributesManager extends ChangeNotifier {
   static final CustomAttributesManager _instance = CustomAttributesManager._();
   static CustomAttributesManager get instance => _instance;
@@ -28,7 +61,8 @@ class CustomAttributesManager extends ChangeNotifier {
   }) {
     if (_debugLogging) {
       debugPrint(
-          'CustomAttributesManager: Registering adapter $adapterId with priority $priority');
+        'CustomAttributesManager: Registering adapter $adapterId with priority $priority',
+      );
     }
 
     _adapters[adapterId] = adapter;
@@ -46,7 +80,8 @@ class CustomAttributesManager extends ChangeNotifier {
 
         if (_debugLogging && existingAdapterId != null) {
           debugPrint(
-              'CustomAttributesManager: Attribute $attributeCode reassigned from $existingAdapterId to $adapterId');
+            'CustomAttributesManager: Attribute $attributeCode reassigned from $existingAdapterId to $adapterId',
+          );
         }
       }
     }
@@ -83,7 +118,8 @@ class CustomAttributesManager extends ChangeNotifier {
 
     if (_debugLogging && adapter != null) {
       debugPrint(
-          'CustomAttributesManager: Type mismatch for adapter $adapterId');
+        'CustomAttributesManager: Type mismatch for adapter $adapterId',
+      );
     }
 
     return null;
@@ -115,7 +151,8 @@ class CustomAttributesManager extends ChangeNotifier {
     if (candidateAdapters.isEmpty) {
       if (_debugLogging) {
         debugPrint(
-            'CustomAttributesManager: No suitable adapter found for attributes: $attributeCodes');
+          'CustomAttributesManager: No suitable adapter found for attributes: $attributeCodes',
+        );
       }
       return null;
     }
@@ -127,7 +164,8 @@ class CustomAttributesManager extends ChangeNotifier {
 
     if (_debugLogging) {
       debugPrint(
-          'CustomAttributesManager: Detected adapter $bestAdapterId for attributes: $attributeCodes');
+        'CustomAttributesManager: Detected adapter $bestAdapterId for attributes: $attributeCodes',
+      );
     }
 
     return _adapters[bestAdapterId];
@@ -228,8 +266,11 @@ class CustomAttributesManager extends ChangeNotifier {
 
     // Sort adapters by priority (highest first)
     final sortedAdapters = _adapters.entries.toList()
-      ..sort((a, b) => (_adapterPriority[b.key] ?? 0)
-          .compareTo(_adapterPriority[a.key] ?? 0));
+      ..sort(
+        (a, b) => (_adapterPriority[b.key] ?? 0).compareTo(
+          _adapterPriority[a.key] ?? 0,
+        ),
+      );
 
     for (final entry in sortedAdapters) {
       final adapterId = entry.key;
@@ -245,7 +286,8 @@ class CustomAttributesManager extends ChangeNotifier {
 
     if (_debugLogging) {
       debugPrint(
-          'CustomAttributesManager: Rebuilt attribute mapping with ${_attributeToAdapterMap.length} attributes');
+        'CustomAttributesManager: Rebuilt attribute mapping with ${_attributeToAdapterMap.length} attributes',
+      );
     }
   }
 

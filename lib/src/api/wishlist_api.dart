@@ -3,7 +3,31 @@ import '../models/wishlist_models.dart';
 import '../models/product_models.dart';
 import 'magento_api_client.dart';
 
-/// Wishlist API for Magento
+/// Wishlist API for Magento integration.
+///
+/// This class provides comprehensive wishlist functionality for Magento,
+/// allowing customers to save products for future purchase.
+///
+/// ## Features
+///
+/// - **Wishlist Management**: Create, retrieve, and manage wishlists
+/// - **Item Operations**: Add and remove items from wishlist
+/// - **Multiple Wishlists**: Support for multiple wishlist functionality
+/// - **Wishlist Sharing**: Share wishlists with others
+/// - **Item Tracking**: Track wishlist items and availability
+/// - **Wishlist Search**: Search and filter wishlist items
+///
+/// ## Usage
+///
+/// ```dart
+/// final wishlistApi = WishlistApi(apiClient);
+///
+/// // Get customer wishlist
+/// final wishlist = await wishlistApi.getWishlist();
+///
+/// // Create new wishlist
+/// final newWishlist = await wishlistApi.createWishlist('My Favorites');
+/// ```
 class WishlistApi {
   final MagentoApiClient _client;
 
@@ -46,9 +70,7 @@ class WishlistApi {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist',
         options: Options(method: 'POST'),
-        data: {
-          'name': name,
-        },
+        data: {'name': name},
       );
 
       if (response.statusCode == 200) {
@@ -110,9 +132,7 @@ class WishlistApi {
     List<Map<String, dynamic>>? options,
   }) async {
     try {
-      final Map<String, dynamic> data = {
-        'product_id': productId,
-      };
+      final Map<String, dynamic> data = {'product_id': productId};
 
       if (options != null) {
         data['product_options'] = options;
@@ -142,9 +162,7 @@ class WishlistApi {
     List<Map<String, dynamic>>? options,
   }) async {
     try {
-      final Map<String, dynamic> data = {
-        'product_id': productId,
-      };
+      final Map<String, dynamic> data = {'product_id': productId};
 
       if (options != null) {
         data['product_options'] = options;
@@ -160,7 +178,8 @@ class WishlistApi {
         return WishlistItem.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to add to default wishlist: ${response.statusMessage}');
+          'Failed to add to default wishlist: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to add to default wishlist: ${e.message}');
@@ -221,7 +240,8 @@ class WishlistApi {
         return WishlistItem.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to update wishlist item: ${response.statusMessage}');
+          'Failed to update wishlist item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to update wishlist item: ${e.message}');
@@ -246,7 +266,8 @@ class WishlistApi {
         return WishlistItem.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to update default wishlist item: ${response.statusMessage}');
+          'Failed to update default wishlist item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to update default wishlist item: ${e.message}');
@@ -273,10 +294,7 @@ class WishlistApi {
       );
 
       // Remove from source wishlist
-      await removeFromWishlist(
-        wishlistId: fromWishlistId,
-        itemId: itemId,
-      );
+      await removeFromWishlist(wishlistId: fromWishlistId, itemId: itemId);
 
       return true;
     } catch (e) {
@@ -295,7 +313,8 @@ class WishlistApi {
         return WishlistItem.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to get wishlist item: ${response.statusMessage}');
+          'Failed to get wishlist item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get wishlist item: ${e.message}');
@@ -315,7 +334,8 @@ class WishlistApi {
         return WishlistItem.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to get default wishlist item: ${response.statusMessage}');
+          'Failed to get default wishlist item: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get default wishlist item: ${e.message}');
@@ -331,9 +351,7 @@ class WishlistApi {
     String? message,
   }) async {
     try {
-      final data = {
-        'email': email,
-      };
+      final data = {'email': email};
 
       if (message != null) {
         data['message'] = message;
@@ -359,9 +377,7 @@ class WishlistApi {
     String? message,
   }) async {
     try {
-      final data = {
-        'email': email,
-      };
+      final data = {'email': email};
 
       if (message != null) {
         data['message'] = message;
@@ -392,7 +408,8 @@ class WishlistApi {
         return Wishlist.fromJson(response.data!);
       } else {
         throw Exception(
-            'Failed to get shared wishlist: ${response.statusMessage}');
+          'Failed to get shared wishlist: ${response.statusMessage}',
+        );
       }
     } on DioException catch (e) {
       throw Exception('Failed to get shared wishlist: ${e.message}');
@@ -428,7 +445,8 @@ class WishlistApi {
       return response.statusCode == 200;
     } on DioException catch (e) {
       throw Exception(
-          'Failed to add all default wishlist to cart: ${e.message}');
+        'Failed to add all default wishlist to cart: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to add all default wishlist to cart: $e');
     }
@@ -443,9 +461,7 @@ class WishlistApi {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/$wishlistId/add-selected-to-cart',
         options: Options(method: 'POST'),
-        data: {
-          'item_ids': itemIds,
-        },
+        data: {'item_ids': itemIds},
       );
 
       return response.statusCode == 200;
@@ -462,15 +478,14 @@ class WishlistApi {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(
         '/rest/V1/customer/wishlist/add-selected-to-cart',
         options: Options(method: 'POST'),
-        data: {
-          'item_ids': itemIds,
-        },
+        data: {'item_ids': itemIds},
       );
 
       return response.statusCode == 200;
     } on DioException catch (e) {
       throw Exception(
-          'Failed to add selected default wishlist to cart: ${e.message}');
+        'Failed to add selected default wishlist to cart: ${e.message}',
+      );
     } catch (e) {
       throw Exception('Failed to add selected default wishlist to cart: $e');
     }

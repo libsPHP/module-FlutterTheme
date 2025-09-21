@@ -57,19 +57,22 @@ Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
       'email': instance.email,
       'firstname': instance.firstname,
       'lastname': instance.lastname,
-      'middlename': ?instance.middlename,
-      'groupId': ?instance.groupId,
-      'dob': ?instance.dob,
-      'taxvat': ?instance.taxvat,
-      'gender': ?instance.gender,
-      'isSubscribed': ?instance.isSubscribed,
-      'prefix': ?instance.prefix,
-      'suffix': ?instance.suffix,
-      'defaultBilling': ?instance.defaultBilling,
-      'defaultShipping': ?instance.defaultShipping,
-      'createdAt': ?instance.createdAt?.toIso8601String(),
-      'updatedAt': ?instance.updatedAt?.toIso8601String(),
-      'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+      if (instance.middlename case final value?) 'middlename': value,
+      if (instance.groupId case final value?) 'groupId': value,
+      if (instance.dob case final value?) 'dob': value,
+      if (instance.taxvat case final value?) 'taxvat': value,
+      if (instance.gender case final value?) 'gender': value,
+      if (instance.isSubscribed case final value?) 'isSubscribed': value,
+      if (instance.prefix case final value?) 'prefix': value,
+      if (instance.suffix case final value?) 'suffix': value,
+      if (instance.defaultBilling case final value?) 'defaultBilling': value,
+      if (instance.defaultShipping case final value?) 'defaultShipping': value,
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'createdAt': value,
+      if (instance.updatedAt?.toIso8601String() case final value?)
+        'updatedAt': value,
+      if (instance.addresses?.map((e) => e.toJson()).toList() case final value?)
+        'addresses': value,
     };
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
@@ -100,26 +103,26 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
     <String, dynamic>{
-      'id': ?instance.id,
-      'customerId': ?instance.customerId,
-      'region': ?instance.region,
-      'regionId': ?instance.regionId,
-      'regionCode': ?instance.regionCode,
-      'countryId': ?instance.countryId,
-      'street': ?instance.street,
-      'company': ?instance.company,
-      'telephone': ?instance.telephone,
-      'fax': ?instance.fax,
-      'postcode': ?instance.postcode,
-      'city': ?instance.city,
-      'firstname': ?instance.firstname,
-      'lastname': ?instance.lastname,
-      'middlename': ?instance.middlename,
-      'prefix': ?instance.prefix,
-      'suffix': ?instance.suffix,
-      'vatId': ?instance.vatId,
-      'defaultShipping': ?instance.defaultShipping,
-      'defaultBilling': ?instance.defaultBilling,
+      if (instance.id case final value?) 'id': value,
+      if (instance.customerId case final value?) 'customerId': value,
+      if (instance.region case final value?) 'region': value,
+      if (instance.regionId case final value?) 'regionId': value,
+      if (instance.regionCode case final value?) 'regionCode': value,
+      if (instance.countryId case final value?) 'countryId': value,
+      if (instance.street case final value?) 'street': value,
+      if (instance.company case final value?) 'company': value,
+      if (instance.telephone case final value?) 'telephone': value,
+      if (instance.fax case final value?) 'fax': value,
+      if (instance.postcode case final value?) 'postcode': value,
+      if (instance.city case final value?) 'city': value,
+      if (instance.firstname case final value?) 'firstname': value,
+      if (instance.lastname case final value?) 'lastname': value,
+      if (instance.middlename case final value?) 'middlename': value,
+      if (instance.prefix case final value?) 'prefix': value,
+      if (instance.suffix case final value?) 'suffix': value,
+      if (instance.vatId case final value?) 'vatId': value,
+      if (instance.defaultShipping case final value?) 'defaultShipping': value,
+      if (instance.defaultBilling case final value?) 'defaultBilling': value,
     };
 
 _$CustomerCreateRequestImpl _$$CustomerCreateRequestImplFromJson(
@@ -148,14 +151,15 @@ Map<String, dynamic> _$$CustomerCreateRequestImplToJson(
   'password': instance.password,
   'firstname': instance.firstname,
   'lastname': instance.lastname,
-  'middlename': ?instance.middlename,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'dob': ?instance.dob,
-  'taxvat': ?instance.taxvat,
-  'gender': ?instance.gender,
-  'isSubscribed': ?instance.isSubscribed,
-  'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+  if (instance.middlename case final value?) 'middlename': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.dob case final value?) 'dob': value,
+  if (instance.taxvat case final value?) 'taxvat': value,
+  if (instance.gender case final value?) 'gender': value,
+  if (instance.isSubscribed case final value?) 'isSubscribed': value,
+  if (instance.addresses?.map((e) => e.toJson()).toList() case final value?)
+    'addresses': value,
 };
 
 _$CustomerUpdateRequestImpl _$$CustomerUpdateRequestImplFromJson(
@@ -178,16 +182,17 @@ _$CustomerUpdateRequestImpl _$$CustomerUpdateRequestImplFromJson(
 Map<String, dynamic> _$$CustomerUpdateRequestImplToJson(
   _$CustomerUpdateRequestImpl instance,
 ) => <String, dynamic>{
-  'firstname': ?instance.firstname,
-  'lastname': ?instance.lastname,
-  'middlename': ?instance.middlename,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'dob': ?instance.dob,
-  'taxvat': ?instance.taxvat,
-  'gender': ?instance.gender,
-  'isSubscribed': ?instance.isSubscribed,
-  'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+  if (instance.firstname case final value?) 'firstname': value,
+  if (instance.lastname case final value?) 'lastname': value,
+  if (instance.middlename case final value?) 'middlename': value,
+  if (instance.prefix case final value?) 'prefix': value,
+  if (instance.suffix case final value?) 'suffix': value,
+  if (instance.dob case final value?) 'dob': value,
+  if (instance.taxvat case final value?) 'taxvat': value,
+  if (instance.gender case final value?) 'gender': value,
+  if (instance.isSubscribed case final value?) 'isSubscribed': value,
+  if (instance.addresses?.map((e) => e.toJson()).toList() case final value?)
+    'addresses': value,
 };
 
 _$PasswordChangeRequestImpl _$$PasswordChangeRequestImplFromJson(
@@ -227,9 +232,9 @@ Map<String, dynamic> _$$SocialLoginRequestImplToJson(
 ) => <String, dynamic>{
   'provider': instance.provider,
   'token': instance.token,
-  'email': ?instance.email,
-  'firstname': ?instance.firstname,
-  'lastname': ?instance.lastname,
+  if (instance.email case final value?) 'email': value,
+  if (instance.firstname case final value?) 'firstname': value,
+  if (instance.lastname case final value?) 'lastname': value,
 };
 
 _$TokenRefreshRequestImpl _$$TokenRefreshRequestImplFromJson(
@@ -256,6 +261,6 @@ Map<String, dynamic> _$$SessionInfoImplToJson(_$SessionInfoImpl instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'expiresAt': instance.expiresAt.toIso8601String(),
       'isValid': instance.isValid,
-      'customerId': ?instance.customerId,
-      'cartId': ?instance.cartId,
+      if (instance.customerId case final value?) 'customerId': value,
+      if (instance.cartId case final value?) 'cartId': value,
     };
