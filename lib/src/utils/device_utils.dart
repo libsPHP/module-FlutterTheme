@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import '../models/device_info_model.dart';
 import '../services/device_info_service.dart';
 
@@ -15,7 +14,8 @@ class DeviceUtils {
   static bool get isAndroid => !kIsWeb && Platform.isAndroid;
   static bool get isIOS => !kIsWeb && Platform.isIOS;
   static bool get isWeb => kIsWeb;
-  static bool get isDesktop => !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux);
+  static bool get isDesktop =>
+      !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux);
   static bool get isMobile => isAndroid || isIOS;
 
   /// Получение информации об устройстве (с кэшированием)
@@ -50,19 +50,26 @@ class DeviceUtils {
   static Future<DeviceOptimizationSettings> getOptimizationSettings() async {
     final deviceInfo = await getDeviceInfo();
     final performanceCategory = await getPerformanceCategory();
-    
-    return DeviceOptimizationSettings.fromDeviceInfo(deviceInfo, performanceCategory);
+
+    return DeviceOptimizationSettings.fromDeviceInfo(
+      deviceInfo,
+      performanceCategory,
+    );
   }
 
   /// Проверка поддержки конкретных функций
   static Future<DeviceCapabilities> getDeviceCapabilities() async {
     final deviceInfo = await getDeviceInfo();
     final performanceCategory = await getPerformanceCategory();
-    
+
     return DeviceCapabilities(
-      supportsAdvancedAnimations: performanceCategory == DevicePerformanceCategory.high,
-      supportsHighQualityImages: performanceCategory != DevicePerformanceCategory.low,
-      supportsVideoPlayback: !deviceInfo.isWeb || deviceInfo.additionalInfo['hardwareConcurrency'] != null,
+      supportsAdvancedAnimations:
+          performanceCategory == DevicePerformanceCategory.high,
+      supportsHighQualityImages:
+          performanceCategory != DevicePerformanceCategory.low,
+      supportsVideoPlayback:
+          !deviceInfo.isWeb ||
+          deviceInfo.additionalInfo['hardwareConcurrency'] != null,
       supportsLocalStorage: !deviceInfo.isWeb,
       supportsPushNotifications: deviceInfo.isMobile,
       supportsCamera: deviceInfo.isMobile,
@@ -70,7 +77,10 @@ class DeviceUtils {
       supportsBiometrics: deviceInfo.isMobile && deviceInfo.isPhysicalDevice,
       maxConcurrentRequests: _getMaxConcurrentRequests(performanceCategory),
       recommendedImageQuality: _getRecommendedImageQuality(performanceCategory),
-      recommendedCacheSize: _getRecommendedCacheSize(performanceCategory, deviceInfo.ramMb),
+      recommendedCacheSize: _getRecommendedCacheSize(
+        performanceCategory,
+        deviceInfo.ramMb,
+      ),
     );
   }
 
@@ -102,7 +112,7 @@ class DeviceUtils {
   static Future<int> getOptimalImageCacheSize() async {
     final deviceInfo = await getDeviceInfo();
     final performanceCategory = await getPerformanceCategory();
-    
+
     return _getRecommendedCacheSize(performanceCategory, deviceInfo.ramMb);
   }
 
@@ -138,7 +148,7 @@ class DeviceUtils {
   static Future<NetworkInfo?> getNetworkInfo() async {
     try {
       final deviceInfo = await getDeviceInfo();
-      
+
       if (deviceInfo.isWeb) {
         // Для веб можем получить некоторую информацию через navigator
         return NetworkInfo(
@@ -147,7 +157,7 @@ class DeviceUtils {
           strength: null,
         );
       }
-      
+
       // Для мобильных устройств информация о сети требует дополнительных разрешений
       // и отдельного пакета (connectivity_plus уже есть в зависимостях)
       return null;
@@ -174,7 +184,9 @@ class DeviceUtils {
     }
   }
 
-  static double _getRecommendedImageQuality(DevicePerformanceCategory category) {
+  static double _getRecommendedImageQuality(
+    DevicePerformanceCategory category,
+  ) {
     switch (category) {
       case DevicePerformanceCategory.high:
         return 0.9;
@@ -185,9 +197,12 @@ class DeviceUtils {
     }
   }
 
-  static int _getRecommendedCacheSize(DevicePerformanceCategory category, int? ramMb) {
+  static int _getRecommendedCacheSize(
+    DevicePerformanceCategory category,
+    int? ramMb,
+  ) {
     int baseSize = 100; // Значение по умолчанию
-    
+
     switch (category) {
       case DevicePerformanceCategory.high:
         baseSize = 200; // 200 MB
@@ -213,19 +228,27 @@ class DeviceUtils {
   }
 
   static int _compareVersions(String version1, String version2) {
-    final v1Parts = version1.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-    final v2Parts = version2.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-    
-    final maxLength = v1Parts.length > v2Parts.length ? v1Parts.length : v2Parts.length;
-    
+    final v1Parts = version1
+        .split('.')
+        .map((e) => int.tryParse(e) ?? 0)
+        .toList();
+    final v2Parts = version2
+        .split('.')
+        .map((e) => int.tryParse(e) ?? 0)
+        .toList();
+
+    final maxLength = v1Parts.length > v2Parts.length
+        ? v1Parts.length
+        : v2Parts.length;
+
     for (int i = 0; i < maxLength; i++) {
       final v1Part = i < v1Parts.length ? v1Parts[i] : 0;
       final v2Part = i < v2Parts.length ? v2Parts[i] : 0;
-      
+
       if (v1Part < v2Part) return -1;
       if (v1Part > v2Part) return 1;
     }
-    
+
     return 0;
   }
 }
@@ -254,13 +277,19 @@ class DeviceOptimizationSettings {
     DeviceInfoModel deviceInfo,
     DevicePerformanceCategory performanceCategory,
   ) {
-    final isHighPerformance = performanceCategory == DevicePerformanceCategory.high;
-    final isMediumPerformance = performanceCategory == DevicePerformanceCategory.medium;
-    
+    final isHighPerformance =
+        performanceCategory == DevicePerformanceCategory.high;
+    final isMediumPerformance =
+        performanceCategory == DevicePerformanceCategory.medium;
+
     return DeviceOptimizationSettings(
-      maxConcurrentRequests: isHighPerformance ? 6 : (isMediumPerformance ? 4 : 2),
+      maxConcurrentRequests: isHighPerformance
+          ? 6
+          : (isMediumPerformance ? 4 : 2),
       imageQuality: isHighPerformance ? 0.9 : (isMediumPerformance ? 0.8 : 0.6),
-      imageCacheSize: isHighPerformance ? 200 : (isMediumPerformance ? 100 : 50),
+      imageCacheSize: isHighPerformance
+          ? 200
+          : (isMediumPerformance ? 100 : 50),
       enableAnimations: performanceCategory != DevicePerformanceCategory.low,
       enableAdvancedFeatures: isHighPerformance,
       listBufferSize: isHighPerformance ? 10 : (isMediumPerformance ? 5 : 3),
@@ -269,7 +298,8 @@ class DeviceOptimizationSettings {
   }
 
   @override
-  String toString() => 'DeviceOptimizationSettings('
+  String toString() =>
+      'DeviceOptimizationSettings('
       'maxConcurrentRequests: $maxConcurrentRequests, '
       'imageQuality: $imageQuality, '
       'imageCacheSize: ${imageCacheSize}MB, '
@@ -306,7 +336,8 @@ class DeviceCapabilities {
   });
 
   @override
-  String toString() => 'DeviceCapabilities('
+  String toString() =>
+      'DeviceCapabilities('
       'animations: $supportsAdvancedAnimations, '
       'highQualityImages: $supportsHighQualityImages, '
       'video: $supportsVideoPlayback, '
@@ -330,5 +361,6 @@ class NetworkInfo {
   });
 
   @override
-  String toString() => 'NetworkInfo(type: $type, connected: $isConnected, strength: $strength)';
+  String toString() =>
+      'NetworkInfo(type: $type, connected: $isConnected, strength: $strength)';
 }

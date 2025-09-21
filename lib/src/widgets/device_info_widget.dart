@@ -3,19 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/device_info_model.dart';
 import '../providers/device_info_provider.dart';
-import '../utils/device_utils.dart';
 
 /// Виджет для отображения информации об устройстве
 class DeviceInfoWidget extends ConsumerWidget {
   /// Показывать ли детальную информацию
   final bool showDetails;
-  
+
   /// Показывать ли кнопки действий
   final bool showActions;
-  
+
   /// Стиль отображения
   final DeviceInfoDisplayStyle displayStyle;
-  
+
   /// Callback при копировании информации
   final VoidCallback? onCopyInfo;
 
@@ -30,7 +29,7 @@ class DeviceInfoWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deviceInfoAsync = ref.watch(deviceInfoProvider);
-    
+
     return deviceInfoAsync.when(
       data: (deviceInfo) => _buildDeviceInfo(context, ref, deviceInfo),
       loading: () => _buildLoading(context),
@@ -38,7 +37,11 @@ class DeviceInfoWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildDeviceInfo(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildDeviceInfo(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     switch (displayStyle) {
       case DeviceInfoDisplayStyle.card:
         return _buildCard(context, ref, deviceInfo);
@@ -49,7 +52,11 @@ class DeviceInfoWidget extends ConsumerWidget {
     }
   }
 
-  Widget _buildCard(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildCard(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     return Card(
       margin: const EdgeInsets.all(16),
       child: Padding(
@@ -72,9 +79,13 @@ class DeviceInfoWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildList(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildList(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     final items = _getInfoItems(deviceInfo);
-    
+
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -83,22 +94,28 @@ class DeviceInfoWidget extends ConsumerWidget {
         if (index == items.length) {
           return _buildActions(context, ref, deviceInfo);
         }
-        
+
         final item = items[index];
         return ListTile(
           leading: Icon(item.icon),
           title: Text(item.title),
           subtitle: Text(item.value),
-          trailing: item.copyable ? IconButton(
-            icon: const Icon(Icons.copy),
-            onPressed: () => _copyToClipboard(context, item.value),
-          ) : null,
+          trailing: item.copyable
+              ? IconButton(
+                  icon: const Icon(Icons.copy),
+                  onPressed: () => _copyToClipboard(context, item.value),
+                )
+              : null,
         );
       },
     );
   }
 
-  Widget _buildCompact(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildCompact(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -189,78 +206,88 @@ class DeviceInfoWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildDetails(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildDetails(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildInfoSection(
-          context,
-          'System Information',
-          [
-            _InfoItem('System', '${deviceInfo.systemName} ${deviceInfo.systemVersion}'),
-            _InfoItem('Model', deviceInfo.model),
-            _InfoItem('Brand', deviceInfo.brand),
-            _InfoItem('Device Type', deviceInfo.isPhysicalDevice ? 'Physical Device' : 'Emulator'),
-            if (deviceInfo.screenResolution != 'unknown')
-              _InfoItem('Screen', deviceInfo.screenResolution),
-            if (deviceInfo.ramMb != null)
-              _InfoItem('RAM', '${deviceInfo.ramMb} MB'),
-            if (deviceInfo.storageGb != null)
-              _InfoItem('Storage', '${deviceInfo.storageGb} GB'),
-          ],
-        ),
+        _buildInfoSection(context, 'System Information', [
+          _InfoItem(
+            'System',
+            '${deviceInfo.systemName} ${deviceInfo.systemVersion}',
+          ),
+          _InfoItem('Model', deviceInfo.model),
+          _InfoItem('Brand', deviceInfo.brand),
+          _InfoItem(
+            'Device Type',
+            deviceInfo.isPhysicalDevice ? 'Physical Device' : 'Emulator',
+          ),
+          if (deviceInfo.screenResolution != 'unknown')
+            _InfoItem('Screen', deviceInfo.screenResolution),
+          if (deviceInfo.ramMb != null)
+            _InfoItem('RAM', '${deviceInfo.ramMb} MB'),
+          if (deviceInfo.storageGb != null)
+            _InfoItem('Storage', '${deviceInfo.storageGb} GB'),
+        ]),
         const SizedBox(height: 16),
         _buildPerformanceSection(context, ref, deviceInfo),
       ],
     );
   }
 
-  Widget _buildInfoSection(BuildContext context, String title, List<_InfoItem> items) {
+  Widget _buildInfoSection(
+    BuildContext context,
+    String title,
+    List<_InfoItem> items,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text(title, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
-        ...items.map((item) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 100,
-                child: Text(
-                  '${item.title}:',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w500,
+        ...items.map(
+          (item) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    '${item.title}:',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Text(
-                  item.value,
-                  style: Theme.of(context).textTheme.bodySmall,
+                Expanded(
+                  child: Text(
+                    item.value,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
 
-  Widget _buildPerformanceSection(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildPerformanceSection(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     final performanceInfo = deviceInfo.performanceInfo;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Performance',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Performance', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         Row(
           children: [
@@ -276,26 +303,31 @@ class DeviceInfoWidget extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             'Recommendations:',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w500,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+          ),
+          ...performanceInfo.recommendations.map(
+            (rec) => Padding(
+              padding: const EdgeInsets.only(left: 16, top: 2),
+              child: Text(
+                '• $rec',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
           ),
-          ...performanceInfo.recommendations.map((rec) => Padding(
-            padding: const EdgeInsets.only(left: 16, top: 2),
-            child: Text(
-              '• $rec',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          )),
         ],
       ],
     );
   }
 
-  Widget _buildPerformanceBadge(BuildContext context, DevicePerformanceCategory category) {
+  Widget _buildPerformanceBadge(
+    BuildContext context,
+    DevicePerformanceCategory category,
+  ) {
     Color color;
     String text;
-    
+
     switch (category) {
       case DevicePerformanceCategory.high:
         color = Colors.green;
@@ -310,7 +342,7 @@ class DeviceInfoWidget extends ConsumerWidget {
         text = 'Low';
         break;
     }
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -328,7 +360,11 @@ class DeviceInfoWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildActions(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  Widget _buildActions(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -415,20 +451,33 @@ class DeviceInfoWidget extends ConsumerWidget {
 
   List<_InfoItem> _getInfoItems(DeviceInfoModel deviceInfo) {
     return [
-            _InfoItem('Platform', deviceInfo.platform, Icons.devices),
+      _InfoItem('Platform', deviceInfo.platform, Icons.devices),
       _InfoItem('Model', deviceInfo.model, Icons.phone_android),
       _InfoItem('Brand', deviceInfo.brand, Icons.business),
-      _InfoItem('System', '${deviceInfo.systemName} ${deviceInfo.systemVersion}', Icons.info),
-      _InfoItem('Type', deviceInfo.isPhysicalDevice ? 'Physical' : 'Emulator', Icons.device_hub),
+      _InfoItem(
+        'System',
+        '${deviceInfo.systemName} ${deviceInfo.systemVersion}',
+        Icons.info,
+      ),
+      _InfoItem(
+        'Type',
+        deviceInfo.isPhysicalDevice ? 'Physical' : 'Emulator',
+        Icons.device_hub,
+      ),
       if (deviceInfo.screenResolution != 'unknown')
-        _InfoItem('Screen', deviceInfo.screenResolution, Icons.screen_lock_portrait),
+        _InfoItem(
+          'Screen',
+          deviceInfo.screenResolution,
+          Icons.screen_lock_portrait,
+        ),
       if (deviceInfo.ramMb != null)
         _InfoItem('RAM', '${deviceInfo.ramMb} MB', Icons.memory),
     ];
   }
 
   void _copyDeviceInfo(BuildContext context, DeviceInfoModel deviceInfo) {
-    final info = '''
+    final info =
+        '''
 Device Information:
 Platform: ${deviceInfo.platform}
 Model: ${deviceInfo.model}
@@ -438,29 +487,33 @@ Type: ${deviceInfo.isPhysicalDevice ? 'Physical Device' : 'Emulator'}
 Screen: ${deviceInfo.screenResolution}
 Performance: ${deviceInfo.performanceInfo.category.displayName} (${deviceInfo.performanceInfo.score}/100)
 ''';
-    
+
     Clipboard.setData(ClipboardData(text: info));
-    
+
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Device information copied to clipboard')),
       );
     }
-    
+
     onCopyInfo?.call();
   }
 
   void _copyToClipboard(BuildContext context, String text) {
     Clipboard.setData(ClipboardData(text: text));
-    
+
     if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Copied: $text')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Copied: $text')));
     }
   }
 
-  void _showDetailDialog(BuildContext context, WidgetRef ref, DeviceInfoModel deviceInfo) {
+  void _showDetailDialog(
+    BuildContext context,
+    WidgetRef ref,
+    DeviceInfoModel deviceInfo,
+  ) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -493,11 +546,7 @@ Performance: ${deviceInfo.performanceInfo.category.displayName} (${deviceInfo.pe
 }
 
 /// Стили отображения виджета информации об устройстве
-enum DeviceInfoDisplayStyle {
-  card,
-  list,
-  compact,
-}
+enum DeviceInfoDisplayStyle { card, list, compact }
 
 /// Элемент информации для отображения
 class _InfoItem {
@@ -506,10 +555,5 @@ class _InfoItem {
   final IconData? icon;
   final bool copyable;
 
-  const _InfoItem(
-    this.title,
-    this.value, [
-    this.icon,
-    this.copyable = false,
-  ]);
+  const _InfoItem(this.title, this.value, [this.icon, this.copyable = false]);
 }
