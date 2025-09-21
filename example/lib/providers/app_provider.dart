@@ -31,20 +31,25 @@ class MagentoProduct {
     final priceRange = data['price_range']?['minimum_price'];
     final regularPrice = priceRange?['regular_price']?['value'] ?? 0.0;
     final finalPrice = priceRange?['final_price']?['value'] ?? regularPrice;
-    
+
     return MagentoProduct(
       id: data['id']?.toString() ?? '',
       name: data['name'] ?? '',
       sku: data['sku'] ?? '',
       price: double.tryParse(regularPrice.toString()) ?? 0.0,
-      specialPrice: finalPrice != regularPrice ? double.tryParse(finalPrice.toString()) : null,
+      specialPrice: finalPrice != regularPrice
+          ? double.tryParse(finalPrice.toString())
+          : null,
       inStock: data['stock_status'] == 'IN_STOCK',
       imageUrl: data['small_image']?['url'],
-      description: data['description']?['html'] ?? data['short_description']?['html'],
-      categories: (data['categories'] as List?)
-          ?.map((cat) => cat['name']?.toString() ?? '')
-          .where((name) => name.isNotEmpty)
-          .toList() ?? [],
+      description:
+          data['description']?['html'] ?? data['short_description']?['html'],
+      categories:
+          (data['categories'] as List?)
+              ?.map((cat) => cat['name']?.toString() ?? '')
+              .where((name) => name.isNotEmpty)
+              .toList() ??
+          [],
     );
   }
 }
@@ -73,9 +78,11 @@ class MagentoCategory {
       urlKey: data['url_key'] ?? '',
       childrenCount: data['children_count'] ?? 0,
       level: data['level'] ?? 0,
-      children: (data['children'] as List?)
-          ?.map((child) => MagentoCategory.fromGraphQL(child))
-          .toList() ?? [],
+      children:
+          (data['children'] as List?)
+              ?.map((child) => MagentoCategory.fromGraphQL(child))
+              .toList() ??
+          [],
     );
   }
 }
@@ -193,10 +200,7 @@ class AppProvider extends ChangeNotifier {
     try {
       // Инициализируем Magento API
       _magento = FlutterMagento();
-      final success = await _magento.initialize(
-        baseUrl: baseUrl,
-        useGraphQL: true, // Используем GraphQL
-      );
+      final success = await _magento.initialize(baseUrl: baseUrl);
 
       if (!success) {
         throw Exception('Failed to initialize Magento API');
@@ -436,7 +440,7 @@ class AppProvider extends ChangeNotifier {
     try {
       // Загружаем категории
       await loadCategories();
-      
+
       // Загружаем продукты
       await loadProducts();
     } catch (e) {
@@ -451,12 +455,11 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Загружаем категории через GraphQL
-      final categoriesData = await _magento.getCategories(useGraphQL: true);
-      
-      _categories = categoriesData
-          .map((data) => MagentoCategory.fromGraphQL(data))
-          .toList();
-      
+      final categoriesTree = await _magento.getCategories();
+
+      // Преобразуем CategoryTree в список категорий
+      _categories = _extractCategoriesFromTree(categoriesTree);
+
       notifyListeners();
     } catch (e) {
       print('Failed to load categories: $e');
@@ -464,6 +467,39 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
+  List<MagentoCategory> _extractCategoriesFromTree(dynamic categoriesTree) {
+    try {
+      final List<MagentoCategory> categories = [];
+
+      // Проверяем, есть ли данные в дереве категорий
+      if (categoriesTree != null) {
+        // Если это список категорий
+        if (categoriesTree is List) {
+          for (final categoryData in categoriesTree) {
+            if (categoryData is Map<String, dynamic>) {
+              categories.add(MagentoCategory.fromGraphQL(categoryData));
+            }
+          }
+        }
+        // Если это объект с полем items
+        else if (categoriesTree is Map<String, dynamic>) {
+          final items = categoriesTree['items'] as List<dynamic>?;
+          if (items != null) {
+            for (final categoryData in items) {
+              if (categoryData is Map<String, dynamic>) {
+                categories.add(MagentoCategory.fromGraphQL(categoryData));
+              }
+            }
+          }
+        }
+      }
+
+      return categories;
+    } catch (e) {
+      print('Error extracting categories: $e');
+      return [];
+    }
+  }
 
   void _setLoading(bool loading) {
     _isLoading = loading;

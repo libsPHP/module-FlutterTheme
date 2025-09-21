@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
+import 'products_by_category_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -63,11 +64,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.settings,
-            size: 64,
-            color: Colors.grey,
-          ),
+          Icon(Icons.settings, size: 64, color: Colors.grey),
           SizedBox(height: 16),
           Text(
             'Magento not configured',
@@ -93,11 +90,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.category,
-            size: 64,
-            color: Colors.grey,
-          ),
+          Icon(Icons.category, size: 64, color: Colors.grey),
           SizedBox(height: 16),
           Text(
             'No categories found',
@@ -133,11 +126,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   }
 
   void _onCategoryTap(MagentoCategory category) {
-    // TODO: Navigate to products in this category
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Selected category: ${category.name}'),
-        duration: const Duration(seconds: 2),
+    // Переходим к экрану продуктов с фильтром по категории
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductsByCategoryScreen(category: category),
       ),
     );
   }
@@ -147,10 +140,7 @@ class _CategoryCard extends StatelessWidget {
   final MagentoCategory category;
   final VoidCallback? onTap;
 
-  const _CategoryCard({
-    required this.category,
-    this.onTap,
-  });
+  const _CategoryCard({required this.category, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -159,16 +149,11 @@ class _CategoryCard extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-          child: Icon(
-            Icons.category,
-            color: Theme.of(context).primaryColor,
-          ),
+          child: Icon(Icons.category, color: Theme.of(context).primaryColor),
         ),
         title: Text(
           category.name,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         subtitle: category.childrenCount > 0
             ? Text('${category.childrenCount} subcategories')
@@ -179,10 +164,7 @@ class _CategoryCard extends StatelessWidget {
             if (category.childrenCount > 0)
               Text(
                 'Level ${category.level}',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.grey[600], fontSize: 12),
               ),
             const SizedBox(width: 8),
             const Icon(Icons.arrow_forward_ios, size: 16),

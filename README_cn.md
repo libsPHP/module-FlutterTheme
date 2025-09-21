@@ -144,7 +144,7 @@ void main() {
 
 ## 📄 许可证
 
-该项目在 MIT 许可证下获得许可 - 有关详细信息，请参阅 [LICENSE](LICENSE) 文件。
+该项目在 NativeMindNONC 许可证下获得许可 - 有关详细信息，请参阅 [LICENSE](LICENSE) 文件。
 
 ## 🆘 支持
 

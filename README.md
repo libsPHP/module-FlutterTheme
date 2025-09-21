@@ -456,7 +456,7 @@ This README is available in multiple languages:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the NativeMindNONC License - see the [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 

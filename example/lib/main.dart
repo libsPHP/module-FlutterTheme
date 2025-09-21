@@ -18,9 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AppProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => AppProvider())],
       child: MaterialApp(
         title: 'Flutter Magento Example',
         theme: ThemeData(
@@ -52,7 +50,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
-  
+
   final List<Widget> _screens = [
     const HomeScreen(),
     const AuthScreen(),
@@ -63,14 +61,8 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   final List<BottomNavigationBarItem> _navItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'Home',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Auth',
-    ),
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Auth'),
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_bag),
       label: 'Products',
@@ -83,19 +75,13 @@ class _MainScreenState extends State<MainScreen> {
       icon: Icon(Icons.shopping_cart),
       label: 'Cart',
     ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Config',
-    ),
+    const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Config'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,

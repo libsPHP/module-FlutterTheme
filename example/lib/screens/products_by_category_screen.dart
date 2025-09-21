@@ -2,50 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 
-class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key});
+class ProductsByCategoryScreen extends StatefulWidget {
+  final MagentoCategory category;
+
+  const ProductsByCategoryScreen({super.key, required this.category});
 
   @override
-  State<ProductsScreen> createState() => _ProductsScreenState();
+  State<ProductsByCategoryScreen> createState() =>
+      _ProductsByCategoryScreenState();
 }
 
-class _ProductsScreenState extends State<ProductsScreen> {
-  final _searchController = TextEditingController();
-  bool _isSearching = false;
-
+class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<AppProvider>();
-      if (provider.isInitialized && provider.products.isEmpty) {
-        provider.loadProducts();
+      if (provider.isInitialized) {
+        _loadProductsByCategory(provider);
       }
     });
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  Future<void> _loadProductsByCategory(AppProvider provider) async {
+    try {
+      // TODO: Реализовать загрузку продуктов по категории через API
+      // await provider.loadProductsByCategory(widget.category.id);
+
+      // Временно показываем сообщение
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Loading products for ${widget.category.name}...'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error loading products: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _isSearching ? _buildSearchField() : const Text('Products'),
+        title: Text(widget.category.name),
         actions: [
           IconButton(
-            icon: Icon(_isSearching ? Icons.close : Icons.search),
+            icon: const Icon(Icons.refresh),
             onPressed: () {
-              setState(() {
-                if (_isSearching) {
-                  _searchController.clear();
-                  context.read<AppProvider>().searchProducts('');
-                }
-                _isSearching = !_isSearching;
-              });
+              final provider = context.read<AppProvider>();
+              _loadProductsByCategory(provider);
             },
           ),
         ],
@@ -53,37 +68,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
           if (!provider.isInitialized) {
-            return _buildNotInitializedView();
+            return _buildNotConfigured();
           }
 
-          return Column(
-            children: [
-              if (!_isSearching) _buildQuickActions(provider),
-              Expanded(child: _buildProductsList(provider)),
-            ],
-          );
+          if (provider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // Временно показываем все продукты
+          return _buildProductsList(provider);
         },
       ),
     );
   }
 
-  Widget _buildSearchField() {
-    return TextField(
-      controller: _searchController,
-      autofocus: true,
-      decoration: const InputDecoration(
-        hintText: 'Search products...',
-        border: InputBorder.none,
-        hintStyle: TextStyle(color: Colors.white70),
-      ),
-      style: const TextStyle(color: Colors.white),
-      onChanged: (query) {
-        context.read<AppProvider>().searchProducts(query);
-      },
-    );
-  }
-
-  Widget _buildNotInitializedView() {
+  Widget _buildNotConfigured() {
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -109,112 +108,122 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  Widget _buildQuickActions(AppProvider provider) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: provider.isLoading
-                  ? null
-                  : () => provider.loadProducts(),
-              icon: provider.isLoading
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.refresh),
-              label: const Text('Refresh'),
-            ),
+  Widget _buildProductsList(AppProvider provider) {
+    return Column(
+      children: [
+        // Информация о категории
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
           ),
-          const SizedBox(width: 16),
-          Text('${provider.products.length} products'),
-        ],
-      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.category, color: Theme.of(context).primaryColor),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      widget.category.name,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (widget.category.childrenCount > 0) ...[
+                const SizedBox(height: 8),
+                Text(
+                  '${widget.category.childrenCount} subcategories available',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                ),
+              ],
+            ],
+          ),
+        ),
+
+        // Заголовок с количеством продуктов
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Text(
+                'Products in this category',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '${provider.products.length}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        // Список продуктов
+        Expanded(
+          child: provider.products.isEmpty
+              ? _buildEmptyState()
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: provider.products.length,
+                  itemBuilder: (context, index) {
+                    final product = provider.products[index];
+                    return _ProductCard(
+                      product: product,
+                      onAddToCart: provider.isAuthenticated
+                          ? () => _addToCart(provider, product)
+                          : null,
+                    );
+                  },
+                ),
+        ),
+      ],
     );
   }
 
-  Widget _buildProductsList(AppProvider provider) {
-    if (provider.isLoading && provider.products.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (provider.error != null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, size: 64, color: Colors.red),
-            const SizedBox(height: 16),
-            Text(
-              'Error loading products',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              provider.error!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.red),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => provider.loadProducts(),
-              child: const Text('Retry'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    final products = _isSearching && _searchController.text.isNotEmpty
-        ? provider.searchResults
-        : provider.products;
-
-    if (products.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              _isSearching ? Icons.search_off : Icons.inventory_2_outlined,
-              size: 64,
-              color: Colors.grey,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              _isSearching ? 'No search results' : 'No products available',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(color: Colors.grey),
-            ),
-            if (_isSearching) ...[
-              const SizedBox(height: 8),
-              Text(
-                'Try searching for something else',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-            ],
-          ],
-        ),
-      );
-    }
-
-    return RefreshIndicator(
-      onRefresh: () => provider.loadProducts(),
-      child: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final product = products[index];
-          return _ProductCard(
-            product: product,
-            onAddToCart: provider.isAuthenticated
-                ? () => _addToCart(provider, product)
-                : null,
-          );
-        },
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.shopping_bag_outlined, size: 64, color: Colors.grey[400]),
+          const SizedBox(height: 16),
+          Text(
+            'No products in this category',
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: Colors.grey),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Products will appear here once they are added to this category',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey[600]),
+          ),
+        ],
       ),
     );
   }
@@ -226,7 +235,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${product.name} added to cart'),
-          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -359,13 +368,19 @@ class _ProductCard extends StatelessWidget {
                           ),
                         ),
                       )
-                    else if (onAddToCart == null)
-                      Text(
-                        'Login to add to cart',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
+                    else if (!product.inStock)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Text(
+                          'Out of Stock',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ),
                   ],
