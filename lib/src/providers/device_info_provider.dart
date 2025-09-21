@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/device_info_model.dart';
 import '../services/device_info_service.dart';
@@ -46,28 +45,22 @@ final deviceCompatibilityProvider =
 });
 
 /// Notifier для управления состоянием информации об устройстве
-class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
-  DeviceInfoNotifier(this._service) : super(const AsyncValue.loading()) {
-    _loadDeviceInfo();
-  }
+class DeviceInfoNotifier extends AsyncNotifier<DeviceInfoModel> {
+  late DeviceInfoService _service;
 
-  final DeviceInfoService _service;
-
-  /// Загрузка информации об устройстве
-  Future<void> _loadDeviceInfo() async {
-    try {
-      final deviceInfo = await _service.getDeviceInfo();
-      state = AsyncValue.data(deviceInfo);
-    } catch (error, stackTrace) {
-      state = AsyncValue.error(error, stackTrace);
-    }
+  @override
+  Future<DeviceInfoModel> build() async {
+    _service = ref.read(deviceInfoServiceProvider);
+    return await _service.getDeviceInfo();
   }
 
   /// Обновление информации об устройстве
   Future<void> refresh() async {
-    state = const AsyncValue.loading();
     _service.clearCache();
-    await _loadDeviceInfo();
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await _service.getDeviceInfo();
+    });
   }
 
   /// Получение отпечатка устройства
@@ -129,9 +122,8 @@ class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
 
 /// Провайдер для DeviceInfoNotifier
 final deviceInfoNotifierProvider = 
-    StateNotifierProvider<DeviceInfoNotifier, AsyncValue<DeviceInfoModel>>((ref) {
-  final service = ref.read(deviceInfoServiceProvider);
-  return DeviceInfoNotifier(service);
+    AsyncNotifierProvider<DeviceInfoNotifier, DeviceInfoModel>(() {
+  return DeviceInfoNotifier();
 });
 
 /// Класс для определения требований совместимости
