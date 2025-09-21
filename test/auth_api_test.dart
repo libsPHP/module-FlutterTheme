@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/src/api/auth_api.dart';
 import 'package:flutter_magento/src/api/magento_api_client.dart';
@@ -18,14 +17,14 @@ void main() {
         '/rest/V1/integration/customer/token',
         data: anyNamed('data'),
       )).thenAnswer((_) async => Response(
-        requestOptions: RequestOptions(path: '/'),
-        data: {
-          'access_token': 'mock_access_token',
-          'refresh_token': 'mock_refresh_token',
-          'expires_in': 3600,
-        },
-        statusCode: 200,
-      ));
+            requestOptions: RequestOptions(path: '/'),
+            data: {
+              'access_token': 'mock_access_token',
+              'refresh_token': 'mock_refresh_token',
+              'expires_in': 3600,
+            },
+            statusCode: 200,
+          ));
 
       final result = await authApi.login(
         email: 'test@example.com',
@@ -37,4 +36,3 @@ void main() {
     });
   });
 }
-

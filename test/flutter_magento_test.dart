@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/flutter_magento.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:flutter_magento/src/models/cart_models.dart';
 
 // Mock classes for testing
 class MockMagentoApiClient extends Mock implements MagentoApiClient {}
@@ -227,10 +228,12 @@ void main() {
 
       test('should handle shipping estimation errors gracefully', () async {
         try {
-          await magento.estimateCustomerCartShipping({
-            'country_id': 'US',
-            'postcode': '12345',
-          });
+          await magento.estimateCustomerCartShipping(
+            Address(
+              countryId: 'US',
+              postcode: '12345',
+            ),
+          );
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());

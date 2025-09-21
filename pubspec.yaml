@@ -64,9 +64,6 @@ dependencies:
   # Real-time Communication
   socket_io_client: ^3.1.2
   
-  # Image Caching and Optimization
-  cached_network_image: ^3.3.1
-  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:

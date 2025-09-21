@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/src/flutter_magento_core.dart';
-import 'package:flutter_magento/src/exceptions/magento_exception.dart';
 
 /// Simplified tests for the main library functionality
 /// These tests focus on the core functionality without complex mocking
@@ -20,7 +19,7 @@ void main() {
       test('should return same instance', () {
         final instance1 = FlutterMagentoCore.instance;
         final instance2 = FlutterMagentoCore.instance;
-        
+
         expect(instance1, same(instance2));
       });
 
@@ -41,7 +40,7 @@ void main() {
 
         // This will likely fail without a real API, but we test the structure
         expect(result, isA<bool>());
-        
+
         if (result) {
           expect(magento.isInitialized, isTrue);
           expect(magento.baseUrl, equals('https://demo.magento.com'));
@@ -59,7 +58,7 @@ void main() {
 
       test('should require baseUrl parameter', () async {
         final result = await magento.initialize(baseUrl: '');
-        
+
         expect(result, isFalse);
         expect(magento.isInitialized, isFalse);
       });
@@ -83,10 +82,10 @@ void main() {
       test('should reset state correctly', () async {
         // Try to initialize
         await magento.initialize(baseUrl: 'https://demo.magento.com');
-        
+
         // Reset
         magento.reset();
-        
+
         expect(magento.isInitialized, isFalse);
         expect(magento.baseUrl, isNull);
       });
@@ -95,7 +94,7 @@ void main() {
         magento.reset();
         magento.reset();
         magento.reset();
-        
+
         expect(magento.isInitialized, isFalse);
       });
     });

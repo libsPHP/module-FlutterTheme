@@ -298,7 +298,7 @@ class _CartScreenState extends State<CartScreen> {
   Future<void> _removeItem(AppProvider provider, SimpleCartItem item) async {
     // final navigator = Navigator.of(context);
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(

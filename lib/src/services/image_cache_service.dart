@@ -15,72 +15,83 @@ class ImageCacheService extends ChangeNotifier {
 
   static const int maxCacheSize = 100 * 1024 * 1024; // 100MB
   static const Duration defaultCacheDuration = Duration(days: 7);
-  
+
   final Map<String, Completer<void>> _preloadingImages = {};
   final Set<String> _preloadedUrls = {};
-  
+
   /// Initialize the image cache service
   Future<void> initialize() async {
     await _cleanupOldCache();
   }
 
   /// Get optimized image URL based on device characteristics
-  String getOptimizedImageUrl(String originalUrl, {
+  String getOptimizedImageUrl(
+    String originalUrl, {
     int? width,
     int? height,
     ImageQuality quality = ImageQuality.medium,
   }) {
     if (originalUrl.isEmpty) return originalUrl;
-    
+
     // Get device pixel ratio for optimal sizing
-    final devicePixelRatio = WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
-    
+    final devicePixelRatio =
+        WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
+
     // Calculate optimal dimensions
-    final optimalWidth = width != null ? (width * devicePixelRatio).round() : null;
-    final optimalHeight = height != null ? (height * devicePixelRatio).round() : null;
-    
+    final optimalWidth =
+        width != null ? (width * devicePixelRatio).round() : null;
+    final optimalHeight =
+        height != null ? (height * devicePixelRatio).round() : null;
+
     // For Magento, append resize parameters if URL supports it
-    if (originalUrl.contains('magento') || originalUrl.contains('media/catalog')) {
+    if (originalUrl.contains('magento') ||
+        originalUrl.contains('media/catalog')) {
       final uri = Uri.parse(originalUrl);
       final queryParams = Map<String, String>.from(uri.queryParameters);
-      
+
       if (optimalWidth != null) queryParams['width'] = optimalWidth.toString();
-      if (optimalHeight != null) queryParams['height'] = optimalHeight.toString();
+      if (optimalHeight != null)
+        queryParams['height'] = optimalHeight.toString();
       queryParams['quality'] = quality.value.toString();
-      
+
       return uri.replace(queryParameters: queryParams).toString();
     }
-    
+
     return originalUrl;
   }
 
   /// Preload images for better user experience
-  Future<void> preloadImages(List<String> imageUrls, {
+  Future<void> preloadImages(
+    List<String> imageUrls, {
     int? width,
     int? height,
   }) async {
-    final futures = imageUrls.map((url) => preloadImage(url, width: width, height: height));
+    final futures =
+        imageUrls.map((url) => preloadImage(url, width: width, height: height));
     await Future.wait(futures);
   }
 
   /// Preload a single image
-  Future<void> preloadImage(String imageUrl, {
+  Future<void> preloadImage(
+    String imageUrl, {
     int? width,
     int? height,
   }) async {
     if (imageUrl.isEmpty || _preloadedUrls.contains(imageUrl)) return;
-    
+
     // Avoid duplicate preloading
     if (_preloadingImages.containsKey(imageUrl)) {
       return _preloadingImages[imageUrl]!.future;
     }
-    
+
     final completer = Completer<void>();
     _preloadingImages[imageUrl] = completer;
-    
+
     try {
-      final optimizedUrl = getOptimizedImageUrl(imageUrl, width: width, height: height);
-      await precacheImage(CachedNetworkImageProvider(optimizedUrl), NavigationService.navigatorKey.currentContext!);
+      final optimizedUrl =
+          getOptimizedImageUrl(imageUrl, width: width, height: height);
+      await precacheImage(CachedNetworkImageProvider(optimizedUrl),
+          NavigationService.navigatorKey.currentContext!);
       _preloadedUrls.add(imageUrl);
       completer.complete();
     } catch (e) {
@@ -105,11 +116,13 @@ class ImageCacheService extends ChangeNotifier {
     bool enableLazyLoading = true,
   }) {
     if (imageUrl.isEmpty) {
-      return errorWidget?.call(NavigationService.navigatorKey.currentContext!, imageUrl, 'Empty URL') ??
+      return errorWidget?.call(NavigationService.navigatorKey.currentContext!,
+              imageUrl, 'Empty URL') ??
           _buildDefaultPlaceholder();
     }
 
-    final optimizedUrl = getOptimizedImageUrl(imageUrl, width: width, height: height);
+    final optimizedUrl =
+        getOptimizedImageUrl(imageUrl, width: width, height: height);
 
     if (enableLazyLoading) {
       return _LazyLoadingImage(
@@ -130,7 +143,8 @@ class ImageCacheService extends ChangeNotifier {
       fit: fit,
       fadeInDuration: fadeInDuration,
       placeholder: placeholder,
-      errorWidget: errorWidget ?? (context, url, error) => _buildDefaultPlaceholder(),
+      errorWidget:
+          errorWidget ?? (context, url, error) => _buildDefaultPlaceholder(),
       cacheManager: DefaultCacheManager(),
       memCacheWidth: width,
       memCacheHeight: height,
@@ -148,22 +162,23 @@ class ImageCacheService extends ChangeNotifier {
   Future<Map<String, dynamic>> getCacheStats() async {
     try {
       final cacheDir = await getTemporaryDirectory();
-      final libCachedImageDataDir = Directory('${cacheDir.path}/libCachedImageData');
-      
+      final libCachedImageDataDir =
+          Directory('${cacheDir.path}/libCachedImageData');
+
       if (!libCachedImageDataDir.existsSync()) {
         return {'size': 0, 'files': 0};
       }
-      
+
       int totalSize = 0;
       int fileCount = 0;
-      
+
       await for (final entity in libCachedImageDataDir.list(recursive: true)) {
         if (entity is File) {
           totalSize += await entity.length();
           fileCount++;
         }
       }
-      
+
       return {
         'size': totalSize,
         'files': fileCount,
@@ -236,7 +251,6 @@ class _LazyLoadingImage extends StatefulWidget {
 }
 
 class _LazyLoadingImageState extends State<_LazyLoadingImage> {
-  bool _isVisible = false;
   bool _shouldLoad = false;
 
   @override
@@ -258,8 +272,9 @@ class _LazyLoadingImageState extends State<_LazyLoadingImage> {
               fit: widget.fit,
               fadeInDuration: widget.fadeInDuration,
               placeholder: widget.placeholder,
-              errorWidget: widget.errorWidget ?? (context, url, error) => 
-                  ImageCacheService()._buildDefaultPlaceholder(),
+              errorWidget: widget.errorWidget ??
+                  (context, url, error) =>
+                      ImageCacheService()._buildDefaultPlaceholder(),
               memCacheWidth: widget.width?.toInt(),
               memCacheHeight: widget.height?.toInt(),
             )
