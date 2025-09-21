@@ -113,24 +113,6 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  Widget _buildLoadingImage(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[200],
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          value: loadingProgress?.expectedTotalBytes != null
-              ? loadingProgress!.cumulativeBytesLoaded / 
-                loadingProgress.expectedTotalBytes!
-              : null,
-        ),
-      ),
-    );
-  }
 
   Widget _buildProductName(ThemeData theme) {
     return Text(

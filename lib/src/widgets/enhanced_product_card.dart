@@ -293,25 +293,6 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
     );
   }
 
-  Widget _buildLoadingImage(ImageChunkEvent loadingProgress) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.grey[100],
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          value: loadingProgress.expectedTotalBytes != null
-              ? loadingProgress.cumulativeBytesLoaded / 
-                loadingProgress.expectedTotalBytes!
-              : null,
-          strokeWidth: 2,
-        ),
-      ),
-    );
-  }
 
   Widget _buildDiscountBadge(ThemeData theme) {
     final discount = ((widget.product.price - widget.product.specialPrice!) / 
