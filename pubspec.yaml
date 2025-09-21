@@ -1,6 +1,6 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration
-version: 2.10.0+112
+version: 3.0.0
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 
 environment:
