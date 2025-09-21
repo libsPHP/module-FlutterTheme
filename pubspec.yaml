@@ -56,7 +56,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   
   # Network Connectivity
-  connectivity_plus: ^6.1.5
+  connectivity_plus: ^7.0.0
   
   # Device Information
   device_info_plus: ^12.1.0
