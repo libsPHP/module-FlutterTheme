@@ -1,3 +1,11 @@
+## 2.8.1+109
+
+* **Publishing Fixes**: Fixed all publishing validation errors for pub.dev
+* **Import Issues**: Resolved Customer class import conflicts between auth_models and customer models
+* **Code Quality**: Removed unnecessary .toList() calls in spread operators
+* **Style Fixes**: Fixed unnecessary const keywords in TextStyle constructors
+* **Git State**: Cleaned up git state for publishing requirements
+
 ## 2.8.0+108
 
 * **Code Cleanup**: Removed unused _buildLoadingImage methods from widget files
