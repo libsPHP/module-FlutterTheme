@@ -1,22 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_magento/flutter_magento.dart';
 
-// Простые модели для демо
-class SimpleProduct {
+// Модели для реальных данных Magento
+class MagentoProduct {
   final String id;
   final String name;
   final String sku;
   final double price;
+  final double? specialPrice;
   final bool inStock;
+  final String? imageUrl;
+  final String? description;
+  final List<String> categories;
 
-  SimpleProduct({
+  MagentoProduct({
     required this.id,
     required this.name,
     required this.sku,
     required this.price,
+    this.specialPrice,
     this.inStock = true,
+    this.imageUrl,
+    this.description,
+    this.categories = const [],
   });
+
+  factory MagentoProduct.fromGraphQL(Map<String, dynamic> data) {
+    final priceRange = data['price_range']?['minimum_price'];
+    final regularPrice = priceRange?['regular_price']?['value'] ?? 0.0;
+    final finalPrice = priceRange?['final_price']?['value'] ?? regularPrice;
+    
+    return MagentoProduct(
+      id: data['id']?.toString() ?? '',
+      name: data['name'] ?? '',
+      sku: data['sku'] ?? '',
+      price: double.tryParse(regularPrice.toString()) ?? 0.0,
+      specialPrice: finalPrice != regularPrice ? double.tryParse(finalPrice.toString()) : null,
+      inStock: data['stock_status'] == 'IN_STOCK',
+      imageUrl: data['small_image']?['url'],
+      description: data['description']?['html'] ?? data['short_description']?['html'],
+      categories: (data['categories'] as List?)
+          ?.map((cat) => cat['name']?.toString() ?? '')
+          .where((name) => name.isNotEmpty)
+          .toList() ?? [],
+    );
+  }
+}
+
+class MagentoCategory {
+  final String id;
+  final String name;
+  final String urlKey;
+  final int childrenCount;
+  final int level;
+  final List<MagentoCategory> children;
+
+  MagentoCategory({
+    required this.id,
+    required this.name,
+    required this.urlKey,
+    required this.childrenCount,
+    required this.level,
+    this.children = const [],
+  });
+
+  factory MagentoCategory.fromGraphQL(Map<String, dynamic> data) {
+    return MagentoCategory(
+      id: data['id']?.toString() ?? '',
+      name: data['name'] ?? '',
+      urlKey: data['url_key'] ?? '',
+      childrenCount: data['children_count'] ?? 0,
+      level: data['level'] ?? 0,
+      children: (data['children'] as List?)
+          ?.map((child) => MagentoCategory.fromGraphQL(child))
+          .toList() ?? [],
+    );
+  }
 }
 
 class SimpleCustomer {

@@ -520,6 +520,500 @@ class MagentoApiService {
     return [];
   }
 
+  /// Get category tree via GraphQL with detailed information
+  Future<Map<String, dynamic>> getCategoryTreeGraphQL(
+      {int rootCategoryId = 2}) async {
+    const query = '''
+      query(\$id: String!) {
+        category(id: \$id) {
+          id
+          name
+          url_key
+          url_path
+          description
+          meta_title
+          meta_description
+          meta_keywords
+          image
+          children_count
+          path
+          level
+          position
+          include_in_menu
+          is_active
+          children {
+            id
+            name
+            url_key
+            url_path
+            children_count
+            position
+            include_in_menu
+            is_active
+            children {
+              id
+              name
+              url_key
+              children_count
+              position
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query,
+        variables: {'id': rootCategoryId.toString()});
+    if (result?['data']?['category'] != null) {
+      return result!['data']['category'];
+    }
+
+    throw MagentoException('Failed to get category tree');
+  }
+
+  /// Get product reviews via GraphQL
+  Future<Map<String, dynamic>> getProductReviewsGraphQL(String sku,
+      {int page = 1, int pageSize = 10}) async {
+    const query = '''
+      query(\$sku: String!, \$currentPage: Int!, \$pageSize: Int!) {
+        products(filter: { sku: { eq: \$sku } }) {
+          items {
+            reviews(currentPage: \$currentPage, pageSize: \$pageSize) {
+              items {
+                average_rating
+                ratings_breakdown {
+                  name
+                  value
+                }
+                summary
+                text
+                created_at
+                nickname
+              }
+              page_info {
+                current_page
+                page_size
+                total_pages
+              }
+            }
+            review_count
+            rating_summary
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query, variables: {
+      'sku': sku,
+      'currentPage': page,
+      'pageSize': pageSize,
+    });
+
+    if (result?['data']?['products']?['items']?.isNotEmpty == true) {
+      return result!['data']['products']['items'][0];
+    }
+
+    throw MagentoException('Failed to get product reviews');
+  }
+
+  /// Get product filters/facets via GraphQL
+  Future<Map<String, dynamic>> getProductFiltersGraphQL(
+      {String? categoryId}) async {
+    final filterCondition = categoryId != null
+        ? 'filter: { category_id: { eq: "$categoryId" } }, '
+        : '';
+
+    final query = '''
+      query {
+        products(${filterCondition}pageSize: 1) {
+          aggregations {
+            attribute_code
+            label
+            count
+            options {
+              label
+              value
+              count
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['products']?['aggregations'] != null) {
+      return {'filters': result!['data']['products']['aggregations']};
+    }
+
+    return {'filters': []};
+  }
+
+  /// Get wishlist via GraphQL (requires authentication)
+  Future<Map<String, dynamic>> getWishlistGraphQL() async {
+    const query = '''
+      query {
+        customer {
+          wishlist {
+            items_count
+            sharing_code
+            updated_at
+            items {
+              id
+              quantity
+              description
+              added_at
+              product {
+                id
+                name
+                sku
+                url_key
+                price_range {
+                  minimum_price {
+                    final_price {
+                      value
+                      currency
+                    }
+                  }
+                }
+                small_image {
+                  url
+                  label
+                }
+                stock_status
+              }
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['customer']?['wishlist'] != null) {
+      return result!['data']['customer']['wishlist'];
+    }
+
+    throw MagentoException('Failed to get wishlist');
+  }
+
+  /// Get customer orders via GraphQL
+  Future<Map<String, dynamic>> getCustomerOrdersGraphQL(
+      {int page = 1, int pageSize = 10}) async {
+    const query = '''
+      query(\$currentPage: Int!, \$pageSize: Int!) {
+        customer {
+          orders(currentPage: \$currentPage, pageSize: \$pageSize) {
+            items {
+              id
+              number
+              order_date
+              status
+              state
+              total {
+                grand_total {
+                  value
+                  currency
+                }
+                base_grand_total {
+                  value
+                  currency
+                }
+                subtotal {
+                  value
+                  currency
+                }
+                total_tax {
+                  value
+                  currency
+                }
+                total_shipping {
+                  value
+                  currency
+                }
+              }
+              items {
+                id
+                product_name
+                product_sku
+                quantity_ordered
+                quantity_shipped
+                quantity_invoiced
+                quantity_refunded
+                product_sale_price {
+                  value
+                  currency
+                }
+                selected_options {
+                  label
+                  value
+                }
+                product {
+                  id
+                  name
+                  sku
+                  small_image {
+                    url
+                    label
+                  }
+                }
+              }
+              shipping_address {
+                firstname
+                lastname
+                street
+                city
+                region {
+                  region
+                  region_code
+                }
+                postcode
+                country_code
+                telephone
+              }
+              billing_address {
+                firstname
+                lastname
+                street
+                city
+                region {
+                  region
+                  region_code
+                }
+                postcode
+                country_code
+                telephone
+              }
+              payment_methods {
+                name
+                type
+              }
+              shipping_method
+            }
+            page_info {
+              current_page
+              page_size
+              total_pages
+            }
+            total_count
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query, variables: {
+      'currentPage': page,
+      'pageSize': pageSize,
+    });
+
+    if (result?['data']?['customer']?['orders'] != null) {
+      return result!['data']['customer']['orders'];
+    }
+
+    throw MagentoException('Failed to get customer orders');
+  }
+
+  /// Get customer information via GraphQL
+  Future<Map<String, dynamic>> getCustomerInfoGraphQL() async {
+    const query = '''
+      query {
+        customer {
+          id
+          firstname
+          lastname
+          email
+          date_of_birth
+          gender
+          group_id
+          created_at
+          updated_at
+          addresses {
+            id
+            firstname
+            lastname
+            street
+            city
+            region {
+              region
+              region_code
+              region_id
+            }
+            postcode
+            country_code
+            telephone
+            default_shipping
+            default_billing
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['customer'] != null) {
+      return result!['data']['customer'];
+    }
+
+    throw MagentoException('Failed to get customer information');
+  }
+
+  /// Get product recommendations via GraphQL
+  Future<List<Map<String, dynamic>>> getProductRecommendationsGraphQL(
+      String sku) async {
+    const query = '''
+      query(\$sku: String!) {
+        products(filter: { sku: { eq: \$sku } }) {
+          items {
+            related_products {
+              id
+              name
+              sku
+              url_key
+              price_range {
+                minimum_price {
+                  final_price {
+                    value
+                    currency
+                  }
+                }
+              }
+              small_image {
+                url
+                label
+              }
+              stock_status
+            }
+            upsell_products {
+              id
+              name
+              sku
+              url_key
+              price_range {
+                minimum_price {
+                  final_price {
+                    value
+                    currency
+                  }
+                }
+              }
+              small_image {
+                url
+                label
+              }
+              stock_status
+            }
+            crosssell_products {
+              id
+              name
+              sku
+              url_key
+              price_range {
+                minimum_price {
+                  final_price {
+                    value
+                    currency
+                  }
+                }
+              }
+              small_image {
+                url
+                label
+              }
+              stock_status
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query, variables: {'sku': sku});
+    if (result?['data']?['products']?['items']?.isNotEmpty == true) {
+      final product = result!['data']['products']['items'][0];
+      final recommendations = <Map<String, dynamic>>[];
+
+      // Combine all recommendation types
+      if (product['related_products'] != null) {
+        recommendations.addAll(
+            List<Map<String, dynamic>>.from(product['related_products']));
+      }
+      if (product['upsell_products'] != null) {
+        recommendations.addAll(
+            List<Map<String, dynamic>>.from(product['upsell_products']));
+      }
+      if (product['crosssell_products'] != null) {
+        recommendations.addAll(
+            List<Map<String, dynamic>>.from(product['crosssell_products']));
+      }
+
+      return recommendations;
+    }
+
+    return [];
+  }
+
+  /// Get available countries via GraphQL
+  Future<List<Map<String, dynamic>>> getCountriesGraphQL() async {
+    const query = '''
+      query {
+        countries {
+          id
+          two_letter_abbreviation
+          three_letter_abbreviation
+          full_name_locale
+          full_name_english
+          available_regions {
+            id
+            code
+            name
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['countries'] != null) {
+      return List<Map<String, dynamic>>.from(result!['data']['countries']);
+    }
+
+    return [];
+  }
+
+  /// Search suggestions via GraphQL
+  Future<Map<String, dynamic>> getSearchSuggestionsGraphQL(String query) async {
+    const graphqlQuery = '''
+      query(\$query: String!) {
+        products(search: \$query, pageSize: 5) {
+          suggestions {
+            search
+          }
+          items {
+            id
+            name
+            sku
+            url_key
+            price_range {
+              minimum_price {
+                final_price {
+                  value
+                  currency
+                }
+              }
+            }
+            small_image {
+              url
+              label
+            }
+          }
+        }
+      }
+    ''';
+
+    final result =
+        await executeGraphQL(graphqlQuery, variables: {'query': query});
+    if (result?['data']?['products'] != null) {
+      return result!['data']['products'];
+    }
+
+    return {'suggestions': [], 'items': []};
+  }
+
   // ==================== REST API Methods ====================
 
   /// Customer Authentication

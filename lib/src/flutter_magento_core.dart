@@ -505,4 +505,66 @@ class FlutterMagentoCore {
       return false;
     }
   }
+
+  // ==================== Advanced GraphQL Methods ====================
+
+  /// Get detailed category tree via GraphQL
+  Future<Map<String, dynamic>> getCategoryTree({int rootCategoryId = 2}) async {
+    _checkInitialization();
+    return await _apiService.getCategoryTreeGraphQL(
+        rootCategoryId: rootCategoryId);
+  }
+
+  /// Get product reviews via GraphQL
+  Future<Map<String, dynamic>> getProductReviews(String sku,
+      {int page = 1, int pageSize = 10}) async {
+    _checkInitialization();
+    return await _apiService.getProductReviewsGraphQL(sku,
+        page: page, pageSize: pageSize);
+  }
+
+  /// Get product filters/facets via GraphQL
+  Future<Map<String, dynamic>> getProductFilters({String? categoryId}) async {
+    _checkInitialization();
+    return await _apiService.getProductFiltersGraphQL(categoryId: categoryId);
+  }
+
+  /// Get wishlist via GraphQL (requires authentication)
+  Future<Map<String, dynamic>> getWishlistGraphQL() async {
+    _checkInitialization();
+    return await _apiService.getWishlistGraphQL();
+  }
+
+  /// Get customer orders via GraphQL (requires authentication)
+  Future<Map<String, dynamic>> getCustomerOrdersGraphQL(
+      {int page = 1, int pageSize = 10}) async {
+    _checkInitialization();
+    return await _apiService.getCustomerOrdersGraphQL(
+        page: page, pageSize: pageSize);
+  }
+
+  /// Get detailed customer information via GraphQL (requires authentication)
+  Future<Map<String, dynamic>> getCustomerInfoGraphQL() async {
+    _checkInitialization();
+    return await _apiService.getCustomerInfoGraphQL();
+  }
+
+  /// Get product recommendations via GraphQL
+  Future<List<Map<String, dynamic>>> getProductRecommendations(
+      String sku) async {
+    _checkInitialization();
+    return await _apiService.getProductRecommendationsGraphQL(sku);
+  }
+
+  /// Get available countries via GraphQL
+  Future<List<Map<String, dynamic>>> getCountries() async {
+    _checkInitialization();
+    return await _apiService.getCountriesGraphQL();
+  }
+
+  /// Get search suggestions via GraphQL
+  Future<Map<String, dynamic>> getSearchSuggestions(String query) async {
+    _checkInitialization();
+    return await _apiService.getSearchSuggestionsGraphQL(query);
+  }
 }

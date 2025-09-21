@@ -146,6 +146,22 @@ class LoginPage extends StatelessWidget {
 }
 ```
 
+## 📱 Screenshots
+
+Вот как выглядит Flutter Magento Plugin в действии:
+
+<div align="center">
+  <img src="screenshots/main.jpg" alt="Главная страница" width="250"/>
+  <img src="screenshots/login.jpg" alt="Страница входа" width="250"/>
+  <img src="screenshots/signup.jpg" alt="Страница регистрации" width="250"/>
+</div>
+
+<div align="center">
+  <img src="screenshots/products.jpg" alt="Страница товаров" width="250"/>
+  <img src="screenshots/cart.jpg" alt="Корзина" width="250"/>
+  <img src="screenshots/settings.jpg" alt="Настройки" width="250"/>
+</div>
+
 ## 📚 API Reference
 
 ### Authentication
