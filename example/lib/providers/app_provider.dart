@@ -32,6 +32,18 @@ class MagentoProduct {
     final regularPrice = priceRange?['regular_price']?['value'] ?? 0.0;
     final finalPrice = priceRange?['final_price']?['value'] ?? regularPrice;
 
+    // Extract image URL from media gallery or small_image
+    String? imageUrl;
+    if (data['media_gallery_entries'] != null &&
+        (data['media_gallery_entries'] as List).isNotEmpty) {
+      final mediaEntry = (data['media_gallery_entries'] as List).first;
+      imageUrl = mediaEntry['file'];
+    } else if (data['small_image'] != null) {
+      imageUrl = data['small_image']['url'] ?? data['small_image'];
+    } else if (data['image'] != null) {
+      imageUrl = data['image']['url'] ?? data['image'];
+    }
+
     return MagentoProduct(
       id: data['id']?.toString() ?? '',
       name: data['name'] ?? '',
@@ -41,7 +53,7 @@ class MagentoProduct {
           ? double.tryParse(finalPrice.toString())
           : null,
       inStock: data['stock_status'] == 'IN_STOCK',
-      imageUrl: data['small_image']?['url'],
+      imageUrl: imageUrl,
       description:
           data['description']?['html'] ?? data['short_description']?['html'],
       categories:
@@ -161,7 +173,8 @@ class AppProvider extends ChangeNotifier {
   List<MagentoCategory> get categories => _categories;
 
   // Environment variables getters
-  String? get defaultApiUrl => dotenv.env['MAGENTO_API_URL'] ?? 'https://luma-demo.scandipwa.com/';
+  String? get defaultApiUrl =>
+      dotenv.env['MAGENTO_API_URL'] ?? 'https://luma-demo.scandipwa.com/';
   List<String> get alternativeUrls => [
     dotenv.env['MAGENTO_API_URL_ALT_1'] ?? '',
     dotenv.env['MAGENTO_API_URL_ALT_2'] ?? '',
@@ -333,9 +346,10 @@ class AppProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint('Load products error: $e');
-      
+
       // Если ошибка 401 (Unauthorized), создаем демо-продукты
-      if (e.toString().contains('401') || e.toString().contains('Unauthorized')) {
+      if (e.toString().contains('401') ||
+          e.toString().contains('Unauthorized')) {
         try {
           debugPrint('Creating demo products...');
           final demoProducts = _createDemoProducts();
@@ -482,9 +496,10 @@ class AppProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint('Failed to load categories: $e');
-      
+
       // Если ошибка 401 (Unauthorized), попробуем использовать публичный API
-      if (e.toString().contains('401') || e.toString().contains('Unauthorized')) {
+      if (e.toString().contains('401') ||
+          e.toString().contains('Unauthorized')) {
         try {
           debugPrint('Trying public categories API...');
           // Создаем демо-категории для тестирования
@@ -661,8 +676,10 @@ class AppProvider extends ChangeNotifier {
         price: 22.00,
         specialPrice: 20.00,
         inStock: true,
-        imageUrl: null,
-        description: 'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
+        description:
+            'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
         categories: ['Women', 'Tops'],
       ),
       MagentoProduct(
@@ -671,8 +688,10 @@ class AppProvider extends ChangeNotifier {
         sku: 'WSH12-XS-White',
         price: 21.00,
         inStock: true,
-        imageUrl: null,
-        description: 'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/wsh12-white_main_2.jpg',
+        description:
+            'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
         categories: ['Women', 'Tops'],
       ),
       MagentoProduct(
@@ -681,8 +700,10 @@ class AppProvider extends ChangeNotifier {
         sku: 'WSH03-XS-Gray',
         price: 54.00,
         inStock: true,
-        imageUrl: null,
-        description: 'The Hero Hoodie is perfect for those cool days and nights.',
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
+        description:
+            'The Hero Hoodie is perfect for those cool days and nights.',
         categories: ['Men', 'Tops'],
       ),
       MagentoProduct(
@@ -691,7 +712,8 @@ class AppProvider extends ChangeNotifier {
         sku: 'WSH04-XS-Gray',
         price: 62.00,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh04-gray_main_2.jpg',
         description: 'The Bruno Compete Hoodie offers comfort and style.',
         categories: ['Men', 'Tops'],
       ),
@@ -701,8 +723,10 @@ class AppProvider extends ChangeNotifier {
         sku: '24-WB01',
         price: 59.00,
         inStock: true,
-        imageUrl: null,
-        description: 'The Fusion Backpack is perfect for your daily adventures.',
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb01_2.jpg',
+        description:
+            'The Fusion Backpack is perfect for your daily adventures.',
         categories: ['Gear', 'Bags'],
       ),
       MagentoProduct(
@@ -711,7 +735,8 @@ class AppProvider extends ChangeNotifier {
         sku: '24-WB02',
         price: 45.00,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb02_2.jpg',
         description: 'The Push It Messenger Bag is stylish and functional.',
         categories: ['Gear', 'Bags'],
       ),
@@ -721,7 +746,8 @@ class AppProvider extends ChangeNotifier {
         sku: '24-WG01',
         price: 29.00,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg01_2.jpg',
         description: 'Perfect for your yoga practice.',
         categories: ['Gear', 'Fitness Equipment'],
       ),
@@ -731,7 +757,8 @@ class AppProvider extends ChangeNotifier {
         sku: '24-WG03',
         price: 45.00,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg03_2.jpg',
         description: 'Great for muscle recovery and flexibility.',
         categories: ['Gear', 'Fitness Equipment'],
       ),
@@ -741,7 +768,8 @@ class AppProvider extends ChangeNotifier {
         sku: '240-LV01',
         price: 9.99,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/240-lv01_2.jpg',
         description: 'High-quality training video for download.',
         categories: ['Training', 'Video Download'],
       ),
@@ -751,7 +779,8 @@ class AppProvider extends ChangeNotifier {
         sku: '24-WG04',
         price: 18.00,
         inStock: true,
-        imageUrl: null,
+        imageUrl:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg04_2.jpg',
         description: 'Essential yoga accessory for proper alignment.',
         categories: ['Gear', 'Fitness Equipment'],
       ),

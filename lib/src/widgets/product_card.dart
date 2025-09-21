@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product_models.dart';
+import '../services/image_cache_service.dart';
 
 /// Enhanced product card widget for Magento products
 class ProductCard extends StatelessWidget {
@@ -82,28 +83,17 @@ class ProductCard extends StatelessWidget {
       imageUrl = product.mediaGalleryEntries!.first.file;
     }
 
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[100],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: ImageCacheService().buildCachedImage(
+        imageUrl: imageUrl ?? '',
+        width: width?.toInt() ?? 200,
+        height: 200,
+        fit: BoxFit.cover,
+        enableLazyLoading: true,
+        placeholder: (context, url) => _buildPlaceholderImage(),
+        errorWidget: (context, url, error) => _buildPlaceholderImage(),
       ),
-      child: imageUrl != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return _buildPlaceholderImage();
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return _buildLoadingImage(context, child, loadingProgress);
-                },
-              ),
-            )
-          : _buildPlaceholderImage(),
     );
   }
 

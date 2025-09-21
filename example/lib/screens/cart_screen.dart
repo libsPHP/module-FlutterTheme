@@ -296,6 +296,9 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> _removeItem(AppProvider provider, SimpleCartItem item) async {
+    // final navigator = Navigator.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -316,7 +319,7 @@ class _CartScreenState extends State<CartScreen> {
 
     if (confirmed == true) {
       // In a real implementation, you would call an API to remove the item
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text('${item.name} removed from cart'),
           backgroundColor: Colors.orange,

@@ -1,26 +1,40 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/src/api/auth_api.dart';
+import 'package:flutter_magento/src/api/magento_api_client.dart';
 import 'package:mockito/mockito.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
-class MockClient extends Mock implements http.Client {}
+class MockMagentoApiClient extends Mock implements MagentoApiClient {}
 
 void main() {
   group('AuthApi', () {
-    test('customerLogin returns token on success', () async {
-      final client = MockClient();
-      final authApi = AuthApi('https://magento.instance.com', client);
+    test('login returns auth response on success', () async {
+      final client = MockMagentoApiClient();
+      final authApi = AuthApi(client);
 
-      when(client.post(
-        Uri.parse('https://magento.instance.com/rest/V1/integration/customer/token'),
-        headers: {'Content-Type': 'application/json'},
-        body: anyNamed('body'),
-      )).thenAnswer((_) async => http.Response('"mock_token"', 200));
+      // Mock the guestRequest method
+      when(client.guestRequest<Map<String, dynamic>>(
+        '/rest/V1/integration/customer/token',
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => Response(
+        requestOptions: RequestOptions(path: '/'),
+        data: {
+          'access_token': 'mock_access_token',
+          'refresh_token': 'mock_refresh_token',
+          'expires_in': 3600,
+        },
+        statusCode: 200,
+      ));
 
-      final token = await authApi.customerLogin('test@example.com', 'password');
+      final result = await authApi.login(
+        email: 'test@example.com',
+        password: 'password',
+      );
 
-      expect(token, 'mock_token');
+      expect(result.accessToken, 'mock_access_token');
+      expect(result.refreshToken, 'mock_refresh_token');
     });
   });
 }
+

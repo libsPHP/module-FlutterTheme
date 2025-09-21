@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import '../services/image_cache_service.dart';
 
 /// Enhanced product card with Material Design 3 styling
 /// Optimized for tax lien marketplace with modern UI/UX
@@ -249,27 +250,16 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       imageUrl = widget.product.thumbnail;
     }
 
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.grey[50],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: imageUrl != null
-            ? Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return _buildPlaceholderImage();
-                },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return _buildLoadingImage(loadingProgress);
-                },
-              )
-            : _buildPlaceholderImage(),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: ImageCacheService().buildCachedImage(
+        imageUrl: imageUrl ?? '',
+        width: widget.width?.toInt() ?? 250,
+        height: 200,
+        fit: BoxFit.cover,
+        enableLazyLoading: true,
+        placeholder: (context, url) => _buildPlaceholderImage(),
+        errorWidget: (context, url, error) => _buildPlaceholderImage(),
       ),
     );
   }

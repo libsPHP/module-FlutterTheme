@@ -49,6 +49,7 @@ export 'src/services/auth_service.dart';
 export 'src/services/cart_service.dart';
 export 'src/services/cache_service.dart';
 export 'src/services/cloud_feature_service.dart';
+export 'src/services/image_cache_service.dart';
 export 'src/services/localization_service.dart';
 export 'src/services/network_service.dart';
 export 'src/services/notification_service.dart';

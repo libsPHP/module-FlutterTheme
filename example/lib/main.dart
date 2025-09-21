@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_magento/flutter_magento.dart';
 import 'screens/home_screen.dart';
 import 'screens/auth_screen.dart';
 import 'screens/products_screen.dart';
@@ -19,6 +20,9 @@ void main() async {
     debugPrint('Warning: Could not load .env file: $e');
   }
   
+  // Initialize image cache service
+  await ImageCacheService().initialize();
+  
   runApp(const MyApp());
 }
 
@@ -31,6 +35,7 @@ class MyApp extends StatelessWidget {
       providers: [ChangeNotifierProvider(create: (_) => AppProvider())],
       child: MaterialApp(
         title: 'Flutter Magento Example',
+        navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           appBarTheme: const AppBarTheme(

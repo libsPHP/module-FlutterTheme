@@ -19,9 +19,30 @@ class _ProductsScreenState extends State<ProductsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<AppProvider>();
       if (provider.isInitialized && provider.products.isEmpty) {
-        provider.loadProducts();
+        provider.loadProducts().then((_) {
+          // Preload first batch of images
+          _preloadImages(provider.products.take(5).toList());
+        });
+      } else if (provider.products.isNotEmpty) {
+        // Preload images if products already loaded
+        _preloadImages(provider.products.take(5).toList());
       }
     });
+  }
+
+  Future<void> _preloadImages(List<MagentoProduct> products) async {
+    final imageUrls = products
+        .where((p) => p.imageUrl != null && p.imageUrl!.isNotEmpty)
+        .map((p) => p.imageUrl!)
+        .toList();
+
+    if (imageUrls.isNotEmpty) {
+      await ImageCacheService().preloadImages(
+        imageUrls,
+        width: 300,
+        height: 200,
+      );
+    }
   }
 
   @override
@@ -379,33 +400,18 @@ class _ProductCard extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    if (product.imageUrl != null && product.imageUrl!.isNotEmpty) {
-      return ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-        child: Image.network(
-          product.imageUrl!,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return _buildPlaceholderImage();
-          },
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Container(
-              height: 200,
-              child: Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
-    return _buildPlaceholderImage();
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+      child: ImageCacheService().buildCachedImage(
+        imageUrl: product.imageUrl ?? '',
+        width: 300,
+        height: 200,
+        fit: BoxFit.cover,
+        enableLazyLoading: true,
+        placeholder: (context, url) => _buildPlaceholderImage(),
+        errorWidget: (context, url, error) => _buildPlaceholderImage(),
+      ),
+    );
   }
 
   Widget _buildPlaceholderImage() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_magento/flutter_magento.dart';
 import '../providers/app_provider.dart';
 
 class ProductsByCategoryScreen extends StatefulWidget {
@@ -117,7 +118,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
           padding: const EdgeInsets.all(16),
           margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -164,7 +165,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -394,33 +395,18 @@ class _ProductCard extends StatelessWidget {
   }
 
   Widget _buildProductImage() {
-    if (product.imageUrl != null && product.imageUrl!.isNotEmpty) {
-      return ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-        child: Image.network(
-          product.imageUrl!,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return _buildPlaceholderImage();
-          },
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Container(
-              height: 200,
-              child: Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
-    return _buildPlaceholderImage();
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+      child: ImageCacheService().buildCachedImage(
+        imageUrl: product.imageUrl ?? '',
+        width: 300,
+        height: 200,
+        fit: BoxFit.cover,
+        enableLazyLoading: true,
+        placeholder: (context, url) => _buildPlaceholderImage(),
+        errorWidget: (context, url, error) => _buildPlaceholderImage(),
+      ),
+    );
   }
 
   Widget _buildPlaceholderImage() {

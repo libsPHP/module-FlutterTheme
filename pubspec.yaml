@@ -1,7 +1,7 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration
 license: NativeMindNONC
-version: 2.7.0
+version: 2.8.0+108
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 
 environment:
@@ -37,6 +37,11 @@ dependencies:
   drift: ^2.0.0
   sqlite3_flutter_libs: ^0.5.0
   
+  # Image Caching
+  cached_network_image: ^3.3.1
+  flutter_cache_manager: ^3.3.1
+  visibility_detector: ^0.4.0+2
+  
   # Network Connectivity
   connectivity_plus: ^7.0.0
   
@@ -58,6 +63,10 @@ dependencies:
   
   # Real-time Communication
   socket_io_client: ^3.1.2
+  
+  # Image Caching and Optimization
+  cached_network_image: ^3.3.1
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +81,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   
   # Testing (Modern 2025)
+  mockito: ^5.4.4  # Для совместимости с существующими тестами
   mocktail: ^1.0.4  # Современная альтернатива mockito
   test: ^1.24.9  # Стабильная версия
   alchemist: ^0.8.0  # Современная альтернатива golden_toolkit
