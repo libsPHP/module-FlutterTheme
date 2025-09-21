@@ -83,11 +83,7 @@ class _MagentoNotificationSnackbarState
   Widget _buildNotificationContent(MagentoNotification notification) {
     return Row(
       children: [
-        Icon(
-          _getNotificationIcon(notification),
-          color: Colors.white,
-          size: 20,
-        ),
+        Icon(_getNotificationIcon(notification), color: Colors.white, size: 20),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -188,10 +184,7 @@ class _MagentoNotificationSnackbarState
 
 /// Dialog that shows detailed notification information
 class MagentoNotificationDialog extends StatelessWidget {
-  const MagentoNotificationDialog({
-    super.key,
-    required this.notification,
-  });
+  const MagentoNotificationDialog({super.key, required this.notification});
 
   final MagentoNotification notification;
 
@@ -206,8 +199,9 @@ class MagentoNotificationDialog extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child:
-                Text(notification.title ?? _getDefaultTitle(notification.type)),
+            child: Text(
+              notification.title ?? _getDefaultTitle(notification.type),
+            ),
           ),
         ],
       ),
@@ -239,10 +233,7 @@ class MagentoNotificationDialog extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Details',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        const Text('Details', style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         _buildMetadataRow('Type', notification.type.name),
         _buildMetadataRow('Priority', notification.priority.name),
@@ -250,7 +241,9 @@ class MagentoNotificationDialog extends StatelessWidget {
         _buildMetadataRow('Age', _formatDuration(notification.age)),
         if (notification.expiresAt != null)
           _buildMetadataRow(
-              'Expires', _formatTimestamp(notification.expiresAt!)),
+            'Expires',
+            _formatTimestamp(notification.expiresAt!),
+          ),
       ],
     );
   }
@@ -273,10 +266,7 @@ class MagentoNotificationDialog extends StatelessWidget {
           ),
           child: Text(
             _formatData(notification.data!),
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12,
-            ),
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
           ),
         ),
       ],
@@ -466,7 +456,7 @@ class _MagentoNotificationListState extends State<MagentoNotificationList> {
                       value: type,
                       child: Text(type.name.toUpperCase()),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
             ),
@@ -491,7 +481,7 @@ class _MagentoNotificationListState extends State<MagentoNotificationList> {
                       value: priority,
                       child: Text(priority.name.toUpperCase()),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
             ),
@@ -538,8 +528,9 @@ class _MagentoNotificationListState extends State<MagentoNotificationList> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor:
-              _getNotificationColor(notification.type).withValues(alpha: 0.2),
+          backgroundColor: _getNotificationColor(
+            notification.type,
+          ).withValues(alpha: 0.2),
           child: Icon(
             _getNotificationIcon(notification.type),
             color: _getNotificationColor(notification.type),
@@ -573,14 +564,14 @@ class _MagentoNotificationListState extends State<MagentoNotificationList> {
             ),
           ],
         ),
-        trailing:
-            notification.data != null ? const Icon(Icons.info_outline) : null,
+        trailing: notification.data != null
+            ? const Icon(Icons.info_outline)
+            : null,
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) => MagentoNotificationDialog(
-              notification: notification,
-            ),
+            builder: (context) =>
+                MagentoNotificationDialog(notification: notification),
           );
         },
       ),

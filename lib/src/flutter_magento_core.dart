@@ -3,6 +3,8 @@ import 'services/magento_api_service.dart';
 import 'services/auth_service.dart';
 import 'services/cart_service.dart';
 import 'exceptions/magento_exception.dart';
+import 'models/customer.dart';
+import 'models/cart.dart';
 
 /// Main class for Flutter Magento library
 /// Provides access to all Magento functionality
@@ -255,13 +257,17 @@ class FlutterMagentoCore {
       }
     }
 
-    return await _apiService.searchProducts(query,
-        page: page, pageSize: pageSize);
+    return await _apiService.searchProducts(
+      query,
+      page: page,
+      pageSize: pageSize,
+    );
   }
 
   /// Get categories (using GraphQL by default)
-  Future<List<Map<String, dynamic>>> getCategories(
-      {bool useGraphQL = true}) async {
+  Future<List<Map<String, dynamic>>> getCategories({
+    bool useGraphQL = true,
+  }) async {
     _checkInitialization();
 
     if (useGraphQL) {
@@ -404,7 +410,8 @@ class FlutterMagentoCore {
 
   /// Estimate shipping
   Future<List<Map<String, dynamic>>> estimateShipping(
-      Map<String, dynamic> address) async {
+    Map<String, dynamic> address,
+  ) async {
     _checkInitialization();
     return await _cartService.estimateShipping(address);
   }
@@ -417,7 +424,8 @@ class FlutterMagentoCore {
 
   /// Place order
   Future<Map<String, dynamic>> placeOrder(
-      Map<String, dynamic> orderData) async {
+    Map<String, dynamic> orderData,
+  ) async {
     _checkInitialization();
     return await _cartService.placeOrder(orderData);
   }
@@ -450,7 +458,8 @@ class FlutterMagentoCore {
   void _checkInitialization() {
     if (!_isInitialized) {
       throw MagentoException(
-          'Flutter Magento not initialized. Call initialize() first.');
+        'Flutter Magento not initialized. Call initialize() first.',
+      );
     }
   }
 
@@ -512,15 +521,22 @@ class FlutterMagentoCore {
   Future<Map<String, dynamic>> getCategoryTree({int rootCategoryId = 2}) async {
     _checkInitialization();
     return await _apiService.getCategoryTreeGraphQL(
-        rootCategoryId: rootCategoryId);
+      rootCategoryId: rootCategoryId,
+    );
   }
 
   /// Get product reviews via GraphQL
-  Future<Map<String, dynamic>> getProductReviews(String sku,
-      {int page = 1, int pageSize = 10}) async {
+  Future<Map<String, dynamic>> getProductReviews(
+    String sku, {
+    int page = 1,
+    int pageSize = 10,
+  }) async {
     _checkInitialization();
-    return await _apiService.getProductReviewsGraphQL(sku,
-        page: page, pageSize: pageSize);
+    return await _apiService.getProductReviewsGraphQL(
+      sku,
+      page: page,
+      pageSize: pageSize,
+    );
   }
 
   /// Get product filters/facets via GraphQL
@@ -536,11 +552,15 @@ class FlutterMagentoCore {
   }
 
   /// Get customer orders via GraphQL (requires authentication)
-  Future<Map<String, dynamic>> getCustomerOrdersGraphQL(
-      {int page = 1, int pageSize = 10}) async {
+  Future<Map<String, dynamic>> getCustomerOrdersGraphQL({
+    int page = 1,
+    int pageSize = 10,
+  }) async {
     _checkInitialization();
     return await _apiService.getCustomerOrdersGraphQL(
-        page: page, pageSize: pageSize);
+      page: page,
+      pageSize: pageSize,
+    );
   }
 
   /// Get detailed customer information via GraphQL (requires authentication)
@@ -551,7 +571,8 @@ class FlutterMagentoCore {
 
   /// Get product recommendations via GraphQL
   Future<List<Map<String, dynamic>>> getProductRecommendations(
-      String sku) async {
+    String sku,
+  ) async {
     _checkInitialization();
     return await _apiService.getProductRecommendationsGraphQL(sku);
   }

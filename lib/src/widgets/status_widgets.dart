@@ -37,7 +37,9 @@ class MagentoCloudStatusWidget extends StatelessWidget {
   }
 
   Widget _buildCompactStatus(
-      BuildContext context, MagentoServiceStatus status) {
+    BuildContext context,
+    MagentoServiceStatus status,
+  ) {
     final (icon, color) = _getStatusIconAndColor(status);
 
     return Container(
@@ -262,10 +264,7 @@ class MagentoSyncIndicator extends StatelessWidget {
 
 /// Widget that displays network connection status
 class MagentoConnectionIndicator extends StatelessWidget {
-  const MagentoConnectionIndicator({
-    super.key,
-    this.showText = false,
-  });
+  const MagentoConnectionIndicator({super.key, this.showText = false});
 
   final bool showText;
 
@@ -274,8 +273,9 @@ class MagentoConnectionIndicator extends StatelessWidget {
     final networkService = MagentoServiceManager.instance.networkService;
 
     return StreamBuilder<bool>(
-      stream:
-          networkService.isOnline ? Stream.value(true) : Stream.value(false),
+      stream: networkService.isOnline
+          ? Stream.value(true)
+          : Stream.value(false),
       builder: (context, snapshot) {
         final isOnline = snapshot.data ?? false;
 
@@ -306,11 +306,7 @@ class MagentoConnectionIndicator extends StatelessWidget {
 
 /// Floating action button for manual sync
 class MagentoSyncFAB extends StatefulWidget {
-  const MagentoSyncFAB({
-    super.key,
-    this.onPressed,
-    this.backgroundColor,
-  });
+  const MagentoSyncFAB({super.key, this.onPressed, this.backgroundColor});
 
   final VoidCallback? onPressed;
   final Color? backgroundColor;
@@ -466,10 +462,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           'Service Status',
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const Spacer(),
         Chip(
@@ -487,7 +480,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Services',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         ...status.serviceStates.entries.map((entry) {
@@ -524,7 +517,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Cache',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Row(
@@ -563,7 +556,8 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
   }
 
   Widget _buildCloudFeatureStats(
-      Map<models.MagentoCloudFeatureType, MagentoCloudFeatureStats> stats) {
+    Map<models.MagentoCloudFeatureType, MagentoCloudFeatureStats> stats,
+  ) {
     final availableFeatures = stats.values.where((s) => s.isAvailable).length;
     final totalFeatures = stats.length;
 
@@ -572,7 +566,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
       children: [
         const Text(
           'Cloud Features',
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         Row(
@@ -605,10 +599,7 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              value,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
             Text(
               label,
               style: const TextStyle(fontSize: 12, color: Colors.grey),

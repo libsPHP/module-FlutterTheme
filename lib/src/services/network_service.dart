@@ -34,9 +34,10 @@ class NetworkService extends ChangeNotifier {
   String? get baseUrl => _baseUrl;
   Dio get dio => _dio;
   http.Client get httpClient => _httpClient;
-  
+
   /// Stream of connectivity changes
-  Stream<List<ConnectivityResult>> get connectionStream => _connectivity.onConnectivityChanged;
+  Stream<List<ConnectivityResult>> get connectionStream =>
+      _connectivity.onConnectivityChanged;
 
   /// Инициализация сетевого сервиса
   Future<void> initialize({
@@ -85,12 +86,14 @@ class NetworkService extends ChangeNotifier {
 
   /// Инициализация Dio с настройками
   void _initializeDio() {
-    _dio = Dio(BaseOptions(
-      baseUrl: _baseUrl!,
-      connectTimeout: Duration(milliseconds: _connectionTimeout),
-      receiveTimeout: Duration(milliseconds: _receiveTimeout),
-      headers: _defaultHeaders,
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: _baseUrl!,
+        connectTimeout: Duration(milliseconds: _connectionTimeout),
+        receiveTimeout: Duration(milliseconds: _receiveTimeout),
+        headers: _defaultHeaders,
+      ),
+    );
 
     // Добавляем интерцепторы
     _dio.interceptors.add(_createRetryInterceptor());
@@ -171,12 +174,14 @@ class NetworkService extends ChangeNotifier {
     return InterceptorsWrapper(
       onError: (error, handler) {
         final magentoException = _convertDioErrorToMagentoException(error);
-        handler.reject(DioException(
-          requestOptions: error.requestOptions,
-          error: magentoException,
-          type: error.type,
-          response: error.response,
-        ));
+        handler.reject(
+          DioException(
+            requestOptions: error.requestOptions,
+            error: magentoException,
+            type: error.type,
+            response: error.response,
+          ),
+        );
       },
     );
   }
@@ -190,21 +195,25 @@ class NetworkService extends ChangeNotifier {
 
   /// Настройка слушателя изменений подключения
   void _setupConnectivityListener() {
-    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
-      (List<ConnectivityResult> results) {
-        final wasOnline = _isOnline;
-        _isOnline = results.isNotEmpty && !results.every((result) => result == ConnectivityResult.none);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((
+      List<ConnectivityResult> results,
+    ) {
+      final wasOnline = _isOnline;
+      _isOnline =
+          results.isNotEmpty &&
+          !results.every((result) => result == ConnectivityResult.none);
 
-        if (wasOnline != _isOnline) {
-          notifyListeners();
-          if (kDebugMode) {
-            print(_isOnline
+      if (wasOnline != _isOnline) {
+        notifyListeners();
+        if (kDebugMode) {
+          print(
+            _isOnline
                 ? '🌐 Подключение восстановлено'
-                : '📵 Подключение потеряно');
-          }
+                : '📵 Подключение потеряно',
+          );
         }
-      },
-    );
+      }
+    });
   }
 
   /// GET запрос через Dio
@@ -336,13 +345,13 @@ class NetworkService extends ChangeNotifier {
 
   /// Получение статуса сети
   Map<String, dynamic> get status => {
-        'isOnline': _isOnline,
-        'isInitialized': _isInitialized,
-        'baseUrl': _baseUrl,
-        'connectionTimeout': _connectionTimeout,
-        'receiveTimeout': _receiveTimeout,
-        'maxRetries': _maxRetries,
-      };
+    'isOnline': _isOnline,
+    'isInitialized': _isInitialized,
+    'baseUrl': _baseUrl,
+    'connectionTimeout': _connectionTimeout,
+    'receiveTimeout': _receiveTimeout,
+    'maxRetries': _maxRetries,
+  };
 
   /// Преобразование DioException в MagentoException
   MagentoException _convertDioErrorToMagentoException(DioException error) {
@@ -363,16 +372,20 @@ class NetworkService extends ChangeNotifier {
       case DioExceptionType.connectionError:
         return MagentoException('Connection error', code: 'CONNECTION_ERROR');
       default:
-        return MagentoException(error.message ?? 'Unknown network error',
-            code: 'UNKNOWN_ERROR');
+        return MagentoException(
+          error.message ?? 'Unknown network error',
+          code: 'UNKNOWN_ERROR',
+        );
     }
   }
 
   /// Проверка инициализации
   void _checkInitialization() {
     if (!_isInitialized) {
-      throw MagentoException('NetworkService not initialized',
-          code: 'NOT_INITIALIZED');
+      throw MagentoException(
+        'NetworkService not initialized',
+        code: 'NOT_INITIALIZED',
+      );
     }
   }
 
