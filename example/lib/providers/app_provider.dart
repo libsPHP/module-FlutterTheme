@@ -172,6 +172,9 @@ class AppProvider extends ChangeNotifier {
   List<MagentoProduct> get searchResults => _searchResults;
   List<MagentoCategory> get categories => _categories;
 
+  // Profile service getter
+  ProfileService? get profileService => _isInitialized ? _magento.profile : null;
+
   // Environment variables getters
   String? get defaultApiUrl =>
       dotenv.env['MAGENTO_API_URL'] ?? 'https://luma-demo.scandipwa.com/';
@@ -271,23 +274,6 @@ class AppProvider extends ChangeNotifier {
         _currentCustomer = SimpleCustomer(
           id: '1',
           email: email,
-            firstName: 'Demo',
-            lastName: 'User',
-          );
-          notifyListeners();
-          return true;
-        } else {
-          _setError('Invalid credentials');
-          return false;
-        }
-      }
-    } catch (e) {
-      // Fallback to demo authentication on error
-      if (email.isNotEmpty && password.isNotEmpty) {
-        _isAuthenticated = true;
-        _currentCustomer = SimpleCustomer(
-          id: '1',
-          email: email,
           firstName: 'Demo',
           lastName: 'User',
         );
@@ -336,18 +322,6 @@ class AppProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       // Fallback to demo registration for testing
-      _isAuthenticated = true;
-      _currentCustomer = SimpleCustomer(
-        id: '2',
-        email: email,
-        firstName: firstName,
-          lastName: lastName,
-        );
-        notifyListeners();
-        return true;
-      }
-    } catch (e) {
-      // Fallback to demo registration on error
       _isAuthenticated = true;
       _currentCustomer = SimpleCustomer(
         id: '2',

@@ -9,6 +9,7 @@ import 'api/wishlist_api.dart';
 import 'api/search_api.dart';
 import 'api/checkout_api.dart';
 import 'api/customer_api.dart';
+import 'services/profile_service.dart';
 import 'models/auth_models.dart' as auth_models;
 import 'models/product_models.dart';
 import 'models/cart_models.dart' as cart_models;
@@ -37,6 +38,7 @@ class FlutterMagento {
   late final SearchApi _searchApi;
   late final CheckoutApi _checkoutApi;
   late final CustomerApi _customerApi;
+  late final ProfileService _profileService;
   bool _isInitialized = false;
 
   /// Get the platform version.
@@ -72,6 +74,7 @@ class FlutterMagento {
         _searchApi = SearchApi(_apiClient);
         _checkoutApi = CheckoutApi(_apiClient);
         _customerApi = CustomerApi(_apiClient);
+        _profileService = ProfileService(_customerApi);
 
         // Initialize custom attributes manager
         CustomAttributesManager.instance.enableDebugLogging =
@@ -134,6 +137,9 @@ class FlutterMagento {
 
   /// Get the customer API instance
   CustomerApi get customer => _customerApi;
+
+  /// Get the profile service instance
+  ProfileService get profile => _profileService;
 
   // ==================== AUTHENTICATION ====================
 
@@ -234,9 +240,7 @@ class FlutterMagento {
   }
 
   /// Reset customer password
-  Future<bool> resetPassword({
-    required String email,
-  }) async {
+  Future<bool> resetPassword({required String email}) async {
     _checkInitialization();
     return await _authApi.resetPassword(email: email);
   }
@@ -467,10 +471,7 @@ class FlutterMagento {
   }) async {
     _checkInitialization();
 
-    return await _cartApi.removeFromCart(
-      cartId: cartId,
-      itemId: itemId,
-    );
+    return await _cartApi.removeFromCart(cartId: cartId, itemId: itemId);
   }
 
   /// Remove item from customer cart
@@ -515,10 +516,7 @@ class FlutterMagento {
   }) async {
     _checkInitialization();
 
-    return await _cartApi.applyCoupon(
-      cartId: cartId,
-      couponCode: couponCode,
-    );
+    return await _cartApi.applyCoupon(cartId: cartId, couponCode: couponCode);
   }
 
   /// Apply coupon to customer cart
@@ -563,15 +561,13 @@ class FlutterMagento {
   }) async {
     _checkInitialization();
 
-    return await _cartApi.estimateShipping(
-      cartId: cartId,
-      address: address,
-    );
+    return await _cartApi.estimateShipping(cartId: cartId, address: address);
   }
 
   /// Estimate shipping for customer cart
   Future<List<cart_models.ShippingMethod>> estimateCustomerCartShipping(
-      cart_models.Address address) async {
+    cart_models.Address address,
+  ) async {
     _checkInitialization();
 
     return await _cartApi.estimateCustomerCartShipping(address);
@@ -890,7 +886,8 @@ class FlutterMagento {
 
   /// Get attribute options
   Future<List<AttributeOption>> getAttributeOptions(
-      String attributeCode) async {
+    String attributeCode,
+  ) async {
     _checkInitialization();
 
     return await _searchApi.getAttributeOptions(attributeCode);
@@ -998,7 +995,9 @@ class FlutterMagento {
   }
 
   /// Get checkout session
-  Future<checkout_models.CheckoutSession> getCheckoutSession(String sessionId) async {
+  Future<checkout_models.CheckoutSession> getCheckoutSession(
+    String sessionId,
+  ) async {
     _checkInitialization();
 
     return await _checkoutApi.getCheckoutSession(sessionId);
@@ -1252,7 +1251,8 @@ class FlutterMagento {
   }
 
   /// Get customer attributes
-  Future<List<customer_models.CustomerAttribute>> getCustomerAttributes() async {
+  Future<List<customer_models.CustomerAttribute>>
+  getCustomerAttributes() async {
     _checkInitialization();
 
     return await _customerApi.getCustomerAttributes();
@@ -1325,7 +1325,8 @@ class FlutterMagento {
   void _checkInitialization() {
     if (!_isInitialized) {
       throw StateError(
-          'FlutterMagento is not initialized. Call initialize() first.');
+        'FlutterMagento is not initialized. Call initialize() first.',
+      );
     }
   }
 
@@ -1351,8 +1352,11 @@ class FlutterMagento {
     int priority = 0,
   }) {
     _checkInitialization();
-    CustomAttributesManager.instance
-        .registerAdapter(adapterId, adapter, priority: priority);
+    CustomAttributesManager.instance.registerAdapter(
+      adapterId,
+      adapter,
+      priority: priority,
+    );
   }
 
   /// Unregister a custom attributes adapter
