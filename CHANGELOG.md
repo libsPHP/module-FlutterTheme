@@ -1,3 +1,9 @@
+## 2.8.0+108
+
+* **Code Cleanup**: Removed unused _buildLoadingImage methods from widget files
+* **Performance**: Improved widget rendering by removing dead code
+* **Maintenance**: Code cleanup and optimization for better maintainability
+
 ## 2.7.0
 
 * **Type Safety**: Fixed critical return type issues in cart API methods
