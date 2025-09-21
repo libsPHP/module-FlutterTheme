@@ -1,15 +1,43 @@
-# Example and test files
-example/
-test/
-*.test.dart
-*_test.dart
-lib/src/examples/
+# Generated files
+*.g.dart
+*.freezed.dart
 
-# Build artifacts
+# Analysis files
+analysis_*.txt
+analysis_*.yaml
+analysis_grouped.txt
+analysis_errors_grouped.txt
+analysis_report*.txt
+
+# Coverage files
+coverage/
+lcov.info
+
+# Build files
 build/
 .dart_tool/
 .packages
-pubspec.lock
+
+# Test files (keep test directory structure but exclude specific test artifacts)
+test_coverage.sh
+TEST_COVERAGE_REPORT.md
+
+# Development files
+DEVELOPMENT.md
+docker-compose.yml
+Dockerfile.web
+gitlab-variables.md
+update.sh
+
+# Documentation backup
+doc_backup/
+gitbook/
+
+# Example app (not needed for package distribution)
+example/
+
+# Screenshots (too large for package)
+screenshots/
 
 # IDE files
 *.iml
@@ -20,27 +48,9 @@ pubspec.lock
 .DS_Store
 Thumbs.db
 
-# Documentation files that are not needed for the package
-doc/
-doc_backup/
-*.md
-!README.md
-!CHANGELOG.md
-!LICENSE
+# Logs
+*.log
 
-# Development files
-DEVELOPMENT.md
-IMPLEMENTATION_SUMMARY.md
-MIGRATION_GUIDE.md
-REFACTORING_SUMMARY.md
-UNIVERSAL_CUSTOM_ATTRIBUTES.md
-README_FLUTTER_MAGENTO_CUSTOM_ATTRIBUTES*.md
-README_*.md
-
-# Docker files
-Dockerfile*
-docker-compose.yml
-
-# Scripts
-update.sh
-gitlab-variables.md
+# Temporary files
+*.tmp
+*.temp

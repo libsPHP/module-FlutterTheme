@@ -16,8 +16,9 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       specialPrice: (json['specialPrice'] as num?)?.toDouble(),
       description: json['description'] as String?,
       shortDescription: json['shortDescription'] as String?,
-      images:
-          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       thumbnail: json['thumbnail'] as String?,
       isInStock: json['isInStock'] as bool?,
       stockQuantity: (json['stockQuantity'] as num?)?.toInt(),
@@ -43,74 +44,55 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'sku': instance.sku,
-    'name': instance.name,
-    'typeId': instance.typeId,
-    'price': instance.price,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('specialPrice', instance.specialPrice);
-  writeNotNull('description', instance.description);
-  writeNotNull('shortDescription', instance.shortDescription);
-  writeNotNull('images', instance.images);
-  writeNotNull('thumbnail', instance.thumbnail);
-  writeNotNull('isInStock', instance.isInStock);
-  writeNotNull('stockQuantity', instance.stockQuantity);
-  writeNotNull('weight', instance.weight);
-  writeNotNull('categories', instance.categories);
-  writeNotNull(
-      'attributes', instance.attributes?.map((e) => e.toJson()).toList());
-  writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());
-  writeNotNull(
-      'variations', instance.variations?.map((e) => e.toJson()).toList());
-  writeNotNull('customAttributes', instance.customAttributes);
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'sku': instance.sku,
+      'name': instance.name,
+      'typeId': instance.typeId,
+      'price': instance.price,
+      'specialPrice': ?instance.specialPrice,
+      'description': ?instance.description,
+      'shortDescription': ?instance.shortDescription,
+      'images': ?instance.images,
+      'thumbnail': ?instance.thumbnail,
+      'isInStock': ?instance.isInStock,
+      'stockQuantity': ?instance.stockQuantity,
+      'weight': ?instance.weight,
+      'categories': ?instance.categories,
+      'attributes': ?instance.attributes?.map((e) => e.toJson()).toList(),
+      'options': ?instance.options?.map((e) => e.toJson()).toList(),
+      'variations': ?instance.variations?.map((e) => e.toJson()).toList(),
+      'customAttributes': ?instance.customAttributes,
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'updatedAt': ?instance.updatedAt?.toIso8601String(),
+    };
 
 _$ProductAttributeImpl _$$ProductAttributeImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProductAttributeImpl(
-      code: json['code'] as String,
-      label: json['label'] as String,
-      value: json['value'] as String,
-      type: json['type'] as String?,
-      isRequired: json['isRequired'] as bool?,
-      isVisible: json['isVisible'] as bool?,
-      options:
-          (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    );
+  Map<String, dynamic> json,
+) => _$ProductAttributeImpl(
+  code: json['code'] as String,
+  label: json['label'] as String,
+  value: json['value'] as String,
+  type: json['type'] as String?,
+  isRequired: json['isRequired'] as bool?,
+  isVisible: json['isVisible'] as bool?,
+  options: (json['options'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+);
 
 Map<String, dynamic> _$$ProductAttributeImplToJson(
-    _$ProductAttributeImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'label': instance.label,
-    'value': instance.value,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('type', instance.type);
-  writeNotNull('isRequired', instance.isRequired);
-  writeNotNull('isVisible', instance.isVisible);
-  writeNotNull('options', instance.options);
-  return val;
-}
+  _$ProductAttributeImpl instance,
+) => <String, dynamic>{
+  'code': instance.code,
+  'label': instance.label,
+  'value': instance.value,
+  'type': ?instance.type,
+  'isRequired': ?instance.isRequired,
+  'isVisible': ?instance.isVisible,
+  'options': ?instance.options,
+};
 
 _$ProductOptionImpl _$$ProductOptionImplFromJson(Map<String, dynamic> json) =>
     _$ProductOptionImpl(
@@ -120,64 +102,46 @@ _$ProductOptionImpl _$$ProductOptionImplFromJson(Map<String, dynamic> json) =>
       isRequired: json['isRequired'] as bool?,
       price: (json['price'] as num?)?.toDouble(),
       priceType: json['priceType'] as String?,
-      values:
-          (json['values'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      values: (json['values'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       sortOrder: (json['sortOrder'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ProductOptionImplToJson(_$ProductOptionImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'label': instance.label,
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('isRequired', instance.isRequired);
-  writeNotNull('price', instance.price);
-  writeNotNull('priceType', instance.priceType);
-  writeNotNull('values', instance.values);
-  writeNotNull('sortOrder', instance.sortOrder);
-  return val;
-}
+Map<String, dynamic> _$$ProductOptionImplToJson(_$ProductOptionImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'label': instance.label,
+      'type': instance.type,
+      'isRequired': ?instance.isRequired,
+      'price': ?instance.price,
+      'priceType': ?instance.priceType,
+      'values': ?instance.values,
+      'sortOrder': ?instance.sortOrder,
+    };
 
 _$ProductVariationImpl _$$ProductVariationImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProductVariationImpl(
-      id: (json['id'] as num).toInt(),
-      sku: json['sku'] as String,
-      price: (json['price'] as num).toDouble(),
-      images:
-          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      attributes: (json['attributes'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      isInStock: json['isInStock'] as bool?,
-      stockQuantity: (json['stockQuantity'] as num?)?.toInt(),
-    );
+  Map<String, dynamic> json,
+) => _$ProductVariationImpl(
+  id: (json['id'] as num).toInt(),
+  sku: json['sku'] as String,
+  price: (json['price'] as num).toDouble(),
+  images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  attributes: (json['attributes'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
+  isInStock: json['isInStock'] as bool?,
+  stockQuantity: (json['stockQuantity'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$$ProductVariationImplToJson(
-    _$ProductVariationImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'sku': instance.sku,
-    'price': instance.price,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('images', instance.images);
-  writeNotNull('attributes', instance.attributes);
-  writeNotNull('isInStock', instance.isInStock);
-  writeNotNull('stockQuantity', instance.stockQuantity);
-  return val;
-}
+  _$ProductVariationImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'sku': instance.sku,
+  'price': instance.price,
+  'images': ?instance.images,
+  'attributes': ?instance.attributes,
+  'isInStock': ?instance.isInStock,
+  'stockQuantity': ?instance.stockQuantity,
+};

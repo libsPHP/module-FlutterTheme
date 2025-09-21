@@ -7,57 +7,47 @@ part of 'cart.dart';
 // **************************************************************************
 
 _$CartImpl _$$CartImplFromJson(Map<String, dynamic> json) => _$CartImpl(
-      id: json['id'] as String,
-      customerId: (json['customerId'] as num).toInt(),
-      items: (json['items'] as List<dynamic>)
-          .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      subtotal: (json['subtotal'] as num).toDouble(),
-      grandTotal: (json['grandTotal'] as num).toDouble(),
-      shippingAmount: (json['shippingAmount'] as num?)?.toDouble(),
-      taxAmount: (json['taxAmount'] as num?)?.toDouble(),
-      discountAmount: (json['discountAmount'] as num?)?.toDouble(),
-      couponCode: json['couponCode'] as String?,
-      discounts: (json['discounts'] as List<dynamic>?)
-          ?.map((e) => CartDiscount.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      totals: json['totals'] == null
-          ? null
-          : CartTotals.fromJson(json['totals'] as Map<String, dynamic>),
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-    );
+  id: json['id'] as String,
+  customerId: (json['customerId'] as num).toInt(),
+  items: (json['items'] as List<dynamic>)
+      .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  subtotal: (json['subtotal'] as num).toDouble(),
+  grandTotal: (json['grandTotal'] as num).toDouble(),
+  shippingAmount: (json['shippingAmount'] as num?)?.toDouble(),
+  taxAmount: (json['taxAmount'] as num?)?.toDouble(),
+  discountAmount: (json['discountAmount'] as num?)?.toDouble(),
+  couponCode: json['couponCode'] as String?,
+  discounts: (json['discounts'] as List<dynamic>?)
+      ?.map((e) => CartDiscount.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  totals: json['totals'] == null
+      ? null
+      : CartTotals.fromJson(json['totals'] as Map<String, dynamic>),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+);
 
-Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'customerId': instance.customerId,
-    'items': instance.items.map((e) => e.toJson()).toList(),
-    'subtotal': instance.subtotal,
-    'grandTotal': instance.grandTotal,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('shippingAmount', instance.shippingAmount);
-  writeNotNull('taxAmount', instance.taxAmount);
-  writeNotNull('discountAmount', instance.discountAmount);
-  writeNotNull('couponCode', instance.couponCode);
-  writeNotNull(
-      'discounts', instance.discounts?.map((e) => e.toJson()).toList());
-  writeNotNull('totals', instance.totals?.toJson());
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'customerId': instance.customerId,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      'subtotal': instance.subtotal,
+      'grandTotal': instance.grandTotal,
+      'shippingAmount': ?instance.shippingAmount,
+      'taxAmount': ?instance.taxAmount,
+      'discountAmount': ?instance.discountAmount,
+      'couponCode': ?instance.couponCode,
+      'discounts': ?instance.discounts?.map((e) => e.toJson()).toList(),
+      'totals': ?instance.totals?.toJson(),
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'updatedAt': ?instance.updatedAt?.toIso8601String(),
+    };
 
 _$CartItemImpl _$$CartItemImplFromJson(Map<String, dynamic> json) =>
     _$CartItemImpl(
@@ -74,27 +64,18 @@ _$CartItemImpl _$$CartItemImplFromJson(Map<String, dynamic> json) =>
       customAttributes: json['customAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$CartItemImplToJson(_$CartItemImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'sku': instance.sku,
-    'name': instance.name,
-    'price': instance.price,
-    'quantity': instance.quantity,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('rowTotal', instance.rowTotal);
-  writeNotNull('image', instance.image);
-  writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());
-  writeNotNull('customAttributes', instance.customAttributes);
-  return val;
-}
+Map<String, dynamic> _$$CartItemImplToJson(_$CartItemImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'sku': instance.sku,
+      'name': instance.name,
+      'price': instance.price,
+      'quantity': instance.quantity,
+      'rowTotal': ?instance.rowTotal,
+      'image': ?instance.image,
+      'options': ?instance.options?.map((e) => e.toJson()).toList(),
+      'customAttributes': ?instance.customAttributes,
+    };
 
 _$CartItemOptionImpl _$$CartItemOptionImplFromJson(Map<String, dynamic> json) =>
     _$CartItemOptionImpl(
@@ -106,23 +87,14 @@ _$CartItemOptionImpl _$$CartItemOptionImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$CartItemOptionImplToJson(
-    _$CartItemOptionImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'label': instance.label,
-    'value': instance.value,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('price', instance.price);
-  writeNotNull('priceType', instance.priceType);
-  return val;
-}
+  _$CartItemOptionImpl instance,
+) => <String, dynamic>{
+  'code': instance.code,
+  'label': instance.label,
+  'value': instance.value,
+  'price': ?instance.price,
+  'priceType': ?instance.priceType,
+};
 
 _$CartDiscountImpl _$$CartDiscountImplFromJson(Map<String, dynamic> json) =>
     _$CartDiscountImpl(
@@ -132,22 +104,13 @@ _$CartDiscountImpl _$$CartDiscountImplFromJson(Map<String, dynamic> json) =>
       type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$CartDiscountImplToJson(_$CartDiscountImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'label': instance.label,
-    'amount': instance.amount,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('type', instance.type);
-  return val;
-}
+Map<String, dynamic> _$$CartDiscountImplToJson(_$CartDiscountImpl instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'label': instance.label,
+      'amount': instance.amount,
+      'type': ?instance.type,
+    };
 
 _$CartTotalsImpl _$$CartTotalsImplFromJson(Map<String, dynamic> json) =>
     _$CartTotalsImpl(
@@ -163,23 +126,14 @@ _$CartTotalsImpl _$$CartTotalsImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$CartTotalsImplToJson(_$CartTotalsImpl instance) {
-  final val = <String, dynamic>{
-    'subtotal': instance.subtotal,
-    'grandTotal': instance.grandTotal,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('shippingAmount', instance.shippingAmount);
-  writeNotNull('taxAmount', instance.taxAmount);
-  writeNotNull('discountAmount', instance.discountAmount);
-  writeNotNull('subtotalInclTax', instance.subtotalInclTax);
-  writeNotNull('shippingInclTax', instance.shippingInclTax);
-  writeNotNull('taxBreakdown', instance.taxBreakdown);
-  return val;
-}
+Map<String, dynamic> _$$CartTotalsImplToJson(_$CartTotalsImpl instance) =>
+    <String, dynamic>{
+      'subtotal': instance.subtotal,
+      'grandTotal': instance.grandTotal,
+      'shippingAmount': ?instance.shippingAmount,
+      'taxAmount': ?instance.taxAmount,
+      'discountAmount': ?instance.discountAmount,
+      'subtotalInclTax': ?instance.subtotalInclTax,
+      'shippingInclTax': ?instance.shippingInclTax,
+      'taxBreakdown': ?instance.taxBreakdown,
+    };

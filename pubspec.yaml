@@ -5,7 +5,7 @@ version: 2.8.0+108
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.8.0 <4.0.0'
   flutter: ">=3.10.0"
 
 dependencies:
@@ -21,6 +21,7 @@ dependencies:
   
   # State Management
   riverpod: ^3.0.0
+  flutter_riverpod: ^3.0.0
   provider: ^6.1.1
   
   # JSON Serialization

@@ -7,47 +7,38 @@ part of 'checkout_models.dart';
 // **************************************************************************
 
 _$CheckoutSessionImpl _$$CheckoutSessionImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutSessionImpl(
-      id: json['id'] as String,
-      cartId: json['cartId'] as String,
-      email: json['email'] as String?,
-      shippingAddress: json['shippingAddress'] as Map<String, dynamic>?,
-      billingAddress: json['billingAddress'] as Map<String, dynamic>?,
-      shippingMethod: json['shippingMethod'] as String?,
-      paymentMethod: json['paymentMethod'] as String?,
-      additionalData: json['additionalData'] as Map<String, dynamic>?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutSessionImpl(
+  id: json['id'] as String,
+  cartId: json['cartId'] as String,
+  email: json['email'] as String?,
+  shippingAddress: json['shippingAddress'] as Map<String, dynamic>?,
+  billingAddress: json['billingAddress'] as Map<String, dynamic>?,
+  shippingMethod: json['shippingMethod'] as String?,
+  paymentMethod: json['paymentMethod'] as String?,
+  additionalData: json['additionalData'] as Map<String, dynamic>?,
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+);
 
 Map<String, dynamic> _$$CheckoutSessionImplToJson(
-    _$CheckoutSessionImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'cartId': instance.cartId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('email', instance.email);
-  writeNotNull('shippingAddress', instance.shippingAddress);
-  writeNotNull('billingAddress', instance.billingAddress);
-  writeNotNull('shippingMethod', instance.shippingMethod);
-  writeNotNull('paymentMethod', instance.paymentMethod);
-  writeNotNull('additionalData', instance.additionalData);
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
-  return val;
-}
+  _$CheckoutSessionImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'cartId': instance.cartId,
+  'email': ?instance.email,
+  'shippingAddress': ?instance.shippingAddress,
+  'billingAddress': ?instance.billingAddress,
+  'shippingMethod': ?instance.shippingMethod,
+  'paymentMethod': ?instance.paymentMethod,
+  'additionalData': ?instance.additionalData,
+  'createdAt': ?instance.createdAt?.toIso8601String(),
+  'updatedAt': ?instance.updatedAt?.toIso8601String(),
+};
 
 _$ShippingMethodImpl _$$ShippingMethodImplFromJson(Map<String, dynamic> json) =>
     _$ShippingMethodImpl(
@@ -63,27 +54,18 @@ _$ShippingMethodImpl _$$ShippingMethodImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$ShippingMethodImplToJson(
-    _$ShippingMethodImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'title': instance.title,
-    'amount': instance.amount,
-    'currency': instance.currency,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('carrierCode', instance.carrierCode);
-  writeNotNull('carrierTitle', instance.carrierTitle);
-  writeNotNull('methodCode', instance.methodCode);
-  writeNotNull('methodTitle', instance.methodTitle);
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$ShippingMethodImpl instance,
+) => <String, dynamic>{
+  'code': instance.code,
+  'title': instance.title,
+  'amount': instance.amount,
+  'currency': instance.currency,
+  'carrierCode': ?instance.carrierCode,
+  'carrierTitle': ?instance.carrierTitle,
+  'methodCode': ?instance.methodCode,
+  'methodTitle': ?instance.methodTitle,
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$PaymentMethodImpl _$$PaymentMethodImplFromJson(Map<String, dynamic> json) =>
     _$PaymentMethodImpl(
@@ -94,53 +76,34 @@ _$PaymentMethodImpl _$$PaymentMethodImplFromJson(Map<String, dynamic> json) =>
       extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$PaymentMethodImplToJson(_$PaymentMethodImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'title': instance.title,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('config', instance.config);
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+Map<String, dynamic> _$$PaymentMethodImplToJson(_$PaymentMethodImpl instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'title': instance.title,
+      'description': ?instance.description,
+      'config': ?instance.config,
+      'extensionAttributes': ?instance.extensionAttributes,
+    };
 
 _$CheckoutValidationResultImpl _$$CheckoutValidationResultImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutValidationResultImpl(
-      isValid: json['isValid'] as bool,
-      errors:
-          (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      warnings: (json['warnings'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      additionalData: json['additionalData'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutValidationResultImpl(
+  isValid: json['isValid'] as bool,
+  errors: (json['errors'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  warnings: (json['warnings'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+  additionalData: json['additionalData'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$CheckoutValidationResultImplToJson(
-    _$CheckoutValidationResultImpl instance) {
-  final val = <String, dynamic>{
-    'isValid': instance.isValid,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('errors', instance.errors);
-  writeNotNull('warnings', instance.warnings);
-  writeNotNull('additionalData', instance.additionalData);
-  return val;
-}
+  _$CheckoutValidationResultImpl instance,
+) => <String, dynamic>{
+  'isValid': instance.isValid,
+  'errors': ?instance.errors,
+  'warnings': ?instance.warnings,
+  'additionalData': ?instance.additionalData,
+};
 
 _$CheckoutTotalsImpl _$$CheckoutTotalsImplFromJson(Map<String, dynamic> json) =>
     _$CheckoutTotalsImpl(
@@ -159,216 +122,162 @@ _$CheckoutTotalsImpl _$$CheckoutTotalsImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$CheckoutTotalsImplToJson(
-    _$CheckoutTotalsImpl instance) {
-  final val = <String, dynamic>{
-    'grandTotal': instance.grandTotal,
-    'subtotal': instance.subtotal,
-    'subtotalInclTax': instance.subtotalInclTax,
-    'shippingAmount': instance.shippingAmount,
-    'shippingInclTax': instance.shippingInclTax,
-    'taxAmount': instance.taxAmount,
-    'discountAmount': instance.discountAmount,
-    'currency': instance.currency,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('items', instance.items?.map((e) => e.toJson()).toList());
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$CheckoutTotalsImpl instance,
+) => <String, dynamic>{
+  'grandTotal': instance.grandTotal,
+  'subtotal': instance.subtotal,
+  'subtotalInclTax': instance.subtotalInclTax,
+  'shippingAmount': instance.shippingAmount,
+  'shippingInclTax': instance.shippingInclTax,
+  'taxAmount': instance.taxAmount,
+  'discountAmount': instance.discountAmount,
+  'currency': instance.currency,
+  'items': ?instance.items?.map((e) => e.toJson()).toList(),
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$CheckoutTotalItemImpl _$$CheckoutTotalItemImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutTotalItemImpl(
-      code: json['code'] as String,
-      title: json['title'] as String,
-      value: (json['value'] as num).toDouble(),
-      currency: json['currency'] as String,
-      extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutTotalItemImpl(
+  code: json['code'] as String,
+  title: json['title'] as String,
+  value: (json['value'] as num).toDouble(),
+  currency: json['currency'] as String,
+  extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$CheckoutTotalItemImplToJson(
-    _$CheckoutTotalItemImpl instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'title': instance.title,
-    'value': instance.value,
-    'currency': instance.currency,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$CheckoutTotalItemImpl instance,
+) => <String, dynamic>{
+  'code': instance.code,
+  'title': instance.title,
+  'value': instance.value,
+  'currency': instance.currency,
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$GuestCheckoutInfoImpl _$$GuestCheckoutInfoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$GuestCheckoutInfoImpl(
-      cartId: json['cartId'] as String,
-      email: json['email'] as String?,
-      shippingAddress: json['shippingAddress'] as Map<String, dynamic>?,
-      billingAddress: json['billingAddress'] as Map<String, dynamic>?,
-      availableShippingMethods:
-          (json['availableShippingMethods'] as List<dynamic>?)
-              ?.map((e) => ShippingMethod.fromJson(e as Map<String, dynamic>))
-              .toList(),
-      availablePaymentMethods:
-          (json['availablePaymentMethods'] as List<dynamic>?)
-              ?.map((e) => PaymentMethod.fromJson(e as Map<String, dynamic>))
-              .toList(),
-      totals: json['totals'] == null
-          ? null
-          : CheckoutTotals.fromJson(json['totals'] as Map<String, dynamic>),
-      extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$GuestCheckoutInfoImpl(
+  cartId: json['cartId'] as String,
+  email: json['email'] as String?,
+  shippingAddress: json['shippingAddress'] as Map<String, dynamic>?,
+  billingAddress: json['billingAddress'] as Map<String, dynamic>?,
+  availableShippingMethods: (json['availableShippingMethods'] as List<dynamic>?)
+      ?.map((e) => ShippingMethod.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  availablePaymentMethods: (json['availablePaymentMethods'] as List<dynamic>?)
+      ?.map((e) => PaymentMethod.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  totals: json['totals'] == null
+      ? null
+      : CheckoutTotals.fromJson(json['totals'] as Map<String, dynamic>),
+  extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$GuestCheckoutInfoImplToJson(
-    _$GuestCheckoutInfoImpl instance) {
-  final val = <String, dynamic>{
-    'cartId': instance.cartId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('email', instance.email);
-  writeNotNull('shippingAddress', instance.shippingAddress);
-  writeNotNull('billingAddress', instance.billingAddress);
-  writeNotNull('availableShippingMethods',
-      instance.availableShippingMethods?.map((e) => e.toJson()).toList());
-  writeNotNull('availablePaymentMethods',
-      instance.availablePaymentMethods?.map((e) => e.toJson()).toList());
-  writeNotNull('totals', instance.totals?.toJson());
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$GuestCheckoutInfoImpl instance,
+) => <String, dynamic>{
+  'cartId': instance.cartId,
+  'email': ?instance.email,
+  'shippingAddress': ?instance.shippingAddress,
+  'billingAddress': ?instance.billingAddress,
+  'availableShippingMethods': ?instance.availableShippingMethods
+      ?.map((e) => e.toJson())
+      .toList(),
+  'availablePaymentMethods': ?instance.availablePaymentMethods
+      ?.map((e) => e.toJson())
+      .toList(),
+  'totals': ?instance.totals?.toJson(),
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$CheckoutAddressImpl _$$CheckoutAddressImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutAddressImpl(
-      id: json['id'] as String?,
-      customerId: json['customerId'] as String?,
-      customerAddressId: json['customerAddressId'] as String?,
-      email: json['email'] as String?,
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
-      middleName: json['middleName'] as String?,
-      prefix: json['prefix'] as String?,
-      suffix: json['suffix'] as String?,
-      company: json['company'] as String?,
-      street:
-          (json['street'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      city: json['city'] as String?,
-      region: json['region'] as String?,
-      regionId: json['regionId'] as String?,
-      regionCode: json['regionCode'] as String?,
-      postcode: json['postcode'] as String?,
-      countryId: json['countryId'] as String?,
-      telephone: json['telephone'] as String?,
-      fax: json['fax'] as String?,
-      sameAsBilling: json['sameAsBilling'] as bool?,
-      saveInAddressBook: json['saveInAddressBook'] as bool?,
-      customAttributes: json['customAttributes'] as Map<String, dynamic>?,
-      extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutAddressImpl(
+  id: json['id'] as String?,
+  customerId: json['customerId'] as String?,
+  customerAddressId: json['customerAddressId'] as String?,
+  email: json['email'] as String?,
+  firstName: json['firstName'] as String?,
+  lastName: json['lastName'] as String?,
+  middleName: json['middleName'] as String?,
+  prefix: json['prefix'] as String?,
+  suffix: json['suffix'] as String?,
+  company: json['company'] as String?,
+  street: (json['street'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  city: json['city'] as String?,
+  region: json['region'] as String?,
+  regionId: json['regionId'] as String?,
+  regionCode: json['regionCode'] as String?,
+  postcode: json['postcode'] as String?,
+  countryId: json['countryId'] as String?,
+  telephone: json['telephone'] as String?,
+  fax: json['fax'] as String?,
+  sameAsBilling: json['sameAsBilling'] as bool?,
+  saveInAddressBook: json['saveInAddressBook'] as bool?,
+  customAttributes: json['customAttributes'] as Map<String, dynamic>?,
+  extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$CheckoutAddressImplToJson(
-    _$CheckoutAddressImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('customerId', instance.customerId);
-  writeNotNull('customerAddressId', instance.customerAddressId);
-  writeNotNull('email', instance.email);
-  writeNotNull('firstName', instance.firstName);
-  writeNotNull('lastName', instance.lastName);
-  writeNotNull('middleName', instance.middleName);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('company', instance.company);
-  writeNotNull('street', instance.street);
-  writeNotNull('city', instance.city);
-  writeNotNull('region', instance.region);
-  writeNotNull('regionId', instance.regionId);
-  writeNotNull('regionCode', instance.regionCode);
-  writeNotNull('postcode', instance.postcode);
-  writeNotNull('countryId', instance.countryId);
-  writeNotNull('telephone', instance.telephone);
-  writeNotNull('fax', instance.fax);
-  writeNotNull('sameAsBilling', instance.sameAsBilling);
-  writeNotNull('saveInAddressBook', instance.saveInAddressBook);
-  writeNotNull('customAttributes', instance.customAttributes);
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$CheckoutAddressImpl instance,
+) => <String, dynamic>{
+  'id': ?instance.id,
+  'customerId': ?instance.customerId,
+  'customerAddressId': ?instance.customerAddressId,
+  'email': ?instance.email,
+  'firstName': ?instance.firstName,
+  'lastName': ?instance.lastName,
+  'middleName': ?instance.middleName,
+  'prefix': ?instance.prefix,
+  'suffix': ?instance.suffix,
+  'company': ?instance.company,
+  'street': ?instance.street,
+  'city': ?instance.city,
+  'region': ?instance.region,
+  'regionId': ?instance.regionId,
+  'regionCode': ?instance.regionCode,
+  'postcode': ?instance.postcode,
+  'countryId': ?instance.countryId,
+  'telephone': ?instance.telephone,
+  'fax': ?instance.fax,
+  'sameAsBilling': ?instance.sameAsBilling,
+  'saveInAddressBook': ?instance.saveInAddressBook,
+  'customAttributes': ?instance.customAttributes,
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$CheckoutPaymentInfoImpl _$$CheckoutPaymentInfoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutPaymentInfoImpl(
-      method: json['method'] as String,
-      additionalData: json['additionalData'] as Map<String, dynamic>?,
-      extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutPaymentInfoImpl(
+  method: json['method'] as String,
+  additionalData: json['additionalData'] as Map<String, dynamic>?,
+  extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$CheckoutPaymentInfoImplToJson(
-    _$CheckoutPaymentInfoImpl instance) {
-  final val = <String, dynamic>{
-    'method': instance.method,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('additionalData', instance.additionalData);
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$CheckoutPaymentInfoImpl instance,
+) => <String, dynamic>{
+  'method': instance.method,
+  'additionalData': ?instance.additionalData,
+  'extensionAttributes': ?instance.extensionAttributes,
+};
 
 _$CheckoutShippingInfoImpl _$$CheckoutShippingInfoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CheckoutShippingInfoImpl(
-      method: json['method'] as String,
-      address: json['address'] == null
-          ? null
-          : CheckoutAddress.fromJson(json['address'] as Map<String, dynamic>),
-      extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
-    );
+  Map<String, dynamic> json,
+) => _$CheckoutShippingInfoImpl(
+  method: json['method'] as String,
+  address: json['address'] == null
+      ? null
+      : CheckoutAddress.fromJson(json['address'] as Map<String, dynamic>),
+  extensionAttributes: json['extensionAttributes'] as Map<String, dynamic>?,
+);
 
 Map<String, dynamic> _$$CheckoutShippingInfoImplToJson(
-    _$CheckoutShippingInfoImpl instance) {
-  final val = <String, dynamic>{
-    'method': instance.method,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('address', instance.address?.toJson());
-  writeNotNull('extensionAttributes', instance.extensionAttributes);
-  return val;
-}
+  _$CheckoutShippingInfoImpl instance,
+) => <String, dynamic>{
+  'method': instance.method,
+  'address': ?instance.address?.toJson(),
+  'extensionAttributes': ?instance.extensionAttributes,
+};

@@ -186,7 +186,7 @@ class DeviceUtils {
   }
 
   static int _getRecommendedCacheSize(DevicePerformanceCategory category, int? ramMb) {
-    int baseSize;
+    int baseSize = 100; // Значение по умолчанию
     
     switch (category) {
       case DevicePerformanceCategory.high:

@@ -22,25 +22,17 @@ SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('items', instance.items?.map((e) => e.toJson()).toList());
-  writeNotNull('totalCount', instance.totalCount);
-  writeNotNull('currentPage', instance.currentPage);
-  writeNotNull('pageSize', instance.pageSize);
-  writeNotNull('availableFilters',
-      instance.availableFilters?.map((e) => e.toJson()).toList());
-  writeNotNull(
-      'suggestions', instance.suggestions?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
+    <String, dynamic>{
+      'items': ?instance.items?.map((e) => e.toJson()).toList(),
+      'totalCount': ?instance.totalCount,
+      'currentPage': ?instance.currentPage,
+      'pageSize': ?instance.pageSize,
+      'availableFilters': ?instance.availableFilters
+          ?.map((e) => e.toJson())
+          .toList(),
+      'suggestions': ?instance.suggestions?.map((e) => e.toJson()).toList(),
+    };
 
 SearchSuggestion _$SearchSuggestionFromJson(Map<String, dynamic> json) =>
     SearchSuggestion(
@@ -50,47 +42,32 @@ SearchSuggestion _$SearchSuggestionFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$SearchSuggestionToJson(SearchSuggestion instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('text', instance.text);
-  writeNotNull('type', instance.type);
-  writeNotNull('frequency', instance.frequency);
-  writeNotNull('url', instance.url);
-  return val;
-}
+Map<String, dynamic> _$SearchSuggestionToJson(SearchSuggestion instance) =>
+    <String, dynamic>{
+      'text': ?instance.text,
+      'type': ?instance.type,
+      'frequency': ?instance.frequency,
+      'url': ?instance.url,
+    };
 
 SearchFilter _$SearchFilterFromJson(Map<String, dynamic> json) => SearchFilter(
-      field: json['field'] as String?,
-      value: json['value'] as String?,
-      label: json['label'] as String?,
-      type: json['type'] as String?,
-      options:
-          (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    );
+  field: json['field'] as String?,
+  value: json['value'] as String?,
+  label: json['label'] as String?,
+  type: json['type'] as String?,
+  options: (json['options'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
+);
 
-Map<String, dynamic> _$SearchFilterToJson(SearchFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('field', instance.field);
-  writeNotNull('value', instance.value);
-  writeNotNull('label', instance.label);
-  writeNotNull('type', instance.type);
-  writeNotNull('options', instance.options);
-  return val;
-}
+Map<String, dynamic> _$SearchFilterToJson(SearchFilter instance) =>
+    <String, dynamic>{
+      'field': ?instance.field,
+      'value': ?instance.value,
+      'label': ?instance.label,
+      'type': ?instance.type,
+      'options': ?instance.options,
+    };
 
 SearchAnalytics _$SearchAnalyticsFromJson(Map<String, dynamic> json) =>
     SearchAnalytics(
@@ -113,10 +90,10 @@ Map<String, dynamic> _$SearchAnalyticsToJson(SearchAnalytics instance) =>
     };
 
 SearchTrend _$SearchTrendFromJson(Map<String, dynamic> json) => SearchTrend(
-      period: json['period'] as String,
-      searchCount: (json['searchCount'] as num).toInt(),
-      growthRate: (json['growthRate'] as num).toDouble(),
-    );
+  period: json['period'] as String,
+  searchCount: (json['searchCount'] as num).toInt(),
+  growthRate: (json['growthRate'] as num).toDouble(),
+);
 
 Map<String, dynamic> _$SearchTrendToJson(SearchTrend instance) =>
     <String, dynamic>{
@@ -136,22 +113,15 @@ FilterableAttribute _$FilterableAttributeFromJson(Map<String, dynamic> json) =>
       isMultiSelect: json['isMultiSelect'] as bool?,
     );
 
-Map<String, dynamic> _$FilterableAttributeToJson(FilterableAttribute instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('code', instance.code);
-  writeNotNull('label', instance.label);
-  writeNotNull('type', instance.type);
-  writeNotNull('options', instance.options?.map((e) => e.toJson()).toList());
-  writeNotNull('isMultiSelect', instance.isMultiSelect);
-  return val;
-}
+Map<String, dynamic> _$FilterableAttributeToJson(
+  FilterableAttribute instance,
+) => <String, dynamic>{
+  'code': ?instance.code,
+  'label': ?instance.label,
+  'type': ?instance.type,
+  'options': ?instance.options?.map((e) => e.toJson()).toList(),
+  'isMultiSelect': ?instance.isMultiSelect,
+};
 
 AttributeOption _$AttributeOptionFromJson(Map<String, dynamic> json) =>
     AttributeOption(
@@ -160,28 +130,20 @@ AttributeOption _$AttributeOptionFromJson(Map<String, dynamic> json) =>
       count: (json['count'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$AttributeOptionToJson(AttributeOption instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('value', instance.value);
-  writeNotNull('label', instance.label);
-  writeNotNull('count', instance.count);
-  return val;
-}
+Map<String, dynamic> _$AttributeOptionToJson(AttributeOption instance) =>
+    <String, dynamic>{
+      'value': ?instance.value,
+      'label': ?instance.label,
+      'count': ?instance.count,
+    };
 
 PriceRange _$PriceRangeFromJson(Map<String, dynamic> json) => PriceRange(
-      minPrice: (json['minPrice'] as num).toDouble(),
-      maxPrice: (json['maxPrice'] as num).toDouble(),
-      priceSteps: (json['priceSteps'] as List<dynamic>)
-          .map((e) => (e as num).toDouble())
-          .toList(),
-    );
+  minPrice: (json['minPrice'] as num).toDouble(),
+  maxPrice: (json['maxPrice'] as num).toDouble(),
+  priceSteps: (json['priceSteps'] as List<dynamic>)
+      .map((e) => (e as num).toDouble())
+      .toList(),
+);
 
 Map<String, dynamic> _$PriceRangeToJson(PriceRange instance) =>
     <String, dynamic>{
@@ -216,22 +178,13 @@ FilterCombination _$FilterCombinationFromJson(Map<String, dynamic> json) =>
       isShared: json['isShared'] as bool?,
     );
 
-Map<String, dynamic> _$FilterCombinationToJson(FilterCombination instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-    'filters': instance.filters,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('isShared', instance.isShared);
-  return val;
-}
+Map<String, dynamic> _$FilterCombinationToJson(FilterCombination instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'filters': instance.filters,
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'isShared': ?instance.isShared,
+    };
 
 SearchRequest _$SearchRequestFromJson(Map<String, dynamic> json) =>
     SearchRequest(
@@ -243,24 +196,15 @@ SearchRequest _$SearchRequestFromJson(Map<String, dynamic> json) =>
       sortOrder: json['sortOrder'] as String?,
     );
 
-Map<String, dynamic> _$SearchRequestToJson(SearchRequest instance) {
-  final val = <String, dynamic>{
-    'query': instance.query,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('filters', instance.filters);
-  val['page'] = instance.page;
-  val['pageSize'] = instance.pageSize;
-  writeNotNull('sortBy', instance.sortBy);
-  writeNotNull('sortOrder', instance.sortOrder);
-  return val;
-}
+Map<String, dynamic> _$SearchRequestToJson(SearchRequest instance) =>
+    <String, dynamic>{
+      'query': instance.query,
+      'filters': ?instance.filters,
+      'page': instance.page,
+      'pageSize': instance.pageSize,
+      'sortBy': ?instance.sortBy,
+      'sortOrder': ?instance.sortOrder,
+    };
 
 SearchFilterRequest _$SearchFilterRequestFromJson(Map<String, dynamic> json) =>
     SearchFilterRequest(
@@ -269,18 +213,10 @@ SearchFilterRequest _$SearchFilterRequestFromJson(Map<String, dynamic> json) =>
       operator: json['operator'] as String?,
     );
 
-Map<String, dynamic> _$SearchFilterRequestToJson(SearchFilterRequest instance) {
-  final val = <String, dynamic>{
-    'field': instance.field,
-    'value': instance.value,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('operator', instance.operator);
-  return val;
-}
+Map<String, dynamic> _$SearchFilterRequestToJson(
+  SearchFilterRequest instance,
+) => <String, dynamic>{
+  'field': instance.field,
+  'value': instance.value,
+  'operator': ?instance.operator,
+};

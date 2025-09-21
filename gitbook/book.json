@@ -1,0 +1,147 @@
+{
+  "title": "Flutter Magento Plugin 2.0 - Documentation",
+  "description": "Comprehensive documentation for Flutter Magento Plugin 2.0 - The most powerful and universal plugin for integrating Flutter applications with Magento e-commerce platform",
+  "author": "NativeMind Team",
+  "language": "ru",
+  "direction": "ltr",
+  "gitbook": ">=3.2.3",
+  
+  "structure": {
+    "readme": "README.md",
+    "summary": "SUMMARY.md",
+    "glossary": "resources/glossary.md",
+    "languages": "LANGS.md"
+  },
+  
+  "variables": {
+    "version": "2.8.0",
+    "flutter_version": "3.16.0",
+    "magento_version": "2.4.6",
+    "company": "NativeMind",
+    "support_email": "support@nativemind.net",
+    "github_url": "https://github.com/nativemind/flutter_magento",
+    "discord_url": "https://discord.gg/nativemind"
+  },
+  
+  "plugins": [
+    "theme-default",
+    "fontsettings",
+    "highlight",
+    "search",
+    "lunr",
+    "sharing",
+    "livereload",
+    "edit-link",
+    "github",
+    "anchors",
+    "copy-code-button",
+    "expandable-chapters",
+    "page-toc-button",
+    "back-to-top-button",
+    "code",
+    "prism",
+    "mermaid-gb3",
+    "todo",
+    "emoji"
+  ],
+  
+  "pluginsConfig": {
+    "theme-default": {
+      "showLevel": true,
+      "styles": {
+        "website": "styles/website.css",
+        "pdf": "styles/pdf.css",
+        "epub": "styles/epub.css",
+        "mobi": "styles/mobi.css"
+      }
+    },
+    
+    "fontsettings": {
+      "theme": "white",
+      "family": "sans",
+      "size": 2
+    },
+    
+    "sharing": {
+      "facebook": true,
+      "twitter": true,
+      "google": true,
+      "weibo": false,
+      "instapaper": false,
+      "vk": true,
+      "all": [
+        "facebook", "google", "twitter", "weibo", "instapaper", "vk"
+      ]
+    },
+    
+    "edit-link": {
+      "base": "https://github.com/nativemind/flutter_magento/edit/master/gitbook",
+      "label": "Редактировать эту страницу"
+    },
+    
+    "github": {
+      "url": "https://github.com/nativemind/flutter_magento"
+    },
+    
+    "copy-code-button": {
+      "copyText": "Копировать",
+      "copiedText": "Скопировано!"
+    },
+    
+    "page-toc-button": {
+      "maxTocDepth": 3,
+      "minTocSize": 2
+    },
+    
+    "prism": {
+      "css": [
+        "prismjs/themes/prism-tomorrow.css"
+      ],
+      "lang": {
+        "dart": "dart",
+        "yaml": "yaml",
+        "json": "json",
+        "bash": "bash",
+        "shell": "bash"
+      }
+    },
+    
+    "mermaid-gb3": {
+      "theme": "default"
+    }
+  },
+  
+  "pdf": {
+    "pageNumbers": true,
+    "fontSize": 12,
+    "fontFamily": "Arial",
+    "paperSize": "a4",
+    "chapterMark": "pagebreak",
+    "pageBreaksBefore": "/",
+    "margin": {
+      "right": 62,
+      "left": 62,
+      "top": 56,
+      "bottom": 56
+    }
+  },
+  
+  "links": {
+    "home": {
+      "label": "Главная",
+      "url": "https://flutter-magento.nativemind.net"
+    },
+    "issues": {
+      "label": "Сообщить об ошибке",
+      "url": "https://github.com/nativemind/flutter_magento/issues"
+    },
+    "contribute": {
+      "label": "Внести вклад",
+      "url": "https://github.com/nativemind/flutter_magento/blob/master/CONTRIBUTING.md"
+    },
+    "support": {
+      "label": "Поддержка",
+      "url": "mailto:support@nativemind.net"
+    }
+  }
+}

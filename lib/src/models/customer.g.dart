@@ -34,37 +34,27 @@ _$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'email': instance.email,
-    'firstname': instance.firstname,
-    'lastname': instance.lastname,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('gender', instance.gender);
-  writeNotNull('dateOfBirth', instance.dateOfBirth);
-  writeNotNull('taxvat', instance.taxvat);
-  writeNotNull('isSubscribed', instance.isSubscribed);
-  writeNotNull('groupId', instance.groupId);
-  writeNotNull('defaultBilling', instance.defaultBilling);
-  writeNotNull('defaultShipping', instance.defaultShipping);
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
-  writeNotNull('customAttributes', instance.customAttributes);
-  writeNotNull(
-      'addresses', instance.addresses?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'firstname': instance.firstname,
+      'lastname': instance.lastname,
+      'middlename': ?instance.middlename,
+      'prefix': ?instance.prefix,
+      'suffix': ?instance.suffix,
+      'gender': ?instance.gender,
+      'dateOfBirth': ?instance.dateOfBirth,
+      'taxvat': ?instance.taxvat,
+      'isSubscribed': ?instance.isSubscribed,
+      'groupId': ?instance.groupId,
+      'defaultBilling': ?instance.defaultBilling,
+      'defaultShipping': ?instance.defaultShipping,
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'updatedAt': ?instance.updatedAt?.toIso8601String(),
+      'customAttributes': ?instance.customAttributes,
+      'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+    };
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
@@ -88,33 +78,24 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       customAttributes: json['customAttributes'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'firstname': instance.firstname,
-    'lastname': instance.lastname,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('company', instance.company);
-  val['street'] = instance.street;
-  val['city'] = instance.city;
-  val['region'] = instance.region;
-  val['postcode'] = instance.postcode;
-  val['countryId'] = instance.countryId;
-  writeNotNull('telephone', instance.telephone);
-  writeNotNull('fax', instance.fax);
-  writeNotNull('vatId', instance.vatId);
-  writeNotNull('isDefaultBilling', instance.isDefaultBilling);
-  writeNotNull('isDefaultShipping', instance.isDefaultShipping);
-  writeNotNull('customAttributes', instance.customAttributes);
-  return val;
-}
+Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'firstname': instance.firstname,
+      'lastname': instance.lastname,
+      'middlename': ?instance.middlename,
+      'prefix': ?instance.prefix,
+      'suffix': ?instance.suffix,
+      'company': ?instance.company,
+      'street': instance.street,
+      'city': instance.city,
+      'region': instance.region,
+      'postcode': instance.postcode,
+      'countryId': instance.countryId,
+      'telephone': ?instance.telephone,
+      'fax': ?instance.fax,
+      'vatId': ?instance.vatId,
+      'isDefaultBilling': ?instance.isDefaultBilling,
+      'isDefaultShipping': ?instance.isDefaultShipping,
+      'customAttributes': ?instance.customAttributes,
+    };

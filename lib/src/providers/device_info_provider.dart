@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/device_info_model.dart';
 import '../services/device_info_service.dart';
 import '../exceptions/magento_exception.dart';
@@ -77,7 +77,7 @@ class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
     } catch (e) {
       throw MagentoException(
         'Failed to get device fingerprint: $e',
-        'DEVICE_FINGERPRINT_ERROR',
+        code: 'DEVICE_FINGERPRINT_ERROR',
       );
     }
   }
@@ -89,7 +89,7 @@ class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
     } catch (e) {
       throw MagentoException(
         'Failed to get performance category: $e',
-        'PERFORMANCE_CATEGORY_ERROR',
+        code: 'PERFORMANCE_CATEGORY_ERROR',
       );
     }
   }
@@ -109,7 +109,7 @@ class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
     } catch (e) {
       throw MagentoException(
         'Failed to check compatibility: $e',
-        'COMPATIBILITY_CHECK_ERROR',
+        code: 'COMPATIBILITY_CHECK_ERROR',
       );
     }
   }
@@ -121,7 +121,7 @@ class DeviceInfoNotifier extends StateNotifier<AsyncValue<DeviceInfoModel>> {
     } catch (e) {
       throw MagentoException(
         'Failed to get analytics data: $e',
-        'ANALYTICS_DATA_ERROR',
+        code: 'ANALYTICS_DATA_ERROR',
       );
     }
   }

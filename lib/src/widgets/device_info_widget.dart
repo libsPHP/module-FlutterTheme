@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/device_info_model.dart';
 import '../providers/device_info_provider.dart';
 import '../utils/device_utils.dart';
@@ -415,7 +415,7 @@ class DeviceInfoWidget extends ConsumerWidget {
 
   List<_InfoItem> _getInfoItems(DeviceInfoModel deviceInfo) {
     return [
-      _InfoItem('Platform', deviceInfo.platform, Icons.platform_outlined),
+            _InfoItem('Platform', deviceInfo.platform, Icons.devices),
       _InfoItem('Model', deviceInfo.model, Icons.phone_android),
       _InfoItem('Brand', deviceInfo.brand, Icons.business),
       _InfoItem('System', '${deviceInfo.systemName} ${deviceInfo.systemVersion}', Icons.info),
@@ -465,10 +465,13 @@ Performance: ${deviceInfo.performanceInfo.category.displayName} (${deviceInfo.pe
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Device Details'),
-        content: SingleChildScrollView(
-          child: DeviceInfoWidget(
-            displayStyle: DeviceInfoDisplayStyle.list,
-            showActions: false,
+        content: SizedBox(
+          width: double.maxFinite,
+          child: SingleChildScrollView(
+            child: DeviceInfoWidget(
+              displayStyle: DeviceInfoDisplayStyle.list,
+              showActions: false,
+            ),
           ),
         ),
         actions: [

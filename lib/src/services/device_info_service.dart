@@ -7,7 +7,7 @@ import '../models/device_info_model.dart';
 import '../exceptions/magento_exception.dart';
 
 /// Сервис для получения информации об устройстве и создания отпечатка устройства
-/// 
+///
 /// Предоставляет унифицированный API для:
 /// - Device Fingerprinting - создание уникального отпечатка устройства
 /// - Platform Detection - определение платформы (iOS/Android/Web)
@@ -46,7 +46,7 @@ class DeviceInfoService {
       } else {
         throw MagentoException(
           'Unsupported platform',
-          'UNSUPPORTED_PLATFORM',
+          code: 'UNSUPPORTED_PLATFORM',
         );
       }
 
@@ -55,7 +55,7 @@ class DeviceInfoService {
     } catch (e) {
       throw MagentoException(
         'Failed to get device info: $e',
-        'DEVICE_INFO_ERROR',
+        code: 'DEVICE_INFO_ERROR',
       );
     }
   }
@@ -77,14 +77,14 @@ class DeviceInfoService {
     final jsonString = json.encode(fingerprintData);
     final bytes = utf8.encode(jsonString);
     final digest = sha256.convert(bytes);
-    
+
     return digest.toString();
   }
 
   /// Определение типа устройства для оптимизации производительности
   Future<DevicePerformanceCategory> getPerformanceCategory() async {
     final deviceInfo = await getDeviceInfo();
-    
+
     // Логика определения категории производительности
     if (kIsWeb) {
       return DevicePerformanceCategory.medium;
@@ -94,7 +94,7 @@ class DeviceInfoService {
       // Для Android используем API level и RAM
       final apiLevel = deviceInfo.additionalInfo['version.sdkInt'] as int? ?? 0;
       final ramMb = deviceInfo.ramMb ?? 0;
-      
+
       if (apiLevel >= 31 && ramMb >= 6000) {
         return DevicePerformanceCategory.high;
       } else if (apiLevel >= 28 && ramMb >= 4000) {
@@ -107,14 +107,14 @@ class DeviceInfoService {
     if (Platform.isIOS) {
       // Для iOS используем модель устройства
       final model = deviceInfo.model.toLowerCase();
-      if (model.contains('iphone 15') || 
-          model.contains('iphone 14') || 
+      if (model.contains('iphone 15') ||
+          model.contains('iphone 14') ||
           model.contains('iphone 13') ||
           model.contains('ipad pro')) {
         return DevicePerformanceCategory.high;
-      } else if (model.contains('iphone 12') || 
-                 model.contains('iphone 11') ||
-                 model.contains('ipad air')) {
+      } else if (model.contains('iphone 12') ||
+          model.contains('iphone 11') ||
+          model.contains('ipad air')) {
         return DevicePerformanceCategory.medium;
       } else {
         return DevicePerformanceCategory.low;
@@ -180,7 +180,7 @@ class DeviceInfoService {
 
   Future<DeviceInfoModel> _getAndroidDeviceInfo() async {
     final androidInfo = await _deviceInfoPlugin.androidInfo;
-    
+
     return DeviceInfoModel(
       platform: 'Android',
       deviceId: androidInfo.id,
@@ -188,7 +188,8 @@ class DeviceInfoService {
       brand: androidInfo.brand,
       systemName: 'Android',
       systemVersion: androidInfo.version.release,
-      screenResolution: '${androidInfo.displayMetrics.widthPx}x${androidInfo.displayMetrics.heightPx}',
+      screenResolution:
+          'unknown', // Android не предоставляет displayMetrics в новых версиях
       isPhysicalDevice: androidInfo.isPhysicalDevice,
       ramMb: _extractRamFromAndroid(androidInfo),
       storageGb: null, // Android не предоставляет эту информацию напрямую
@@ -201,19 +202,14 @@ class DeviceInfoService {
         'hardware': androidInfo.hardware,
         'bootloader': androidInfo.bootloader,
         'fingerprint': androidInfo.fingerprint,
-        'displayMetrics': {
-          'widthPx': androidInfo.displayMetrics.widthPx,
-          'heightPx': androidInfo.displayMetrics.heightPx,
-          'xDpi': androidInfo.displayMetrics.xDpi,
-          'yDpi': androidInfo.displayMetrics.yDpi,
-        },
+        // displayMetrics не доступен в новых версиях device_info_plus
       },
     );
   }
 
   Future<DeviceInfoModel> _getIOSDeviceInfo() async {
     final iosInfo = await _deviceInfoPlugin.iosInfo;
-    
+
     return DeviceInfoModel(
       platform: 'iOS',
       deviceId: iosInfo.identifierForVendor ?? 'unknown',
@@ -221,7 +217,8 @@ class DeviceInfoService {
       brand: 'Apple',
       systemName: iosInfo.systemName,
       systemVersion: iosInfo.systemVersion,
-      screenResolution: 'unknown', // iOS не предоставляет разрешение экрана напрямую
+      screenResolution:
+          'unknown', // iOS не предоставляет разрешение экрана напрямую
       isPhysicalDevice: iosInfo.isPhysicalDevice,
       ramMb: null, // iOS не предоставляет информацию о RAM
       storageGb: null, // iOS не предоставляет информацию о хранилище
@@ -241,7 +238,7 @@ class DeviceInfoService {
 
   Future<DeviceInfoModel> _getWebDeviceInfo() async {
     final webInfo = await _deviceInfoPlugin.webBrowserInfo;
-    
+
     return DeviceInfoModel(
       platform: 'Web',
       deviceId: 'web-${webInfo.userAgent?.hashCode ?? 'unknown'}',
@@ -275,7 +272,7 @@ class DeviceInfoService {
 
   Future<DeviceInfoModel> _getMacOSDeviceInfo() async {
     final macInfo = await _deviceInfoPlugin.macOsInfo;
-    
+
     return DeviceInfoModel(
       platform: 'macOS',
       deviceId: macInfo.systemGUID ?? 'unknown',
@@ -304,14 +301,15 @@ class DeviceInfoService {
 
   Future<DeviceInfoModel> _getWindowsDeviceInfo() async {
     final windowsInfo = await _deviceInfoPlugin.windowsInfo;
-    
+
     return DeviceInfoModel(
       platform: 'Windows',
       deviceId: windowsInfo.deviceId,
       model: windowsInfo.productName,
       brand: 'Microsoft',
       systemName: 'Windows',
-      systemVersion: '${windowsInfo.majorVersion}.${windowsInfo.minorVersion}.${windowsInfo.buildNumber}',
+      systemVersion:
+          '${windowsInfo.majorVersion}.${windowsInfo.minorVersion}.${windowsInfo.buildNumber}',
       screenResolution: 'unknown',
       isPhysicalDevice: true,
       ramMb: null,
@@ -347,7 +345,7 @@ class DeviceInfoService {
 
   Future<DeviceInfoModel> _getLinuxDeviceInfo() async {
     final linuxInfo = await _deviceInfoPlugin.linuxInfo;
-    
+
     return DeviceInfoModel(
       platform: 'Linux',
       deviceId: linuxInfo.machineId ?? 'unknown',
@@ -386,24 +384,19 @@ class DeviceInfoService {
   int _compareVersions(String version1, String version2) {
     final v1Parts = version1.split('.').map(int.parse).toList();
     final v2Parts = version2.split('.').map(int.parse).toList();
-    
-    final maxLength = v1Parts.length > v2Parts.length ? v1Parts.length : v2Parts.length;
-    
+
+    final maxLength = v1Parts.length > v2Parts.length
+        ? v1Parts.length
+        : v2Parts.length;
+
     for (int i = 0; i < maxLength; i++) {
       final v1Part = i < v1Parts.length ? v1Parts[i] : 0;
       final v2Part = i < v2Parts.length ? v2Parts[i] : 0;
-      
+
       if (v1Part < v2Part) return -1;
       if (v1Part > v2Part) return 1;
     }
-    
+
     return 0;
   }
-}
-
-/// Категории производительности устройства
-enum DevicePerformanceCategory {
-  low,
-  medium,
-  high,
 }

@@ -51,36 +51,26 @@ _$CustomerImpl _$$CustomerImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'email': instance.email,
-    'firstname': instance.firstname,
-    'lastname': instance.lastname,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('groupId', instance.groupId);
-  writeNotNull('dob', instance.dob);
-  writeNotNull('taxvat', instance.taxvat);
-  writeNotNull('gender', instance.gender);
-  writeNotNull('isSubscribed', instance.isSubscribed);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('defaultBilling', instance.defaultBilling);
-  writeNotNull('defaultShipping', instance.defaultShipping);
-  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
-  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
-  writeNotNull(
-      'addresses', instance.addresses?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$$CustomerImplToJson(_$CustomerImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'firstname': instance.firstname,
+      'lastname': instance.lastname,
+      'middlename': ?instance.middlename,
+      'groupId': ?instance.groupId,
+      'dob': ?instance.dob,
+      'taxvat': ?instance.taxvat,
+      'gender': ?instance.gender,
+      'isSubscribed': ?instance.isSubscribed,
+      'prefix': ?instance.prefix,
+      'suffix': ?instance.suffix,
+      'defaultBilling': ?instance.defaultBilling,
+      'defaultShipping': ?instance.defaultShipping,
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'updatedAt': ?instance.updatedAt?.toIso8601String(),
+      'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+    };
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
@@ -90,8 +80,9 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       regionId: json['regionId'] as String?,
       regionCode: json['regionCode'] as String?,
       countryId: json['countryId'] as String?,
-      street:
-          (json['street'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      street: (json['street'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       company: json['company'] as String?,
       telephone: json['telephone'] as String?,
       fax: json['fax'] as String?,
@@ -107,191 +98,147 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       defaultBilling: json['defaultBilling'] as bool?,
     );
 
-Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('customerId', instance.customerId);
-  writeNotNull('region', instance.region);
-  writeNotNull('regionId', instance.regionId);
-  writeNotNull('regionCode', instance.regionCode);
-  writeNotNull('countryId', instance.countryId);
-  writeNotNull('street', instance.street);
-  writeNotNull('company', instance.company);
-  writeNotNull('telephone', instance.telephone);
-  writeNotNull('fax', instance.fax);
-  writeNotNull('postcode', instance.postcode);
-  writeNotNull('city', instance.city);
-  writeNotNull('firstname', instance.firstname);
-  writeNotNull('lastname', instance.lastname);
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('vatId', instance.vatId);
-  writeNotNull('defaultShipping', instance.defaultShipping);
-  writeNotNull('defaultBilling', instance.defaultBilling);
-  return val;
-}
+Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
+    <String, dynamic>{
+      'id': ?instance.id,
+      'customerId': ?instance.customerId,
+      'region': ?instance.region,
+      'regionId': ?instance.regionId,
+      'regionCode': ?instance.regionCode,
+      'countryId': ?instance.countryId,
+      'street': ?instance.street,
+      'company': ?instance.company,
+      'telephone': ?instance.telephone,
+      'fax': ?instance.fax,
+      'postcode': ?instance.postcode,
+      'city': ?instance.city,
+      'firstname': ?instance.firstname,
+      'lastname': ?instance.lastname,
+      'middlename': ?instance.middlename,
+      'prefix': ?instance.prefix,
+      'suffix': ?instance.suffix,
+      'vatId': ?instance.vatId,
+      'defaultShipping': ?instance.defaultShipping,
+      'defaultBilling': ?instance.defaultBilling,
+    };
 
 _$CustomerCreateRequestImpl _$$CustomerCreateRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CustomerCreateRequestImpl(
-      email: json['email'] as String,
-      password: json['password'] as String,
-      firstname: json['firstname'] as String,
-      lastname: json['lastname'] as String,
-      middlename: json['middlename'] as String?,
-      prefix: json['prefix'] as String?,
-      suffix: json['suffix'] as String?,
-      dob: json['dob'] as String?,
-      taxvat: json['taxvat'] as String?,
-      gender: json['gender'] as String?,
-      isSubscribed: json['isSubscribed'] as bool?,
-      addresses: (json['addresses'] as List<dynamic>?)
-          ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => _$CustomerCreateRequestImpl(
+  email: json['email'] as String,
+  password: json['password'] as String,
+  firstname: json['firstname'] as String,
+  lastname: json['lastname'] as String,
+  middlename: json['middlename'] as String?,
+  prefix: json['prefix'] as String?,
+  suffix: json['suffix'] as String?,
+  dob: json['dob'] as String?,
+  taxvat: json['taxvat'] as String?,
+  gender: json['gender'] as String?,
+  isSubscribed: json['isSubscribed'] as bool?,
+  addresses: (json['addresses'] as List<dynamic>?)
+      ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$$CustomerCreateRequestImplToJson(
-    _$CustomerCreateRequestImpl instance) {
-  final val = <String, dynamic>{
-    'email': instance.email,
-    'password': instance.password,
-    'firstname': instance.firstname,
-    'lastname': instance.lastname,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('dob', instance.dob);
-  writeNotNull('taxvat', instance.taxvat);
-  writeNotNull('gender', instance.gender);
-  writeNotNull('isSubscribed', instance.isSubscribed);
-  writeNotNull(
-      'addresses', instance.addresses?.map((e) => e.toJson()).toList());
-  return val;
-}
+  _$CustomerCreateRequestImpl instance,
+) => <String, dynamic>{
+  'email': instance.email,
+  'password': instance.password,
+  'firstname': instance.firstname,
+  'lastname': instance.lastname,
+  'middlename': ?instance.middlename,
+  'prefix': ?instance.prefix,
+  'suffix': ?instance.suffix,
+  'dob': ?instance.dob,
+  'taxvat': ?instance.taxvat,
+  'gender': ?instance.gender,
+  'isSubscribed': ?instance.isSubscribed,
+  'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+};
 
 _$CustomerUpdateRequestImpl _$$CustomerUpdateRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$CustomerUpdateRequestImpl(
-      firstname: json['firstname'] as String?,
-      lastname: json['lastname'] as String?,
-      middlename: json['middlename'] as String?,
-      prefix: json['prefix'] as String?,
-      suffix: json['suffix'] as String?,
-      dob: json['dob'] as String?,
-      taxvat: json['taxvat'] as String?,
-      gender: json['gender'] as String?,
-      isSubscribed: json['isSubscribed'] as bool?,
-      addresses: (json['addresses'] as List<dynamic>?)
-          ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => _$CustomerUpdateRequestImpl(
+  firstname: json['firstname'] as String?,
+  lastname: json['lastname'] as String?,
+  middlename: json['middlename'] as String?,
+  prefix: json['prefix'] as String?,
+  suffix: json['suffix'] as String?,
+  dob: json['dob'] as String?,
+  taxvat: json['taxvat'] as String?,
+  gender: json['gender'] as String?,
+  isSubscribed: json['isSubscribed'] as bool?,
+  addresses: (json['addresses'] as List<dynamic>?)
+      ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$$CustomerUpdateRequestImplToJson(
-    _$CustomerUpdateRequestImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('firstname', instance.firstname);
-  writeNotNull('lastname', instance.lastname);
-  writeNotNull('middlename', instance.middlename);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  writeNotNull('dob', instance.dob);
-  writeNotNull('taxvat', instance.taxvat);
-  writeNotNull('gender', instance.gender);
-  writeNotNull('isSubscribed', instance.isSubscribed);
-  writeNotNull(
-      'addresses', instance.addresses?.map((e) => e.toJson()).toList());
-  return val;
-}
+  _$CustomerUpdateRequestImpl instance,
+) => <String, dynamic>{
+  'firstname': ?instance.firstname,
+  'lastname': ?instance.lastname,
+  'middlename': ?instance.middlename,
+  'prefix': ?instance.prefix,
+  'suffix': ?instance.suffix,
+  'dob': ?instance.dob,
+  'taxvat': ?instance.taxvat,
+  'gender': ?instance.gender,
+  'isSubscribed': ?instance.isSubscribed,
+  'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
+};
 
 _$PasswordChangeRequestImpl _$$PasswordChangeRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PasswordChangeRequestImpl(
-      currentPassword: json['currentPassword'] as String,
-      newPassword: json['newPassword'] as String,
-    );
+  Map<String, dynamic> json,
+) => _$PasswordChangeRequestImpl(
+  currentPassword: json['currentPassword'] as String,
+  newPassword: json['newPassword'] as String,
+);
 
 Map<String, dynamic> _$$PasswordChangeRequestImplToJson(
-        _$PasswordChangeRequestImpl instance) =>
-    <String, dynamic>{
-      'currentPassword': instance.currentPassword,
-      'newPassword': instance.newPassword,
-    };
+  _$PasswordChangeRequestImpl instance,
+) => <String, dynamic>{
+  'currentPassword': instance.currentPassword,
+  'newPassword': instance.newPassword,
+};
 
 _$PasswordResetRequestImpl _$$PasswordResetRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PasswordResetRequestImpl(
-      email: json['email'] as String,
-    );
+  Map<String, dynamic> json,
+) => _$PasswordResetRequestImpl(email: json['email'] as String);
 
 Map<String, dynamic> _$$PasswordResetRequestImplToJson(
-        _$PasswordResetRequestImpl instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-    };
+  _$PasswordResetRequestImpl instance,
+) => <String, dynamic>{'email': instance.email};
 
 _$SocialLoginRequestImpl _$$SocialLoginRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$SocialLoginRequestImpl(
-      provider: json['provider'] as String,
-      token: json['token'] as String,
-      email: json['email'] as String?,
-      firstname: json['firstname'] as String?,
-      lastname: json['lastname'] as String?,
-    );
+  Map<String, dynamic> json,
+) => _$SocialLoginRequestImpl(
+  provider: json['provider'] as String,
+  token: json['token'] as String,
+  email: json['email'] as String?,
+  firstname: json['firstname'] as String?,
+  lastname: json['lastname'] as String?,
+);
 
 Map<String, dynamic> _$$SocialLoginRequestImplToJson(
-    _$SocialLoginRequestImpl instance) {
-  final val = <String, dynamic>{
-    'provider': instance.provider,
-    'token': instance.token,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('email', instance.email);
-  writeNotNull('firstname', instance.firstname);
-  writeNotNull('lastname', instance.lastname);
-  return val;
-}
+  _$SocialLoginRequestImpl instance,
+) => <String, dynamic>{
+  'provider': instance.provider,
+  'token': instance.token,
+  'email': ?instance.email,
+  'firstname': ?instance.firstname,
+  'lastname': ?instance.lastname,
+};
 
 _$TokenRefreshRequestImpl _$$TokenRefreshRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$TokenRefreshRequestImpl(
-      refreshToken: json['refreshToken'] as String,
-    );
+  Map<String, dynamic> json,
+) => _$TokenRefreshRequestImpl(refreshToken: json['refreshToken'] as String);
 
 Map<String, dynamic> _$$TokenRefreshRequestImplToJson(
-        _$TokenRefreshRequestImpl instance) =>
-    <String, dynamic>{
-      'refreshToken': instance.refreshToken,
-    };
+  _$TokenRefreshRequestImpl instance,
+) => <String, dynamic>{'refreshToken': instance.refreshToken};
 
 _$SessionInfoImpl _$$SessionInfoImplFromJson(Map<String, dynamic> json) =>
     _$SessionInfoImpl(
@@ -303,21 +250,12 @@ _$SessionInfoImpl _$$SessionInfoImplFromJson(Map<String, dynamic> json) =>
       cartId: json['cartId'] as String?,
     );
 
-Map<String, dynamic> _$$SessionInfoImplToJson(_$SessionInfoImpl instance) {
-  final val = <String, dynamic>{
-    'sessionId': instance.sessionId,
-    'createdAt': instance.createdAt.toIso8601String(),
-    'expiresAt': instance.expiresAt.toIso8601String(),
-    'isValid': instance.isValid,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('customerId', instance.customerId);
-  writeNotNull('cartId', instance.cartId);
-  return val;
-}
+Map<String, dynamic> _$$SessionInfoImplToJson(_$SessionInfoImpl instance) =>
+    <String, dynamic>{
+      'sessionId': instance.sessionId,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'expiresAt': instance.expiresAt.toIso8601String(),
+      'isValid': instance.isValid,
+      'customerId': ?instance.customerId,
+      'cartId': ?instance.cartId,
+    };
