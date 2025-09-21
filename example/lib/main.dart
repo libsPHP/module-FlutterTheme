@@ -9,21 +9,22 @@ import 'screens/cart_screen.dart';
 import 'screens/config_screen.dart';
 import 'screens/categories_screen.dart';
 import 'screens/device_info_screen.dart';
+import 'screens/profile_screen.dart';
 import 'providers/app_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Load environment variables
   try {
     await dotenv.load(fileName: ".env");
   } catch (e) {
     debugPrint('Warning: Could not load .env file: $e');
   }
-  
+
   // Initialize image cache service
   await ImageCacheService().initialize();
-  
+
   runApp(const MyApp());
 }
 
@@ -70,6 +71,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const AuthScreen(),
+    const ProfileScreen(),
     const ProductsScreen(),
     const CategoriesScreen(),
     const CartScreen(),
@@ -80,6 +82,10 @@ class _MainScreenState extends State<MainScreen> {
   final List<BottomNavigationBarItem> _navItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Auth'),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.account_circle),
+      label: 'Profile',
+    ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_bag),
       label: 'Products',

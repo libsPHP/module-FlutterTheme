@@ -58,11 +58,13 @@ export 'src/services/offline_service.dart';
 export 'src/services/service_manager.dart';
 export 'src/services/sync_service.dart';
 export 'src/services/device_info_service.dart';
+export 'src/services/profile_service.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';
 export 'src/providers/magento_provider.dart';
 export 'src/providers/device_info_provider.dart';
+export 'src/providers/profile_provider.dart';
 
 // Widgets
 export 'src/widgets/product_card.dart';
