@@ -22,12 +22,16 @@ class MagentoEnhancedHttpClient {
       baseUrl: baseUrl,
       connectTimeout: connectTimeout ?? const Duration(seconds: 30),
       receiveTimeout: receiveTimeout ?? const Duration(seconds: 30),
-      headers: _getHeaders(),
+      headers: _getHeaders,
     );
 
     // Добавляем интерцептор для retry логики
     _dio.interceptors.add(
-      RetryInterceptor(maxRetries: maxRetries, retryDelay: retryDelay),
+      RetryInterceptor(
+        dio: _dio,
+        maxRetries: maxRetries,
+        retryDelay: retryDelay,
+      ),
     );
 
     // Добавляем интерцептор для логирования
@@ -188,8 +192,10 @@ class RetryInterceptor extends Interceptor {
   final int maxRetries;
   final Duration retryDelay;
   final List<int> retryStatusCodes;
+  final Dio dio;
 
   RetryInterceptor({
+    required this.dio,
     this.maxRetries = 3,
     this.retryDelay = const Duration(seconds: 1),
     this.retryStatusCodes = const [500, 502, 503, 504],
@@ -209,7 +215,7 @@ class RetryInterceptor extends Interceptor {
 
       try {
         // Повторяем запрос
-        final response = await err.requestOptions.dio!.request(
+        final response = await dio.request(
           err.requestOptions.path,
           options: Options(
             method: err.requestOptions.method,
