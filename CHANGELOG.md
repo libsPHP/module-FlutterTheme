@@ -1,3 +1,13 @@
+## 2.9.0+110
+
+* **Major Code Improvements**: Comprehensive code quality enhancements and optimizations
+* **Performance**: Added const constructors throughout codebase for better performance
+* **API Updates**: Updated deprecated APIs (withOpacity → withValues, surfaceVariant → surfaceContainerHighest)
+* **Code Style**: Fixed code style issues including proper braces in if-statements
+* **Bug Fixes**: Fixed critical errors in example app authentication and test files
+* **Type Safety**: Improved type safety and null handling across the codebase
+* **Maintainability**: Enhanced code maintainability with better structure and consistency
+
 ## 2.8.1+109
 
 * **Publishing Fixes**: Fixed all publishing validation errors for pub.dev

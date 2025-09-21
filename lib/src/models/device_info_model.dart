@@ -120,12 +120,13 @@ class DeviceInfoModel {
       if (model.contains('15') || model.contains('14')) score += 10;
     } else if (platform == 'Android') {
       final sdkInt = additionalInfo['version.sdkInt'] as int? ?? 0;
-      if (sdkInt >= 31)
+      if (sdkInt >= 31) {
         score += 15;
-      else if (sdkInt >= 28)
+      } else if (sdkInt >= 28) {
         score += 10;
-      else if (sdkInt >= 24)
+      } else if (sdkInt >= 24) {
         score += 5;
+      }
 
       if (brand.toLowerCase() == 'samsung' && model.contains('Galaxy S')) {
         score += 10;
@@ -138,18 +139,21 @@ class DeviceInfoModel {
 
     // Анализ RAM
     if (ramMb != null) {
-      if (ramMb! >= 8000)
+      if (ramMb! >= 8000) {
         score += 15;
-      else if (ramMb! >= 6000)
+      } else if (ramMb! >= 6000) {
         score += 10;
-      else if (ramMb! >= 4000)
+      } else if (ramMb! >= 4000) {
         score += 5;
-      else if (ramMb! < 2000)
+      } else if (ramMb! < 2000) {
         score -= 10;
+      }
     }
 
     // Проверка на эмулятор
-    if (!isPhysicalDevice) score -= 15;
+    if (!isPhysicalDevice) {
+      score -= 15;
+    }
 
     return DevicePerformanceInfo(
       score: score.clamp(0, 100),

@@ -114,7 +114,7 @@ class MagentoAuthResult extends MagentoResult<MagentoAuthData> {
 /// Authentication data container
 @immutable
 class MagentoAuthData {
-  MagentoAuthData({
+  const MagentoAuthData({
     required this.token,
     required this.customerId,
     this.customerData,
@@ -264,7 +264,7 @@ enum MagentoSyncType {
 /// Represents a sync conflict that needs resolution
 @immutable
 class MagentoSyncConflict {
-  MagentoSyncConflict({
+  const MagentoSyncConflict({
     required this.itemId,
     required this.conflictType,
     required this.localData,
@@ -323,7 +323,7 @@ enum MagentoSyncConflictType {
 
 /// Result for cache operations
 class MagentoCacheResult<T> extends MagentoResult<T> {
-  MagentoCacheResult._({
+  const MagentoCacheResult._({
     required super.success,
     super.data,
     super.error,
@@ -385,7 +385,7 @@ class MagentoCacheResult<T> extends MagentoResult<T> {
 
 /// Result for cloud feature operations
 class MagentoCloudFeatureResult<T> extends MagentoResult<T> {
-  MagentoCloudFeatureResult._({
+  const MagentoCloudFeatureResult._({
     required super.success,
     super.data,
     super.error,

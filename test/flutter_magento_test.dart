@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_magento/flutter_magento.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_magento/src/models/cart_models.dart';
 
 // Mock classes for testing
 class MockMagentoApiClient extends Mock implements MagentoApiClient {}

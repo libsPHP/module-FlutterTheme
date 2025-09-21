@@ -255,23 +255,22 @@ class AppProvider extends ChangeNotifier {
         password: password,
       );
 
-      if (result.isSuccess && result.data != null) {
+      _isAuthenticated = true;
+      _currentCustomer = SimpleCustomer(
+        id: result.customer.id.toString(),
+        email: result.customer.email,
+        firstName: result.customer.firstname,
+        lastName: result.customer.lastname,
+      );
+      notifyListeners();
+      return true;
+    } catch (e) {
+      // Fallback to demo authentication for testing
+      if (email.isNotEmpty && password.isNotEmpty) {
         _isAuthenticated = true;
         _currentCustomer = SimpleCustomer(
-          id: result.data!.id.toString(),
-          email: result.data!.email,
-          firstName: result.data!.firstName,
-          lastName: result.data!.lastName,
-        );
-        notifyListeners();
-        return true;
-      } else {
-        // Fallback to demo authentication for testing
-        if (email.isNotEmpty && password.isNotEmpty) {
-          _isAuthenticated = true;
-          _currentCustomer = SimpleCustomer(
-            id: '1',
-            email: email,
+          id: '1',
+          email: email,
             firstName: 'Demo',
             lastName: 'User',
           );
@@ -326,23 +325,22 @@ class AppProvider extends ChangeNotifier {
         lastName: lastName,
       );
 
-      if (result.isSuccess && result.data != null) {
-        _isAuthenticated = true;
-        _currentCustomer = SimpleCustomer(
-          id: result.data!.id.toString(),
-          email: result.data!.email,
-          firstName: result.data!.firstName,
-          lastName: result.data!.lastName,
-        );
-        notifyListeners();
-        return true;
-      } else {
-        // Fallback to demo registration for testing
-        _isAuthenticated = true;
-        _currentCustomer = SimpleCustomer(
-          id: '2',
-          email: email,
-          firstName: firstName,
+      _isAuthenticated = true;
+      _currentCustomer = SimpleCustomer(
+        id: result.id.toString(),
+        email: result.email,
+        firstName: result.firstname,
+        lastName: result.lastname,
+      );
+      notifyListeners();
+      return true;
+    } catch (e) {
+      // Fallback to demo registration for testing
+      _isAuthenticated = true;
+      _currentCustomer = SimpleCustomer(
+        id: '2',
+        email: email,
+        firstName: firstName,
           lastName: lastName,
         );
         notifyListeners();

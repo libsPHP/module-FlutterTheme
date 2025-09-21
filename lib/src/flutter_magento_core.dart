@@ -67,7 +67,7 @@ class FlutterMagentoCore {
       );
 
       if (!apiInitialized) {
-        throw MagentoException('Failed to initialize API service');
+        throw const MagentoException('Failed to initialize API service');
       }
 
       // Initialize other services
@@ -79,7 +79,7 @@ class FlutterMagentoCore {
       final cartInitialized = await _cartService.initialize();
 
       if (!authInitialized || !cartInitialized) {
-        throw MagentoException('Failed to initialize services');
+        throw const MagentoException('Failed to initialize services');
       }
 
       _isInitialized = true;
@@ -457,7 +457,7 @@ class FlutterMagentoCore {
   /// Check initialization
   void _checkInitialization() {
     if (!_isInitialized) {
-      throw MagentoException(
+      throw const MagentoException(
         'Flutter Magento not initialized. Call initialize() first.',
       );
     }
