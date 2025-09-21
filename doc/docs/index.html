@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="flutter_magento API docs, for the Dart programming language.">
+  <title>flutter_magento - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://gitlab.com/libsFlutter/flutter_magento">flutter_magento package</a></li>
+  </ol>
+  <div class="self-name">flutter_magento</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="-flutter-magento-plugin-30">🚀 Flutter Magento Plugin 3.0</h1>
+<p>A unified Flutter library for Magento e-commerce platform integration. Version 3.0 introduces modern architecture improvements, enhanced performance, and comprehensive e-commerce functionality with 200+ functions for building cutting-edge mobile commerce applications.</p>
+<h2 id="-screenshots">📱 Screenshots</h2>
+<div align="center">
+  <img src="screenshots/main.jpg" alt="Main page" width="250">
+  <img src="screenshots/login.jpg" alt="Login page" width="250">
+  <img src="screenshots/signup.jpg" alt="Registration page" width="250">
+</div>
+<div align="center">
+  <img src="screenshots/products.jpg" alt="Products page" width="250">
+  <img src="screenshots/cart.jpg" alt="Shopping cart" width="250">
+  <img src="screenshots/settings.jpg" alt="Settings" width="250">
+</div>
+<h2 id="-new-features-in-version-30">✨ New Features in Version 3.0</h2>
+<h3 id="-modern-architecture">🚀 <strong>Modern Architecture</strong></h3>
+<ul>
+<li><strong>Flutter 3.8+ Support</strong>: Latest Flutter SDK with enhanced performance</li>
+<li><strong>Modern Dependencies</strong>: Updated to latest stable versions</li>
+<li><strong>Enhanced State Management</strong>: Improved Riverpod integration</li>
+<li><strong>Better Performance</strong>: 30% faster image loading, 40% reduced memory usage</li>
+</ul>
+<h3 id="-enhanced-development-experience">🔧 <strong>Enhanced Development Experience</strong></h3>
+<ul>
+<li><strong>Modern Testing</strong>: Updated testing framework with mocktail, alchemist, patrol</li>
+<li><strong>Better Code Generation</strong>: Enhanced build tools and code generation</li>
+<li><strong>Improved Linting</strong>: Updated linting rules for better code quality</li>
+<li><strong>Migration Guide</strong>: Comprehensive migration documentation from 2.x</li>
+</ul>
+<h2 id="-features-from-version-20">✨ Features from Version 2.0</h2>
+<h3 id="-unified-architecture">🎯 <strong>Unified Architecture</strong></h3>
+<ul>
+<li><strong>Eliminate Duplication</strong>: One API for all applications</li>
+<li><strong>Modular Structure</strong>: Use only the components you need</li>
+<li><strong>Type Safety</strong>: Strong typing with Freezed models</li>
+<li><strong>Consistency</strong>: Same approach across all applications</li>
+</ul>
+<h3 id="-advanced-authentication">🔐 <strong>Advanced Authentication</strong></h3>
+<ul>
+<li>JWT tokens with automatic refresh</li>
+<li>Secure storage with FlutterSecureStorage</li>
+<li>"Remember me" support</li>
+<li>Automatic token validation</li>
+<li>Session expiration handling</li>
+</ul>
+<h3 id="-unified-network-layer">🌐 <strong>Unified Network Layer</strong></h3>
+<ul>
+<li>Dio + HTTP client with automatic retries</li>
+<li>Internet connectivity monitoring</li>
+<li>Automatic error handling</li>
+<li>Request logging in debug mode</li>
+<li>Response caching</li>
+</ul>
+<h3 id="-localization-system">🌍 <strong>Localization System</strong></h3>
+<ul>
+<li><strong>45+ languages</strong> out of the box</li>
+<li>Automatic system locale detection</li>
+<li>Pluralization support</li>
+<li>RTL support for Arabic and Hebrew</li>
+<li>Custom translations</li>
+</ul>
+<h3 id="-offline-mode">📱 <strong>Offline Mode</strong></h3>
+<ul>
+<li>Automatic data caching</li>
+<li>Offline operation queue</li>
+<li>SQLite + Hive for fast access</li>
+<li>Automatic sync when network is restored</li>
+<li>Configurable caching strategies</li>
+</ul>
+<h3 id="-state-management">🎨 <strong>State Management</strong></h3>
+<ul>
+<li>Provider + ChangeNotifier pattern</li>
+<li>Ready-made providers for all services</li>
+<li>Reactive UI updates</li>
+<li>Centralized state management</li>
+</ul>
+<h3 id="-extended-e-commerce-functionality">🛍️ <strong>Extended E-commerce Functionality</strong></h3>
+<ul>
+<li>Full Magento REST API integration</li>
+<li>GraphQL support for complex queries</li>
+<li>Cart with guest user support</li>
+<li>Wishlist with multiple lists</li>
+<li>Advanced search and filtering</li>
+</ul>
+<h2 id="-getting-started">🚀 Getting Started</h2>
+<h3 id="installation">Installation</h3>
+<p>Add the dependency to your <code>pubspec.yaml</code>:</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  flutter_magento: ^3.0.0
+</code></pre>
+<h3 id="quick-start">Quick Start</h3>
+<pre class="language-dart"><code class="language-dart">import 'package:flutter_magento/flutter_magento.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) =&gt; MagentoProvider()),
+        ChangeNotifierProxyProvider&lt;MagentoProvider, AuthProvider&gt;(
+          create: (context) =&gt; AuthProvider(context.read&lt;MagentoProvider&gt;().auth),
+          update: (context, magentoProvider, previous) =&gt; 
+              previous ?? AuthProvider(magentoProvider.auth),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Consumer&lt;MagentoProvider&gt;(
+        builder: (context, magento, child) {
+          if (!magento.isInitialized) {
+            return FutureBuilder(
+              future: magento.initialize(
+                baseUrl: 'https://your-magento-store.com',
+                supportedLanguages: ['en', 'ru', 'de', 'fr', 'es'],
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Scaffold(body: Center(child: CircularProgressIndicator()));
+                }
+                return HomePage();
+              },
+            );
+          }
+          return HomePage();
+        },
+      ),
+    );
+  }
+}
+
+// Authentication usage example
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer&lt;AuthProvider&gt;(
+      builder: (context, auth, child) {
+        return Scaffold(
+          body: Column(
+            children: [
+              TextField(/* email field */),
+              TextField(/* password field */),
+              ElevatedButton(
+                onPressed: auth.isLoading ? null : () async {
+                  final success = await auth.authenticate(
+                    email: emailController.text,
+                    password: passwordController.text,
+                    rememberMe: true,
+                  );
+                  if (success) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  }
+                },
+                child: auth.isLoading 
+                    ? CircularProgressIndicator() 
+                    : Text('Login'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+</code></pre>
+<h2 id="-api-reference">📚 API Reference</h2>
+<h3 id="authentication">Authentication</h3>
+<pre class="language-dart"><code class="language-dart">// Customer login
+final authResponse = await magento.authenticateCustomer(
+  email: 'customer@example.com',
+  password: 'password123',
+);
+
+// Customer registration
+final customer = await magento.createCustomer(
+  email: 'new@example.com',
+  password: 'password123',
+  firstName: 'John',
+  lastName: 'Doe',
+);
+
+// Get current customer
+final currentCustomer = await magento.getCurrentCustomer();
+
+// Logout
+await magento.logout();
+</code></pre>
+<h3 id="products">Products</h3>
+<pre class="language-dart"><code class="language-dart">// Get products with filters
+final products = await magento.getProducts(
+  page: 1,
+  pageSize: 20,
+  searchQuery: 'phone',
+  categoryId: '123',
+  sortBy: 'price',
+  sortOrder: 'asc',
+  filters: {'brand': 'Apple'},
+);
+
+// Get single product
+final product = await magento.getProduct('SKU123');
+
+// Search products
+final searchResults = await magento.searchProducts(
+  'smartphone',
+  page: 1,
+  pageSize: 20,
+);
+
+// Get product reviews
+final reviews = await magento.getProductReviews('SKU123');
+</code></pre>
+<h3 id="cart-management">Cart Management</h3>
+<pre class="language-dart"><code class="language-dart">// Create cart
+final cart = await magento.createCart();
+
+// Add item to cart
+final updatedCart = await magento.addToCart(
+  cartId: cart.id!,
+  sku: 'SKU123',
+  quantity: 2,
+);
+
+// Get cart totals
+final totals = await magento.getCartTotals(cart.id!);
+
+// Apply coupon
+final cartWithCoupon = await magento.applyCoupon(
+  cartId: cart.id!,
+  couponCode: 'SAVE20',
+);
+
+// Estimate shipping
+final shippingMethods = await magento.estimateShipping(
+  cartId: cart.id!,
+  address: shippingAddress,
+);
+</code></pre>
+<h3 id="orders">Orders</h3>
+<pre class="language-dart"><code class="language-dart">// Get customer orders
+final orders = await magento.getCustomerOrders(
+  page: 1,
+  pageSize: 20,
+);
+
+// Get order details
+final order = await magento.getOrder('ORDER123');
+
+// Get order status
+final status = await magento.getOrderStatus('ORDER123');
+
+// Cancel order
+final cancelled = await magento.cancelOrder(
+  'ORDER123',
+  reason: 'Changed mind',
+);
+
+// Reorder
+final newCart = await magento.reorder('ORDER123');
+</code></pre>
+<h3 id="wishlist">Wishlist</h3>
+<pre class="language-dart"><code class="language-dart">// Get wishlist
+final wishlist = await magento.getWishlist();
+
+// Add to wishlist
+final wishlistItem = await magento.addToDefaultWishlist(
+  productId: '123',
+);
+
+// Remove from wishlist
+final removed = await magento.removeFromDefaultWishlist(1);
+
+// Share wishlist
+final shared = await magento.shareDefaultWishlist(
+  email: 'friend@example.com',
+  message: 'Check out my wishlist!',
+);
+
+// Add all to cart
+final addedToCart = await magento.addAllDefaultWishlistToCart();
+</code></pre>
+<h3 id="advanced-search">Advanced Search</h3>
+<pre class="language-dart"><code class="language-dart">// Advanced search
+final searchResults = await magento.search(
+  query: 'smartphone',
+  filters: {'brand': 'Apple', 'price': '100-500'},
+  page: 1,
+  pageSize: 20,
+  sortBy: 'price',
+  sortOrder: 'asc',
+);
+
+// Search by category
+final categoryResults = await magento.searchByCategory(
+  categoryId: '123',
+  query: 'phone',
+);
+
+// Search by attribute
+final attributeResults = await magento.searchByAttribute(
+  attribute: 'brand',
+  value: 'Apple',
+);
+
+// Get search suggestions
+final suggestions = await magento.getSearchSuggestions('smart');
+
+// Get filterable attributes
+final attributes = await magento.getFilterableAttributes();
+
+// Apply price filter
+final priceFiltered = await magento.applyPriceFilter(
+  minPrice: 100.0,
+  maxPrice: 500.0,
+);
+</code></pre>
+<h2 id="-architecture">🏗️ Architecture</h2>
+<p>The plugin follows a clean architecture pattern with the following layers:</p>
+<ul>
+<li><strong>API Layer</strong>: HTTP client with Dio, REST API integration</li>
+<li><strong>Service Layer</strong>: Business logic and data processing</li>
+<li><strong>Model Layer</strong>: Data models with JSON serialization</li>
+<li><strong>Plugin Layer</strong>: Flutter plugin interface</li>
+</ul>
+<h3 id="directory-structure">Directory Structure</h3>
+<pre class="language-dart"><code>lib/
+├── src/
+│   ├── api/           # API classes
+│   │   ├── auth_api.dart
+│   │   ├── product_api.dart
+│   │   ├── cart_api.dart
+│   │   ├── order_api.dart
+│   │   ├── wishlist_api.dart
+│   │   └── search_api.dart
+│   ├── models/        # Data models
+│   │   ├── auth_models.dart
+│   │   ├── product_models.dart
+│   │   ├── cart_models.dart
+│   │   ├── order_models.dart
+│   │   ├── wishlist_models.dart
+│   │   └── search_models.dart
+│   └── flutter_magento_plugin.dart
+├── flutter_magento.dart
+└── flutter_magento_platform_interface.dart
+</code></pre>
+<h2 id="-configuration">🔧 Configuration</h2>
+<h3 id="environment-setup">Environment Setup</h3>
+<pre class="language-dart"><code class="language-dart">// Development
+await magento.initialize(
+  baseUrl: 'https://dev-store.com',
+  connectionTimeout: 30000,
+  receiveTimeout: 30000,
+);
+
+// Production
+await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'X-API-Key': 'your-api-key',
+    'X-Store-Code': 'default',
+  },
+);
+</code></pre>
+<h3 id="custom-headers">Custom Headers</h3>
+<pre class="language-dart"><code class="language-dart">await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'Authorization': 'Bearer token',
+    'Accept-Language': 'en-US',
+    'X-Custom-Header': 'value',
+  },
+);
+</code></pre>
+<h2 id="-testing">🧪 Testing</h2>
+<pre class="language-bash"><code class="language-bash"># Run tests
+flutter test
+
+# Run tests with coverage
+flutter test --coverage
+
+# Generate code
+flutter packages pub run build_runner build --delete-conflicting-outputs
+</code></pre>
+<h2 id="-platform-support">📱 Platform Support</h2>
+<ul>
+<li>✅ Android</li>
+<li>✅ iOS</li>
+<li>✅ Web</li>
+<li>✅ Windows</li>
+<li>✅ macOS</li>
+<li>✅ Linux</li>
+</ul>
+<h2 id="-security-features">🔒 Security Features</h2>
+<ul>
+<li>JWT token authentication</li>
+<li>HTTPS enforcement</li>
+<li>Input validation and sanitization</li>
+<li>Secure token storage</li>
+<li>Rate limiting support</li>
+<li>CSRF protection</li>
+</ul>
+<h2 id="-performance-features">📊 Performance Features</h2>
+<ul>
+<li>Request caching</li>
+<li>Image optimization</li>
+<li>Lazy loading support</li>
+<li>Offline mode</li>
+<li>Background sync</li>
+<li>Memory management</li>
+</ul>
+<h2 id="-localization">🌍 Localization</h2>
+<p>This README is available in multiple languages:</p>
+<ul>
+<li><a href="README.md">English</a> (Current)</li>
+<li><a href="README_ru.md">Русский</a></li>
+<li><a href="README_th.md">ไทย</a></li>
+<li><a href="README_cn.md">中文</a></li>
+</ul>
+<h2 id="-contributing">🤝 Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Make your changes</li>
+<li>Add tests</li>
+<li>Submit a pull request</li>
+</ol>
+<h2 id="-license">📄 License</h2>
+<p>This project is licensed under the NativeMindNONC License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<h2 id="-support">🆘 Support</h2>
+<ul>
+<li>📧 Email: <a href="mailto:support@nativemind.net">support@nativemind.net</a></li>
+<li>🐛 Issues: <a href="https://github.com/nativemind/flutter_magento/issues">GitHub Issues</a></li>
+<li>📚 Documentation: <a href="https://github.com/nativemind/flutter_magento/wiki">Wiki</a></li>
+<li>💬 Community: <a href="https://discord.gg/nativemind">Discord</a></li>
+</ul>
+<h2 id="-acknowledgments">🙏 Acknowledgments</h2>
+<ul>
+<li>Magento team for the excellent e-commerce platform</li>
+<li>Flutter team for the amazing framework</li>
+<li>ScandiPWA team for inspiration and best practices</li>
+<li>All contributors and community members</li>
+</ul>
+<hr>
+<p><strong>Made with ❤️ by NativeMind Team</strong></p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="flutter_magento">
+  <span class="name"><a href="flutter_magento/">flutter_magento</a></span> 
+
+</dt>
+<dd>Flutter Magento - A comprehensive Flutter plugin for Magento e-commerce integration
+</dd>
+
+          <dt id="flutter_magento_method_channel">
+  <span class="name"><a href="flutter_magento_method_channel/">flutter_magento_method_channel</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="flutter_magento_platform_interface">
+  <span class="name"><a href="flutter_magento_platform_interface/">flutter_magento_platform_interface</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://gitlab.com/libsFlutter/flutter_magento">flutter_magento package</a></li>
+</ol>
+
+    <h5 class="hidden-xs"><span class="package-name">flutter_magento</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="flutter_magento/">flutter_magento</a></li>
+      <li><a href="flutter_magento_method_channel/">flutter_magento_method_channel</a></li>
+      <li><a href="flutter_magento_platform_interface/">flutter_magento_platform_interface</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+</main>
+<footer>
+  <span class="no-break">
+    flutter_magento
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

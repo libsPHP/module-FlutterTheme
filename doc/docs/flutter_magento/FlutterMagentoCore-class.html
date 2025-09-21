@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the FlutterMagentoCore class from the flutter_magento library, for the Dart programming language.">
+  <title>FlutterMagentoCore class - flutter_magento library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento.dart</a></li>
+    <li class="self-crumb">FlutterMagentoCore class</li>
+  </ol>
+  <div class="self-name">FlutterMagentoCore</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="flutter_magento&#47;flutter_magento-library-sidebar.html"
+    data-below-sidebar="flutter_magento&#47;FlutterMagentoCore-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">FlutterMagentoCore</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Main singleton class for Flutter Magento library.</p>
+<p>This class provides centralized access to all Magento functionality through
+a singleton pattern. It manages the core services and provides a unified
+interface for authentication, API services, and cart operations.</p>
+<h2 id="usage">Usage</h2>
+<pre class="language-dart"><code class="language-dart">final core = FlutterMagentoCore.instance;
+
+// Initialize the library
+await core.initialize(baseUrl: 'https://yourstore.com');
+
+// Access services
+final authService = core.authService;
+final cartService = core.cartService;
+</code></pre>
+</section>
+
+
+
+    
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="apiService" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/apiService.html">apiService</a></span>
+  <span class="signature">&#8594; MagentoApiService</span>
+  
+
+</dt>
+<dd>
+  Get the API service instance.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="authService" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/authService.html">authService</a></span>
+  <span class="signature">&#8594; <a href="../flutter_magento/AuthService-class.html">AuthService</a></span>
+  
+
+</dt>
+<dd>
+  Get the authentication service instance.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="baseUrl" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/baseUrl.html">baseUrl</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>
+  
+
+</dt>
+<dd>
+  Get the base URL of the Magento instance.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="cartItemsCount" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/cartItemsCount.html">cartItemsCount</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  Get cart items count
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="cartService" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/cartService.html">cartService</a></span>
+  <span class="signature">&#8594; <a href="../flutter_magento/CartService-class.html">CartService</a></span>
+  
+
+</dt>
+<dd>
+  Get the cart service instance.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="cartTotal" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/cartTotal.html">cartTotal</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+  
+
+</dt>
+<dd>
+  Get cart total
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="currentCart" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/currentCart.html">currentCart</a></span>
+  <span class="signature">&#8594; Cart?</span>
+  
+
+</dt>
+<dd>
+  Get cart information
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="currentCustomer" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/currentCustomer.html">currentCustomer</a></span>
+  <span class="signature">&#8594; <a href="../flutter_magento/Customer-class.html">Customer</a>?</span>
+  
+
+</dt>
+<dd>
+  Get current customer
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="customerToken" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/customerToken.html">customerToken</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>
+  
+
+</dt>
+<dd>
+  Get customer token
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="description" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/description.html">description</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Get library description
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="isAuthenticated" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/isAuthenticated.html">isAuthenticated</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Check if user is authenticated
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isCartEmpty" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/isCartEmpty.html">isCartEmpty</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Check if cart is empty
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="isInitialized" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/isInitialized.html">isInitialized</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  Check if the library is initialized.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="version" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/version.html">version</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Get library version
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="addToCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/addToCart.html">addToCart</a></span><span class="signature">(<wbr>{<span class="parameter" id="addToCart-param-sku"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span>, </span><span class="parameter" id="addToCart-param-quantity"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">quantity</span>, </span><span class="parameter" id="addToCart-param-productOptions"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">productOptions</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Add product to cart
+  
+
+</dd>
+
+        <dt id="addToWishlist" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/addToWishlist.html">addToWishlist</a></span><span class="signature">(<wbr><span class="parameter" id="addToWishlist-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Add product to wishlist
+  
+
+</dd>
+
+        <dt id="applyCoupon" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/applyCoupon.html">applyCoupon</a></span><span class="signature">(<wbr><span class="parameter" id="applyCoupon-param-couponCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">couponCode</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Apply coupon code
+  
+
+</dd>
+
+        <dt id="authenticate" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/authenticate.html">authenticate</a></span><span class="signature">(<wbr>{<span class="parameter" id="authenticate-param-email"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">email</span>, </span><span class="parameter" id="authenticate-param-password"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">password</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Authenticate customer
+  
+
+</dd>
+
+        <dt id="clearCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/clearCart.html">clearCart</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Clear cart
+  
+
+</dd>
+
+        <dt id="createAccount" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/createAccount.html">createAccount</a></span><span class="signature">(<wbr>{<span class="parameter" id="createAccount-param-email"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">email</span>, </span><span class="parameter" id="createAccount-param-password"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">password</span>, </span><span class="parameter" id="createAccount-param-firstName"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">firstName</span>, </span><span class="parameter" id="createAccount-param-lastName"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">lastName</span>, </span><span class="parameter" id="createAccount-param-additionalData"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">additionalData</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Create customer account
+  
+
+</dd>
+
+        <dt id="createCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/createCart.html">createCart</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Create cart
+  
+
+</dd>
+
+        <dt id="estimateShipping" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/estimateShipping.html">estimateShipping</a></span><span class="signature">(<wbr><span class="parameter" id="estimateShipping-param-address"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">address</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Estimate shipping
+  
+
+</dd>
+
+        <dt id="executeGraphQL" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/executeGraphQL.html">executeGraphQL</a></span><span class="signature">(<wbr><span class="parameter" id="executeGraphQL-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span>, {</span><span class="parameter" id="executeGraphQL-param-variables"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">variables</span>, </span><span class="parameter" id="executeGraphQL-param-operationName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">operationName</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Execute custom GraphQL query
+  
+
+</dd>
+
+        <dt id="getCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCart.html">getCart</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get cart
+  
+
+</dd>
+
+        <dt id="getCategories" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCategories.html">getCategories</a></span><span class="signature">(<wbr>{<span class="parameter" id="getCategories-param-useGraphQL"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useGraphQL</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get categories (using GraphQL by default)
+  
+
+</dd>
+
+        <dt id="getCategory" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCategory.html">getCategory</a></span><span class="signature">(<wbr><span class="parameter" id="getCategory-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get category by ID (REST API only)
+  
+
+</dd>
+
+        <dt id="getCategoryTree" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCategoryTree.html">getCategoryTree</a></span><span class="signature">(<wbr>{<span class="parameter" id="getCategoryTree-param-rootCategoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">rootCategoryId</span> = <span class="default-value">2</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get detailed category tree via GraphQL
+  
+
+</dd>
+
+        <dt id="getCmsPages" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCmsPages.html">getCmsPages</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get CMS pages via GraphQL
+  
+
+</dd>
+
+        <dt id="getCountries" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCountries.html">getCountries</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get available countries via GraphQL
+  
+
+</dd>
+
+        <dt id="getCurrency" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCurrency.html">getCurrency</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get currency information via GraphQL
+  
+
+</dd>
+
+        <dt id="getCustomerInfoGraphQL" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCustomerInfoGraphQL.html">getCustomerInfoGraphQL</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get detailed customer information via GraphQL (requires authentication)
+  
+
+</dd>
+
+        <dt id="getCustomerOrders" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCustomerOrders.html">getCustomerOrders</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get customer orders
+  
+
+</dd>
+
+        <dt id="getCustomerOrdersGraphQL" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getCustomerOrdersGraphQL.html">getCustomerOrdersGraphQL</a></span><span class="signature">(<wbr>{<span class="parameter" id="getCustomerOrdersGraphQL-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getCustomerOrdersGraphQL-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">10</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get customer orders via GraphQL (requires authentication)
+  
+
+</dd>
+
+        <dt id="getOrder" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getOrder.html">getOrder</a></span><span class="signature">(<wbr><span class="parameter" id="getOrder-param-orderId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">orderId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get order by ID
+  
+
+</dd>
+
+        <dt id="getPaymentMethods" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getPaymentMethods.html">getPaymentMethods</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get payment methods
+  
+
+</dd>
+
+        <dt id="getProduct" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProduct.html">getProduct</a></span><span class="signature">(<wbr><span class="parameter" id="getProduct-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span>, {</span><span class="parameter" id="getProduct-param-useGraphQL"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useGraphQL</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product by SKU (using GraphQL by default)
+  
+
+</dd>
+
+        <dt id="getProductFilters" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProductFilters.html">getProductFilters</a></span><span class="signature">(<wbr>{<span class="parameter" id="getProductFilters-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">categoryId</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product filters/facets via GraphQL
+  
+
+</dd>
+
+        <dt id="getProductQuantityInCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProductQuantityInCart.html">getProductQuantityInCart</a></span><span class="signature">(<wbr><span class="parameter" id="getProductQuantityInCart-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product quantity in cart
+  
+
+</dd>
+
+        <dt id="getProductRecommendations" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProductRecommendations.html">getProductRecommendations</a></span><span class="signature">(<wbr><span class="parameter" id="getProductRecommendations-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product recommendations via GraphQL
+  
+
+</dd>
+
+        <dt id="getProductReviews" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProductReviews.html">getProductReviews</a></span><span class="signature">(<wbr><span class="parameter" id="getProductReviews-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span>, {</span><span class="parameter" id="getProductReviews-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProductReviews-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">10</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product reviews via GraphQL
+  
+
+</dd>
+
+        <dt id="getProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProducts.html">getProducts</a></span><span class="signature">(<wbr>{<span class="parameter" id="getProducts-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProducts-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="getProducts-param-searchQuery"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">searchQuery</span>, </span><span class="parameter" id="getProducts-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">categoryId</span>, </span><span class="parameter" id="getProducts-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span><span class="parameter" id="getProducts-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span>, </span><span class="parameter" id="getProducts-param-filters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">filters</span>, </span><span class="parameter" id="getProducts-param-useGraphQL"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useGraphQL</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get products (using GraphQL by default)
+  
+
+</dd>
+
+        <dt id="getProductsByCategory" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getProductsByCategory.html">getProductsByCategory</a></span><span class="signature">(<wbr><span class="parameter" id="getProductsByCategory-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">categoryId</span>, {</span><span class="parameter" id="getProductsByCategory-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProductsByCategory-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="getProductsByCategory-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span><span class="parameter" id="getProductsByCategory-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span>, </span><span class="parameter" id="getProductsByCategory-param-useGraphQL"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useGraphQL</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get products by category (using GraphQL by default)
+  
+
+</dd>
+
+        <dt id="getSearchSuggestions" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getSearchSuggestions.html">getSearchSuggestions</a></span><span class="signature">(<wbr><span class="parameter" id="getSearchSuggestions-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get search suggestions via GraphQL
+  
+
+</dd>
+
+        <dt id="getStoreConfig" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getStoreConfig.html">getStoreConfig</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get store configuration via GraphQL
+  
+
+</dd>
+
+        <dt id="getWishlist" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getWishlist.html">getWishlist</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get wishlist
+  
+
+</dd>
+
+        <dt id="getWishlistGraphQL" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/getWishlistGraphQL.html">getWishlistGraphQL</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get wishlist via GraphQL (requires authentication)
+  
+
+</dd>
+
+        <dt id="initialize" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/initialize.html">initialize</a></span><span class="signature">(<wbr>{<span class="parameter" id="initialize-param-baseUrl"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">baseUrl</span>, </span><span class="parameter" id="initialize-param-headers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>, </span><span class="parameter" id="initialize-param-connectionTimeout"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">connectionTimeout</span>, </span><span class="parameter" id="initialize-param-receiveTimeout"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">receiveTimeout</span>, </span><span class="parameter" id="initialize-param-adminToken"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">adminToken</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Initialize the Flutter Magento library.
+  
+
+</dd>
+
+        <dt id="isGraphQLAvailable" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/isGraphQLAvailable.html">isGraphQLAvailable</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Check if GraphQL is available
+  
+
+</dd>
+
+        <dt id="isProductInCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/isProductInCart.html">isProductInCart</a></span><span class="signature">(<wbr><span class="parameter" id="isProductInCart-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Check if product is in cart
+  
+
+</dd>
+
+        <dt id="logout" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/logout.html">logout</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Logout customer
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="placeOrder" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/placeOrder.html">placeOrder</a></span><span class="signature">(<wbr><span class="parameter" id="placeOrder-param-orderData"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">orderData</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Place order
+  
+
+</dd>
+
+        <dt id="removeCoupon" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/removeCoupon.html">removeCoupon</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Remove coupon code
+  
+
+</dd>
+
+        <dt id="removeFromCart" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/removeFromCart.html">removeFromCart</a></span><span class="signature">(<wbr><span class="parameter" id="removeFromCart-param-itemId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">itemId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Remove item from cart
+  
+
+</dd>
+
+        <dt id="removeFromWishlist" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/removeFromWishlist.html">removeFromWishlist</a></span><span class="signature">(<wbr><span class="parameter" id="removeFromWishlist-param-itemId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">itemId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Remove product from wishlist
+  
+
+</dd>
+
+        <dt id="reset" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/reset.html">reset</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Reset library state
+  
+
+</dd>
+
+        <dt id="searchProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/searchProducts.html">searchProducts</a></span><span class="signature">(<wbr><span class="parameter" id="searchProducts-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span>, {</span><span class="parameter" id="searchProducts-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="searchProducts-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="searchProducts-param-useGraphQL"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">useGraphQL</span> = <span class="default-value">true</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Search products (using GraphQL by default)
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="updateCartItemQuantity" class="callable">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/updateCartItemQuantity.html">updateCartItemQuantity</a></span><span class="signature">(<wbr>{<span class="parameter" id="updateCartItemQuantity-param-itemId"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">itemId</span>, </span><span class="parameter" id="updateCartItemQuantity-param-quantity"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">quantity</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Update cart item quantity
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section class="summary offset-anchor" id="static-properties">
+    <h2>Static Properties</h2>
+    <dl class="properties">
+        <dt id="instance" class="property">
+  <span class="name"><a href="../flutter_magento/FlutterMagentoCore/instance.html">instance</a></span>
+  <span class="signature">&#8594; <a href="../flutter_magento/FlutterMagentoCore-class.html">FlutterMagentoCore</a></span>
+  
+
+</dt>
+<dd>
+  Get singleton instance of FlutterMagentoCore.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento</a></li>
+    <li class="self-crumb">FlutterMagentoCore class</li>
+</ol>
+
+    <h5>flutter_magento library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    flutter_magento
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -1,3 +1,10 @@
+## 3.0.1
+
+* **Dependency Updates**: Upgraded build_runner, mockito, test and other dev dependencies
+* **Bug Fixes**: Fixed RetryInterceptor dio instance passing and HTTP client getter usage
+* **Compatibility**: Resolved dependency conflicts for stable publishing
+* **Code Quality**: Improved error handling in enhanced HTTP client
+
 ## 3.0.0
 
 * **BREAKING CHANGES**: Major version update with significant architectural improvements

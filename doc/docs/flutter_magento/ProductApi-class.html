@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ProductApi class from the flutter_magento library, for the Dart programming language.">
+  <title>ProductApi class - flutter_magento library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento.dart</a></li>
+    <li class="self-crumb">ProductApi class</li>
+  </ol>
+  <div class="self-name">ProductApi</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="flutter_magento&#47;flutter_magento-library-sidebar.html"
+    data-below-sidebar="flutter_magento&#47;ProductApi-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">ProductApi</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Product API for Magento integration.</p>
+<p>This class provides comprehensive product catalog functionality for Magento,
+including product listing, search, categories, and product relationships.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Product Listing</strong>: Get products with pagination and filtering</li>
+<li><strong>Product Details</strong>: Retrieve detailed product information by SKU</li>
+<li><strong>Category Management</strong>: Browse product categories and hierarchy</li>
+<li><strong>Search Functionality</strong>: Search products by name, SKU, or description</li>
+<li><strong>Product Relationships</strong>: Get related, cross-sell, and up-sell products</li>
+<li><strong>Product Reviews</strong>: Retrieve customer reviews for products</li>
+<li><strong>Advanced Filtering</strong>: Filter by price, stock status, and custom attributes</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<pre class="language-dart"><code class="language-dart">final productApi = ProductApi(apiClient);
+
+// Get products with pagination
+final products = await productApi.getProducts(
+  page: 1,
+  pageSize: 20,
+  categoryId: '123',
+);
+
+// Get product details
+final product = await productApi.getProduct('SKU123');
+</code></pre>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+
+        
+        
+
+          <dt>Implementers</dt>
+          <dd><ul class="comma-separated clazz-relationships">
+              <li><a href="../flutter_magento/EnhancedProductApi-class.html">EnhancedProductApi</a></li>
+          </ul></dd>
+
+        
+        
+
+
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="ProductApi.new" class="callable">
+          <span class="name"><a href="../flutter_magento/ProductApi/ProductApi.html">ProductApi.new</a></span><span class="signature">(<span class="parameter" id="-param-_client"><span class="type-annotation"><a href="../flutter_magento/MagentoApiClient-class.html">MagentoApiClient</a></span> <span class="parameter-name">_client</span></span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="getCategories" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getCategories.html">getCategories</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/CategoryTree-class.html">CategoryTree</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get categories
+  
+
+</dd>
+
+        <dt id="getCategory" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getCategory.html">getCategory</a></span><span class="signature">(<wbr><span class="parameter" id="getCategory-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Category-class.html">Category</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get category by ID
+  
+
+</dd>
+
+        <dt id="getCrossSellProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getCrossSellProducts.html">getCrossSellProducts</a></span><span class="signature">(<wbr><span class="parameter" id="getCrossSellProducts-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Product-class.html">Product</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get cross-sell products
+  
+
+</dd>
+
+        <dt id="getProduct" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getProduct.html">getProduct</a></span><span class="signature">(<wbr><span class="parameter" id="getProduct-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Product-class.html">Product</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get detailed product information by SKU.
+  
+
+</dd>
+
+        <dt id="getProductReviews" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getProductReviews.html">getProductReviews</a></span><span class="signature">(<wbr><span class="parameter" id="getProductReviews-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span>, {</span><span class="parameter" id="getProductReviews-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProductReviews-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">10</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Review-class.html">Review</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product reviews
+  
+
+</dd>
+
+        <dt id="getProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getProducts.html">getProducts</a></span><span class="signature">(<wbr>{<span class="parameter" id="getProducts-param-params"><span class="type-annotation"><a href="../flutter_magento/ProductFilterParams-class.html">ProductFilterParams</a>?</span> <span class="parameter-name">params</span>, </span><span class="parameter" id="getProducts-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProducts-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="getProducts-param-searchQuery"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">searchQuery</span>, </span><span class="parameter" id="getProducts-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">categoryId</span>, </span><span class="parameter" id="getProducts-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span><span class="parameter" id="getProducts-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span>, </span><span class="parameter" id="getProducts-param-filters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">filters</span>, </span><span class="parameter" id="getProducts-param-minPrice"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">minPrice</span>, </span><span class="parameter" id="getProducts-param-maxPrice"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">maxPrice</span>, </span><span class="parameter" id="getProducts-param-attributes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">attributes</span>, </span><span class="parameter" id="getProducts-param-inStock"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">inStock</span>, </span><span class="parameter" id="getProducts-param-brand"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">brand</span>, </span><span class="parameter" id="getProducts-param-tags"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">tags</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/ProductListResponse-class.html">ProductListResponse</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get products with pagination and advanced filtering.
+  
+
+</dd>
+
+        <dt id="getProductsByCategory" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getProductsByCategory.html">getProductsByCategory</a></span><span class="signature">(<wbr><span class="parameter" id="getProductsByCategory-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">categoryId</span>, {</span><span class="parameter" id="getProductsByCategory-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="getProductsByCategory-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="getProductsByCategory-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span><span class="parameter" id="getProductsByCategory-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span>, </span><span class="parameter" id="getProductsByCategory-param-filters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">filters</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/ProductListResponse-class.html">ProductListResponse</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get products by category
+  
+
+</dd>
+
+        <dt id="getProductVariants" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getProductVariants.html">getProductVariants</a></span><span class="signature">(<wbr><span class="parameter" id="getProductVariants-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/ProductOption-class.html">ProductOption</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get product variants (configurable options)
+  
+
+</dd>
+
+        <dt id="getRelatedProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getRelatedProducts.html">getRelatedProducts</a></span><span class="signature">(<wbr><span class="parameter" id="getRelatedProducts-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Product-class.html">Product</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get related products
+  
+
+</dd>
+
+        <dt id="getUpSellProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/getUpSellProducts.html">getUpSellProducts</a></span><span class="signature">(<wbr><span class="parameter" id="getUpSellProducts-param-sku"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sku</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/Product-class.html">Product</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get up-sell products
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="searchProducts" class="callable">
+  <span class="name"><a href="../flutter_magento/ProductApi/searchProducts.html">searchProducts</a></span><span class="signature">(<wbr><span class="parameter" id="searchProducts-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span>, {</span><span class="parameter" id="searchProducts-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span><span class="parameter" id="searchProducts-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span><span class="parameter" id="searchProducts-param-filters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">filters</span>, </span><span class="parameter" id="searchProducts-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span><span class="parameter" id="searchProducts-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/ProductListResponse-class.html">ProductListResponse</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Search products
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento</a></li>
+    <li class="self-crumb">ProductApi class</li>
+</ol>
+
+    <h5>flutter_magento library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    flutter_magento
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

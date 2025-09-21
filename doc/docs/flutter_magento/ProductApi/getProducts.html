@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getProducts method from the ProductApi class, for the Dart programming language.">
+  <title>getProducts method - ProductApi class - flutter_magento library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">flutter_magento</a></li>
+    <li><a href="../../flutter_magento/">flutter_magento.dart</a></li>
+    <li><a href="../../flutter_magento/ProductApi-class.html">ProductApi</a></li>
+    <li class="self-crumb">getProducts method</li>
+  </ol>
+  <div class="self-name">getProducts</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="flutter_magento&#47;ProductApi-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">getProducts</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/flutter_test/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../flutter_magento/ProductListResponse-class.html">ProductListResponse</a></span>&gt;</span></span>
+<span class="name ">getProducts</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="getProducts-param-params"><span class="type-annotation"><a href="../../flutter_magento/ProductFilterParams-class.html">ProductFilterParams</a>?</span> <span class="parameter-name">params</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-page"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">page</span> = <span class="default-value">1</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-pageSize"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageSize</span> = <span class="default-value">20</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-searchQuery"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">searchQuery</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-categoryId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">categoryId</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-sortBy"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortBy</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-sortOrder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">sortOrder</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-filters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span>?</span> <span class="parameter-name">filters</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-minPrice"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">minPrice</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-maxPrice"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">maxPrice</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-attributes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">attributes</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-inStock"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">inStock</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-brand"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">brand</span>, </span></li>
+<li><span class="parameter" id="getProducts-param-tags"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">tags</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Get products with pagination and advanced filtering.</p>
+<p>Retrieves a paginated list of products from the catalog with comprehensive
+filtering options including search, category, price range, and stock status.</p>
+<p><code>params</code> optional filter parameters object
+<code>page</code> the page number to retrieve (starts from 1)
+<code>pageSize</code> number of products per page (default: 20)
+<code>searchQuery</code> optional search term to filter products by name/description
+<code>categoryId</code> optional category ID to filter products by category
+<code>sortBy</code> field to sort by (e.g., 'name', 'price', 'created_at')
+<code>sortOrder</code> sort direction ('ASC' or 'DESC')
+<code>filters</code> additional custom filters to apply
+<code>minPrice</code> minimum price filter
+<code>maxPrice</code> maximum price filter
+<code>attributes</code> specific attributes to include in response
+<code>inStock</code> filter by stock availability
+<code>brand</code> filter by brand name
+<code>tags</code> filter by product tags</p>
+<p>Returns a <a href="../../flutter_magento/ProductListResponse-class.html">ProductListResponse</a> containing the product list and pagination info.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Future&lt;ProductListResponse&gt; getProducts({
+  ProductFilterParams? params,
+  int page = 1,
+  int pageSize = 20,
+  String? searchQuery,
+  String? categoryId,
+  String? sortBy,
+  String? sortOrder,
+  Map&lt;String, dynamic&gt;? filters,
+  double? minPrice,
+  double? maxPrice,
+  List&lt;String&gt;? attributes,
+  bool? inStock,
+  String? brand,
+  List&lt;String&gt;? tags,
+}) async {
+  try {
+    &#47;&#47; Build query parameters
+    final queryParams = &lt;String, dynamic&gt;{
+      &#39;searchCriteria[pageSize]&#39;: pageSize,
+      &#39;searchCriteria[currentPage]&#39;: page,
+    };
+
+    &#47;&#47; Add search query if provided
+    if (searchQuery != null &amp;&amp; searchQuery.isNotEmpty) {
+      queryParams[&#39;searchCriteria[filterGroups][0][filters][0][field]&#39;] =
+          &#39;name&#39;;
+      queryParams[&#39;searchCriteria[filterGroups][0][filters][0][value]&#39;] =
+          &#39;%$searchQuery%&#39;;
+      queryParams[
+              &#39;searchCriteria[filterGroups][0][filters][0][conditionType]&#39;] =
+          &#39;like&#39;;
+    }
+
+    &#47;&#47; Add category filter if provided
+    if (categoryId != null &amp;&amp; categoryId.isNotEmpty) {
+      queryParams[&#39;searchCriteria[filterGroups][1][filters][0][field]&#39;] =
+          &#39;category_id&#39;;
+      queryParams[&#39;searchCriteria[filterGroups][1][filters][0][value]&#39;] =
+          categoryId;
+      queryParams[
+              &#39;searchCriteria[filterGroups][1][filters][0][conditionType]&#39;] =
+          &#39;eq&#39;;
+    }
+
+    &#47;&#47; Add price filters if provided
+    if (minPrice != null) {
+      queryParams[&#39;searchCriteria[filterGroups][2][filters][0][field]&#39;] =
+          &#39;price&#39;;
+      queryParams[&#39;searchCriteria[filterGroups][2][filters][0][value]&#39;] =
+          minPrice;
+      queryParams[
+              &#39;searchCriteria[filterGroups][2][filters][0][conditionType]&#39;] =
+          &#39;gteq&#39;;
+    }
+
+    if (maxPrice != null) {
+      final priceGroupIndex = minPrice != null ? 3 : 2;
+      queryParams[
+              &#39;searchCriteria[filterGroups][$priceGroupIndex][filters][0][field]&#39;] =
+          &#39;price&#39;;
+      queryParams[
+              &#39;searchCriteria[filterGroups][$priceGroupIndex][filters][0][value]&#39;] =
+          maxPrice;
+      queryParams[
+              &#39;searchCriteria[filterGroups][$priceGroupIndex][filters][0][conditionType]&#39;] =
+          &#39;lteq&#39;;
+    }
+
+    &#47;&#47; Add stock filter if provided
+    if (inStock != null) {
+      final stockGroupIndex = _getNextFilterGroupIndex(queryParams);
+      queryParams[
+              &#39;searchCriteria[filterGroups][$stockGroupIndex][filters][0][field]&#39;] =
+          &#39;stock_status&#39;;
+      queryParams[
+              &#39;searchCriteria[filterGroups][$stockGroupIndex][filters][0][value]&#39;] =
+          inStock ? 1 : 0;
+      queryParams[
+              &#39;searchCriteria[filterGroups][$stockGroupIndex][filters][0][conditionType]&#39;] =
+          &#39;eq&#39;;
+    }
+
+    &#47;&#47; Add custom filters if provided
+    if (filters != null) {
+      final filterGroupIndex = _getNextFilterGroupIndex(queryParams);
+      var filterIndex = 0;
+
+      for (final entry in filters.entries) {
+        queryParams[
+                &#39;searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][field]&#39;] =
+            entry.key;
+        queryParams[
+                &#39;searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][value]&#39;] =
+            entry.value;
+        queryParams[
+                &#39;searchCriteria[filterGroups][$filterGroupIndex][filters][$filterIndex][conditionType]&#39;] =
+            &#39;eq&#39;;
+        filterIndex++;
+      }
+    }
+
+    &#47;&#47; Add sorting if provided
+    if (sortBy != null &amp;&amp; sortBy.isNotEmpty) {
+      queryParams[&#39;searchCriteria[sortOrders][0][field]&#39;] = sortBy;
+      queryParams[&#39;searchCriteria[sortOrders][0][direction]&#39;] =
+          sortOrder ?? &#39;ASC&#39;;
+    }
+
+    &#47;&#47; Add fields to select
+    queryParams[&#39;fields&#39;] =
+        &#39;items[id,sku,name,price,special_price,status,visibility,stock_status,stock_quantity,description,short_description,meta_title,meta_description,meta_keyword,categories,websites,custom_attributes,media_gallery_entries,options,product_links,tier_prices,reviews,created_at,updated_at]&#39;;
+
+    final response = await _client.guestRequest&lt;Map&lt;String, dynamic&gt;&gt;(
+      &#39;&#47;rest&#47;V1&#47;products&#39;,
+      queryParameters: queryParams,
+    );
+
+    if (response.statusCode == 200) {
+      return ProductListResponse.fromJson(response.data!);
+    } else {
+      throw Exception(&#39;Failed to get products: ${response.statusMessage}&#39;);
+    }
+  } on DioException catch (e) {
+    throw Exception(&#39;Failed to get products: ${e.message}&#39;);
+  } catch (e) {
+    throw Exception(&#39;Failed to get products: $e&#39;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">flutter_magento</a></li>
+    <li><a href="../../flutter_magento/">flutter_magento</a></li>
+    <li><a href="../../flutter_magento/ProductApi-class.html">ProductApi</a></li>
+    <li class="self-crumb">getProducts method</li>
+</ol>
+
+    <h5>ProductApi class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    flutter_magento
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

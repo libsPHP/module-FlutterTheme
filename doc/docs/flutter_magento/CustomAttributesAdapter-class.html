@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the CustomAttributesAdapter class from the flutter_magento library, for the Dart programming language.">
+  <title>CustomAttributesAdapter class - flutter_magento library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento.dart</a></li>
+    <li class="self-crumb">CustomAttributesAdapter<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span> class</li>
+  </ol>
+  <div class="self-name">CustomAttributesAdapter</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="flutter_magento&#47;flutter_magento-library-sidebar.html"
+    data-below-sidebar="flutter_magento&#47;CustomAttributesAdapter-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">CustomAttributesAdapter&lt;<wbr><span class="type-parameter">T</span>&gt;</span> class 
+    <a href="https://dart.dev/language/class-modifiers#abstract" class="feature feature-abstract" title="This type can not be directly constructed.">abstract</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Universal adapter for working with custom product attributes.</p>
+<p>This abstract class provides a flexible framework for handling custom product
+attributes in Magento. It allows each application to define its own attribute
+schema and provides methods for conversion, validation, and filtering.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Type Safety</strong>: Generic type parameter ensures type safety for custom models</li>
+<li><strong>Bidirectional Conversion</strong>: Convert between Magento attributes and typed models</li>
+<li><strong>Validation</strong>: Built-in validation system for custom attributes</li>
+<li><strong>Search Integration</strong>: Create search filters from custom attribute values</li>
+<li><strong>Extensibility</strong>: Support for custom attribute metadata and transformations</li>
+<li><strong>Compatibility</strong>: Version tracking for adapter compatibility</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<pre class="language-dart"><code class="language-dart">class MyCustomAdapter extends CustomAttributesAdapter&lt;MyProductModel&gt; {
+  @override
+  MyProductModel fromCustomAttributes(List&lt;CustomAttribute&gt; attributes) {
+    // Convert Magento attributes to your custom model
+  }
+  
+  @override
+  List&lt;CustomAttribute&gt; toCustomAttributes(MyProductModel model) {
+    // Convert your model back to Magento attributes
+  }
+}
+</code></pre>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="CustomAttributesAdapter.new" class="callable">
+          <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/CustomAttributesAdapter.html">CustomAttributesAdapter.new</a></span><span class="signature">()</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="adapterId" class="property">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/adapterId.html">adapterId</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Get unique identifier for this adapter.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="supportedAttributeCodes" class="property">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/supportedAttributeCodes.html">supportedAttributeCodes</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
+  
+
+</dt>
+<dd>
+  Returns list of attribute codes that this adapter handles.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="version" class="property">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/version.html">version</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  
+
+</dt>
+<dd>
+  Get adapter version for compatibility checking
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="buildSearchFilters" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/buildSearchFilters.html">buildSearchFilters</a></span><span class="signature">(<wbr><span class="parameter" id="buildSearchFilters-param-model"><span class="type-annotation">T</span> <span class="parameter-name">model</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Create search filters for custom attributes.
+  
+
+</dd>
+
+        <dt id="canHandle" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/canHandle.html">canHandle</a></span><span class="signature">(<wbr><span class="parameter" id="canHandle-param-attributes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/CustomAttribute-class.html">CustomAttribute</a></span>&gt;</span></span> <span class="parameter-name">attributes</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Check if this adapter can handle the given attributes
+  
+
+</dd>
+
+        <dt id="fromCustomAttributes" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/fromCustomAttributes.html">fromCustomAttributes</a></span><span class="signature">(<wbr><span class="parameter" id="fromCustomAttributes-param-attributes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/CustomAttribute-class.html">CustomAttribute</a></span>&gt;</span></span> <span class="parameter-name">attributes</span></span>)
+    <span class="returntype parameter">&#8594; T</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Convert list of Magento CustomAttribute to typed model.
+  
+
+</dd>
+
+        <dt id="getAttributeDisplayName" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/getAttributeDisplayName.html">getAttributeDisplayName</a></span><span class="signature">(<wbr><span class="parameter" id="getAttributeDisplayName-param-attributeCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">attributeCode</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get attribute display name
+  
+
+</dd>
+
+        <dt id="getAttributeMetadata" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/getAttributeMetadata.html">getAttributeMetadata</a></span><span class="signature">(<wbr><span class="parameter" id="getAttributeMetadata-param-attributeCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">attributeCode</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get attribute metadata (optional)
+  
+
+</dd>
+
+        <dt id="getAttributeValue" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/getAttributeValue.html">getAttributeValue</a></span><span class="signature">&lt;<wbr><span class="type-parameter">U</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="getAttributeValue-param-attributes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/CustomAttribute-class.html">CustomAttribute</a></span>&gt;</span></span> <span class="parameter-name">attributes</span>, </span><span class="parameter" id="getAttributeValue-param-code"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">code</span></span>)
+    <span class="returntype parameter">&#8594; U?</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get attribute value by code with type casting.
+  
+
+</dd>
+
+        <dt id="getDefaultValue" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/getDefaultValue.html">getDefaultValue</a></span><span class="signature">(<wbr><span class="parameter" id="getDefaultValue-param-attributeCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">attributeCode</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Get default value for an attribute (optional)
+  
+
+</dd>
+
+        <dt id="isRequired" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/isRequired.html">isRequired</a></span><span class="signature">(<wbr><span class="parameter" id="isRequired-param-attributeCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">attributeCode</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Check if attribute is required
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="toCustomAttributes" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/toCustomAttributes.html">toCustomAttributes</a></span><span class="signature">(<wbr><span class="parameter" id="toCustomAttributes-param-model"><span class="type-annotation">T</span> <span class="parameter-name">model</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../flutter_magento/CustomAttribute-class.html">CustomAttribute</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Convert typed model back to list of Magento CustomAttribute.
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="transformAttributeValue" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/transformAttributeValue.html">transformAttributeValue</a></span><span class="signature">(<wbr><span class="parameter" id="transformAttributeValue-param-attributeCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">attributeCode</span>, </span><span class="parameter" id="transformAttributeValue-param-rawValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">rawValue</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Transform raw attribute value based on type
+  
+
+</dd>
+
+        <dt id="validate" class="callable">
+  <span class="name"><a href="../flutter_magento/CustomAttributesAdapter/validate.html">validate</a></span><span class="signature">(<wbr><span class="parameter" id="validate-param-model"><span class="type-annotation">T</span> <span class="parameter-name">model</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../flutter_magento/ValidationResult-class.html">ValidationResult</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Validate the custom model instance.
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">flutter_magento</a></li>
+    <li><a href="../flutter_magento/">flutter_magento</a></li>
+    <li class="self-crumb">CustomAttributesAdapter<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span> class</li>
+</ol>
+
+    <h5>flutter_magento library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    flutter_magento
+      3.0.0
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
