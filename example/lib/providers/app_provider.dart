@@ -332,12 +332,12 @@ class AppProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print('Load products error: $e');
+      debugPrint('Load products error: $e');
       
       // Если ошибка 401 (Unauthorized), создаем демо-продукты
       if (e.toString().contains('401') || e.toString().contains('Unauthorized')) {
         try {
-          print('Creating demo products...');
+          debugPrint('Creating demo products...');
           final demoProducts = _createDemoProducts();
           if (page == 1) {
             _products = demoProducts;
@@ -481,17 +481,17 @@ class AppProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print('Failed to load categories: $e');
+      debugPrint('Failed to load categories: $e');
       
       // Если ошибка 401 (Unauthorized), попробуем использовать публичный API
       if (e.toString().contains('401') || e.toString().contains('Unauthorized')) {
         try {
-          print('Trying public categories API...');
+          debugPrint('Trying public categories API...');
           // Создаем демо-категории для тестирования
           _categories = _createDemoCategories();
           notifyListeners();
         } catch (demoError) {
-          print('Failed to create demo categories: $demoError');
+          debugPrint('Failed to create demo categories: $demoError');
         }
       }
     }
@@ -526,7 +526,7 @@ class AppProvider extends ChangeNotifier {
 
       return categories;
     } catch (e) {
-      print('Error extracting categories: $e');
+      debugPrint('Error extracting categories: $e');
       return [];
     }
   }
