@@ -7,8 +7,8 @@ abstract class MagentoResult<T> {
     required this.success,
     this.data,
     this.error,
-    DateTime? timestamp,
-  }) : timestamp = timestamp;
+    required this.timestamp,
+  });
 
   /// Whether the operation was successful
   final bool success;
@@ -51,7 +51,7 @@ class MagentoOperationResult<T> extends MagentoResult<T> {
     required super.success,
     super.data,
     super.error,
-    super.timestamp,
+    required super.timestamp,
   }) : super._();
 
   /// Create a successful result
@@ -84,7 +84,7 @@ class MagentoAuthResult extends MagentoResult<MagentoAuthData> {
     required super.success,
     super.data,
     super.error,
-    super.timestamp,
+    required super.timestamp,
   }) : super._();
 
   /// Create a successful authentication result
@@ -154,7 +154,7 @@ class MagentoSyncResult<T> extends MagentoResult<List<T>> {
     required super.success,
     super.data,
     super.error,
-    super.timestamp,
+    required super.timestamp,
     this.syncedCount = 0,
     this.failedCount = 0,
     this.conflictCount = 0,
@@ -327,7 +327,7 @@ class MagentoCacheResult<T> extends MagentoResult<T> {
     required super.success,
     super.data,
     super.error,
-    super.timestamp,
+    required super.timestamp,
     this.cacheKey,
     this.cacheHit = false,
     this.expiresAt,
@@ -389,7 +389,7 @@ class MagentoCloudFeatureResult<T> extends MagentoResult<T> {
     required super.success,
     super.data,
     super.error,
-    super.timestamp,
+    required super.timestamp,
     this.featureType,
     this.fallbackUsed = false,
     this.cloudProcessingTime,

@@ -6,9 +6,10 @@ import '../models/cart.dart';
 import '../models/order.dart';
 import '../exceptions/magento_exception.dart';
 
-/// Service for interacting with Magento REST API
+/// Service for interacting with Magento REST API and GraphQL
 class MagentoApiService {
   late final Dio _dio;
+  late final Dio _graphqlDio;
   String? _baseUrl;
   String? _customerToken;
   String? _adminToken;
@@ -43,17 +44,47 @@ class MagentoApiService {
         },
       ));
 
-      // Add interceptors for logging and error handling
+      // Initialize GraphQL client
+      _graphqlDio = Dio(BaseOptions(
+        baseUrl: _baseUrl!,
+        connectTimeout: Duration(
+            milliseconds: connectionTimeout ?? _defaultConnectionTimeout),
+        receiveTimeout:
+            Duration(milliseconds: receiveTimeout ?? _defaultReceiveTimeout),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          ...?headers,
+        },
+      ));
+
+      // Add interceptors for REST API logging and error handling
       _dio.interceptors.add(LogInterceptor(
         requestBody: kDebugMode,
         responseBody: kDebugMode,
-        logPrint: (obj) => kDebugMode ? print('🌐 Magento API: $obj') : null,
+        logPrint: (obj) => kDebugMode ? print('🌐 REST API: $obj') : null,
       ));
 
       _dio.interceptors.add(InterceptorsWrapper(
         onError: (error, handler) {
           if (kDebugMode) {
-            print('❌ Magento API Error: ${error.message}');
+            print('❌ REST API Error: ${error.message}');
+          }
+          handler.next(error);
+        },
+      ));
+
+      // Add interceptors for GraphQL logging and error handling
+      _graphqlDio.interceptors.add(LogInterceptor(
+        requestBody: kDebugMode,
+        responseBody: kDebugMode,
+        logPrint: (obj) => kDebugMode ? print('🌐 GraphQL: $obj') : null,
+      ));
+
+      _graphqlDio.interceptors.add(InterceptorsWrapper(
+        onError: (error, handler) {
+          if (kDebugMode) {
+            print('❌ GraphQL Error: ${error.message}');
           }
           handler.next(error);
         },
@@ -84,10 +115,13 @@ class MagentoApiService {
   void _updateAuthHeaders() {
     if (_customerToken != null) {
       _dio.options.headers['Authorization'] = 'Bearer $_customerToken';
+      _graphqlDio.options.headers['Authorization'] = 'Bearer $_customerToken';
     } else if (_adminToken != null) {
       _dio.options.headers['Authorization'] = 'Bearer $_adminToken';
+      _graphqlDio.options.headers['Authorization'] = 'Bearer $_adminToken';
     } else {
       _dio.options.headers.remove('Authorization');
+      _graphqlDio.options.headers.remove('Authorization');
     }
   }
 
@@ -118,6 +152,375 @@ class MagentoApiService {
       throw MagentoException('Unexpected error: $e');
     }
   }
+
+  // ==================== GraphQL API Methods ====================
+
+  /// Execute GraphQL query
+  Future<Map<String, dynamic>?> executeGraphQL(
+    String query, {
+    Map<String, dynamic>? variables,
+    String? operationName,
+  }) async {
+    try {
+      final requestData = {
+        'query': query,
+        if (variables != null) 'variables': variables,
+        if (operationName != null) 'operationName': operationName,
+      };
+
+      final response = await _graphqlDio.post('/graphql', data: requestData);
+
+      if (response.data != null) {
+        final responseData = response.data as Map<String, dynamic>;
+
+        // Check for GraphQL errors
+        if (responseData.containsKey('errors')) {
+          final errors = responseData['errors'] as List;
+          final errorMessages = errors.map((e) => e['message']).join(', ');
+          throw MagentoException('GraphQL Error: $errorMessages');
+        }
+
+        return responseData;
+      }
+
+      return null;
+    } on DioException catch (e) {
+      throw MagentoException.fromDioException(e);
+    } catch (e) {
+      throw MagentoException('GraphQL request failed: $e');
+    }
+  }
+
+  /// Get store configuration via GraphQL
+  Future<Map<String, dynamic>> getStoreConfigGraphQL() async {
+    const query = '''
+      query {
+        storeConfig {
+          store_code
+          store_name
+          website_name
+          locale
+          base_currency_code
+          default_display_currency_code
+          timezone
+          weight_unit
+          base_url
+          base_media_url
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['storeConfig'] != null) {
+      return result!['data']['storeConfig'];
+    }
+
+    throw MagentoException('Failed to get store configuration');
+  }
+
+  /// Get categories via GraphQL
+  Future<List<Map<String, dynamic>>> getCategoriesGraphQL() async {
+    const query = '''
+      query {
+        categories {
+          items {
+            id
+            name
+            url_key
+            url_path
+            children_count
+            path
+            level
+            position
+            include_in_menu
+            children {
+              id
+              name
+              url_key
+              children_count
+              position
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['categories']?['items'] != null) {
+      return List<Map<String, dynamic>>.from(
+          result!['data']['categories']['items']);
+    }
+
+    return [];
+  }
+
+  /// Get products via GraphQL
+  Future<Map<String, dynamic>> getProductsGraphQL({
+    int page = 1,
+    int pageSize = 20,
+    String? searchQuery,
+    String? categoryId,
+    String? sortBy,
+    String? sortOrder,
+    Map<String, dynamic>? filters,
+  }) async {
+    final queryBuilder = StringBuffer();
+    queryBuilder.write('query(');
+
+    final variables = <String, dynamic>{};
+    final filterConditions = <String>[];
+
+    // Add search parameter
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      queryBuilder.write('\$search: String, ');
+      variables['search'] = searchQuery;
+    }
+
+    // Add category filter
+    if (categoryId != null) {
+      filterConditions.add('category_id: { eq: "$categoryId" }');
+    }
+
+    // Add custom filters
+    if (filters != null) {
+      filters.forEach((key, value) {
+        if (value is String) {
+          filterConditions.add('$key: { eq: "$value" }');
+        } else if (value is List) {
+          filterConditions
+              .add('$key: { in: [${value.map((v) => '"$v"').join(', ')}] }');
+        }
+      });
+    }
+
+    queryBuilder.write(') {');
+    queryBuilder.write('products(');
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      queryBuilder.write('search: \$search, ');
+    }
+
+    if (filterConditions.isNotEmpty) {
+      queryBuilder.write('filter: { ${filterConditions.join(', ')} }, ');
+    }
+
+    queryBuilder.write('pageSize: $pageSize, currentPage: $page');
+
+    // Add sorting
+    if (sortBy != null) {
+      final direction = sortOrder?.toUpperCase() == 'DESC' ? 'DESC' : 'ASC';
+      queryBuilder.write(', sort: { $sortBy: $direction }');
+    }
+
+    queryBuilder.write(''') {
+      total_count
+      page_info {
+        current_page
+        page_size
+        total_pages
+      }
+      items {
+        id
+        name
+        sku
+        url_key
+        price_range {
+          minimum_price {
+            regular_price {
+              value
+              currency
+            }
+            final_price {
+              value
+              currency
+            }
+          }
+        }
+        stock_status
+        type_id
+        categories {
+          id
+          name
+          url_key
+        }
+        small_image {
+          url
+          label
+        }
+        description {
+          html
+        }
+        short_description {
+          html
+        }
+      }
+    }
+  }''');
+
+    final result =
+        await executeGraphQL(queryBuilder.toString(), variables: variables);
+    if (result?['data']?['products'] != null) {
+      return result!['data']['products'];
+    }
+
+    throw MagentoException('Failed to get products');
+  }
+
+  /// Search products via GraphQL
+  Future<Map<String, dynamic>> searchProductsGraphQL(
+    String query, {
+    int page = 1,
+    int pageSize = 20,
+  }) async {
+    return getProductsGraphQL(
+      searchQuery: query,
+      page: page,
+      pageSize: pageSize,
+    );
+  }
+
+  /// Get single product by SKU via GraphQL
+  Future<Map<String, dynamic>?> getProductGraphQL(String sku) async {
+    const query = '''
+      query(\$sku: String!) {
+        products(filter: { sku: { eq: \$sku } }) {
+          items {
+            id
+            name
+            sku
+            url_key
+            description {
+              html
+            }
+            short_description {
+              html
+            }
+            price_range {
+              minimum_price {
+                regular_price {
+                  value
+                  currency
+                }
+                final_price {
+                  value
+                  currency
+                }
+              }
+            }
+            stock_status
+            type_id
+            weight
+            categories {
+              id
+              name
+              url_key
+            }
+            media_gallery {
+              url
+              label
+              position
+            }
+            ... on ConfigurableProduct {
+              configurable_options {
+                id
+                attribute_id
+                attribute_code
+                label
+                values {
+                  value_index
+                  label
+                }
+              }
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query, variables: {'sku': sku});
+    if (result?['data']?['products']?['items']?.isNotEmpty == true) {
+      return result!['data']['products']['items'][0];
+    }
+
+    return null;
+  }
+
+  /// Get products by category via GraphQL
+  Future<Map<String, dynamic>> getProductsByCategoryGraphQL(
+    String categoryId, {
+    int page = 1,
+    int pageSize = 20,
+    String? sortBy,
+    String? sortOrder,
+  }) async {
+    return getProductsGraphQL(
+      categoryId: categoryId,
+      page: page,
+      pageSize: pageSize,
+      sortBy: sortBy,
+      sortOrder: sortOrder,
+    );
+  }
+
+  /// Get currency information via GraphQL
+  Future<Map<String, dynamic>> getCurrencyGraphQL() async {
+    const query = '''
+      query {
+        currency {
+          available_currency_codes
+          base_currency_code
+          base_currency_symbol
+          default_display_currency_code
+          default_display_currency_symbol
+          exchange_rates {
+            currency_to
+            rate
+          }
+        }
+      }
+    ''';
+
+    final result = await executeGraphQL(query);
+    if (result?['data']?['currency'] != null) {
+      return result!['data']['currency'];
+    }
+
+    throw MagentoException('Failed to get currency information');
+  }
+
+  /// Get CMS pages via GraphQL (if supported)
+  Future<List<Map<String, dynamic>>> getCmsPagesGraphQL() async {
+    const query = '''
+      query {
+        cmsPages {
+          items {
+            identifier
+            title
+            content_heading
+            page_layout
+            meta_title
+            meta_description
+          }
+        }
+      }
+    ''';
+
+    try {
+      final result = await executeGraphQL(query);
+      if (result?['data']?['cmsPages']?['items'] != null) {
+        return List<Map<String, dynamic>>.from(
+            result!['data']['cmsPages']['items']);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('CMS Pages not supported or error: $e');
+      }
+    }
+
+    return [];
+  }
+
+  // ==================== REST API Methods ====================
 
   /// Customer Authentication
   Future<Map<String, dynamic>> authenticateCustomer({

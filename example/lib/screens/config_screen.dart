@@ -17,8 +17,12 @@ class _ConfigScreenState extends State<ConfigScreen> {
   void initState() {
     super.initState();
     final provider = context.read<AppProvider>();
-    if (provider.baseUrl != null) {
+    if (provider.baseUrl != null && provider.baseUrl!.isNotEmpty) {
       _baseUrlController.text = provider.baseUrl!;
+    } else {
+      // Предлагаем URL из .env или Luma demo URL по умолчанию
+      _baseUrlController.text =
+          provider.defaultApiUrl ?? 'https://luma-demo.scandipwa.com/';
     }
   }
 
@@ -56,11 +60,18 @@ class _ConfigScreenState extends State<ConfigScreen> {
 
                           TextFormField(
                             controller: _baseUrlController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Base URL',
-                              hintText: 'https://your-magento-store.com',
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.link),
+                              hintText:
+                                  provider.defaultApiUrl ??
+                                  'https://luma-demo.scandipwa.com/',
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.link),
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.paste),
+                                tooltip: 'Paste from clipboard',
+                                onPressed: _pasteFromClipboard,
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -75,6 +86,29 @@ class _ConfigScreenState extends State<ConfigScreen> {
                           ),
 
                           const SizedBox(height: 16),
+
+                          // Quick setup button for default demo
+                          SizedBox(
+                            width: double.infinity,
+                            child: OutlinedButton.icon(
+                              onPressed: provider.isLoading
+                                  ? null
+                                  : () => _setUrl(
+                                      provider.defaultApiUrl ??
+                                          'https://luma-demo.scandipwa.com/',
+                                    ),
+                              icon: const Icon(Icons.star),
+                              label: Text(
+                                'Use ${provider.defaultApiUrl?.contains('luma') == true ? 'Luma Demo' : 'Default Demo'} (Recommended)',
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.blue,
+                                side: const BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 12),
 
                           SizedBox(
                             width: double.infinity,
@@ -199,6 +233,37 @@ class _ConfigScreenState extends State<ConfigScreen> {
                           ),
                           const SizedBox(height: 8),
 
+                          // Special highlight for Luma demo
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade50,
+                              border: Border.all(color: Colors.blue.shade200),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.blue.shade700,
+                                  size: 16,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    '${provider.defaultApiUrl?.contains('luma') == true ? 'Luma Demo (ScandiPWA)' : 'Default Demo'} - Recommended for testing',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue.shade700,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+
                           ..._sampleUrls.map(
                             (url) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 4),
@@ -216,6 +281,12 @@ class _ConfigScreenState extends State<ConfigScreen> {
                                   IconButton(
                                     icon: const Icon(Icons.copy, size: 16),
                                     onPressed: () => _copyToClipboard(url),
+                                    tooltip: 'Copy to clipboard',
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.edit, size: 16),
+                                    onPressed: () => _setUrl(url),
+                                    tooltip: 'Use this URL',
                                   ),
                                 ],
                               ),
@@ -264,11 +335,65 @@ class _ConfigScreenState extends State<ConfigScreen> {
     );
   }
 
-  static const List<String> _sampleUrls = [
-    'https://demo.magento.com',
-    'https://magento2-demo.nexcess.net',
-    'https://demo-m2.bird.eu',
-  ];
+  void _setUrl(String url) {
+    _baseUrlController.text = url;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('URL set: $url'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  void _pasteFromClipboard() async {
+    try {
+      // В реальном приложении используйте Clipboard.getData()
+      // final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+      // if (clipboardData?.text != null) {
+      //   _baseUrlController.text = clipboardData!.text!;
+      // }
+
+      // Для демонстрации показываем сообщение
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Paste functionality would work with Clipboard plugin'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error pasting: $e'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  List<String> get _sampleUrls {
+    final provider = context.read<AppProvider>();
+    final urls = <String>[];
+
+    // Добавляем основной URL из .env
+    if (provider.defaultApiUrl != null && provider.defaultApiUrl!.isNotEmpty) {
+      urls.add(provider.defaultApiUrl!);
+    }
+
+    // Добавляем альтернативные URL из .env
+    urls.addAll(provider.alternativeUrls);
+
+    // Если .env не загружен, используем статические URL
+    if (urls.isEmpty) {
+      urls.addAll([
+        'https://luma-demo.scandipwa.com/',
+        'https://demo.magento.com',
+        'https://magento2-demo.nexcess.net',
+        'https://demo-m2.bird.eu',
+      ]);
+    }
+
+    return urls;
+  }
 }
 
 class _StatusRow extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // Простые модели для демо
 class SimpleProduct {
@@ -48,11 +49,12 @@ class SimpleCartItem {
 
 class SimpleCart {
   final List<SimpleCartItem> items;
-  
+
   SimpleCart({this.items = const []});
-  
+
   int get itemsCount => items.length;
-  double get grandTotal => items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
+  double get grandTotal =>
+      items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
 }
 
 class AppProvider extends ChangeNotifier {
@@ -60,18 +62,18 @@ class AppProvider extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   String? _baseUrl;
-  
+
   // Auth state
   bool _isAuthenticated = false;
   SimpleCustomer? _currentCustomer;
-  
+
   // Cart state
   SimpleCart _currentCart = SimpleCart();
-  
+
   // Products state
   List<SimpleProduct> _products = [];
   List<SimpleProduct> _searchResults = [];
-  
+
   // Getters
   bool get isInitialized => _isInitialized;
   bool get isLoading => _isLoading;
@@ -82,15 +84,32 @@ class AppProvider extends ChangeNotifier {
   SimpleCart get currentCart => _currentCart;
   List<SimpleProduct> get products => _products;
   List<SimpleProduct> get searchResults => _searchResults;
-  
+
+  // Environment variables getters
+  String? get defaultApiUrl => dotenv.env['MAGENTO_API_URL'];
+  List<String> get alternativeUrls => [
+    dotenv.env['MAGENTO_API_URL_ALT_1'] ?? '',
+    dotenv.env['MAGENTO_API_URL_ALT_2'] ?? '',
+    dotenv.env['MAGENTO_API_URL_ALT_3'] ?? '',
+  ].where((url) => url.isNotEmpty).toList();
+
   AppProvider() {
     _loadConfiguration();
   }
-  
+
   Future<void> _loadConfiguration() async {
     try {
+      // Загружаем .env файл
+      await dotenv.load(fileName: ".env");
+
       final prefs = await SharedPreferences.getInstance();
       _baseUrl = prefs.getString('magento_base_url');
+
+      // Если URL не сохранен в SharedPreferences, используем значение из .env
+      if (_baseUrl == null || _baseUrl!.isEmpty) {
+        _baseUrl = dotenv.env['MAGENTO_API_URL'];
+      }
+
       if (_baseUrl != null && _baseUrl!.isNotEmpty) {
         await initializeMagento(_baseUrl!);
       }
@@ -98,25 +117,25 @@ class AppProvider extends ChangeNotifier {
       _setError('Failed to load configuration: $e');
     }
   }
-  
+
   Future<bool> initializeMagento(String baseUrl) async {
     _setLoading(true);
     _clearError();
-    
+
     try {
       // Симуляция инициализации
       await Future.delayed(const Duration(seconds: 1));
-      
+
       _isInitialized = true;
       _baseUrl = baseUrl;
-      
+
       // Save configuration
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('magento_base_url', baseUrl);
-      
+
       // Загружаем демо продукты
       _loadDemoProducts();
-      
+
       notifyListeners();
       return true;
     } catch (e) {
@@ -126,20 +145,20 @@ class AppProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-  
+
   Future<bool> login(String email, String password) async {
     if (!_isInitialized) {
       _setError('Magento not initialized');
       return false;
     }
-    
+
     _setLoading(true);
     _clearError();
-    
+
     try {
       // Симуляция логина
       await Future.delayed(const Duration(seconds: 1));
-      
+
       if (email.isNotEmpty && password.isNotEmpty) {
         _isAuthenticated = true;
         _currentCustomer = SimpleCustomer(
@@ -161,7 +180,7 @@ class AppProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-  
+
   Future<bool> register({
     required String email,
     required String password,
@@ -172,14 +191,14 @@ class AppProvider extends ChangeNotifier {
       _setError('Magento not initialized');
       return false;
     }
-    
+
     _setLoading(true);
     _clearError();
-    
+
     try {
       // Симуляция регистрации
       await Future.delayed(const Duration(seconds: 1));
-      
+
       _isAuthenticated = true;
       _currentCustomer = SimpleCustomer(
         id: '2',
@@ -196,27 +215,27 @@ class AppProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-  
+
   Future<void> logout() async {
     _isAuthenticated = false;
     _currentCustomer = null;
     _currentCart = SimpleCart();
     notifyListeners();
   }
-  
+
   Future<void> loadProducts({int page = 1, int pageSize = 20}) async {
     if (!_isInitialized) {
       _setError('Magento not initialized');
       return;
     }
-    
+
     _setLoading(true);
     _clearError();
-    
+
     try {
       // Симуляция загрузки продуктов
       await Future.delayed(const Duration(seconds: 1));
-      
+
       if (page == 1) {
         _products = _getDemoProducts();
       }
@@ -227,28 +246,31 @@ class AppProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-  
+
   Future<void> searchProducts(String query) async {
     if (!_isInitialized) {
       _setError('Magento not initialized');
       return;
     }
-    
+
     if (query.isEmpty) {
       _searchResults = [];
       notifyListeners();
       return;
     }
-    
+
     _setLoading(true);
     _clearError();
-    
+
     try {
       // Симуляция поиска
       await Future.delayed(const Duration(milliseconds: 500));
-      
+
       _searchResults = _getDemoProducts()
-          .where((product) => product.name.toLowerCase().contains(query.toLowerCase()))
+          .where(
+            (product) =>
+                product.name.toLowerCase().contains(query.toLowerCase()),
+          )
           .toList();
       notifyListeners();
     } catch (e) {
@@ -257,28 +279,33 @@ class AppProvider extends ChangeNotifier {
       _setLoading(false);
     }
   }
-  
+
   Future<void> addToCart(String productSku, int quantity) async {
     if (!_isInitialized) {
       _setError('Magento not initialized');
       return;
     }
-    
+
     if (!_isAuthenticated) {
       _setError('Please login first');
       return;
     }
-    
+
     try {
       final product = _products.firstWhere(
         (p) => p.sku == productSku,
-        orElse: () => SimpleProduct(id: '0', name: 'Unknown', sku: productSku, price: 0.0),
+        orElse: () => SimpleProduct(
+          id: '0',
+          name: 'Unknown',
+          sku: productSku,
+          price: 0.0,
+        ),
       );
-      
+
       final existingItemIndex = _currentCart.items.indexWhere(
         (item) => item.productId == product.id,
       );
-      
+
       if (existingItemIndex >= 0) {
         // Обновляем количество
         final existingItem = _currentCart.items[existingItemIndex];
@@ -293,30 +320,32 @@ class AppProvider extends ChangeNotifier {
       } else {
         // Добавляем новый товар
         final updatedItems = List<SimpleCartItem>.from(_currentCart.items);
-        updatedItems.add(SimpleCartItem(
-          productId: product.id,
-          name: product.name,
-          price: product.price,
-          quantity: quantity,
-        ));
+        updatedItems.add(
+          SimpleCartItem(
+            productId: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: quantity,
+          ),
+        );
         _currentCart = SimpleCart(items: updatedItems);
       }
-      
+
       notifyListeners();
     } catch (e) {
       _setError('Add to cart error: $e');
     }
   }
-  
+
   Future<void> loadCart() async {
     // Корзина уже загружена в памяти
     notifyListeners();
   }
-  
+
   void _loadDemoProducts() {
     _products = _getDemoProducts();
   }
-  
+
   List<SimpleProduct> _getDemoProducts() {
     return [
       SimpleProduct(
@@ -363,17 +392,17 @@ class AppProvider extends ChangeNotifier {
       ),
     ];
   }
-  
+
   void _setLoading(bool loading) {
     _isLoading = loading;
     notifyListeners();
   }
-  
+
   void _setError(String error) {
     _error = error;
     notifyListeners();
   }
-  
+
   void _clearError() {
     _error = null;
     notifyListeners();

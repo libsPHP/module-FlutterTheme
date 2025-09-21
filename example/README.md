@@ -42,12 +42,22 @@ flutter run
 
 ### 3. Настройка Magento API
 
+#### Вариант 1: Использование .env файла (рекомендуется)
+1. Скопируйте `.env.sample` в `.env`:
+   ```bash
+   cp .env.sample .env
+   ```
+2. Отредактируйте `.env` файл и укажите нужные URL
+3. Запустите приложение - настройки загрузятся автоматически
+
+#### Вариант 2: Через интерфейс приложения
 1. Откройте вкладку "Config"
-2. Введите URL вашего Magento магазина
+2. Введите URL вашего Magento магазина или используйте кнопку "Use Default Demo"
 3. Нажмите "Save & Initialize"
 
 #### Примеры URL для тестирования:
 
+- `https://luma-demo.scandipwa.com/` ⭐ (Рекомендуется)
 - `https://demo.magento.com`
 - `https://magento2-demo.nexcess.net`
 - `https://demo-m2.bird.eu`

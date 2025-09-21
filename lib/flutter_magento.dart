@@ -1,5 +1,4 @@
 /// Flutter Magento - A comprehensive Flutter plugin for Magento e-commerce integration
-library flutter_magento;
 ///
 /// This library provides a complete solution for integrating Flutter applications
 /// with Magento e-commerce platforms, including support for universal custom attributes.
