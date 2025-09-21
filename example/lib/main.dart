@@ -5,6 +5,7 @@ import 'screens/auth_screen.dart';
 import 'screens/products_screen.dart';
 import 'screens/cart_screen.dart';
 import 'screens/config_screen.dart';
+import 'screens/categories_screen.dart';
 import 'providers/app_provider.dart';
 
 void main() {
@@ -56,6 +57,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const AuthScreen(),
     const ProductsScreen(),
+    const CategoriesScreen(),
     const CartScreen(),
     const ConfigScreen(),
   ];
@@ -72,6 +74,10 @@ class _MainScreenState extends State<MainScreen> {
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_bag),
       label: 'Products',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.category),
+      label: 'Categories',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),

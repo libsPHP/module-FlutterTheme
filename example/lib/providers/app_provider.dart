@@ -124,6 +124,9 @@ class AppProvider extends ChangeNotifier {
   String? _error;
   String? _baseUrl;
 
+  // Magento API instance
+  late FlutterMagento _magento;
+
   // Auth state
   bool _isAuthenticated = false;
   SimpleCustomer? _currentCustomer;
@@ -132,8 +135,11 @@ class AppProvider extends ChangeNotifier {
   SimpleCart _currentCart = SimpleCart();
 
   // Products state
-  List<SimpleProduct> _products = [];
-  List<SimpleProduct> _searchResults = [];
+  List<MagentoProduct> _products = [];
+  List<MagentoProduct> _searchResults = [];
+
+  // Categories state
+  List<MagentoCategory> _categories = [];
 
   // Getters
   bool get isInitialized => _isInitialized;
@@ -143,8 +149,9 @@ class AppProvider extends ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
   SimpleCustomer? get currentCustomer => _currentCustomer;
   SimpleCart get currentCart => _currentCart;
-  List<SimpleProduct> get products => _products;
-  List<SimpleProduct> get searchResults => _searchResults;
+  List<MagentoProduct> get products => _products;
+  List<MagentoProduct> get searchResults => _searchResults;
+  List<MagentoCategory> get categories => _categories;
 
   // Environment variables getters
   String? get defaultApiUrl => dotenv.env['MAGENTO_API_URL'];
@@ -184,8 +191,16 @@ class AppProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Симуляция инициализации
-      await Future.delayed(const Duration(seconds: 1));
+      // Инициализируем Magento API
+      _magento = FlutterMagento();
+      final success = await _magento.initialize(
+        baseUrl: baseUrl,
+        useGraphQL: true, // Используем GraphQL
+      );
+
+      if (!success) {
+        throw Exception('Failed to initialize Magento API');
+      }
 
       _isInitialized = true;
       _baseUrl = baseUrl;
@@ -194,8 +209,8 @@ class AppProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('magento_base_url', baseUrl);
 
-      // Загружаем демо продукты
-      _loadDemoProducts();
+      // Загружаем реальные данные
+      await _loadRealData();
 
       notifyListeners();
       return true;
@@ -294,15 +309,26 @@ class AppProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Симуляция загрузки продуктов
-      await Future.delayed(const Duration(seconds: 1));
+      // Загружаем продукты через GraphQL
+      final response = await _magento.getProducts(
+        page: page,
+        pageSize: pageSize,
+      );
+
+      final productsData = response.items;
+      final newProducts = productsData
+          .map((data) => MagentoProduct.fromGraphQL(data.toJson()))
+          .toList();
 
       if (page == 1) {
-        _products = _getDemoProducts();
+        _products = newProducts;
+      } else {
+        _products.addAll(newProducts);
       }
+
       notifyListeners();
     } catch (e) {
-      _setError('Error loading products: $e');
+      _setError('Load products error: $e');
     } finally {
       _setLoading(false);
     }
@@ -324,15 +350,18 @@ class AppProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Симуляция поиска
-      await Future.delayed(const Duration(milliseconds: 500));
+      // Поиск через GraphQL
+      final response = await _magento.searchProducts(
+        query,
+        page: 1,
+        pageSize: 20,
+      );
 
-      _searchResults = _getDemoProducts()
-          .where(
-            (product) =>
-                product.name.toLowerCase().contains(query.toLowerCase()),
-          )
+      final productsData = response.items;
+      _searchResults = productsData
+          .map((data) => MagentoProduct.fromGraphQL(data.toJson()))
           .toList();
+
       notifyListeners();
     } catch (e) {
       _setError('Search error: $e');
@@ -355,7 +384,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final product = _products.firstWhere(
         (p) => p.sku == productSku,
-        orElse: () => SimpleProduct(
+        orElse: () => MagentoProduct(
           id: '0',
           name: 'Unknown',
           sku: productSku,
@@ -403,56 +432,38 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _loadDemoProducts() {
-    _products = _getDemoProducts();
+  Future<void> _loadRealData() async {
+    try {
+      // Загружаем категории
+      await loadCategories();
+      
+      // Загружаем продукты
+      await loadProducts();
+    } catch (e) {
+      _setError('Failed to load real data: $e');
+    }
   }
 
-  List<SimpleProduct> _getDemoProducts() {
-    return [
-      SimpleProduct(
-        id: '1',
-        name: 'iPhone 15 Pro',
-        sku: 'IPHONE-15-PRO',
-        price: 999.99,
-        inStock: true,
-      ),
-      SimpleProduct(
-        id: '2',
-        name: 'MacBook Air M3',
-        sku: 'MACBOOK-AIR-M3',
-        price: 1299.99,
-        inStock: true,
-      ),
-      SimpleProduct(
-        id: '3',
-        name: 'iPad Pro 12.9"',
-        sku: 'IPAD-PRO-129',
-        price: 799.99,
-        inStock: true,
-      ),
-      SimpleProduct(
-        id: '4',
-        name: 'Apple Watch Series 9',
-        sku: 'WATCH-S9',
-        price: 399.99,
-        inStock: false,
-      ),
-      SimpleProduct(
-        id: '5',
-        name: 'AirPods Pro',
-        sku: 'AIRPODS-PRO',
-        price: 249.99,
-        inStock: true,
-      ),
-      SimpleProduct(
-        id: '6',
-        name: 'Magic Keyboard',
-        sku: 'MAGIC-KEYBOARD',
-        price: 299.99,
-        inStock: true,
-      ),
-    ];
+  Future<void> loadCategories() async {
+    if (!_isInitialized) {
+      return;
+    }
+
+    try {
+      // Загружаем категории через GraphQL
+      final categoriesData = await _magento.getCategories(useGraphQL: true);
+      
+      _categories = categoriesData
+          .map((data) => MagentoCategory.fromGraphQL(data))
+          .toList();
+      
+      notifyListeners();
+    } catch (e) {
+      print('Failed to load categories: $e');
+      // Не показываем ошибку пользователю, так как категории не критичны
+    }
   }
+
 
   void _setLoading(bool loading) {
     _isLoading = loading;

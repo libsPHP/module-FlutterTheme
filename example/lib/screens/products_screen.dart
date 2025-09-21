@@ -229,7 +229,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
   
-  Future<void> _addToCart(AppProvider provider, SimpleProduct product) async {
+  Future<void> _addToCart(AppProvider provider, MagentoProduct product) async {
     await provider.addToCart(product.sku, 1);
     
     if (mounted) {
@@ -244,7 +244,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 }
 
 class _ProductCard extends StatelessWidget {
-  final SimpleProduct product;
+  final MagentoProduct product;
   final VoidCallback? onAddToCart;
   
   const _ProductCard({
@@ -267,7 +267,7 @@ class _ProductCard extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
             ),
-            child: _buildPlaceholderImage(),
+            child: _buildProductImage(),
           ),
           
           // Product Info
@@ -303,13 +303,28 @@ class _ProductCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              '\$${product.price.toStringAsFixed(2)}',
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              Text(
+                                '\$${product.price.toStringAsFixed(2)}',
+                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  color: product.specialPrice != null ? Colors.grey : Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: product.specialPrice != null ? TextDecoration.lineThrough : null,
+                                ),
                               ),
-                            ),
+                              if (product.specialPrice != null) ...[
+                                const SizedBox(width: 8),
+                                Text(
+                                  '\$${product.specialPrice!.toStringAsFixed(2)}',
+                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
                           
                           const SizedBox(height: 4),
                           
@@ -362,6 +377,35 @@ class _ProductCard extends StatelessWidget {
     );
   }
   
+  Widget _buildProductImage() {
+    if (product.imageUrl != null && product.imageUrl!.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+        child: Image.network(
+          product.imageUrl!,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return _buildPlaceholderImage();
+          },
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Container(
+              height: 200,
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+    return _buildPlaceholderImage();
+  }
+
   Widget _buildPlaceholderImage() {
     return Container(
       color: Colors.grey[200],

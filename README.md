@@ -1,55 +1,69 @@
 # 🚀 Flutter Magento Plugin 2.0
 
-Унифицированная Flutter библиотека для интеграции с Magento e-commerce платформой. Версия 2.0 устраняет дублирование кода между приложениями и предоставляет 200+ функций для создания современных мобильных коммерческих приложений.
+A unified Flutter library for Magento e-commerce platform integration. Version 2.0 eliminates code duplication between applications and provides 200+ functions for building modern mobile commerce applications.
 
-## ✨ Новые возможности в версии 2.0
+## 📱 Screenshots
 
-### 🎯 **Унифицированная архитектура**
-- **Устранение дублирования**: Один API для всех приложений
-- **Модульная структура**: Используйте только нужные компоненты
-- **Типобезопасность**: Строгая типизация с Freezed моделями
-- **Консистентность**: Одинаковый подход во всех приложениях
+<div align="center">
+  <img src="screenshots/main.jpg" alt="Main page" width="250"/>
+  <img src="screenshots/login.jpg" alt="Login page" width="250"/>
+  <img src="screenshots/signup.jpg" alt="Registration page" width="250"/>
+</div>
 
-### 🔐 **Продвинутая аутентификация**
-- JWT токены с автоматическим обновлением
-- Безопасное хранение с FlutterSecureStorage
-- Поддержка "Запомнить меня"
-- Автоматическая валидация токенов
-- Обработка истечения сессии
+<div align="center">
+  <img src="screenshots/products.jpg" alt="Products page" width="250"/>
+  <img src="screenshots/cart.jpg" alt="Shopping cart" width="250"/>
+  <img src="screenshots/settings.jpg" alt="Settings" width="250"/>
+</div>
 
-### 🌐 **Унифицированный сетевой слой**
-- Dio + HTTP клиент с автоматическими повторными попытками
-- Мониторинг подключения к интернету
-- Автоматическая обработка ошибок
-- Логирование запросов в debug режиме
-- Кэширование ответов
+## ✨ New Features in Version 2.0
 
-### 🌍 **Система локализации**
-- **45+ языков** из коробки
-- Автоматическое определение системной локали
-- Поддержка множественного числа
-- RTL поддержка для арабского и иврита
-- Кастомные переводы
+### 🎯 **Unified Architecture**
+- **Eliminate Duplication**: One API for all applications
+- **Modular Structure**: Use only the components you need
+- **Type Safety**: Strong typing with Freezed models
+- **Consistency**: Same approach across all applications
 
-### 📱 **Офлайн режим**
-- Автоматическое кэширование данных
-- Очередь операций для офлайн режима
-- SQLite + Hive для быстрого доступа
-- Автоматическая синхронизация при восстановлении сети
-- Настраиваемые стратегии кэширования
+### 🔐 **Advanced Authentication**
+- JWT tokens with automatic refresh
+- Secure storage with FlutterSecureStorage
+- "Remember me" support
+- Automatic token validation
+- Session expiration handling
 
-### 🎨 **Управление состоянием**
-- Provider + ChangeNotifier паттерн
-- Готовые провайдеры для всех сервисов
-- Реактивные обновления UI
-- Централизованное управление состоянием
+### 🌐 **Unified Network Layer**
+- Dio + HTTP client with automatic retries
+- Internet connectivity monitoring
+- Automatic error handling
+- Request logging in debug mode
+- Response caching
 
-### 🛍️ **Расширенная e-commerce функциональность**
-- Полная интеграция с Magento REST API
-- GraphQL поддержка для сложных запросов
-- Корзина с поддержкой гостевых пользователей
-- Wishlist с множественными списками
-- Продвинутый поиск и фильтрация
+### 🌍 **Localization System**
+- **45+ languages** out of the box
+- Automatic system locale detection
+- Pluralization support
+- RTL support for Arabic and Hebrew
+- Custom translations
+
+### 📱 **Offline Mode**
+- Automatic data caching
+- Offline operation queue
+- SQLite + Hive for fast access
+- Automatic sync when network is restored
+- Configurable caching strategies
+
+### 🎨 **State Management**
+- Provider + ChangeNotifier pattern
+- Ready-made providers for all services
+- Reactive UI updates
+- Centralized state management
+
+### 🛍️ **Extended E-commerce Functionality**
+- Full Magento REST API integration
+- GraphQL support for complex queries
+- Cart with guest user support
+- Wishlist with multiple lists
+- Advanced search and filtering
 
 ## 🚀 Getting Started
 
@@ -62,7 +76,7 @@ dependencies:
   flutter_magento: ^2.0.0
 ```
 
-### Быстрый старт
+### Quick Start
 
 ```dart
 import 'package:flutter_magento/flutter_magento.dart';
@@ -111,7 +125,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Пример использования аутентификации
+// Authentication usage example
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -135,7 +149,7 @@ class LoginPage extends StatelessWidget {
                 },
                 child: auth.isLoading 
                     ? CircularProgressIndicator() 
-                    : Text('Войти'),
+                    : Text('Login'),
               ),
             ],
           ),
@@ -145,22 +159,6 @@ class LoginPage extends StatelessWidget {
   }
 }
 ```
-
-## 📱 Screenshots
-
-Вот как выглядит Flutter Magento Plugin в действии:
-
-<div align="center">
-  <img src="screenshots/main.jpg" alt="Главная страница" width="250"/>
-  <img src="screenshots/login.jpg" alt="Страница входа" width="250"/>
-  <img src="screenshots/signup.jpg" alt="Страница регистрации" width="250"/>
-</div>
-
-<div align="center">
-  <img src="screenshots/products.jpg" alt="Страница товаров" width="250"/>
-  <img src="screenshots/cart.jpg" alt="Корзина" width="250"/>
-  <img src="screenshots/settings.jpg" alt="Настройки" width="250"/>
-</div>
 
 ## 📚 API Reference
 
@@ -439,6 +437,14 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 - Offline mode
 - Background sync
 - Memory management
+
+## 🌍 Localization
+
+This README is available in multiple languages:
+- [English](README.md) (Current)
+- [Русский](README_ru.md)
+- [ไทย](README_th.md)
+- [中文](README_cn.md)
 
 ## 🤝 Contributing
 
