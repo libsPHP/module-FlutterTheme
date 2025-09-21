@@ -35,14 +35,14 @@ class _LanguageSelectorState extends State<LanguageSelector> {
         Text(
           'Выберите язык / Select Language',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+                fontWeight: FontWeight.bold,
+              ),
         ),
         const SizedBox(height: 16),
         ...LocalizationManager.supportedLocales.map((locale) {
           final languageCode = locale.languageCode;
           final isSelected = languageCode == _selectedLanguage;
-          
+
           return _buildLanguageOption(
             languageCode: languageCode,
             isSelected: isSelected,
@@ -53,7 +53,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
               widget.onLanguageChanged(languageCode);
             },
           );
-        }).toList(),
+        }),
       ],
     );
   }
@@ -63,8 +63,10 @@ class _LanguageSelectorState extends State<LanguageSelector> {
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    final languageName = LocalizationManager.getLanguageName(languageCode, context);
-    final description = LocalizationManager.getLanguageDescription(languageCode);
+    final languageName =
+        LocalizationManager.getLanguageName(languageCode, context);
+    final description =
+        LocalizationManager.getLanguageDescription(languageCode);
     final icon = LocalizationManager.getLanguageIcon(languageCode);
     final themeColor = LocalizationManager.getLanguageThemeColor(languageCode);
 
@@ -93,8 +95,10 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                 ),
                 child: Text(
                   icon,
-                  style: TextStyle(color: Color(themeColor)),
-                  size: 24,
+                  style: TextStyle(
+                    color: Color(themeColor),
+                    fontSize: 24,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -105,17 +109,17 @@ class _LanguageSelectorState extends State<LanguageSelector> {
                     Text(
                       languageName,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Color(themeColor),
-                        fontWeight: FontWeight.bold,
-                      ),
+                            color: Color(themeColor),
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     if (widget.showDescriptions) ...[
                       const SizedBox(height: 4),
                       Text(
                         description,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[600],
-                        ),
+                              color: Colors.grey[600],
+                            ),
                       ),
                     ],
                   ],
@@ -153,7 +157,8 @@ class LanguageSelectorDialog extends StatelessWidget {
         children: [
           Icon(
             Icons.language,
-            color: Color(LocalizationManager.getLanguageThemeColor(currentLanguage)),
+            color: Color(
+                LocalizationManager.getLanguageThemeColor(currentLanguage)),
           ),
           const SizedBox(width: 8),
           const Text('Выбор языка'),

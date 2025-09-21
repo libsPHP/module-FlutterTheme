@@ -1,0 +1,126 @@
+FLUTTER MAGENTO PACKAGE - АНАЛИЗ ОШИБОК ПО ГРУППАМ
+========================================================
+
+КРИТИЧЕСКИЕ ОШИБКИ (ERRORS) - 43 шт.
+=====================================
+
+1. ОШИБКИ ТИПОВ И НЕОПРЕДЕЛЕННЫЕ ТИПЫ (15 шт.)
+-----------------------------------------------
+• lib/src/flutter_magento_plugin.dart:1107:10 - 'Customer' не является типом
+• lib/src/flutter_magento_plugin.dart:1114:10 - 'Customer' не является типом  
+• lib/src/flutter_magento_plugin.dart:1141:15 - 'CustomerAddress' не является типом
+• lib/src/flutter_magento_plugin.dart:1148:10 - 'CustomerAddress' не является типом
+• lib/src/flutter_magento_plugin.dart:1193:10 - 'CustomerAddress' не является типом
+• lib/src/flutter_magento_plugin.dart:1247:15 - 'CustomerGroup' не является типом
+• lib/src/flutter_magento_plugin.dart:1254:15 - 'CustomerAttribute' не является типом
+• lib/src/flutter_magento_plugin.dart:1274:10 - 'CustomerPreferences' не является типом
+• lib/src/flutter_magento_plugin.dart:1281:10 - 'CustomerPreferences' не является типом
+• lib/src/flutter_magento_plugin.dart:1300:15 - 'CustomerActivity' не является типом
+• lib/src/flutter_magento_plugin.dart:1315:10 - 'CustomerStatistics' не является типом
+
+2. ПРОБЛЕМЫ С ПРЕФИКСАМИ И ИМПОРТАМИ (7 шт.)
+--------------------------------------------
+• lib/src/flutter_magento_plugin.dart:979:10 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1000:10 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1007:10 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1028:15 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1041:15 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1069:10 - Префикс 'checkout' затенен локальным объявлением
+• lib/src/flutter_magento_plugin.dart:1088:10 - Префикс 'checkout' затенен локальным объявлением
+
+3. НЕОПРЕДЕЛЕННЫЕ МЕТОДЫ И ГЕТТЕРЫ (12 шт.)
+-------------------------------------------
+• lib/src/providers/localization_provider.dart:57:32 - 'getLanguageDescription' не определен
+• lib/src/providers/localization_provider.dart:62:32 - 'getLanguageIcon' не определен
+• lib/src/providers/localization_provider.dart:67:32 - 'getLanguageThemeColor' не определен
+• lib/src/providers/localization_provider.dart:72:32 - 'isHarkonnenLanguage' не определен
+• lib/src/providers/localization_provider.dart:77:32 - 'isAtreidesLanguage' не определен
+• lib/src/providers/localization_provider.dart:82:32 - 'supportedLocales' не определен
+• lib/src/providers/localization_provider.dart:87:44 - 'getLanguageDescription' не определен
+• lib/src/providers/localization_provider.dart:88:37 - 'getLanguageIcon' не определен
+• lib/src/providers/localization_provider.dart:89:43 - 'getLanguageThemeColor' не определен
+• lib/src/widgets/language_selector.dart:42:32 - 'supportedLocales' не определен
+• lib/src/widgets/language_selector.dart:67:45 - 'getLanguageDescription' не определен
+• lib/src/widgets/language_selector.dart:68:38 - 'getLanguageIcon' не определен
+• lib/src/widgets/language_selector.dart:69:44 - 'getLanguageThemeColor' не определен
+• lib/src/widgets/language_selector.dart:107:50 - 'getLanguageTextStyle' не определен
+• lib/src/widgets/language_selector.dart:158:40 - 'getLanguageThemeColor' не определен
+
+4. ОШИБКИ ТИПОВ АРГУМЕНТОВ И ПАРАМЕТРОВ (6 шт.)
+-----------------------------------------------
+• lib/src/widgets/language_selector.dart:82:37 - 'int' не может быть присвоен 'Color'
+• lib/src/widgets/language_selector.dart:95:19 - 'String' не может быть присвоен 'IconData?'
+• lib/src/widgets/language_selector.dart:96:26 - 'int' не может быть присвоен 'Color?'
+• lib/src/widgets/language_selector.dart:107:30 - 'Map<String, dynamic>' не может быть присвоен 'TextStyle?'
+• lib/src/widgets/language_selector.dart:129:26 - 'int' не может быть присвоен 'Color?'
+• lib/src/widgets/language_selector.dart:158:20 - 'int' не может быть присвоен 'Color?'
+• lib/src/widgets/product_card.dart:102:45 - 'ImageChunkEvent' не может быть присвоен callback
+
+5. НЕОПРЕДЕЛЕННЫЕ ИДЕНТИФИКАТОРЫ (3 шт.)
+----------------------------------------
+• lib/src/widgets/product_card.dart:136:18 - 'loadingProgress' не определен
+• lib/src/widgets/product_card.dart:137:17 - 'loadingProgress' не определен  
+• lib/src/widgets/product_card.dart:138:17 - 'loadingProgress' не определен
+
+6. ДРУГИЕ КРИТИЧЕСКИЕ ОШИБКИ (6 шт.)
+------------------------------------
+• lib/src/models/result_models.dart:11:33 - Недопустимое константное значение
+• lib/src/widgets/language_selector.dart:74:38 - 'withOpacity' не определен для 'int'
+• lib/src/widgets/language_selector.dart:91:37 - 'withOpacity' не определен для 'int'
+• lib/src/widgets/language_selector.dart:97:19 - Параметр 'size' не определен
+• lib/src/widgets/language_selector.dart:109:25 - Слишком много позиционных аргументов
+• lib/src/utils/localization_manager.dart:60:5 - Дублирующиеся ключи в const map
+• lib/src/services/service_manager.dart:304:11 - Операнды '&&' должны быть bool
+• lib/src/services/service_manager.dart:307:19 - Операнд отрицания должен быть bool
+
+
+ПРЕДУПРЕЖДЕНИЯ (WARNINGS) - 3 шт.
+==================================
+• lib/src/flutter_magento_plugin.dart:17:8 - Неиспользуемый импорт 'checkout_models.dart'
+• lib/src/flutter_magento_plugin.dart:20:8 - Неиспользуемый импорт 'customer_models.dart'  
+• lib/src/utils/localization_manager.dart:293:11 - Неиспользуемая переменная 'locale'
+
+
+ИНФОРМАЦИОННЫЕ ЗАМЕЧАНИЯ (INFO) - 65 шт.
+=========================================
+
+1. СТИЛИСТИЧЕСКИЕ УЛУЧШЕНИЯ (35 шт.)
+------------------------------------
+• prefer_const_constructors - Использование const конструкторов (25 случаев)
+• prefer_const_literals_to_create_immutables - Const литералы (4 случая)
+• prefer_const_constructors_in_immutables - Const конструкторы в immutable (2 случая)
+• prefer_final_locals - Финальные локальные переменные (1 случай)
+• sized_box_for_whitespace - SizedBox вместо Container (1 случай)
+• unnecessary_library_name - Ненужные имена библиотек (1 случай)
+• dangling_library_doc_comments - Висящие комментарии библиотек (1 случай)
+
+2. УЛУЧШЕНИЯ КОДА (15 шт.)
+-------------------------
+• curly_braces_in_flow_control_structures - Фигурные скобки в if (9 случаев)
+• unnecessary_brace_in_string_interps - Ненужные скобки в интерполяции (4 случая)
+• unnecessary_to_list_in_spreads - Ненужные toList() в spread (3 случая)
+• type_literal_in_constant_pattern - Использование TypeName _ (5 случаев)
+
+3. УСТАРЕВШИЕ API (6 шт.)
+------------------------
+• deprecated_member_use - withOpacity устарел, использовать withValues() (6 случаев)
+
+4. ПОТЕНЦИАЛЬНЫЕ ПРОБЛЕМЫ (9 шт.)
+--------------------------------
+• null_check_on_nullable_type_parameter - Null check на nullable параметре (4 случая)
+• unrelated_type_equality_checks - Несвязанные типы в сравнении (1 случай)
+• strict_top_level_inference - Отсутствующие аннотации типов (2 случая)
+
+
+ПРИОРИТЕТ ИСПРАВЛЕНИЯ:
+======================
+1. КРИТИЧЕСКИЙ: Исправить 43 ошибки (errors)
+2. ВЫСОКИЙ: Исправить 3 предупреждения (warnings) 
+3. СРЕДНИЙ: Исправить устаревшие API (6 deprecated)
+4. НИЗКИЙ: Стилистические улучшения (54 info)
+
+ОБЩЕЕ КОЛИЧЕСТВО: 115 проблем
+• Errors: 43
+• Warnings: 3  
+• Info: 65
+• Deprecated: 6 (подмножество Info)

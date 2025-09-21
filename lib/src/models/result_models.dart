@@ -8,7 +8,7 @@ abstract class MagentoResult<T> {
     this.data,
     this.error,
     DateTime? timestamp,
-  }) : timestamp = timestamp ?? DateTime.now();
+  }) : timestamp = timestamp;
 
   /// Whether the operation was successful
   final bool success;
