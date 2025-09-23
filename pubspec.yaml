@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   
   # Platform Interface
-  plugin_platform_interface: ^2.1.8
+  plugin_platform_interface: ^3.0.0
   
   # HTTP Client
   dio: ^5.9.0
