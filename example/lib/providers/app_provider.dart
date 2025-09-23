@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_magento/flutter_magento.dart';
+import '../demo_data/custom_demo_data_provider.dart';
 
 // Модели для реальных данных Magento
 class MagentoProduct {
@@ -214,9 +215,17 @@ class AppProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Инициализируем Magento API
+      // Инициализируем Magento API с кастомными демо-данными
       _magento = FlutterMagento();
-      final success = await _magento.initialize(baseUrl: baseUrl);
+      
+      // Создаем кастомный провайдер демо-данных для электроники
+      final customDemoProvider = ElectronicsDemoDataProvider();
+      
+      final success = await _magento.initialize(
+        baseUrl: baseUrl,
+        demoDataProvider: customDemoProvider,
+        enableDemoData: true,
+      );
 
       if (!success) {
         throw Exception('Failed to initialize Magento API');
@@ -374,16 +383,28 @@ class AppProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Load products error: $e');
 
-      // Если ошибка 401 (Unauthorized), создаем демо-продукты
+      // Если ошибка 401 (Unauthorized), используем демо-данные из системы
       if (e.toString().contains('401') ||
           e.toString().contains('Unauthorized')) {
         try {
-          debugPrint('Creating demo products...');
-          final demoProducts = _createDemoProducts();
+          debugPrint('Using demo products from system...');
+          final demoProducts = _magento.getDemoProducts();
+          final magentoProducts = demoProducts.map((product) => MagentoProduct(
+            id: product.id,
+            name: product.name,
+            sku: product.sku,
+            price: product.price,
+            specialPrice: product.specialPrice,
+            inStock: product.inStock,
+            imageUrl: product.imageUrl,
+            description: product.description,
+            categories: product.categories,
+          )).toList();
+          
           if (page == 1) {
-            _products = demoProducts;
+            _products = magentoProducts;
           } else {
-            _products.addAll(demoProducts);
+            _products.addAll(magentoProducts);
           }
           notifyListeners();
           _clearError(); // Очищаем ошибку, так как демо-продукты загружены
@@ -524,16 +545,31 @@ class AppProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Failed to load categories: $e');
 
-      // Если ошибка 401 (Unauthorized), попробуем использовать публичный API
+      // Если ошибка 401 (Unauthorized), используем демо-категории из системы
       if (e.toString().contains('401') ||
           e.toString().contains('Unauthorized')) {
         try {
-          debugPrint('Trying public categories API...');
-          // Создаем демо-категории для тестирования
-          _categories = _createDemoCategories();
+          debugPrint('Using demo categories from system...');
+          final demoCategories = _magento.getDemoCategories();
+          final magentoCategories = demoCategories.map((category) => MagentoCategory(
+            id: category.id,
+            name: category.name,
+            urlKey: category.urlKey,
+            childrenCount: category.childrenCount,
+            level: category.level,
+            children: category.children?.map((child) => MagentoCategory(
+              id: child.id,
+              name: child.name,
+              urlKey: child.urlKey,
+              childrenCount: child.childrenCount,
+              level: child.level,
+            )).toList(),
+          )).toList();
+          
+          _categories = magentoCategories;
           notifyListeners();
         } catch (demoError) {
-          debugPrint('Failed to create demo categories: $demoError');
+          debugPrint('Failed to load demo categories: $demoError');
         }
       }
     }

@@ -5,6 +5,8 @@ import 'services/cart_service.dart';
 import 'exceptions/magento_exception.dart';
 import 'models/auth_models.dart';
 import 'models/cart.dart';
+import 'demo_data/demo_data_manager.dart';
+import 'demo_data/demo_data_provider.dart';
 
 /// Main singleton class for Flutter Magento library.
 ///
@@ -69,6 +71,44 @@ class FlutterMagentoCore {
   /// Returns the base URL that was used during initialization, or `null` if not initialized.
   String? get baseUrl => _baseUrl;
 
+  /// Check if the library is online
+  bool get isOnline => _isInitialized && _apiService.isOnline;
+
+  /// Get demo products for offline fallback
+  List<Product> getDemoProducts() {
+    return DemoDataManager.getDemoProducts();
+  }
+
+  /// Get demo categories for offline fallback
+  List<Category> getDemoCategories() {
+    return DemoDataManager.getDemoCategories();
+  }
+
+  /// Get demo cart items for offline fallback
+  List<CartItem> getDemoCartItems() {
+    return DemoDataManager.getDemoCartItems();
+  }
+
+  /// Get demo customer for offline fallback
+  Map<String, dynamic>? getDemoCustomer() {
+    return DemoDataManager.getDemoCustomer();
+  }
+
+  /// Register a custom demo data provider
+  void registerDemoDataProvider(String name, DemoDataProvider provider) {
+    DemoDataManager.registerProvider(name, provider);
+  }
+
+  /// Set the active demo data provider
+  void setDemoDataProvider(String name) {
+    DemoDataManager.setDefaultProvider(name);
+  }
+
+  /// Get information about the current demo data provider
+  Map<String, dynamic> getDemoDataProviderInfo() {
+    return DemoDataManager.getCurrentProviderInfo();
+  }
+
   /// Initialize the Flutter Magento library.
   ///
   /// This method must be called before using any other functionality.
@@ -79,14 +119,22 @@ class FlutterMagentoCore {
   /// [connectionTimeout] timeout for establishing connection in milliseconds
   /// [receiveTimeout] timeout for receiving data in milliseconds
   /// [adminToken] optional admin token for admin-level operations
+  /// [enableCaching] whether to enable response caching
+  /// [enableRateLimiting] whether to enable rate limiting
+  /// [demoDataProvider] optional custom demo data provider for offline fallback
+  /// [enableDemoData] whether to enable demo data fallback when API is unavailable
   ///
   /// Returns `true` if initialization was successful, `false` otherwise.
   Future<bool> initialize({
     required String baseUrl,
     Map<String, String>? headers,
-    int? connectionTimeout,
-    int? receiveTimeout,
+    int connectionTimeout = 30000,
+    int receiveTimeout = 30000,
     String? adminToken,
+    bool enableCaching = true,
+    bool enableRateLimiting = true,
+    DemoDataProvider? demoDataProvider,
+    bool enableDemoData = true,
   }) async {
     try {
       if (kDebugMode) {
@@ -121,11 +169,28 @@ class FlutterMagentoCore {
         throw const MagentoException('Failed to initialize services');
       }
 
+      // Initialize demo data if enabled
+      if (enableDemoData) {
+        if (demoDataProvider != null) {
+          DemoDataManager.registerProvider('custom', demoDataProvider);
+          DemoDataManager.setDefaultProvider('custom');
+        } else {
+          DemoDataManager.initialize();
+        }
+        
+        if (kDebugMode) {
+          print('📦 Demo data system initialized');
+        }
+      }
+
       _isInitialized = true;
 
       if (kDebugMode) {
         print('✅ Flutter Magento initialized successfully');
         print('📍 Base URL: $baseUrl');
+        if (enableDemoData) {
+          print('📦 Demo data fallback enabled');
+        }
       }
 
       return true;

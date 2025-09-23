@@ -10,6 +10,7 @@ export 'flutter_magento_method_channel.dart';
 // Main plugin class
 export 'src/flutter_magento_plugin.dart';
 export 'src/flutter_magento_core.dart';
+export 'src/flutter_magento.dart';
 
 // API clients and services
 export 'src/api/magento_api_client.dart';
@@ -61,6 +62,11 @@ export 'src/services/device_info_service.dart';
 export 'src/services/profile_service.dart';
 export 'src/services/enhanced_http_client.dart';
 export 'src/services/socket_manager.dart';
+
+// Demo Data System
+export 'src/demo_data/demo_data_provider.dart';
+export 'src/demo_data/demo_data_manager.dart';
+export 'src/demo_data/default_demo_data_provider.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';

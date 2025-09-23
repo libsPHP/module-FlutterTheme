@@ -1,0 +1,147 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "iPhone 15 Pro",
+      "sku": "IPHONE-15-PRO",
+      "price": 999.99,
+      "specialPrice": 949.99,
+      "inStock": true,
+      "imageUrl": "https://example.com/iphone15pro.jpg",
+      "description": "The latest iPhone with advanced camera system and A17 Pro chip.",
+      "categories": ["Smartphones", "Apple"]
+    },
+    {
+      "id": "2",
+      "name": "Samsung Galaxy S24 Ultra",
+      "sku": "SAMSUNG-S24-ULTRA",
+      "price": 1199.99,
+      "inStock": true,
+      "imageUrl": "https://example.com/samsung-s24-ultra.jpg",
+      "description": "Premium Android smartphone with S Pen and advanced AI features.",
+      "categories": ["Smartphones", "Samsung"]
+    },
+    {
+      "id": "3",
+      "name": "MacBook Pro 16\" M3 Max",
+      "sku": "MACBOOK-PRO-16-M3-MAX",
+      "price": 3499.99,
+      "inStock": true,
+      "imageUrl": "https://example.com/macbook-pro-16.jpg",
+      "description": "Professional laptop with M3 Max chip for demanding workflows.",
+      "categories": ["Laptops", "Apple"]
+    },
+    {
+      "id": "4",
+      "name": "Dell XPS 15",
+      "sku": "DELL-XPS-15",
+      "price": 1899.99,
+      "inStock": true,
+      "imageUrl": "https://example.com/dell-xps-15.jpg",
+      "description": "Premium Windows laptop with stunning 4K display.",
+      "categories": ["Laptops", "Dell"]
+    },
+    {
+      "id": "5",
+      "name": "AirPods Pro 2nd Gen",
+      "sku": "AIRPODS-PRO-2",
+      "price": 249.99,
+      "inStock": true,
+      "imageUrl": "https://example.com/airpods-pro-2.jpg",
+      "description": "Wireless earbuds with active noise cancellation.",
+      "categories": ["Audio", "Apple"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Smartphones",
+      "urlKey": "smartphones",
+      "childrenCount": 2,
+      "level": 1,
+      "children": [
+        {
+          "id": "11",
+          "name": "Apple",
+          "urlKey": "smartphones-apple",
+          "childrenCount": 0,
+          "level": 2
+        },
+        {
+          "id": "12",
+          "name": "Samsung",
+          "urlKey": "smartphones-samsung",
+          "childrenCount": 0,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Laptops",
+      "urlKey": "laptops",
+      "childrenCount": 2,
+      "level": 1,
+      "children": [
+        {
+          "id": "21",
+          "name": "Apple",
+          "urlKey": "laptops-apple",
+          "childrenCount": 0,
+          "level": 2
+        },
+        {
+          "id": "22",
+          "name": "Dell",
+          "urlKey": "laptops-dell",
+          "childrenCount": 0,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Audio",
+      "urlKey": "audio",
+      "childrenCount": 1,
+      "level": 1,
+      "children": [
+        {
+          "id": "31",
+          "name": "Apple",
+          "urlKey": "audio-apple",
+          "childrenCount": 0,
+          "level": 2
+        }
+      ]
+    }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "sku": "IPHONE-15-PRO",
+      "name": "iPhone 15 Pro",
+      "price": 999.99,
+      "quantity": 1,
+      "rowTotal": 999.99,
+      "image": "https://example.com/iphone15pro.jpg"
+    },
+    {
+      "id": 2,
+      "sku": "AIRPODS-PRO-2",
+      "name": "AirPods Pro 2nd Gen",
+      "price": 249.99,
+      "quantity": 1,
+      "rowTotal": 249.99,
+      "image": "https://example.com/airpods-pro-2.jpg"
+    }
+  ],
+  "customer": {
+    "id": "1",
+    "email": "tech.enthusiast@example.com",
+    "firstname": "Tech",
+    "lastname": "Enthusiast",
+    "is_active": true,
+    "created_at": "2024-01-15T10:30:00Z"
+  }
+}
