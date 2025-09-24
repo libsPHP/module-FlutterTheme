@@ -72,7 +72,7 @@ class FlutterMagentoCore {
   String? get baseUrl => _baseUrl;
 
   /// Check if the library is online
-  bool get isOnline => _isInitialized && _apiService.isOnline;
+  bool get isOnline => _isInitialized;
 
   /// Get demo products for offline fallback
   List<dynamic> getDemoProducts() {

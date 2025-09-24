@@ -2,15 +2,23 @@
 ///
 /// This library provides a complete solution for integrating Flutter applications
 /// with Magento e-commerce platforms, including support for universal custom attributes.
+///
+/// Modernized for 2025 with:
+/// - Dart 3+ base classes for better type safety
+/// - Result pattern for improved error handling
+/// - Pigeon for type-safe platform communication
+/// - Comprehensive testing and monitoring
 
-// Core plugin
+// Modern Core Platform Interface (New Architecture)
+export 'src/core/result.dart';
+export 'src/implementations/method_channel_implementation.dart' hide MethodChannelFlutterMagento;
+export 'src/examples/modern_usage_example.dart' hide ResultExtensions, ResultUtils;
+
+// Legacy exports for backward compatibility
 export 'flutter_magento_platform_interface.dart';
 export 'flutter_magento_method_channel.dart';
-
-// Main plugin class
-export 'src/flutter_magento_plugin.dart';
 export 'src/flutter_magento_core.dart';
-export 'src/flutter_magento.dart';
+export 'src/flutter_magento.dart' hide FlutterMagento, MagentoProvider, MagentoException;
 
 // API clients and services
 export 'src/api/magento_api_client.dart';
@@ -66,7 +74,6 @@ export 'src/services/socket_manager.dart';
 // Demo Data System
 export 'src/demo_data/demo_data_provider.dart';
 export 'src/demo_data/demo_data_manager.dart';
-export 'src/demo_data/default_demo_data_provider.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';

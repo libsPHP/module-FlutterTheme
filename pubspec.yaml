@@ -20,48 +20,44 @@ dependencies:
   flutter:
     sdk: flutter
   
-  # Platform Interface
-  plugin_platform_interface: ^3.0.0
+  # Modern Platform Interface (Dart 3+ base classes)
+  plugin_platform_interface: ^2.1.8
   
-  # HTTP Client
+  # HTTP Client & API Generation
   dio: ^5.9.0
   http: ^1.5.0
+  retrofit: ^4.7.2
   
   # State Management
   riverpod: ^3.0.0
   flutter_riverpod: ^3.0.0
   provider: ^6.1.5
   
-  # JSON Serialization
+  # JSON Serialization & Immutable Models
   json_annotation: ^4.9.0
-  
-  # Immutable Models
   freezed_annotation: ^3.1.0
   
-  # API Client Generation
-  retrofit: ^4.7.2
-  
-  # Local Storage (Latest 2025)
-  shared_preferences: ^2.5.3
+  # Modern Local Storage (2025)
   drift: ^2.28.1
   sqlite3_flutter_libs: ^0.5.39
+  shared_preferences: ^2.5.3
   
-  # Image Caching
+  # Image Caching & Performance
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   visibility_detector: ^0.4.0+2
   
-  # Network Connectivity
+  # Network & Connectivity
   connectivity_plus: ^7.0.0
   
   # Device Information
   device_info_plus: ^12.1.0
   
-  # Security
+  # Security & Authentication
   crypto: ^3.0.6
   flutter_secure_storage: ^9.2.4
   
-  # Logging
+  # Logging & Monitoring
   logger: ^2.6.1
   
   # Localization
@@ -88,18 +84,26 @@ dev_dependencies:
   freezed: ^3.2.3
   retrofit_generator: ^10.0.5
   
-  # Linting
-  flutter_lints: ^6.0.0
+  # Pigeon for Type-Safe Code Generation
+  pigeon: ^26.0.1
   
-  # Testing (Latest 2025)
-  mockito: ^5.4.4
+  # Linting & Code Quality
+  flutter_lints: ^6.0.0
+  very_good_analysis: ^6.0.0
+  
+  # Modern Testing (2025)
   mocktail: ^1.0.4
+  mockito: ^5.4.4
   test: ^1.26.2
   alchemist: ^0.12.1
   patrol: ^3.19.0
+  integration_test:
+    sdk: flutter
   
-  # Test Coverage
+  # Test Coverage & Performance
   coverage: ^1.15.0
+  flutter_driver:
+    sdk: flutter
 
 
 flutter:

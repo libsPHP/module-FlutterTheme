@@ -460,9 +460,9 @@ class MagentoDetailedStatusWidget extends StatelessWidget {
           color: status.isHealthy ? Colors.green : Colors.orange,
         ),
         const SizedBox(width: 8),
-        Text(
+        const Text(
           'Service Status',
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const Spacer(),
         Chip(

@@ -283,7 +283,7 @@ class _EnhancedSearchBarState extends State<EnhancedSearchBar>
   }
 
   Widget _buildQuickFilters(ThemeData theme, ColorScheme colorScheme) {
-    return Container(
+    return SizedBox(
       height: 40,
       child: ListView(
         scrollDirection: Axis.horizontal,

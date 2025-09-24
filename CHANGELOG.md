@@ -1,3 +1,13 @@
+## 3.1.1
+
+* **Modern Architecture**: Implemented Dart 3+ base classes for better type safety
+* **Result Pattern**: Added modern Result pattern for improved error handling
+* **Pigeon Integration**: Added Pigeon for type-safe platform communication
+* **Code Generation**: Enhanced code generation with latest build tools
+* **Testing**: Added comprehensive testing framework with mockito and mocktail
+* **Performance**: Optimized widget rendering and memory management
+* **Code Quality**: Fixed linter warnings and improved code consistency
+
 ## 3.0.1
 
 * **Dependency Updates**: Upgraded build_runner, mockito, test and other dev dependencies
