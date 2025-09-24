@@ -1,6 +1,6 @@
 import 'demo_data_provider.dart';
-import '../models/product.dart';
-import '../models/category.dart';
+import '../models/product.dart' as product_models;
+import '../models/product_models.dart' as models;
 import '../models/cart.dart';
 
 /// Стандартный провайдер демо-данных
@@ -8,227 +8,187 @@ import '../models/cart.dart';
 class DefaultDemoDataProvider implements DemoDataProvider {
   @override
   String get providerName => 'Default Demo Data';
-  
+
   @override
-  String get providerDescription => 'Standard demo products and categories for testing';
-  
+  String get providerDescription =>
+      'Standard demo products and categories for testing';
+
   @override
   bool supportsDataType(String dataType) {
     return ['products', 'categories', 'cart', 'customer'].contains(dataType);
   }
-  
+
   @override
-  List<Product> getDemoProducts() {
+  List<product_models.Product> getDemoProducts() {
     return [
-      Product(
-        id: '1',
+      product_models.Product(
+        id: 1,
         name: 'Radiant Tee',
         sku: 'WS12-XS-Orange',
+        typeId: 'simple',
         price: 22.00,
         specialPrice: 20.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
-        description: 'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
+        isInStock: true,
+        thumbnail:
+            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
+        description:
+            'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
         categories: ['Women', 'Tops'],
       ),
-      Product(
-        id: '2',
+      product_models.Product(
+        id: 2,
         name: 'Argus All-Weather Tank',
         sku: 'WSH12-XS-White',
+        typeId: 'simple',
         price: 21.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/w/s/wsh12-white_main_2.jpg',
-        description: 'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
+        isInStock: true,
+        thumbnail:
+            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/wsh12-white_main_2.jpg',
+        description:
+            'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
         categories: ['Women', 'Tops'],
       ),
-      Product(
-        id: '3',
+      product_models.Product(
+        id: 3,
         name: 'Hero Hoodie',
         sku: 'WSH03-XS-Gray',
+        typeId: 'simple',
         price: 54.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
-        description: 'The Hero Hoodie is perfect for those cool days and nights.',
+        isInStock: true,
+        thumbnail:
+            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
+        description:
+            'The Hero Hoodie is perfect for those cool days and nights.',
         categories: ['Men', 'Tops'],
       ),
-      Product(
-        id: '4',
+      product_models.Product(
+        id: 4,
         name: 'Bruno Compete Hoodie',
         sku: 'WSH04-XS-Gray',
+        typeId: 'simple',
         price: 62.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh04-gray_main_2.jpg',
+        isInStock: true,
+        thumbnail:
+            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh04-gray_main_2.jpg',
         description: 'The Bruno Compete Hoodie offers comfort and style.',
         categories: ['Men', 'Tops'],
       ),
-      Product(
-        id: '5',
+      product_models.Product(
+        id: 5,
         name: 'Fusion Backpack',
         sku: '24-WB01',
+        typeId: 'simple',
         price: 59.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb01_2.jpg',
-        description: 'The Fusion Backpack is perfect for your daily adventures.',
+        isInStock: true,
+        thumbnail:
+            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb01_2.jpg',
+        description:
+            'The Fusion Backpack is perfect for your daily adventures.',
         categories: ['Gear', 'Bags'],
-      ),
-      Product(
-        id: '6',
-        name: 'Push It Messenger Bag',
-        sku: '24-WB02',
-        price: 45.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb02_2.jpg',
-        description: 'The Push It Messenger Bag is stylish and functional.',
-        categories: ['Gear', 'Bags'],
-      ),
-      Product(
-        id: '7',
-        name: 'Set of Sprite Yoga Straps',
-        sku: '24-WG01',
-        price: 29.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg01_2.jpg',
-        description: 'Perfect for your yoga practice.',
-        categories: ['Gear', 'Fitness Equipment'],
-      ),
-      Product(
-        id: '8',
-        name: 'Sprite Foam Roller',
-        sku: '24-WG03',
-        price: 45.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg03_2.jpg',
-        description: 'Great for muscle recovery and flexibility.',
-        categories: ['Gear', 'Fitness Equipment'],
-      ),
-      Product(
-        id: '9',
-        name: 'Downloadable Video',
-        sku: '240-LV01',
-        price: 9.99,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/240-lv01_2.jpg',
-        description: 'High-quality training video for download.',
-        categories: ['Training', 'Video Download'],
-      ),
-      Product(
-        id: '10',
-        name: 'Yoga Block',
-        sku: '24-WG04',
-        price: 18.00,
-        inStock: true,
-        imageUrl: 'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg04_2.jpg',
-        description: 'Essential yoga accessory for proper alignment.',
-        categories: ['Gear', 'Fitness Equipment'],
       ),
     ];
   }
-  
+
   @override
-  List<Category> getDemoCategories() {
+  List<models.Category> getDemoCategories() {
     return [
-      Category(
-        id: '1',
+      models.Category(
+        id: 1,
         name: 'Women',
-        urlKey: 'women',
-        childrenCount: 3,
         level: 1,
+        position: 1,
+        isActive: true,
+        childrenCount: 3,
         children: [
-          Category(
-            id: '11',
+          models.Category(
+            id: 11,
             name: 'Tops',
-            urlKey: 'women-tops',
-            childrenCount: 2,
             level: 2,
+            position: 1,
+            isActive: true,
+            childrenCount: 2,
           ),
-          Category(
-            id: '12',
+          models.Category(
+            id: 12,
             name: 'Bottoms',
-            urlKey: 'women-bottoms',
+            level: 2,
+            position: 2,
+            isActive: true,
             childrenCount: 2,
-            level: 2,
           ),
-          Category(
-            id: '13',
+          models.Category(
+            id: 13,
             name: 'Accessories',
-            urlKey: 'women-accessories',
-            childrenCount: 0,
             level: 2,
+            position: 3,
+            isActive: true,
+            childrenCount: 0,
           ),
         ],
       ),
-      Category(
-        id: '2',
+      models.Category(
+        id: 2,
         name: 'Men',
-        urlKey: 'men',
+        level: 1,
+        position: 2,
+        isActive: true,
         childrenCount: 3,
-        level: 1,
         children: [
-          Category(
-            id: '21',
+          models.Category(
+            id: 21,
             name: 'Tops',
-            urlKey: 'men-tops',
-            childrenCount: 2,
             level: 2,
+            position: 1,
+            isActive: true,
+            childrenCount: 2,
           ),
-          Category(
-            id: '22',
+          models.Category(
+            id: 22,
             name: 'Bottoms',
-            urlKey: 'men-bottoms',
+            level: 2,
+            position: 2,
+            isActive: true,
             childrenCount: 2,
-            level: 2,
           ),
-          Category(
-            id: '23',
+          models.Category(
+            id: 23,
             name: 'Accessories',
-            urlKey: 'men-accessories',
-            childrenCount: 0,
             level: 2,
+            position: 3,
+            isActive: true,
+            childrenCount: 0,
           ),
         ],
       ),
-      Category(
-        id: '3',
+      models.Category(
+        id: 3,
         name: 'Gear',
-        urlKey: 'gear',
+        level: 1,
+        position: 3,
+        isActive: true,
         childrenCount: 2,
-        level: 1,
         children: [
-          Category(
-            id: '31',
+          models.Category(
+            id: 31,
             name: 'Bags',
-            urlKey: 'gear-bags',
-            childrenCount: 0,
             level: 2,
+            position: 1,
+            isActive: true,
+            childrenCount: 0,
           ),
-          Category(
-            id: '32',
+          models.Category(
+            id: 32,
             name: 'Fitness Equipment',
-            urlKey: 'gear-fitness',
-            childrenCount: 0,
             level: 2,
-          ),
-        ],
-      ),
-      Category(
-        id: '4',
-        name: 'Training',
-        urlKey: 'training',
-        childrenCount: 1,
-        level: 1,
-        children: [
-          Category(
-            id: '41',
-            name: 'Video Download',
-            urlKey: 'training-video',
+            position: 2,
+            isActive: true,
             childrenCount: 0,
-            level: 2,
           ),
         ],
       ),
     ];
   }
-  
+
   @override
   List<CartItem> getDemoCartItems() {
     return [
@@ -239,7 +199,8 @@ class DefaultDemoDataProvider implements DemoDataProvider {
         price: 22.00,
         quantity: 2,
         rowTotal: 44.00,
-        image: 'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
+        image:
+            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
       ),
       CartItem(
         id: 2,
@@ -248,11 +209,12 @@ class DefaultDemoDataProvider implements DemoDataProvider {
         price: 54.00,
         quantity: 1,
         rowTotal: 54.00,
-        image: 'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
+        image:
+            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
       ),
     ];
   }
-  
+
   @override
   Map<String, dynamic>? getDemoCustomer() {
     return {

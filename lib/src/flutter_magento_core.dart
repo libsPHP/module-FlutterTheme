@@ -75,12 +75,12 @@ class FlutterMagentoCore {
   bool get isOnline => _isInitialized && _apiService.isOnline;
 
   /// Get demo products for offline fallback
-  List<Product> getDemoProducts() {
+  List<dynamic> getDemoProducts() {
     return DemoDataManager.getDemoProducts();
   }
 
   /// Get demo categories for offline fallback
-  List<Category> getDemoCategories() {
+  List<dynamic> getDemoCategories() {
     return DemoDataManager.getDemoCategories();
   }
 
@@ -177,7 +177,7 @@ class FlutterMagentoCore {
         } else {
           DemoDataManager.initialize();
         }
-        
+
         if (kDebugMode) {
           print('📦 Demo data system initialized');
         }
