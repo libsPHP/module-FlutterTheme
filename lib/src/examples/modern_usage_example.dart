@@ -149,8 +149,8 @@ class ModernMagentoUsageExample {
       if (_magento.isAuthenticated) _magento.getWishlist(),
     ]);
 
-    final productsResult = results[0] as Result<Map<String, dynamic>>;
-    final cartResult = results[1] as Result<Map<String, dynamic>>;
+    final productsResult = results[0];
+    final cartResult = results[1];
 
     productsResult.onSuccess(
       (products) => print('✅ Products: ${products['totalCount']}'),
@@ -160,7 +160,7 @@ class ModernMagentoUsageExample {
     );
 
     if (results.length > 2) {
-      final wishlistResult = results[2] as Result<Map<String, dynamic>>;
+      final wishlistResult = results[2];
       wishlistResult.onSuccess(
         (wishlist) => print('✅ Wishlist: ${wishlist['itemsCount']} items'),
       );

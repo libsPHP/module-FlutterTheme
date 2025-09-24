@@ -518,10 +518,10 @@ Performance: ${deviceInfo.performanceInfo.category.displayName} (${deviceInfo.pe
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Device Details'),
-        content: SizedBox(
+        content: const SizedBox(
           width: double.maxFinite,
           child: SingleChildScrollView(
-            child: DeviceInfoWidget(
+            child: const DeviceInfoWidget(
               displayStyle: DeviceInfoDisplayStyle.list,
               showActions: false,
             ),
