@@ -46,27 +46,25 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product Image
-              Expanded(
-                child: _buildProductImage(),
-              ),
-              
+              Expanded(child: _buildProductImage()),
+
               const SizedBox(height: 8),
-              
+
               // Product Name
               _buildProductName(theme),
-              
+
               const SizedBox(height: 4),
-              
+
               // Price Section
               if (showPrice) _buildPriceSection(theme),
-              
+
               const SizedBox(height: 4),
-              
+
               // Stock Status
               if (showStockStatus) _buildStockStatus(theme),
-              
+
               const SizedBox(height: 8),
-              
+
               // Action Buttons
               if (showActions) _buildActionButtons(theme, colorScheme),
             ],
@@ -78,7 +76,7 @@ class ProductCard extends StatelessWidget {
 
   Widget _buildProductImage() {
     String? imageUrl;
-    if (product.mediaGalleryEntries != null && 
+    if (product.mediaGalleryEntries != null &&
         product.mediaGalleryEntries!.isNotEmpty) {
       imageUrl = product.mediaGalleryEntries!.first.file;
     }
@@ -113,7 +111,6 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-
   Widget _buildProductName(ThemeData theme) {
     return Text(
       product.name,
@@ -137,9 +134,9 @@ class ProductCard extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
         ),
-        
+
         const SizedBox(width: 8),
-        
+
         // Original Price (if different)
         if (product.hasSpecialPrice)
           Text(
@@ -149,9 +146,9 @@ class ProductCard extends StatelessWidget {
               color: Colors.grey[600],
             ),
           ),
-        
+
         const Spacer(),
-        
+
         // Discount Badge
         if (product.hasSpecialPrice)
           Container(
@@ -174,7 +171,7 @@ class ProductCard extends StatelessWidget {
 
   Widget _buildStockStatus(ThemeData theme) {
     final isAvailable = product.isAvailable;
-    
+
     return Row(
       children: [
         Container(
@@ -216,9 +213,9 @@ class ProductCard extends StatelessWidget {
             ),
           ),
         ),
-        
+
         const SizedBox(width: 8),
-        
+
         // Wishlist Button
         IconButton(
           onPressed: onAddToWishlist,
@@ -233,4 +230,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-

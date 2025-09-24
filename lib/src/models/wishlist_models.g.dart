@@ -23,16 +23,13 @@ Wishlist _$WishlistFromJson(Map<String, dynamic> json) => Wishlist(
 );
 
 Map<String, dynamic> _$WishlistToJson(Wishlist instance) => <String, dynamic>{
-  if (instance.id case final value?) 'id': value,
-  if (instance.name case final value?) 'name': value,
-  if (instance.customerId case final value?) 'customerId': value,
-  if (instance.items?.map((e) => e.toJson()).toList() case final value?)
-    'items': value,
-  if (instance.createdAt?.toIso8601String() case final value?)
-    'createdAt': value,
-  if (instance.updatedAt?.toIso8601String() case final value?)
-    'updatedAt': value,
-  if (instance.isDefault case final value?) 'isDefault': value,
+  'id': ?instance.id,
+  'name': ?instance.name,
+  'customerId': ?instance.customerId,
+  'items': ?instance.items?.map((e) => e.toJson()).toList(),
+  'createdAt': ?instance.createdAt?.toIso8601String(),
+  'updatedAt': ?instance.updatedAt?.toIso8601String(),
+  'isDefault': ?instance.isDefault,
 };
 
 WishlistItem _$WishlistItemFromJson(Map<String, dynamic> json) => WishlistItem(
@@ -52,20 +49,19 @@ WishlistItem _$WishlistItemFromJson(Map<String, dynamic> json) => WishlistItem(
       : DateTime.parse(json['addedAt'] as String),
 );
 
-Map<String, dynamic> _$WishlistItemToJson(
-  WishlistItem instance,
-) => <String, dynamic>{
-  if (instance.id case final value?) 'id': value,
-  if (instance.wishlistId case final value?) 'wishlistId': value,
-  if (instance.productId case final value?) 'productId': value,
-  if (instance.sku case final value?) 'sku': value,
-  if (instance.name case final value?) 'name': value,
-  if (instance.description case final value?) 'description': value,
-  if (instance.price case final value?) 'price': value,
-  if (instance.imageUrl case final value?) 'imageUrl': value,
-  if (instance.options case final value?) 'options': value,
-  if (instance.addedAt?.toIso8601String() case final value?) 'addedAt': value,
-};
+Map<String, dynamic> _$WishlistItemToJson(WishlistItem instance) =>
+    <String, dynamic>{
+      'id': ?instance.id,
+      'wishlistId': ?instance.wishlistId,
+      'productId': ?instance.productId,
+      'sku': ?instance.sku,
+      'name': ?instance.name,
+      'description': ?instance.description,
+      'price': ?instance.price,
+      'imageUrl': ?instance.imageUrl,
+      'options': ?instance.options,
+      'addedAt': ?instance.addedAt?.toIso8601String(),
+    };
 
 WishlistAnalytics _$WishlistAnalyticsFromJson(Map<String, dynamic> json) =>
     WishlistAnalytics(
@@ -112,7 +108,7 @@ Map<String, dynamic> _$WishlistCreateRequestToJson(
   WishlistCreateRequest instance,
 ) => <String, dynamic>{
   'name': instance.name,
-  if (instance.description case final value?) 'description': value,
+  'description': ?instance.description,
 };
 
 WishlistUpdateRequest _$WishlistUpdateRequestFromJson(
@@ -125,8 +121,8 @@ WishlistUpdateRequest _$WishlistUpdateRequestFromJson(
 Map<String, dynamic> _$WishlistUpdateRequestToJson(
   WishlistUpdateRequest instance,
 ) => <String, dynamic>{
-  if (instance.name case final value?) 'name': value,
-  if (instance.description case final value?) 'description': value,
+  'name': ?instance.name,
+  'description': ?instance.description,
 };
 
 WishlistItemUpdateRequest _$WishlistItemUpdateRequestFromJson(
@@ -141,8 +137,8 @@ WishlistItemUpdateRequest _$WishlistItemUpdateRequestFromJson(
 Map<String, dynamic> _$WishlistItemUpdateRequestToJson(
   WishlistItemUpdateRequest instance,
 ) => <String, dynamic>{
-  if (instance.description case final value?) 'description': value,
-  if (instance.options case final value?) 'options': value,
+  'description': ?instance.description,
+  'options': ?instance.options,
 };
 
 WishlistSharing _$WishlistSharingFromJson(Map<String, dynamic> json) =>
@@ -155,14 +151,13 @@ WishlistSharing _$WishlistSharingFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['sharedAt'] as String),
     );
 
-Map<String, dynamic> _$WishlistSharingToJson(
-  WishlistSharing instance,
-) => <String, dynamic>{
-  'wishlistId': instance.wishlistId,
-  'email': instance.email,
-  if (instance.message case final value?) 'message': value,
-  if (instance.sharedAt?.toIso8601String() case final value?) 'sharedAt': value,
-};
+Map<String, dynamic> _$WishlistSharingToJson(WishlistSharing instance) =>
+    <String, dynamic>{
+      'wishlistId': instance.wishlistId,
+      'email': instance.email,
+      'message': ?instance.message,
+      'sharedAt': ?instance.sharedAt?.toIso8601String(),
+    };
 
 SharedWishlistAccess _$SharedWishlistAccessFromJson(
   Map<String, dynamic> json,
@@ -180,7 +175,6 @@ Map<String, dynamic> _$SharedWishlistAccessToJson(
 ) => <String, dynamic>{
   'shareCode': instance.shareCode,
   'wishlistId': instance.wishlistId,
-  if (instance.expiresAt?.toIso8601String() case final value?)
-    'expiresAt': value,
-  if (instance.isActive case final value?) 'isActive': value,
+  'expiresAt': ?instance.expiresAt?.toIso8601String(),
+  'isActive': ?instance.isActive,
 };

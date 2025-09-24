@@ -95,10 +95,10 @@ class ModernMagentoUsageExample {
   Future<void> comprehensiveExample() async {
     // Chain operations with proper error handling
     final productsResult = await _magento.getProducts(page: 1, pageSize: 10);
-    
+
     if (productsResult.isSuccess) {
       final products = productsResult.data!;
-      
+
       if (products['items'].isEmpty) {
         print('❌ No products available');
         return;
@@ -106,9 +106,9 @@ class ModernMagentoUsageExample {
 
       final firstProduct = products['items'][0];
       final sku = firstProduct['sku'];
-      
+
       final addResult = await _magento.addToCart(sku, 1);
-      
+
       addResult
           .onSuccess((_) => print('✅ Product added to cart successfully'))
           .onFailure((message, code) => print('❌ Operation failed: $message'));

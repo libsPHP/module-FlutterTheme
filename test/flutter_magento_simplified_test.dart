@@ -73,23 +73,25 @@ void main() {
     });
 
     group('API Access', () {
-      test('should provide access to API instances after initialization',
-          () async {
-        final success = await magento.initialize(
-          baseUrl: 'https://test-store.magento.com',
-        );
+      test(
+        'should provide access to API instances after initialization',
+        () async {
+          final success = await magento.initialize(
+            baseUrl: 'https://test-store.magento.com',
+          );
 
-        if (success) {
-          expect(magento.auth, isNotNull);
-          expect(magento.products, isNotNull);
-          expect(magento.cart, isNotNull);
-          expect(magento.orders, isNotNull);
-          expect(magento.wishlist, isNotNull);
-          expect(magento.customer, isNotNull);
-          expect(magento.checkout, isNotNull);
-          expect(magento.searchApi, isNotNull);
-        }
-      });
+          if (success) {
+            expect(magento.auth, isNotNull);
+            expect(magento.products, isNotNull);
+            expect(magento.cart, isNotNull);
+            expect(magento.orders, isNotNull);
+            expect(magento.wishlist, isNotNull);
+            expect(magento.customer, isNotNull);
+            expect(magento.checkout, isNotNull);
+            expect(magento.searchApi, isNotNull);
+          }
+        },
+      );
     });
 
     group('Custom Attributes Management', () {
@@ -122,17 +124,13 @@ void main() {
 
     group('Error Handling', () {
       test('should handle invalid URLs gracefully', () async {
-        final success = await magento.initialize(
-          baseUrl: 'invalid-url',
-        );
+        final success = await magento.initialize(baseUrl: 'invalid-url');
 
         expect(success, isFalse);
       });
 
       test('should handle empty URLs gracefully', () async {
-        final success = await magento.initialize(
-          baseUrl: '',
-        );
+        final success = await magento.initialize(baseUrl: '');
 
         expect(success, isFalse);
       });

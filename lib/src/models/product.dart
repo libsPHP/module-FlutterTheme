@@ -28,7 +28,8 @@ class Product with _$Product {
     DateTime? updatedAt,
   }) = _Product;
 
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 }
 
 @freezed
@@ -43,7 +44,8 @@ class ProductAttribute with _$ProductAttribute {
     List<String>? options,
   }) = _ProductAttribute;
 
-  factory ProductAttribute.fromJson(Map<String, dynamic> json) => _$ProductAttributeFromJson(json);
+  factory ProductAttribute.fromJson(Map<String, dynamic> json) =>
+      _$ProductAttributeFromJson(json);
 }
 
 @freezed
@@ -59,7 +61,8 @@ class ProductOption with _$ProductOption {
     int? sortOrder,
   }) = _ProductOption;
 
-  factory ProductOption.fromJson(Map<String, dynamic> json) => _$ProductOptionFromJson(json);
+  factory ProductOption.fromJson(Map<String, dynamic> json) =>
+      _$ProductOptionFromJson(json);
 }
 
 @freezed
@@ -74,5 +77,6 @@ class ProductVariation with _$ProductVariation {
     int? stockQuantity,
   }) = _ProductVariation;
 
-  factory ProductVariation.fromJson(Map<String, dynamic> json) => _$ProductVariationFromJson(json);
+  factory ProductVariation.fromJson(Map<String, dynamic> json) =>
+      _$ProductVariationFromJson(json);
 }

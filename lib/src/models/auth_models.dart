@@ -40,7 +40,7 @@ class Customer with _$Customer {
     DateTime? updatedAt,
     List<Address>? addresses,
   }) = _Customer;
-  
+
   const Customer._();
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
@@ -138,9 +138,8 @@ class PasswordChangeRequest with _$PasswordChangeRequest {
 /// Password reset request model
 @freezed
 class PasswordResetRequest with _$PasswordResetRequest {
-  const factory PasswordResetRequest({
-    required String email,
-  }) = _PasswordResetRequest;
+  const factory PasswordResetRequest({required String email}) =
+      _PasswordResetRequest;
 
   factory PasswordResetRequest.fromJson(Map<String, dynamic> json) =>
       _$PasswordResetRequestFromJson(json);
@@ -164,9 +163,8 @@ class SocialLoginRequest with _$SocialLoginRequest {
 /// Token refresh request model
 @freezed
 class TokenRefreshRequest with _$TokenRefreshRequest {
-  const factory TokenRefreshRequest({
-    required String refreshToken,
-  }) = _TokenRefreshRequest;
+  const factory TokenRefreshRequest({required String refreshToken}) =
+      _TokenRefreshRequest;
 
   factory TokenRefreshRequest.fromJson(Map<String, dynamic> json) =>
       _$TokenRefreshRequestFromJson(json);

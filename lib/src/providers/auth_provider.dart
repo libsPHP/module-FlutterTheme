@@ -162,17 +162,17 @@ class AuthProvider extends ChangeNotifier {
 
   /// Получение статуса аутентификации
   Map<String, dynamic> get authStatus => {
-        'isAuthenticated': isAuthenticated,
-        'isLoading': isLoading,
-        'error': error,
-        'customerEmail': currentCustomer?.email,
-        'customerName': currentCustomer != null
-            ? '${currentCustomer!.firstname} ${currentCustomer!.lastname}'
-            : null,
-        'tokenExpiry': tokenExpiry?.toIso8601String(),
-        'isTokenValid': isTokenValid,
-        'timeToExpiry': timeToTokenExpiry?.inMinutes,
-      };
+    'isAuthenticated': isAuthenticated,
+    'isLoading': isLoading,
+    'error': error,
+    'customerEmail': currentCustomer?.email,
+    'customerName': currentCustomer != null
+        ? '${currentCustomer!.firstname} ${currentCustomer!.lastname}'
+        : null,
+    'tokenExpiry': tokenExpiry?.toIso8601String(),
+    'isTokenValid': isTokenValid,
+    'timeToExpiry': timeToTokenExpiry?.inMinutes,
+  };
 
   @override
   void dispose() {

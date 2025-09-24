@@ -72,14 +72,13 @@ class CacheEntry {
   bool get isExpired => expiry != null && DateTime.now().isAfter(expiry!);
 }
 
-
 /// Статус офлайн операции
 enum OfflineOperationStatus {
   pending,
   processing,
   completed,
   failed,
-  cancelled
+  cancelled,
 }
 
 /// HTTP методы
@@ -126,7 +125,8 @@ class OfflineOperation {
         orElse: () => HttpMethod.get,
       ),
       data: json['data'] as Map<String, dynamic>?,
-      headers: (json['headers'] as Map<String, dynamic>?)?.cast<String, String>(),
+      headers: (json['headers'] as Map<String, dynamic>?)
+          ?.cast<String, String>(),
       priority: json['priority'] as int? ?? 0,
       retryCount: json['retryCount'] as int? ?? 0,
       maxRetries: json['maxRetries'] as int? ?? 3,
@@ -170,11 +170,13 @@ class OfflineOperation {
       ),
       data: row['data'] != null
           ? Map<String, dynamic>.from(
-              Map.from(Uri.splitQueryString(row['data'] as String)))
+              Map.from(Uri.splitQueryString(row['data'] as String)),
+            )
           : null,
       headers: row['headers'] != null
           ? Map<String, String>.from(
-              Map.from(Uri.splitQueryString(row['headers'] as String)))
+              Map.from(Uri.splitQueryString(row['headers'] as String)),
+            )
           : null,
       priority: row['priority'] as int? ?? 0,
       retryCount: row['retry_count'] as int? ?? 0,
@@ -238,7 +240,6 @@ class OfflineOperation {
     );
   }
 }
-
 
 /// Настройки офлайн режима
 @JsonSerializable()
@@ -336,7 +337,9 @@ abstract class OfflineEvent {
   factory OfflineEvent.operationCompleted(OfflineOperation operation) =
       OperationCompletedEvent;
   factory OfflineEvent.operationFailed(
-      OfflineOperation operation, String error) = OperationFailedEvent;
+    OfflineOperation operation,
+    String error,
+  ) = OperationFailedEvent;
   factory OfflineEvent.offlineModeChanged(bool enabled) =
       OfflineModeChangedEvent;
   factory OfflineEvent.syncStarted() = SyncStartedEvent;

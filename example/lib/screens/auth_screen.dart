@@ -9,32 +9,33 @@ class AuthScreen extends StatefulWidget {
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMixin {
+class _AuthScreenState extends State<AuthScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final _loginFormKey = GlobalKey<FormState>();
   final _registerFormKey = GlobalKey<FormState>();
-  
+
   // Login controllers
   final _loginEmailController = TextEditingController();
   final _loginPasswordController = TextEditingController();
-  
+
   // Register controllers
   final _registerEmailController = TextEditingController();
   final _registerPasswordController = TextEditingController();
   final _registerConfirmPasswordController = TextEditingController();
   final _registerFirstNameController = TextEditingController();
   final _registerLastNameController = TextEditingController();
-  
+
   bool _obscureLoginPassword = true;
   bool _obscureRegisterPassword = true;
   bool _obscureConfirmPassword = true;
-  
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
-  
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -51,35 +52,29 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Authentication'),
-      ),
+      appBar: AppBar(title: const Text('Authentication')),
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
           if (provider.isAuthenticated) {
             return _buildAuthenticatedView(provider);
           }
-          
+
           if (!provider.isInitialized) {
             return _buildNotInitializedView();
           }
-          
+
           return _buildAuthenticationView(provider);
         },
       ),
     );
   }
-  
+
   Widget _buildNotInitializedView() {
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.settings,
-            size: 64,
-            color: Colors.grey,
-          ),
+          Icon(Icons.settings, size: 64, color: Colors.grey),
           SizedBox(height: 16),
           Text(
             'Magento not configured',
@@ -99,7 +94,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildAuthenticatedView(AppProvider provider) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -118,19 +113,19 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                       const SizedBox(width: 8),
                       Text(
                         'Logged In Successfully',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: Colors.green,
-                        ),
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(color: Colors.green),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
+
                   if (provider.currentCustomer != null) ...[
                     _InfoRow(
                       icon: Icons.person,
                       label: 'Name',
-                      value: '${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}',
+                      value:
+                          '${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}',
                     ),
                     const SizedBox(height: 8),
                     _InfoRow(
@@ -149,9 +144,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
@@ -174,7 +169,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildAuthenticationView(AppProvider provider) {
     return Column(
       children: [
@@ -189,16 +184,13 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: [
-              _buildLoginTab(provider),
-              _buildRegisterTab(provider),
-            ],
+            children: [_buildLoginTab(provider), _buildRegisterTab(provider)],
           ),
         ),
       ],
     );
   }
-  
+
   Widget _buildLoginTab(AppProvider provider) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -212,7 +204,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
-            
+
             TextFormField(
               controller: _loginEmailController,
               keyboardType: TextInputType.emailAddress,
@@ -225,15 +217,17 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
                 }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                if (!RegExp(
+                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                ).hasMatch(value)) {
                   return 'Please enter a valid email';
                 }
                 return null;
               },
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             TextFormField(
               controller: _loginPasswordController,
               obscureText: _obscureLoginPassword,
@@ -242,7 +236,11 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 border: const OutlineInputBorder(),
                 prefixIcon: const Icon(Icons.lock),
                 suffixIcon: IconButton(
-                  icon: Icon(_obscureLoginPassword ? Icons.visibility : Icons.visibility_off),
+                  icon: Icon(
+                    _obscureLoginPassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
                   onPressed: () {
                     setState(() {
                       _obscureLoginPassword = !_obscureLoginPassword;
@@ -257,9 +255,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 return null;
               },
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -273,7 +271,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                     : const Text('Login'),
               ),
             ),
-            
+
             if (provider.error != null) ...[
               const SizedBox(height: 16),
               Container(
@@ -302,7 +300,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildRegisterTab(AppProvider provider) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -317,7 +315,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 24),
-              
+
               Row(
                 children: [
                   Expanded(
@@ -355,9 +353,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               TextFormField(
                 controller: _registerEmailController,
                 keyboardType: TextInputType.emailAddress,
@@ -370,15 +368,17 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                  if (!RegExp(
+                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                  ).hasMatch(value)) {
                     return 'Please enter a valid email';
                   }
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               TextFormField(
                 controller: _registerPasswordController,
                 obscureText: _obscureRegisterPassword,
@@ -387,7 +387,11 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
-                    icon: Icon(_obscureRegisterPassword ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(
+                      _obscureRegisterPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
                     onPressed: () {
                       setState(() {
                         _obscureRegisterPassword = !_obscureRegisterPassword;
@@ -405,9 +409,9 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               TextFormField(
                 controller: _registerConfirmPasswordController,
                 obscureText: _obscureConfirmPassword,
@@ -416,7 +420,11 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   border: const OutlineInputBorder(),
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
-                    icon: Icon(_obscureConfirmPassword ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(
+                      _obscureConfirmPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
                     onPressed: () {
                       setState(() {
                         _obscureConfirmPassword = !_obscureConfirmPassword;
@@ -434,13 +442,15 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: provider.isLoading ? null : () => _register(provider),
+                  onPressed: provider.isLoading
+                      ? null
+                      : () => _register(provider),
                   child: provider.isLoading
                       ? const SizedBox(
                           height: 20,
@@ -450,7 +460,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                       : const Text('Register'),
                 ),
               ),
-              
+
               if (provider.error != null) ...[
                 const SizedBox(height: 16),
                 Container(
@@ -480,18 +490,18 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Future<void> _login(AppProvider provider) async {
     if (_loginFormKey.currentState!.validate()) {
       final success = await provider.login(
         _loginEmailController.text.trim(),
         _loginPasswordController.text,
       );
-      
+
       if (success) {
         _loginEmailController.clear();
         _loginPasswordController.clear();
-        
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -503,7 +513,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       }
     }
   }
-  
+
   Future<void> _register(AppProvider provider) async {
     if (_registerFormKey.currentState!.validate()) {
       final success = await provider.register(
@@ -512,14 +522,14 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         firstName: _registerFirstNameController.text.trim(),
         lastName: _registerLastNameController.text.trim(),
       );
-      
+
       if (success) {
         _registerEmailController.clear();
         _registerPasswordController.clear();
         _registerConfirmPasswordController.clear();
         _registerFirstNameController.clear();
         _registerLastNameController.clear();
-        
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -531,10 +541,10 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
       }
     }
   }
-  
+
   Future<void> _logout(AppProvider provider) async {
     await provider.logout();
-    
+
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -550,7 +560,7 @@ class _InfoRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  
+
   const _InfoRow({
     required this.icon,
     required this.label,

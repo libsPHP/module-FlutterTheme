@@ -17,10 +17,14 @@ void main() {
     });
 
     group('getDeviceInfo', () {
-      testWidgets('should return device info on supported platforms', (tester) async {
+      testWidgets('should return device info on supported platforms', (
+        tester,
+      ) async {
         // Мокируем device_info_plus для тестирования
-        const MethodChannel channel = MethodChannel('dev.fluttercommunity.plus/device_info');
-        
+        const MethodChannel channel = MethodChannel(
+          'dev.fluttercommunity.plus/device_info',
+        );
+
         // Мокируем ответ для Android
         tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
           channel,
@@ -54,7 +58,7 @@ void main() {
 
         try {
           final deviceInfo = await service.getDeviceInfo();
-          
+
           expect(deviceInfo.platform, isNotEmpty);
           expect(deviceInfo.deviceId, isNotEmpty);
           expect(deviceInfo.model, isNotEmpty);
@@ -68,9 +72,11 @@ void main() {
       });
 
       testWidgets('should cache device info', (tester) async {
-        const MethodChannel channel = MethodChannel('dev.fluttercommunity.plus/device_info');
+        const MethodChannel channel = MethodChannel(
+          'dev.fluttercommunity.plus/device_info',
+        );
         int callCount = 0;
-        
+
         tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
           channel,
           (MethodCall methodCall) async {
@@ -107,7 +113,7 @@ void main() {
           await service.getDeviceInfo();
           // Второй вызов должен использовать кэш
           await service.getDeviceInfo();
-          
+
           // Проверяем, что нативный метод был вызван только один раз
           expect(callCount, 1);
         } catch (e) {
@@ -122,7 +128,7 @@ void main() {
         try {
           final fingerprint1 = await service.getDeviceFingerprint();
           final fingerprint2 = await service.getDeviceFingerprint();
-          
+
           expect(fingerprint1, equals(fingerprint2));
           expect(fingerprint1, hasLength(64)); // SHA-256 hash length
         } catch (e) {
@@ -130,19 +136,22 @@ void main() {
         }
       });
 
-      test('should generate different fingerprints after cache clear', () async {
-        try {
-          final fingerprint1 = await service.getDeviceFingerprint();
-          service.clearCache();
-          final fingerprint2 = await service.getDeviceFingerprint();
-          
-          // Поскольку мы очистили кэш, но данные устройства остались теми же,
-          // отпечатки должны быть одинаковыми
-          expect(fingerprint1, equals(fingerprint2));
-        } catch (e) {
-          expect(e, isA<MagentoException>());
-        }
-      });
+      test(
+        'should generate different fingerprints after cache clear',
+        () async {
+          try {
+            final fingerprint1 = await service.getDeviceFingerprint();
+            service.clearCache();
+            final fingerprint2 = await service.getDeviceFingerprint();
+
+            // Поскольку мы очистили кэш, но данные устройства остались теми же,
+            // отпечатки должны быть одинаковыми
+            expect(fingerprint1, equals(fingerprint2));
+          } catch (e) {
+            expect(e, isA<MagentoException>());
+          }
+        },
+      );
     });
 
     group('getPerformanceCategory', () {
@@ -169,7 +178,9 @@ void main() {
 
       test('should check iOS version compatibility', () async {
         try {
-          final isCompatible = await service.isCompatible(minIOSVersion: '13.0');
+          final isCompatible = await service.isCompatible(
+            minIOSVersion: '13.0',
+          );
           expect(isCompatible, isA<bool>());
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -199,16 +210,25 @@ void main() {
       test('should return analytics data with required fields', () async {
         try {
           final analyticsData = await service.getAnalyticsData();
-          
+
           expect(analyticsData, isA<Map<String, dynamic>>());
-          expect(analyticsData, containsPair('device_fingerprint', isA<String>()));
+          expect(
+            analyticsData,
+            containsPair('device_fingerprint', isA<String>()),
+          );
           expect(analyticsData, containsPair('platform', isA<String>()));
           expect(analyticsData, containsPair('device_model', isA<String>()));
           expect(analyticsData, containsPair('device_brand', isA<String>()));
           expect(analyticsData, containsPair('system_name', isA<String>()));
           expect(analyticsData, containsPair('system_version', isA<String>()));
-          expect(analyticsData, containsPair('is_physical_device', isA<bool>()));
-          expect(analyticsData, containsPair('performance_category', isA<String>()));
+          expect(
+            analyticsData,
+            containsPair('is_physical_device', isA<bool>()),
+          );
+          expect(
+            analyticsData,
+            containsPair('performance_category', isA<String>()),
+          );
           expect(analyticsData, containsPair('timestamp', isA<String>()));
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -244,7 +264,10 @@ void main() {
         expect(deviceInfo.brand, 'Test Brand');
         expect(deviceInfo.systemName, 'TestOS');
         expect(deviceInfo.systemVersion, '1.0');
-        expect(deviceInfo.shortDescription, 'Test Brand Test Model (TestOS 1.0)');
+        expect(
+          deviceInfo.shortDescription,
+          'Test Brand Test Model (TestOS 1.0)',
+        );
         expect(deviceInfo.isMobile, false);
         expect(deviceInfo.isDesktop, false);
         expect(deviceInfo.isWeb, false);

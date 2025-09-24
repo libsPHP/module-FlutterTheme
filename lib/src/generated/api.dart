@@ -7,20 +7,24 @@ import 'dart:typed_data' show Float64List, Int32List, Int64List, Uint8List;
 
 import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
+
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-        .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
-    return a.length == b.length && a.entries.every((MapEntry<Object?, Object?> entry) =>
-        (b as Map<Object?, Object?>).containsKey(entry.key) &&
-        _deepEquals(entry.value, b[entry.key]));
+    return a.length == b.length &&
+        a.entries.every(
+          (MapEntry<Object?, Object?> entry) =>
+              (b as Map<Object?, Object?>).containsKey(entry.key) &&
+              _deepEquals(entry.value, b[entry.key]),
+        );
   }
   return a == b;
 }
-
 
 /// Magento configuration data
 class MagentoConfiguration {
@@ -40,16 +44,12 @@ class MagentoConfiguration {
   int? receiveTimeout;
 
   List<Object?> _toList() {
-    return <Object?>[
-      baseUrl,
-      headers,
-      connectionTimeout,
-      receiveTimeout,
-    ];
+    return <Object?>[baseUrl, headers, connectionTimeout, receiveTimeout];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static MagentoConfiguration decode(Object result) {
     result as List<Object?>;
@@ -75,30 +75,24 @@ class MagentoConfiguration {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Customer credentials for authentication
 class CustomerCredentials {
-  CustomerCredentials({
-    required this.email,
-    required this.password,
-  });
+  CustomerCredentials({required this.email, required this.password});
 
   String email;
 
   String password;
 
   List<Object?> _toList() {
-    return <Object?>[
-      email,
-      password,
-    ];
+    return <Object?>[email, password];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CustomerCredentials decode(Object result) {
     result as List<Object?>;
@@ -122,8 +116,7 @@ class CustomerCredentials {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Customer data for registration
@@ -144,16 +137,12 @@ class CustomerData {
   String lastName;
 
   List<Object?> _toList() {
-    return <Object?>[
-      email,
-      password,
-      firstName,
-      lastName,
-    ];
+    return <Object?>[email, password, firstName, lastName];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CustomerData decode(Object result) {
     result as List<Object?>;
@@ -179,8 +168,7 @@ class CustomerData {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Customer information
@@ -226,7 +214,8 @@ class Customer {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static Customer decode(Object result) {
     result as List<Object?>;
@@ -238,7 +227,8 @@ class Customer {
       phone: result[4] as String?,
       dateOfBirth: result[5] as String?,
       gender: result[6] as int?,
-      customAttributes: (result[7] as Map<Object?, Object?>?)?.cast<String, dynamic>(),
+      customAttributes: (result[7] as Map<Object?, Object?>?)
+          ?.cast<String, dynamic>(),
     );
   }
 
@@ -256,8 +246,7 @@ class Customer {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Product request parameters
@@ -299,7 +288,8 @@ class ProductRequest {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ProductRequest decode(Object result) {
     result as List<Object?>;
@@ -328,8 +318,7 @@ class ProductRequest {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Product information
@@ -379,7 +368,8 @@ class Product {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static Product decode(Object result) {
     result as List<Object?>;
@@ -390,7 +380,8 @@ class Product {
       description: result[3] as String?,
       shortDescription: result[4] as String?,
       images: (result[5] as List<Object?>?)?.cast<String>(),
-      customAttributes: (result[6] as Map<Object?, Object?>?)?.cast<String, dynamic>(),
+      customAttributes: (result[6] as Map<Object?, Object?>?)
+          ?.cast<String, dynamic>(),
       stockStatus: result[7] as String?,
       quantity: result[8] as int?,
     );
@@ -410,8 +401,7 @@ class Product {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Product list with pagination
@@ -435,17 +425,12 @@ class ProductList {
   int totalPages;
 
   List<Object?> _toList() {
-    return <Object?>[
-      items,
-      totalCount,
-      pageSize,
-      currentPage,
-      totalPages,
-    ];
+    return <Object?>[items, totalCount, pageSize, currentPage, totalPages];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static ProductList decode(Object result) {
     result as List<Object?>;
@@ -472,17 +457,12 @@ class ProductList {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Cart item
 class CartItem {
-  CartItem({
-    required this.sku,
-    required this.quantity,
-    this.productOptions,
-  });
+  CartItem({required this.sku, required this.quantity, this.productOptions});
 
   String sku;
 
@@ -491,22 +471,20 @@ class CartItem {
   Map<String, dynamic>? productOptions;
 
   List<Object?> _toList() {
-    return <Object?>[
-      sku,
-      quantity,
-      productOptions,
-    ];
+    return <Object?>[sku, quantity, productOptions];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static CartItem decode(Object result) {
     result as List<Object?>;
     return CartItem(
       sku: result[0]! as String,
       quantity: result[1]! as int,
-      productOptions: (result[2] as Map<Object?, Object?>?)?.cast<String, dynamic>(),
+      productOptions: (result[2] as Map<Object?, Object?>?)
+          ?.cast<String, dynamic>(),
     );
   }
 
@@ -524,8 +502,7 @@ class CartItem {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Shopping cart
@@ -571,7 +548,8 @@ class Cart {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static Cart decode(Object result) {
     result as List<Object?>;
@@ -601,8 +579,7 @@ class Cart {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Order information
@@ -660,7 +637,8 @@ class Order {
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static Order decode(Object result) {
     result as List<Object?>;
@@ -672,8 +650,10 @@ class Order {
       grandTotal: result[4]! as double,
       createdAt: result[5]! as String,
       items: (result[6] as List<Object?>?)?.cast<CartItem>(),
-      billingAddress: (result[7] as Map<Object?, Object?>?)?.cast<String, dynamic>(),
-      shippingAddress: (result[8] as Map<Object?, Object?>?)?.cast<String, dynamic>(),
+      billingAddress: (result[7] as Map<Object?, Object?>?)
+          ?.cast<String, dynamic>(),
+      shippingAddress: (result[8] as Map<Object?, Object?>?)
+          ?.cast<String, dynamic>(),
       paymentMethod: result[9] as String?,
       shippingMethod: result[10] as String?,
     );
@@ -693,17 +673,12 @@ class Order {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
 
 /// Wishlist information
 class Wishlist {
-  Wishlist({
-    required this.id,
-    required this.items,
-    required this.itemsCount,
-  });
+  Wishlist({required this.id, required this.items, required this.itemsCount});
 
   String id;
 
@@ -712,15 +687,12 @@ class Wishlist {
   int itemsCount;
 
   List<Object?> _toList() {
-    return <Object?>[
-      id,
-      items,
-      itemsCount,
-    ];
+    return <Object?>[id, items, itemsCount];
   }
 
   Object encode() {
-    return _toList();  }
+    return _toList();
+  }
 
   static Wishlist decode(Object result) {
     result as List<Object?>;
@@ -745,10 +717,8 @@ class Wishlist {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList())
-;
+  int get hashCode => Object.hashAll(_toList());
 }
-
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -757,37 +727,37 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    }    else if (value is MagentoConfiguration) {
+    } else if (value is MagentoConfiguration) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    }    else if (value is CustomerCredentials) {
+    } else if (value is CustomerCredentials) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    }    else if (value is CustomerData) {
+    } else if (value is CustomerData) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    }    else if (value is Customer) {
+    } else if (value is Customer) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    }    else if (value is ProductRequest) {
+    } else if (value is ProductRequest) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
-    }    else if (value is Product) {
+    } else if (value is Product) {
       buffer.putUint8(134);
       writeValue(buffer, value.encode());
-    }    else if (value is ProductList) {
+    } else if (value is ProductList) {
       buffer.putUint8(135);
       writeValue(buffer, value.encode());
-    }    else if (value is CartItem) {
+    } else if (value is CartItem) {
       buffer.putUint8(136);
       writeValue(buffer, value.encode());
-    }    else if (value is Cart) {
+    } else if (value is Cart) {
       buffer.putUint8(137);
       writeValue(buffer, value.encode());
-    }    else if (value is Order) {
+    } else if (value is Order) {
       buffer.putUint8(138);
       writeValue(buffer, value.encode());
-    }    else if (value is Wishlist) {
+    } else if (value is Wishlist) {
       buffer.putUint8(139);
       writeValue(buffer, value.encode());
     } else {
@@ -798,27 +768,27 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129: 
+      case 129:
         return MagentoConfiguration.decode(readValue(buffer)!);
-      case 130: 
+      case 130:
         return CustomerCredentials.decode(readValue(buffer)!);
-      case 131: 
+      case 131:
         return CustomerData.decode(readValue(buffer)!);
-      case 132: 
+      case 132:
         return Customer.decode(readValue(buffer)!);
-      case 133: 
+      case 133:
         return ProductRequest.decode(readValue(buffer)!);
-      case 134: 
+      case 134:
         return Product.decode(readValue(buffer)!);
-      case 135: 
+      case 135:
         return ProductList.decode(readValue(buffer)!);
-      case 136: 
+      case 136:
         return CartItem.decode(readValue(buffer)!);
-      case 137: 
+      case 137:
         return Cart.decode(readValue(buffer)!);
-      case 138: 
+      case 138:
         return Order.decode(readValue(buffer)!);
-      case 139: 
+      case 139:
         return Wishlist.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

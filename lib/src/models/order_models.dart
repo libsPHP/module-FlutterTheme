@@ -17,7 +17,8 @@ class OrderListResponse {
     this.pageSize,
   });
 
-  factory OrderListResponse.fromJson(Map<String, dynamic> json) => _$OrderListResponseFromJson(json);
+  factory OrderListResponse.fromJson(Map<String, dynamic> json) =>
+      _$OrderListResponseFromJson(json);
   Map<String, dynamic> toJson() => _$OrderListResponseToJson(this);
 }
 
@@ -79,7 +80,8 @@ class OrderItem {
     this.productType,
   });
 
-  factory OrderItem.fromJson(Map<String, dynamic> json) => _$OrderItemFromJson(json);
+  factory OrderItem.fromJson(Map<String, dynamic> json) =>
+      _$OrderItemFromJson(json);
   Map<String, dynamic> toJson() => _$OrderItemToJson(this);
 }
 
@@ -100,7 +102,8 @@ class OrderTotals {
     this.discountAmount,
   });
 
-  factory OrderTotals.fromJson(Map<String, dynamic> json) => _$OrderTotalsFromJson(json);
+  factory OrderTotals.fromJson(Map<String, dynamic> json) =>
+      _$OrderTotalsFromJson(json);
   Map<String, dynamic> toJson() => _$OrderTotalsToJson(this);
 }
 
@@ -112,14 +115,10 @@ class OrderComment {
   final bool? isVisibleOnFront;
   final DateTime? createdAt;
 
-  OrderComment({
-    this.id,
-    this.comment,
-    this.isVisibleOnFront,
-    this.createdAt,
-  });
+  OrderComment({this.id, this.comment, this.isVisibleOnFront, this.createdAt});
 
-  factory OrderComment.fromJson(Map<String, dynamic> json) => _$OrderCommentFromJson(json);
+  factory OrderComment.fromJson(Map<String, dynamic> json) =>
+      _$OrderCommentFromJson(json);
   Map<String, dynamic> toJson() => _$OrderCommentToJson(this);
 }
 
@@ -131,14 +130,10 @@ class OrderHistory {
   final String? comment;
   final DateTime? createdAt;
 
-  OrderHistory({
-    this.id,
-    this.status,
-    this.comment,
-    this.createdAt,
-  });
+  OrderHistory({this.id, this.status, this.comment, this.createdAt});
 
-  factory OrderHistory.fromJson(Map<String, dynamic> json) => _$OrderHistoryFromJson(json);
+  factory OrderHistory.fromJson(Map<String, dynamic> json) =>
+      _$OrderHistoryFromJson(json);
   Map<String, dynamic> toJson() => _$OrderHistoryToJson(this);
 }
 
@@ -161,7 +156,8 @@ class Invoice {
     this.createdAt,
   });
 
-  factory Invoice.fromJson(Map<String, dynamic> json) => _$InvoiceFromJson(json);
+  factory Invoice.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceFromJson(json);
   Map<String, dynamic> toJson() => _$InvoiceToJson(this);
 }
 
@@ -186,7 +182,8 @@ class Shipment {
     this.createdAt,
   });
 
-  factory Shipment.fromJson(Map<String, dynamic> json) => _$ShipmentFromJson(json);
+  factory Shipment.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentFromJson(json);
   Map<String, dynamic> toJson() => _$ShipmentToJson(this);
 }
 
@@ -198,14 +195,10 @@ class ShipmentItem {
   final String? name;
   final int? qty;
 
-  ShipmentItem({
-    this.itemId,
-    this.sku,
-    this.name,
-    this.qty,
-  });
+  ShipmentItem({this.itemId, this.sku, this.name, this.qty});
 
-  factory ShipmentItem.fromJson(Map<String, dynamic> json) => _$ShipmentItemFromJson(json);
+  factory ShipmentItem.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentItemFromJson(json);
   Map<String, dynamic> toJson() => _$ShipmentItemToJson(this);
 }
 
@@ -217,14 +210,10 @@ class ShipmentTracking {
   final String? title;
   final String? carrierCode;
 
-  ShipmentTracking({
-    this.id,
-    this.trackNumber,
-    this.title,
-    this.carrierCode,
-  });
+  ShipmentTracking({this.id, this.trackNumber, this.title, this.carrierCode});
 
-  factory ShipmentTracking.fromJson(Map<String, dynamic> json) => _$ShipmentTrackingFromJson(json);
+  factory ShipmentTracking.fromJson(Map<String, dynamic> json) =>
+      _$ShipmentTrackingFromJson(json);
   Map<String, dynamic> toJson() => _$ShipmentTrackingToJson(this);
 }
 
@@ -247,7 +236,8 @@ class CreditMemo {
     this.createdAt,
   });
 
-  factory CreditMemo.fromJson(Map<String, dynamic> json) => _$CreditMemoFromJson(json);
+  factory CreditMemo.fromJson(Map<String, dynamic> json) =>
+      _$CreditMemoFromJson(json);
   Map<String, dynamic> toJson() => _$CreditMemoToJson(this);
 }
 
@@ -283,14 +273,9 @@ class ReturnItem {
   final int? qty;
   final String? reason;
 
-  ReturnItem({
-    this.itemId,
-    this.sku,
-    this.name,
-    this.qty,
-    this.reason,
-  });
+  ReturnItem({this.itemId, this.sku, this.name, this.qty, this.reason});
 
-  factory ReturnItem.fromJson(Map<String, dynamic> json) => _$ReturnItemFromJson(json);
+  factory ReturnItem.fromJson(Map<String, dynamic> json) =>
+      _$ReturnItemFromJson(json);
   Map<String, dynamic> toJson() => _$ReturnItemToJson(this);
 }

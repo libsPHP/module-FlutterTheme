@@ -144,15 +144,15 @@ class MagentoProvider extends ChangeNotifier {
 
   /// Получение информации о состоянии
   Map<String, dynamic> get status => {
-        'isInitialized': _isInitialized,
-        'isInitializing': _isInitializing,
-        'isReady': isReady,
-        'error': _error,
-        'authStatus': _authService.status,
-        'networkStatus': _networkService.status,
-        'offlineStatus': _offlineService.status,
-        'localizationStatus': _localizationService.status,
-      };
+    'isInitialized': _isInitialized,
+    'isInitializing': _isInitializing,
+    'isReady': isReady,
+    'error': _error,
+    'authStatus': _authService.status,
+    'networkStatus': _networkService.status,
+    'offlineStatus': _offlineService.status,
+    'localizationStatus': _localizationService.status,
+  };
 
   @override
   void dispose() {

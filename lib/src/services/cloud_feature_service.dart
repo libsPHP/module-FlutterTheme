@@ -127,10 +127,12 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
     _executionCounts[executionKey] = (_executionCounts[executionKey] ?? 0) + 1;
 
     try {
-      _statusController.add(MagentoCloudFeatureStatus(
-        featureType: featureType,
-        status: MagentoCloudFeatureState.executing,
-      ));
+      _statusController.add(
+        MagentoCloudFeatureStatus(
+          featureType: featureType,
+          status: MagentoCloudFeatureState.executing,
+        ),
+      );
 
       final stopwatch = Stopwatch()..start();
 
@@ -143,12 +145,14 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
 
       stopwatch.stop();
 
-      _statusController.add(MagentoCloudFeatureStatus(
-        featureType: featureType,
-        status: result.success
-            ? MagentoCloudFeatureState.success
-            : MagentoCloudFeatureState.error,
-      ));
+      _statusController.add(
+        MagentoCloudFeatureStatus(
+          featureType: featureType,
+          status: result.success
+              ? MagentoCloudFeatureState.success
+              : MagentoCloudFeatureState.error,
+        ),
+      );
 
       if (result.success) {
         return MagentoCloudFeatureResult.success(
@@ -169,10 +173,12 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
         );
       }
     } catch (e) {
-      _statusController.add(MagentoCloudFeatureStatus(
-        featureType: featureType,
-        status: MagentoCloudFeatureState.error,
-      ));
+      _statusController.add(
+        MagentoCloudFeatureStatus(
+          featureType: featureType,
+          status: MagentoCloudFeatureState.error,
+        ),
+      );
 
       _errorController.add('Feature $featureType failed: $e');
 
@@ -193,7 +199,9 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
 
   /// Enable or disable a feature
   Future<void> setFeatureEnabled(
-      MagentoCloudFeatureType featureType, bool enabled) async {
+    MagentoCloudFeatureType featureType,
+    bool enabled,
+  ) async {
     _featureStates[featureType] = enabled;
     await _saveFeatureConfiguration();
     notifyListeners();
@@ -201,7 +209,8 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
 
   /// Get feature usage statistics
   MagentoCloudFeatureStats getFeatureStats(
-      MagentoCloudFeatureType featureType) {
+    MagentoCloudFeatureType featureType,
+  ) {
     final executionKey = '${featureType.name}_execution';
     return MagentoCloudFeatureStats(
       featureType: featureType,
@@ -255,23 +264,23 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
     // Add offline-capable features
     _availableFeatures[MagentoCloudFeatureType.aiAnalysis] =
         MagentoCloudFeature(
-      type: MagentoCloudFeatureType.aiAnalysis,
-      name: 'AI Analysis',
-      description: 'AI-powered analysis with offline fallback',
-      requiresInternet: false,
-      isPremium: false,
-      config: {'offline_capable': true},
-    );
+          type: MagentoCloudFeatureType.aiAnalysis,
+          name: 'AI Analysis',
+          description: 'AI-powered analysis with offline fallback',
+          requiresInternet: false,
+          isPremium: false,
+          config: {'offline_capable': true},
+        );
 
     _availableFeatures[MagentoCloudFeatureType.smartRecommendations] =
         MagentoCloudFeature(
-      type: MagentoCloudFeatureType.smartRecommendations,
-      name: 'Smart Recommendations',
-      description: 'Intelligent recommendations with local fallback',
-      requiresInternet: false,
-      isPremium: false,
-      config: {'offline_capable': true},
-    );
+          type: MagentoCloudFeatureType.smartRecommendations,
+          name: 'Smart Recommendations',
+          description: 'Intelligent recommendations with local fallback',
+          requiresInternet: false,
+          isPremium: false,
+          config: {'offline_capable': true},
+        );
 
     // Set default availability
     for (final feature in _availableFeatures.values) {
@@ -288,33 +297,33 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
 
       _availableFeatures[MagentoCloudFeatureType.advancedVision] =
           MagentoCloudFeature(
-        type: MagentoCloudFeatureType.advancedVision,
-        name: 'Advanced Computer Vision',
-        description: 'Cloud-powered advanced image analysis',
-        requiresInternet: true,
-        isPremium: true,
-        config: {'cloud_only': true},
-      );
+            type: MagentoCloudFeatureType.advancedVision,
+            name: 'Advanced Computer Vision',
+            description: 'Cloud-powered advanced image analysis',
+            requiresInternet: true,
+            isPremium: true,
+            config: {'cloud_only': true},
+          );
 
       _availableFeatures[MagentoCloudFeatureType.mlModels] =
           MagentoCloudFeature(
-        type: MagentoCloudFeatureType.mlModels,
-        name: 'Machine Learning Models',
-        description: 'Cloud-based ML inference',
-        requiresInternet: true,
-        isPremium: true,
-        config: {'cloud_only': true},
-      );
+            type: MagentoCloudFeatureType.mlModels,
+            name: 'Machine Learning Models',
+            description: 'Cloud-based ML inference',
+            requiresInternet: true,
+            isPremium: true,
+            config: {'cloud_only': true},
+          );
 
       _availableFeatures[MagentoCloudFeatureType.voiceAssistance] =
           MagentoCloudFeature(
-        type: MagentoCloudFeatureType.voiceAssistance,
-        name: 'Voice Assistance',
-        description: 'AI-powered voice commands and responses',
-        requiresInternet: true,
-        isPremium: false,
-        config: {'cloud_only': true},
-      );
+            type: MagentoCloudFeatureType.voiceAssistance,
+            name: 'Voice Assistance',
+            description: 'AI-powered voice commands and responses',
+            requiresInternet: true,
+            isPremium: false,
+            config: {'cloud_only': true},
+          );
 
       // Enable cloud features if online
       for (final feature in _availableFeatures.values) {
@@ -340,7 +349,8 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
   }) async {
     // Simulate cloud API call
     await Future.delayed(
-        Duration(milliseconds: 100 + (parameters.length * 50)));
+      Duration(milliseconds: 100 + (parameters.length * 50)),
+    );
 
     try {
       // Simulate different responses based on feature type
@@ -372,12 +382,12 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
               {
                 'class': 'object1',
                 'confidence': 0.98,
-                'bbox': [10, 10, 100, 100]
+                'bbox': [10, 10, 100, 100],
               },
               {
                 'class': 'object2',
                 'confidence': 0.87,
-                'bbox': [50, 50, 150, 150]
+                'bbox': [50, 50, 150, 150],
               },
             ],
             'advanced_features': true,
@@ -436,8 +446,10 @@ class MagentoCloudFeatureManager extends ChangeNotifier {
       }
 
       final result = fromJson(fallbackData);
-      return MagentoCloudFeatureResult.fallback(result,
-          featureType: featureType);
+      return MagentoCloudFeatureResult.fallback(
+        result,
+        featureType: featureType,
+      );
     } catch (e) {
       return MagentoCloudFeatureResult.error(
         'Fallback execution failed: $e',
@@ -510,13 +522,7 @@ class MagentoCloudFeatureStatus {
 }
 
 /// States of cloud feature execution
-enum MagentoCloudFeatureState {
-  idle,
-  executing,
-  success,
-  error,
-  fallback,
-}
+enum MagentoCloudFeatureState { idle, executing, success, error, fallback }
 
 /// Statistics for a cloud feature
 @immutable
@@ -538,7 +544,8 @@ class MagentoCloudFeatureStats {
   final bool requiresInternet;
 
   @override
-  String toString() => 'MagentoCloudFeatureStats('
+  String toString() =>
+      'MagentoCloudFeatureStats('
       'feature: $featureType, '
       'executions: $executionCount, '
       'available: $isAvailable, '

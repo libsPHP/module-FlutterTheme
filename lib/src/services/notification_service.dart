@@ -17,7 +17,7 @@ class MagentoNotificationService extends ChangeNotifier {
   // Private fields
   SharedPreferences? _prefs;
   final Map<MagentoNotificationType, StreamController<MagentoNotification>>
-      _controllers = {};
+  _controllers = {};
   final List<MagentoNotification> _notificationHistory = [];
   final Map<String, MagentoNotificationSubscription> _subscriptions = {};
   int _notificationIdCounter = 0;
@@ -281,7 +281,8 @@ class MagentoNotificationService extends ChangeNotifier {
     var filtered = _notificationHistory.where((notification) {
       if (type != null && notification.type != type) return false;
       if (minPriority != null &&
-          notification.priority.index < minPriority.index) return false;
+          notification.priority.index < minPriority.index)
+        return false;
       if (since != null &&
           notification.timestamp.isBefore(DateTime.now().subtract(since)))
         return false;
@@ -327,8 +328,9 @@ class MagentoNotificationService extends ChangeNotifier {
     final now = DateTime.now();
     final last24Hours = now.subtract(const Duration(hours: 24));
 
-    final recent =
-        _notificationHistory.where((n) => n.timestamp.isAfter(last24Hours));
+    final recent = _notificationHistory.where(
+      (n) => n.timestamp.isAfter(last24Hours),
+    );
 
     final byType = <MagentoNotificationType, int>{};
     final byPriority = <MagentoNotificationPriority, int>{};
@@ -375,7 +377,8 @@ class MagentoNotificationService extends ChangeNotifier {
 
     if (kDebugMode) {
       print(
-          'Notification sent: ${notification.type.name} - ${notification.message}');
+        'Notification sent: ${notification.type.name} - ${notification.message}',
+      );
     }
   }
 
@@ -457,12 +460,7 @@ enum MagentoNotificationType {
 }
 
 /// Notification priority levels
-enum MagentoNotificationPriority {
-  low,
-  normal,
-  high,
-  critical,
-}
+enum MagentoNotificationPriority { low, normal, high, critical }
 
 /// Sync notification states
 enum MagentoSyncNotificationState {
@@ -474,12 +472,7 @@ enum MagentoSyncNotificationState {
 }
 
 /// Cloud feature notification states
-enum MagentoCloudNotificationState {
-  executing,
-  completed,
-  error,
-  fallback,
-}
+enum MagentoCloudNotificationState { executing, completed, error, fallback }
 
 /// A notification object
 @immutable
@@ -521,7 +514,8 @@ class MagentoNotification {
   int get hashCode => id.hashCode;
 
   @override
-  String toString() => 'MagentoNotification('
+  String toString() =>
+      'MagentoNotification('
       'type: $type, '
       'priority: $priority, '
       'message: $message'
@@ -552,7 +546,8 @@ class MagentoNotificationSubscription {
   }
 
   @override
-  String toString() => 'MagentoNotificationSubscription('
+  String toString() =>
+      'MagentoNotificationSubscription('
       'id: $id, '
       'type: $type, '
       'minPriority: $minPriority'
@@ -577,7 +572,8 @@ class MagentoNotificationStats {
   final int activeSubscriptions;
 
   @override
-  String toString() => 'MagentoNotificationStats('
+  String toString() =>
+      'MagentoNotificationStats('
       'total: $totalCount, '
       'recent: $recentCount, '
       'subscriptions: $activeSubscriptions'

@@ -24,11 +24,7 @@ class MagentoException implements Exception {
 
   /// Create exception for API errors
   factory MagentoException.apiError(String message, int statusCode) {
-    return MagentoException(
-      message,
-      code: 'API_ERROR',
-      statusCode: statusCode,
-    );
+    return MagentoException(message, code: 'API_ERROR', statusCode: statusCode);
   }
 
   /// Check if this is an authentication error
@@ -71,9 +67,6 @@ class MagentoException implements Exception {
 
   /// Create exception from Dio exception
   factory MagentoException.fromDioException(dynamic dioException) {
-    return MagentoException(
-      dioException.toString(),
-      code: 'DIO_ERROR',
-    );
+    return MagentoException(dioException.toString(), code: 'DIO_ERROR');
   }
 }

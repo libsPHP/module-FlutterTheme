@@ -146,7 +146,7 @@ class LocalizationManager {
   static List<Locale> getSupportedLocales() {
     return _supportedLocales.values.toList();
   }
-  
+
   /// Get supported locales (alias for backward compatibility)
   static List<Locale> get supportedLocales => getSupportedLocales();
 
@@ -159,19 +159,19 @@ class LocalizationManager {
   static String getSystemLanguageCode() {
     final systemLocale = PlatformDispatcher.instance.locale;
     final languageCode = systemLocale.languageCode;
-    
+
     if (isLanguageSupported(languageCode)) {
       return languageCode;
     }
-    
+
     return 'en'; // fallback to English
   }
 
   /// Get language direction (RTL or LTR)
   static TextDirection getTextDirection(String languageCode) {
     const rtlLanguages = {'ar', 'he', 'fa', 'ur'};
-    return rtlLanguages.contains(languageCode) 
-        ? TextDirection.rtl 
+    return rtlLanguages.contains(languageCode)
+        ? TextDirection.rtl
         : TextDirection.ltr;
   }
 
@@ -192,9 +192,9 @@ class LocalizationManager {
   /// Get available languages for dropdown
   static Map<String, String> getAvailableLanguages() {
     return Map.fromEntries(
-      _supportedLocales.keys.map((code) => 
-        MapEntry(code, _languageNames[code] ?? code)
-      )
+      _supportedLocales.keys.map(
+        (code) => MapEntry(code, _languageNames[code] ?? code),
+      ),
     );
   }
 
@@ -240,7 +240,7 @@ class LocalizationManager {
       'ur': '₨',
       'bn': '৳',
     };
-    
+
     return currencyMap[languageCode] ?? '\$';
   }
 
@@ -286,7 +286,7 @@ class LocalizationManager {
       'ur': 'dd/MM/yyyy',
       'bn': 'dd/MM/yyyy',
     };
-    
+
     return dateFormats[languageCode] ?? 'MM/dd/yyyy';
   }
 
@@ -296,7 +296,7 @@ class LocalizationManager {
     if (languageCode == 'ru' || languageCode == 'de' || languageCode == 'fr') {
       return number.toStringAsFixed(2).replaceAll('.', ',');
     }
-    
+
     return number.toStringAsFixed(2);
   }
 
@@ -305,7 +305,7 @@ class LocalizationManager {
     if (languageCode == null || languageCode.isEmpty) {
       return false;
     }
-    
+
     return _supportedLocales.containsKey(languageCode);
   }
 
@@ -322,18 +322,64 @@ class LocalizationManager {
   /// Get language icon (flag emoji or similar)
   static String getLanguageIcon(String languageCode) {
     const flagEmojis = {
-      'en': '🇺🇸', 'ru': '🇷🇺', 'es': '🇪🇸', 'fr': '🇫🇷', 'de': '🇩🇪',
-      'it': '🇮🇹', 'pt': '🇵🇹', 'zh': '🇨🇳', 'ja': '🇯🇵', 'ko': '🇰🇷',
-      'ar': '🇸🇦', 'hi': '🇮🇳', 'th': '🇹🇭', 'vi': '🇻🇳', 'tr': '🇹🇷',
-      'pl': '🇵🇱', 'nl': '🇳🇱', 'sv': '🇸🇪', 'da': '🇩🇰', 'no': '🇳🇴',
-      'fi': '🇫🇮', 'cs': '🇨🇿', 'sk': '🇸🇰', 'hu': '🇭🇺', 'ro': '🇷🇴',
-      'bg': '🇧🇬', 'hr': '🇭🇷', 'sl': '🇸🇮', 'et': '🇪🇪', 'lv': '🇱🇻',
-      'lt': '🇱🇹', 'uk': '🇺🇦', 'be': '🇧🇾', 'ka': '🇬🇪', 'he': '🇮🇱',
-      'fa': '🇮🇷', 'ur': '🇵🇰', 'bn': '🇧🇩', 'ta': '🇮🇳', 'te': '🇮🇳',
-      'ml': '🇮🇳', 'kn': '🇮🇳', 'gu': '🇮🇳', 'mr': '🇮🇳', 'pa': '🇮🇳',
-      'or': '🇮🇳', 'as': '🇮🇳', 'ne': '🇳🇵', 'si': '🇱🇰', 'my': '🇲🇲',
-      'km': '🇰🇭', 'lo': '🇱🇦', 'az': '🇦🇿', 'kk': '🇰🇿', 'ky': '🇰🇬',
-      'uz': '🇺🇿', 'tg': '🇹🇯', 'mn': '🇲🇳',
+      'en': '🇺🇸',
+      'ru': '🇷🇺',
+      'es': '🇪🇸',
+      'fr': '🇫🇷',
+      'de': '🇩🇪',
+      'it': '🇮🇹',
+      'pt': '🇵🇹',
+      'zh': '🇨🇳',
+      'ja': '🇯🇵',
+      'ko': '🇰🇷',
+      'ar': '🇸🇦',
+      'hi': '🇮🇳',
+      'th': '🇹🇭',
+      'vi': '🇻🇳',
+      'tr': '🇹🇷',
+      'pl': '🇵🇱',
+      'nl': '🇳🇱',
+      'sv': '🇸🇪',
+      'da': '🇩🇰',
+      'no': '🇳🇴',
+      'fi': '🇫🇮',
+      'cs': '🇨🇿',
+      'sk': '🇸🇰',
+      'hu': '🇭🇺',
+      'ro': '🇷🇴',
+      'bg': '🇧🇬',
+      'hr': '🇭🇷',
+      'sl': '🇸🇮',
+      'et': '🇪🇪',
+      'lv': '🇱🇻',
+      'lt': '🇱🇹',
+      'uk': '🇺🇦',
+      'be': '🇧🇾',
+      'ka': '🇬🇪',
+      'he': '🇮🇱',
+      'fa': '🇮🇷',
+      'ur': '🇵🇰',
+      'bn': '🇧🇩',
+      'ta': '🇮🇳',
+      'te': '🇮🇳',
+      'ml': '🇮🇳',
+      'kn': '🇮🇳',
+      'gu': '🇮🇳',
+      'mr': '🇮🇳',
+      'pa': '🇮🇳',
+      'or': '🇮🇳',
+      'as': '🇮🇳',
+      'ne': '🇳🇵',
+      'si': '🇱🇰',
+      'my': '🇲🇲',
+      'km': '🇰🇭',
+      'lo': '🇱🇦',
+      'az': '🇦🇿',
+      'kk': '🇰🇿',
+      'ky': '🇰🇬',
+      'uz': '🇺🇿',
+      'tg': '🇹🇯',
+      'mn': '🇲🇳',
     };
     return flagEmojis[languageCode] ?? '🌐';
   }
@@ -341,10 +387,22 @@ class LocalizationManager {
   /// Get theme color for language
   static int getLanguageThemeColor(String languageCode) {
     const themeColors = {
-      'en': 0xFF2196F3, 'ru': 0xFFFF5722, 'es': 0xFFFF9800, 'fr': 0xFF3F51B5,
-      'de': 0xFF607D8B, 'it': 0xFF4CAF50, 'pt': 0xFF9C27B0, 'zh': 0xFFF44336,
-      'ja': 0xFFE91E63, 'ko': 0xFF673AB7, 'ar': 0xFF795548, 'hi': 0xFFFF5722,
-      'th': 0xFFFFEB3B, 'vi': 0xFF8BC34A, 'tr': 0xFF00BCD4, 'pl': 0xFFCDDC39,
+      'en': 0xFF2196F3,
+      'ru': 0xFFFF5722,
+      'es': 0xFFFF9800,
+      'fr': 0xFF3F51B5,
+      'de': 0xFF607D8B,
+      'it': 0xFF4CAF50,
+      'pt': 0xFF9C27B0,
+      'zh': 0xFFF44336,
+      'ja': 0xFFE91E63,
+      'ko': 0xFF673AB7,
+      'ar': 0xFF795548,
+      'hi': 0xFFFF5722,
+      'th': 0xFFFFEB3B,
+      'vi': 0xFF8BC34A,
+      'tr': 0xFF00BCD4,
+      'pl': 0xFFCDDC39,
     };
     return themeColors[languageCode] ?? 0xFF9E9E9E;
   }
@@ -364,8 +422,9 @@ class LocalizationManager {
   /// Get text style for language
   static Map<String, dynamic> getLanguageTextStyle(String languageCode) {
     return {
-      'fontFamily': getTextDirection(languageCode) == TextDirection.rtl 
-          ? 'Arabic' : 'Default',
+      'fontFamily': getTextDirection(languageCode) == TextDirection.rtl
+          ? 'Arabic'
+          : 'Default',
       'fontSize': 14.0,
       'color': getLanguageThemeColor(languageCode),
     };

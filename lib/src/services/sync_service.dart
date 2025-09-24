@@ -153,7 +153,8 @@ class MagentoSyncService extends ChangeNotifier {
 
   /// Get pending sync items for a data type
   Future<List<Map<String, dynamic>>> getPendingSyncItems(
-      String dataType) async {
+    String dataType,
+  ) async {
     _prefs ??= await SharedPreferences.getInstance();
     final pendingJson = _prefs!.getString('pending_sync_$dataType');
 
@@ -165,7 +166,9 @@ class MagentoSyncService extends ChangeNotifier {
 
   /// Add items to pending sync queue
   Future<void> addToPendingSync(
-      String dataType, List<Map<String, dynamic>> items) async {
+    String dataType,
+    List<Map<String, dynamic>> items,
+  ) async {
     _prefs ??= await SharedPreferences.getInstance();
 
     final existing = await getPendingSyncItems(dataType);
@@ -226,7 +229,8 @@ class MagentoSyncService extends ChangeNotifier {
         // This would need to be implemented per data type
         // For now, we'll create a placeholder result
         results[dataType] = MagentoSyncResult.error(
-            'Generic sync not implemented. Use specific syncData method.');
+          'Generic sync not implemented. Use specific syncData method.',
+        );
       }
     }
 
@@ -260,7 +264,8 @@ class MagentoSyncService extends ChangeNotifier {
       // For now, simulate sync operation
       // In a real implementation, this would make API calls to Magento
       await Future.delayed(
-          const Duration(milliseconds: 500)); // Simulate network delay
+        const Duration(milliseconds: 500),
+      ); // Simulate network delay
 
       final syncedItems = <String>[];
       final failedItems = <String>[];
@@ -278,13 +283,15 @@ class MagentoSyncService extends ChangeNotifier {
           failedItems.add(itemId);
         } else if (i % 15 == 14) {
           // Every 15th item has conflict
-          conflicts.add(MagentoSyncConflict(
-            itemId: itemId,
-            conflictType: MagentoSyncConflictType.bothModified,
-            localData: itemJson,
-            remoteData: {...itemJson, 'remote_modified': true},
-            description: 'Item was modified both locally and remotely',
-          ));
+          conflicts.add(
+            MagentoSyncConflict(
+              itemId: itemId,
+              conflictType: MagentoSyncConflictType.bothModified,
+              localData: itemJson,
+              remoteData: {...itemJson, 'remote_modified': true},
+              description: 'Item was modified both locally and remotely',
+            ),
+          );
         } else {
           syncedItems.add(itemId);
         }
@@ -327,24 +334,28 @@ class MagentoSyncService extends ChangeNotifier {
       final dataType = key.replaceFirst('last_sync_', '');
       final timestamp = _prefs!.getInt(key);
       if (timestamp != null) {
-        _lastSyncTimes[dataType] =
-            DateTime.fromMillisecondsSinceEpoch(timestamp);
+        _lastSyncTimes[dataType] = DateTime.fromMillisecondsSinceEpoch(
+          timestamp,
+        );
       }
     }
   }
 
   Future<void> _updateSyncMetadata(String dataType, DateTime syncTime) async {
     _prefs ??= await SharedPreferences.getInstance();
-    await _prefs!
-        .setInt('last_sync_$dataType', syncTime.millisecondsSinceEpoch);
+    await _prefs!.setInt(
+      'last_sync_$dataType',
+      syncTime.millisecondsSinceEpoch,
+    );
     _lastSyncTimes[dataType] = syncTime;
   }
 
   Future<void> _setupAutoSync() async {
     // Load scheduled syncs from preferences and restore them
     _prefs ??= await SharedPreferences.getInstance();
-    final scheduleKeys =
-        _prefs!.getKeys().where((key) => key.startsWith('sync_schedule_'));
+    final scheduleKeys = _prefs!.getKeys().where(
+      (key) => key.startsWith('sync_schedule_'),
+    );
 
     for (final key in scheduleKeys) {
       final dataType = key.replaceFirst('sync_schedule_', '');
@@ -480,7 +491,8 @@ class MagentoSyncStats {
           DateTime.now().difference(lastSyncTime!).inHours > 24);
 
   @override
-  String toString() => 'MagentoSyncStats('
+  String toString() =>
+      'MagentoSyncStats('
       'dataType: $dataType, '
       'lastSync: $lastSyncTime, '
       'pending: $pendingItemsCount, '

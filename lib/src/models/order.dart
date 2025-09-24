@@ -46,7 +46,8 @@ class OrderItem with _$OrderItem {
     Map<String, dynamic>? customAttributes,
   }) = _OrderItem;
 
-  factory OrderItem.fromJson(Map<String, dynamic> json) => _$OrderItemFromJson(json);
+  factory OrderItem.fromJson(Map<String, dynamic> json) =>
+      _$OrderItemFromJson(json);
 }
 
 @freezed
@@ -59,7 +60,8 @@ class OrderItemOption with _$OrderItemOption {
     String? priceType,
   }) = _OrderItemOption;
 
-  factory OrderItemOption.fromJson(Map<String, dynamic> json) => _$OrderItemOptionFromJson(json);
+  factory OrderItemOption.fromJson(Map<String, dynamic> json) =>
+      _$OrderItemOptionFromJson(json);
 }
 
 @freezed
@@ -81,7 +83,8 @@ class OrderAddress with _$OrderAddress {
     String? vatId,
   }) = _OrderAddress;
 
-  factory OrderAddress.fromJson(Map<String, dynamic> json) => _$OrderAddressFromJson(json);
+  factory OrderAddress.fromJson(Map<String, dynamic> json) =>
+      _$OrderAddressFromJson(json);
 }
 
 @freezed
@@ -94,7 +97,8 @@ class OrderPayment with _$OrderPayment {
     Map<String, dynamic>? additionalData,
   }) = _OrderPayment;
 
-  factory OrderPayment.fromJson(Map<String, dynamic> json) => _$OrderPaymentFromJson(json);
+  factory OrderPayment.fromJson(Map<String, dynamic> json) =>
+      _$OrderPaymentFromJson(json);
 }
 
 @freezed
@@ -106,7 +110,8 @@ class OrderShipping with _$OrderShipping {
     Map<String, dynamic>? additionalData,
   }) = _OrderShipping;
 
-  factory OrderShipping.fromJson(Map<String, dynamic> json) => _$OrderShippingFromJson(json);
+  factory OrderShipping.fromJson(Map<String, dynamic> json) =>
+      _$OrderShippingFromJson(json);
 }
 
 @freezed
@@ -117,5 +122,6 @@ class OrderComment with _$OrderComment {
     bool? isVisibleOnFront,
   }) = _OrderComment;
 
-  factory OrderComment.fromJson(Map<String, dynamic> json) => _$OrderCommentFromJson(json);
+  factory OrderComment.fromJson(Map<String, dynamic> json) =>
+      _$OrderCommentFromJson(json);
 }

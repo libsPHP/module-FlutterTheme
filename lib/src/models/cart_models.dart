@@ -70,7 +70,8 @@ class CartItem {
     this.thumbnailUrl,
   });
 
-  factory CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);
+  factory CartItem.fromJson(Map<String, dynamic> json) =>
+      _$CartItemFromJson(json);
   Map<String, dynamic> toJson() => _$CartItemToJson(this);
 }
 
@@ -89,7 +90,8 @@ class CartItemOption {
     this.optionCode,
   });
 
-  factory CartItemOption.fromJson(Map<String, dynamic> json) => _$CartItemOptionFromJson(json);
+  factory CartItemOption.fromJson(Map<String, dynamic> json) =>
+      _$CartItemOptionFromJson(json);
   Map<String, dynamic> toJson() => _$CartItemOptionToJson(this);
 }
 
@@ -118,7 +120,8 @@ class CartTotals {
     this.currencyCode,
   });
 
-  factory CartTotals.fromJson(Map<String, dynamic> json) => _$CartTotalsFromJson(json);
+  factory CartTotals.fromJson(Map<String, dynamic> json) =>
+      _$CartTotalsFromJson(json);
   Map<String, dynamic> toJson() => _$CartTotalsToJson(this);
 }
 
@@ -130,14 +133,10 @@ class CartTotalSegment {
   final double? value;
   final String? area;
 
-  CartTotalSegment({
-    this.code,
-    this.title,
-    this.value,
-    this.area,
-  });
+  CartTotalSegment({this.code, this.title, this.value, this.area});
 
-  factory CartTotalSegment.fromJson(Map<String, dynamic> json) => _$CartTotalSegmentFromJson(json);
+  factory CartTotalSegment.fromJson(Map<String, dynamic> json) =>
+      _$CartTotalSegmentFromJson(json);
   Map<String, dynamic> toJson() => _$CartTotalSegmentToJson(this);
 }
 
@@ -149,14 +148,10 @@ class CartCoupon {
   final double? amount;
   final String? type;
 
-  CartCoupon({
-    this.code,
-    this.description,
-    this.amount,
-    this.type,
-  });
+  CartCoupon({this.code, this.description, this.amount, this.type});
 
-  factory CartCoupon.fromJson(Map<String, dynamic> json) => _$CartCouponFromJson(json);
+  factory CartCoupon.fromJson(Map<String, dynamic> json) =>
+      _$CartCouponFromJson(json);
   Map<String, dynamic> toJson() => _$CartCouponToJson(this);
 }
 
@@ -167,13 +162,10 @@ class CartGiftCard {
   final double? amount;
   final String? currencyCode;
 
-  CartGiftCard({
-    this.code,
-    this.amount,
-    this.currencyCode,
-  });
+  CartGiftCard({this.code, this.amount, this.currencyCode});
 
-  factory CartGiftCard.fromJson(Map<String, dynamic> json) => _$CartGiftCardFromJson(json);
+  factory CartGiftCard.fromJson(Map<String, dynamic> json) =>
+      _$CartGiftCardFromJson(json);
   Map<String, dynamic> toJson() => _$CartGiftCardToJson(this);
 }
 
@@ -224,7 +216,8 @@ class Address {
     this.isDefaultBilling,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 }
 
@@ -255,7 +248,8 @@ class ShippingMethod {
     this.priceInclTax,
   });
 
-  factory ShippingMethod.fromJson(Map<String, dynamic> json) => _$ShippingMethodFromJson(json);
+  factory ShippingMethod.fromJson(Map<String, dynamic> json) =>
+      _$ShippingMethodFromJson(json);
   Map<String, dynamic> toJson() => _$ShippingMethodToJson(this);
 }
 
@@ -266,13 +260,10 @@ class CartCreateRequest {
   final String? customerEmail;
   final String? storeId;
 
-  CartCreateRequest({
-    this.customerId,
-    this.customerEmail,
-    this.storeId,
-  });
+  CartCreateRequest({this.customerId, this.customerEmail, this.storeId});
 
-  factory CartCreateRequest.fromJson(Map<String, dynamic> json) => _$CartCreateRequestFromJson(json);
+  factory CartCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$CartCreateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CartCreateRequestToJson(this);
 }
 
@@ -284,14 +275,10 @@ class CartItemRequest {
   final String? quoteId;
   final Map<String, dynamic>? productOptions;
 
-  CartItemRequest({
-    this.sku,
-    this.qty,
-    this.quoteId,
-    this.productOptions,
-  });
+  CartItemRequest({this.sku, this.qty, this.quoteId, this.productOptions});
 
-  factory CartItemRequest.fromJson(Map<String, dynamic> json) => _$CartItemRequestFromJson(json);
+  factory CartItemRequest.fromJson(Map<String, dynamic> json) =>
+      _$CartItemRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CartItemRequestToJson(this);
 }
 
@@ -302,13 +289,10 @@ class CartItemUpdateRequest {
   final String? quoteId;
   final Map<String, dynamic>? productOptions;
 
-  CartItemUpdateRequest({
-    this.qty,
-    this.quoteId,
-    this.productOptions,
-  });
+  CartItemUpdateRequest({this.qty, this.quoteId, this.productOptions});
 
-  factory CartItemUpdateRequest.fromJson(Map<String, dynamic> json) => _$CartItemUpdateRequestFromJson(json);
+  factory CartItemUpdateRequest.fromJson(Map<String, dynamic> json) =>
+      _$CartItemUpdateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$CartItemUpdateRequestToJson(this);
 }
 
@@ -329,7 +313,8 @@ class ShippingInformationRequest {
     this.customAttributes,
   });
 
-  factory ShippingInformationRequest.fromJson(Map<String, dynamic> json) => _$ShippingInformationRequestFromJson(json);
+  factory ShippingInformationRequest.fromJson(Map<String, dynamic> json) =>
+      _$ShippingInformationRequestFromJson(json);
   Map<String, dynamic> toJson() => _$ShippingInformationRequestToJson(this);
 }
 
@@ -350,7 +335,8 @@ class PaymentMethod {
     this.additionalData,
   });
 
-  factory PaymentMethod.fromJson(Map<String, dynamic> json) => _$PaymentMethodFromJson(json);
+  factory PaymentMethod.fromJson(Map<String, dynamic> json) =>
+      _$PaymentMethodFromJson(json);
   Map<String, dynamic> toJson() => _$PaymentMethodToJson(this);
 }
 
@@ -369,6 +355,7 @@ class CartValidationResult {
     this.additionalData,
   });
 
-  factory CartValidationResult.fromJson(Map<String, dynamic> json) => _$CartValidationResultFromJson(json);
+  factory CartValidationResult.fromJson(Map<String, dynamic> json) =>
+      _$CartValidationResultFromJson(json);
   Map<String, dynamic> toJson() => _$CartValidationResultToJson(this);
 }

@@ -24,7 +24,8 @@ class Wishlist {
     this.isDefault,
   });
 
-  factory Wishlist.fromJson(Map<String, dynamic> json) => _$WishlistFromJson(json);
+  factory Wishlist.fromJson(Map<String, dynamic> json) =>
+      _$WishlistFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistToJson(this);
 }
 
@@ -55,7 +56,8 @@ class WishlistItem {
     this.addedAt,
   });
 
-  factory WishlistItem.fromJson(Map<String, dynamic> json) => _$WishlistItemFromJson(json);
+  factory WishlistItem.fromJson(Map<String, dynamic> json) =>
+      _$WishlistItemFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistItemToJson(this);
 }
 
@@ -74,7 +76,8 @@ class WishlistAnalytics {
     required this.wishlistGrowth,
   });
 
-  factory WishlistAnalytics.fromJson(Map<String, dynamic> json) => _$WishlistAnalyticsFromJson(json);
+  factory WishlistAnalytics.fromJson(Map<String, dynamic> json) =>
+      _$WishlistAnalyticsFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistAnalyticsToJson(this);
 }
 
@@ -91,7 +94,8 @@ class WishlistTrend {
     required this.growthRate,
   });
 
-  factory WishlistTrend.fromJson(Map<String, dynamic> json) => _$WishlistTrendFromJson(json);
+  factory WishlistTrend.fromJson(Map<String, dynamic> json) =>
+      _$WishlistTrendFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistTrendToJson(this);
 }
 
@@ -101,12 +105,10 @@ class WishlistCreateRequest {
   final String name;
   final String? description;
 
-  WishlistCreateRequest({
-    required this.name,
-    this.description,
-  });
+  WishlistCreateRequest({required this.name, this.description});
 
-  factory WishlistCreateRequest.fromJson(Map<String, dynamic> json) => _$WishlistCreateRequestFromJson(json);
+  factory WishlistCreateRequest.fromJson(Map<String, dynamic> json) =>
+      _$WishlistCreateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistCreateRequestToJson(this);
 }
 
@@ -116,12 +118,10 @@ class WishlistUpdateRequest {
   final String? name;
   final String? description;
 
-  WishlistUpdateRequest({
-    this.name,
-    this.description,
-  });
+  WishlistUpdateRequest({this.name, this.description});
 
-  factory WishlistUpdateRequest.fromJson(Map<String, dynamic> json) => _$WishlistUpdateRequestFromJson(json);
+  factory WishlistUpdateRequest.fromJson(Map<String, dynamic> json) =>
+      _$WishlistUpdateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistUpdateRequestToJson(this);
 }
 
@@ -131,12 +131,10 @@ class WishlistItemUpdateRequest {
   final String? description;
   final List<Map<String, dynamic>>? options;
 
-  WishlistItemUpdateRequest({
-    this.description,
-    this.options,
-  });
+  WishlistItemUpdateRequest({this.description, this.options});
 
-  factory WishlistItemUpdateRequest.fromJson(Map<String, dynamic> json) => _$WishlistItemUpdateRequestFromJson(json);
+  factory WishlistItemUpdateRequest.fromJson(Map<String, dynamic> json) =>
+      _$WishlistItemUpdateRequestFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistItemUpdateRequestToJson(this);
 }
 
@@ -155,7 +153,8 @@ class WishlistSharing {
     this.sharedAt,
   });
 
-  factory WishlistSharing.fromJson(Map<String, dynamic> json) => _$WishlistSharingFromJson(json);
+  factory WishlistSharing.fromJson(Map<String, dynamic> json) =>
+      _$WishlistSharingFromJson(json);
   Map<String, dynamic> toJson() => _$WishlistSharingToJson(this);
 }
 
@@ -174,6 +173,7 @@ class SharedWishlistAccess {
     this.isActive,
   });
 
-  factory SharedWishlistAccess.fromJson(Map<String, dynamic> json) => _$SharedWishlistAccessFromJson(json);
+  factory SharedWishlistAccess.fromJson(Map<String, dynamic> json) =>
+      _$SharedWishlistAccessFromJson(json);
   Map<String, dynamic> toJson() => _$SharedWishlistAccessToJson(this);
 }

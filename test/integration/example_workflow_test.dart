@@ -144,10 +144,7 @@ void main() {
         print('📦 Step 9: Placing order...');
         try {
           final order = await magento.placeOrder({
-            'paymentMethod': {
-              'method': 'checkmo',
-              'additional_data': {},
-            },
+            'paymentMethod': {'method': 'checkmo', 'additional_data': {}},
             'billing_address': {
               'firstname': 'Test',
               'lastname': 'User',
@@ -231,16 +228,14 @@ void main() {
           () => magento.getCustomerOrders(),
           throwsA(isA<MagentoException>()),
         );
-        expect(
-          () => magento.getWishlist(),
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => magento.getWishlist(), throwsA(isA<MagentoException>()));
       });
 
       test('should handle network errors gracefully', () async {
         // Test with invalid URL
-        final success =
-            await magento.initialize(baseUrl: 'https://invalid.domain.test');
+        final success = await magento.initialize(
+          baseUrl: 'https://invalid.domain.test',
+        );
         expect(success, isFalse);
         expect(magento.isInitialized, isFalse);
       });
@@ -327,7 +322,9 @@ void main() {
       test('should validate email formats', () {
         expect(
           () => magento.authenticate(
-              email: 'invalid-email', password: 'password'),
+            email: 'invalid-email',
+            password: 'password',
+          ),
           throwsA(isA<ArgumentError>()),
         );
       });

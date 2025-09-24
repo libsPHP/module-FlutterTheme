@@ -102,15 +102,12 @@ class _ProductListState extends State<ProductList> {
                 mainAxisSpacing: widget.mainAxisSpacing,
                 crossAxisSpacing: widget.crossAxisSpacing,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  if (index >= widget.products.length) {
-                    return _buildLoadMoreIndicator();
-                  }
-                  return _buildProductCard(widget.products[index]);
-                },
-                childCount: widget.products.length + (widget.hasMore ? 1 : 0),
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                if (index >= widget.products.length) {
+                  return _buildLoadMoreIndicator();
+                }
+                return _buildProductCard(widget.products[index]);
+              }, childCount: widget.products.length + (widget.hasMore ? 1 : 0)),
             ),
           ),
         ],
@@ -129,12 +126,10 @@ class _ProductListState extends State<ProductList> {
 
   Widget _buildLoadMoreIndicator() {
     if (!widget.hasMore) return const SizedBox.shrink();
-    
+
     return Container(
       padding: const EdgeInsets.all(16),
-      child: const Center(
-        child: CircularProgressIndicator(),
-      ),
+      child: const Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -143,24 +138,20 @@ class _ProductListState extends State<ProductList> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.inventory_2_outlined,
-            size: 64,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
             'No products found',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.grey[600],
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: Colors.grey[600]),
           ),
           const SizedBox(height: 8),
           Text(
             'Try adjusting your search or filters',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[500],
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[500]),
           ),
         ],
       ),
@@ -181,8 +172,9 @@ class ProductListWithFilters extends StatefulWidget {
     double? minPrice,
     double? maxPrice,
     bool? inStock,
-  }) onLoadProducts;
-  
+  })
+  onLoadProducts;
+
   final Function(Product)? onProductTap;
   final Function(Product)? onAddToCart;
   final Function(Product)? onAddToWishlist;
@@ -211,7 +203,7 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
   bool _hasMore = true;
   int _currentPage = 1;
   static const int _pageSize = 20;
-  
+
   String? _searchQuery;
   String? _categoryId;
   Map<String, dynamic>? _filters;
@@ -292,7 +284,7 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
       _sortBy = sortBy ?? _sortBy;
       _sortOrder = sortOrder ?? _sortOrder;
     });
-    
+
     _loadProducts(reset: true);
   }
 
@@ -302,7 +294,7 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
       children: [
         // Search and Filter Bar (can be customized)
         _buildFilterBar(),
-        
+
         // Product List
         Expanded(
           child: ProductList(
@@ -326,10 +318,7 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 1,
-          ),
+          bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1),
         ),
       ),
       child: Row(
@@ -353,9 +342,9 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
               },
             ),
           ),
-          
+
           const SizedBox(width: 16),
-          
+
           // Filter Button
           IconButton(
             onPressed: () {
@@ -368,9 +357,9 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
               foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),
-          
+
           const SizedBox(width: 8),
-          
+
           // Sort Button
           IconButton(
             onPressed: () {
@@ -461,4 +450,3 @@ class _ProductListWithFiltersState extends State<ProductListWithFilters> {
     );
   }
 }
-

@@ -13,18 +13,22 @@ void main() {
       final authApi = AuthApi(client);
 
       // Mock the guestRequest method
-      when(client.guestRequest<Map<String, dynamic>>(
-        '/rest/V1/integration/customer/token',
-        data: anyNamed('data'),
-      )).thenAnswer((_) async => Response(
-            requestOptions: RequestOptions(path: '/'),
-            data: {
-              'access_token': 'mock_access_token',
-              'refresh_token': 'mock_refresh_token',
-              'expires_in': 3600,
-            },
-            statusCode: 200,
-          ));
+      when(
+        client.guestRequest<Map<String, dynamic>>(
+          '/rest/V1/integration/customer/token',
+          data: anyNamed('data'),
+        ),
+      ).thenAnswer(
+        (_) async => Response(
+          requestOptions: RequestOptions(path: '/'),
+          data: {
+            'access_token': 'mock_access_token',
+            'refresh_token': 'mock_refresh_token',
+            'expires_in': 3600,
+          },
+          statusCode: 200,
+        ),
+      );
 
       final result = await authApi.login(
         email: 'test@example.com',

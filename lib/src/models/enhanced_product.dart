@@ -33,7 +33,7 @@ class EnhancedProduct<T> {
       // Build raw attributes map
       rawAttributes = {
         for (var attr in product.customAttributes!)
-          attr.attributeCode: attr.value
+          attr.attributeCode: attr.value,
       };
 
       if (adapter != null) {
@@ -42,21 +42,24 @@ class EnhancedProduct<T> {
         detectedAdapterId = adapter.adapterId;
       } else if (adapterId != null) {
         // Use registered adapter by ID
-        final registeredAdapter =
-            CustomAttributesManager.instance.getAdapter<T>(adapterId);
+        final registeredAdapter = CustomAttributesManager.instance
+            .getAdapter<T>(adapterId);
         if (registeredAdapter != null) {
-          customData =
-              registeredAdapter.fromCustomAttributes(product.customAttributes!);
+          customData = registeredAdapter.fromCustomAttributes(
+            product.customAttributes!,
+          );
           detectedAdapterId = adapterId;
         }
       } else {
         // Auto-detect adapter
-        final detectedAdapter = CustomAttributesManager.instance
-            .detectAdapter(product.customAttributes!);
+        final detectedAdapter = CustomAttributesManager.instance.detectAdapter(
+          product.customAttributes!,
+        );
         if (detectedAdapter != null &&
             detectedAdapter is CustomAttributesAdapter<T>) {
-          customData =
-              detectedAdapter.fromCustomAttributes(product.customAttributes!);
+          customData = detectedAdapter.fromCustomAttributes(
+            product.customAttributes!,
+          );
           detectedAdapterId = detectedAdapter.adapterId;
         }
       }
@@ -143,13 +146,11 @@ class EnhancedProduct<T> {
     final adapterInstance = adapter;
     if (adapterInstance == null) return this;
 
-    final newCustomData =
-        adapterInstance.fromCustomAttributes(baseProduct.customAttributes!);
-
-    return copyWith(
-      customData: newCustomData,
-      lastUpdated: DateTime.now(),
+    final newCustomData = adapterInstance.fromCustomAttributes(
+      baseProduct.customAttributes!,
     );
+
+    return copyWith(customData: newCustomData, lastUpdated: DateTime.now());
   }
 
   /// Create a copy with new values
@@ -177,8 +178,9 @@ class EnhancedProduct<T> {
     }
 
     // Convert back to CustomAttribute list
-    final newCustomAttributes =
-        adapterInstance.toCustomAttributes(newCustomData);
+    final newCustomAttributes = adapterInstance.toCustomAttributes(
+      newCustomData,
+    );
 
     // Update base product
     final updatedBaseProduct = baseProduct.copyWith(
@@ -187,7 +189,7 @@ class EnhancedProduct<T> {
 
     // Update raw attributes map
     final newRawAttributes = {
-      for (var attr in newCustomAttributes) attr.attributeCode: attr.value
+      for (var attr in newCustomAttributes) attr.attributeCode: attr.value,
     };
 
     return copyWith(
@@ -289,15 +291,17 @@ class EnhancedProduct<T> {
           break;
         case 'in':
           if (entry.value is List) {
-            final values =
-                (entry.value as List).map((v) => v.toString()).toList();
+            final values = (entry.value as List)
+                .map((v) => v.toString())
+                .toList();
             if (!values.contains(productValue)) return false;
           }
           break;
         case 'nin':
           if (entry.value is List) {
-            final values =
-                (entry.value as List).map((v) => v.toString()).toList();
+            final values = (entry.value as List)
+                .map((v) => v.toString())
+                .toList();
             if (values.contains(productValue)) return false;
           }
           break;
@@ -354,11 +358,13 @@ class EnhancedProductListResponse<T> {
     CustomAttributesAdapter<T>? adapter,
   }) {
     final enhancedItems = response.items
-        .map((product) => EnhancedProduct<T>.fromProduct(
-              product,
-              adapterId: adapterId,
-              adapter: adapter,
-            ))
+        .map(
+          (product) => EnhancedProduct<T>.fromProduct(
+            product,
+            adapterId: adapterId,
+            adapter: adapter,
+          ),
+        )
         .toList();
 
     return EnhancedProductListResponse<T>(

@@ -102,7 +102,8 @@ class LocalizationService extends ChangeNotifier {
 
       if (kDebugMode) {
         print(
-            '✅ LocalizationService инициализирован: ${_currentLocale.toString()}');
+          '✅ LocalizationService инициализирован: ${_currentLocale.toString()}',
+        );
       }
 
       notifyListeners();
@@ -146,12 +147,14 @@ class LocalizationService extends ChangeNotifier {
       final jsonString = await rootBundle.loadString(assetPath);
       final Map<String, dynamic> jsonMap = json.decode(jsonString);
 
-      _localizedStrings =
-          jsonMap.map((key, value) => MapEntry(key, value.toString()));
+      _localizedStrings = jsonMap.map(
+        (key, value) => MapEntry(key, value.toString()),
+      );
     } catch (e) {
       if (kDebugMode) {
         print(
-            '❌ Не удалось загрузить локализацию для ${_currentLocale.languageCode}: $e');
+          '❌ Не удалось загрузить локализацию для ${_currentLocale.languageCode}: $e',
+        );
       }
 
       // Загружаем английский как fallback
@@ -161,12 +164,14 @@ class LocalizationService extends ChangeNotifier {
               'packages/flutter_magento/assets/localization/en.json';
           final jsonString = await rootBundle.loadString(fallbackPath);
           final Map<String, dynamic> jsonMap = json.decode(jsonString);
-          _localizedStrings =
-              jsonMap.map((key, value) => MapEntry(key, value.toString()));
+          _localizedStrings = jsonMap.map(
+            (key, value) => MapEntry(key, value.toString()),
+          );
         } catch (fallbackError) {
           if (kDebugMode) {
             print(
-                '❌ Не удалось загрузить fallback локализацию: $fallbackError');
+              '❌ Не удалось загрузить fallback локализацию: $fallbackError',
+            );
           }
         }
       }
@@ -174,8 +179,10 @@ class LocalizationService extends ChangeNotifier {
   }
 
   /// Изменение языка
-  Future<bool> changeLanguage(String languageCode,
-      [String? countryCode]) async {
+  Future<bool> changeLanguage(
+    String languageCode, [
+    String? countryCode,
+  ]) async {
     if (!_availableLanguages.contains(languageCode)) {
       if (kDebugMode) {
         print('❌ Язык $languageCode не поддерживается');
@@ -185,8 +192,10 @@ class LocalizationService extends ChangeNotifier {
 
     try {
       final localeInfo = _supportedLocales[languageCode];
-      final newLocale =
-          Locale(languageCode, countryCode ?? localeInfo?.countryCode);
+      final newLocale = Locale(
+        languageCode,
+        countryCode ?? localeInfo?.countryCode,
+      );
 
       _currentLocale = newLocale;
 
@@ -347,14 +356,14 @@ class LocalizationService extends ChangeNotifier {
 
   /// Получение статуса локализации
   Map<String, dynamic> get status => {
-        'isInitialized': _isInitialized,
-        'currentLocale': _currentLocale.toString(),
-        'currentLanguage': _currentLocale.languageCode,
-        'currentCountry': _currentLocale.countryCode,
-        'isRTL': isRTL,
-        'availableLanguages': _availableLanguages,
-        'loadedStringsCount': _localizedStrings.length,
-      };
+    'isInitialized': _isInitialized,
+    'currentLocale': _currentLocale.toString(),
+    'currentLanguage': _currentLocale.languageCode,
+    'currentCountry': _currentLocale.countryCode,
+    'isRTL': isRTL,
+    'availableLanguages': _availableLanguages,
+    'loadedStringsCount': _localizedStrings.length,
+  };
 
   /// Сброс к системной локали
   Future<void> resetToSystemLocale() async {

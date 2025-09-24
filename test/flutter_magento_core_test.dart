@@ -52,13 +52,15 @@ void main() {
 
       test('should initialize successfully with valid parameters', () async {
         // Mock the API service initialization
-        when(() => mockApiService.initialize(
-              baseUrl: any(named: 'baseUrl'),
-              headers: any(named: 'headers'),
-              connectionTimeout: any(named: 'connectionTimeout'),
-              receiveTimeout: any(named: 'receiveTimeout'),
-              adminToken: any(named: 'adminToken'),
-            )).thenAnswer((_) async => true);
+        when(
+          () => mockApiService.initialize(
+            baseUrl: any(named: 'baseUrl'),
+            headers: any(named: 'headers'),
+            connectionTimeout: any(named: 'connectionTimeout'),
+            receiveTimeout: any(named: 'receiveTimeout'),
+            adminToken: any(named: 'adminToken'),
+          ),
+        ).thenAnswer((_) async => true);
 
         when(() => mockAuthService.initialize()).thenAnswer((_) async => true);
         when(() => mockCartService.initialize()).thenAnswer((_) async => true);
@@ -76,9 +78,7 @@ void main() {
       });
 
       test('should fail initialization with invalid API service', () async {
-        final success = await core.initialize(
-          baseUrl: 'invalid-url',
-        );
+        final success = await core.initialize(baseUrl: 'invalid-url');
 
         expect(success, isFalse);
         expect(core.isInitialized, isFalse);
@@ -111,7 +111,9 @@ void main() {
 
         expect(
           () => core.authenticate(
-              email: 'test@example.com', password: 'password'),
+            email: 'test@example.com',
+            password: 'password',
+          ),
           throwsA(isA<MagentoException>()),
         );
       });
@@ -169,10 +171,7 @@ void main() {
       test('should throw exception when not initialized', () {
         core.reset();
 
-        expect(
-          () => core.getProducts(),
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.getProducts(), throwsA(isA<MagentoException>()));
       });
 
       test('should get products with default parameters', () async {
@@ -245,10 +244,7 @@ void main() {
       test('should throw exception when not initialized', () {
         core.reset();
 
-        expect(
-          () => core.createCart(),
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.createCart(), throwsA(isA<MagentoException>()));
       });
 
       test('should create cart', () async {
@@ -461,7 +457,8 @@ void main() {
         expect(
           core.description,
           equals(
-              'Flutter plugin for integrating with Magento e-commerce platform'),
+            'Flutter plugin for integrating with Magento e-commerce platform',
+          ),
         );
       });
 
@@ -478,40 +475,19 @@ void main() {
       test('should throw MagentoException for uninitialized access', () {
         core.reset();
 
-        expect(
-          () => core.isAuthenticated,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.isAuthenticated, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.currentCustomer,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.currentCustomer, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.customerToken,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.customerToken, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.currentCart,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.currentCart, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.cartItemsCount,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.cartItemsCount, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.cartTotal,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.cartTotal, throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.isCartEmpty,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.isCartEmpty, throwsA(isA<MagentoException>()));
       });
 
       test('should throw MagentoException for uninitialized method calls', () {
@@ -519,19 +495,15 @@ void main() {
 
         expect(
           () => core.authenticate(
-              email: 'test@example.com', password: 'password'),
+            email: 'test@example.com',
+            password: 'password',
+          ),
           throwsA(isA<MagentoException>()),
         );
 
-        expect(
-          () => core.getProducts(),
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.getProducts(), throwsA(isA<MagentoException>()));
 
-        expect(
-          () => core.createCart(),
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => core.createCart(), throwsA(isA<MagentoException>()));
 
         expect(
           () => core.addToCart(sku: 'TEST-SKU', quantity: 1),

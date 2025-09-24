@@ -38,7 +38,8 @@ class CartItem with _$CartItem {
     Map<String, dynamic>? customAttributes,
   }) = _CartItem;
 
-  factory CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);
+  factory CartItem.fromJson(Map<String, dynamic> json) =>
+      _$CartItemFromJson(json);
 }
 
 @freezed
@@ -51,7 +52,8 @@ class CartItemOption with _$CartItemOption {
     String? priceType,
   }) = _CartItemOption;
 
-  factory CartItemOption.fromJson(Map<String, dynamic> json) => _$CartItemOptionFromJson(json);
+  factory CartItemOption.fromJson(Map<String, dynamic> json) =>
+      _$CartItemOptionFromJson(json);
 }
 
 @freezed
@@ -63,7 +65,8 @@ class CartDiscount with _$CartDiscount {
     String? type,
   }) = _CartDiscount;
 
-  factory CartDiscount.fromJson(Map<String, dynamic> json) => _$CartDiscountFromJson(json);
+  factory CartDiscount.fromJson(Map<String, dynamic> json) =>
+      _$CartDiscountFromJson(json);
 }
 
 @freezed
@@ -79,5 +82,6 @@ class CartTotals with _$CartTotals {
     Map<String, double>? taxBreakdown,
   }) = _CartTotals;
 
-  factory CartTotals.fromJson(Map<String, dynamic> json) => _$CartTotalsFromJson(json);
+  factory CartTotals.fromJson(Map<String, dynamic> json) =>
+      _$CartTotalsFromJson(json);
 }

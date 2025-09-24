@@ -21,28 +21,33 @@ final deviceFingerprintProvider = FutureProvider<String>((ref) async {
 });
 
 /// Провайдер для получения категории производительности
-final devicePerformanceCategoryProvider = 
+final devicePerformanceCategoryProvider =
     FutureProvider<DevicePerformanceCategory>((ref) async {
-  final service = ref.read(deviceInfoServiceProvider);
-  return await service.getPerformanceCategory();
-});
+      final service = ref.read(deviceInfoServiceProvider);
+      return await service.getPerformanceCategory();
+    });
 
 /// Провайдер для получения аналитических данных
-final deviceAnalyticsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
+final deviceAnalyticsProvider = FutureProvider<Map<String, dynamic>>((
+  ref,
+) async {
   final service = ref.read(deviceInfoServiceProvider);
   return await service.getAnalyticsData();
 });
 
 /// Провайдер для проверки совместимости
-final deviceCompatibilityProvider = 
-    FutureProvider.family<bool, DeviceCompatibilityRequirements>((ref, requirements) async {
-  final service = ref.read(deviceInfoServiceProvider);
-  return await service.isCompatible(
-    minAndroidSdk: requirements.minAndroidSdk,
-    minIOSVersion: requirements.minIOSVersion,
-    minRamMb: requirements.minRamMb,
-  );
-});
+final deviceCompatibilityProvider =
+    FutureProvider.family<bool, DeviceCompatibilityRequirements>((
+      ref,
+      requirements,
+    ) async {
+      final service = ref.read(deviceInfoServiceProvider);
+      return await service.isCompatible(
+        minAndroidSdk: requirements.minAndroidSdk,
+        minIOSVersion: requirements.minIOSVersion,
+        minRamMb: requirements.minRamMb,
+      );
+    });
 
 /// Notifier для управления состоянием информации об устройстве
 class DeviceInfoNotifier extends AsyncNotifier<DeviceInfoModel> {
@@ -121,10 +126,10 @@ class DeviceInfoNotifier extends AsyncNotifier<DeviceInfoModel> {
 }
 
 /// Провайдер для DeviceInfoNotifier
-final deviceInfoNotifierProvider = 
+final deviceInfoNotifierProvider =
     AsyncNotifierProvider<DeviceInfoNotifier, DeviceInfoModel>(() {
-  return DeviceInfoNotifier();
-});
+      return DeviceInfoNotifier();
+    });
 
 /// Класс для определения требований совместимости
 class DeviceCompatibilityRequirements {
@@ -149,9 +154,7 @@ class DeviceCompatibilityRequirements {
 
   @override
   int get hashCode =>
-      minAndroidSdk.hashCode ^
-      minIOSVersion.hashCode ^
-      minRamMb.hashCode;
+      minAndroidSdk.hashCode ^ minIOSVersion.hashCode ^ minRamMb.hashCode;
 }
 
 /// Расширения для удобной работы с провайдерами
@@ -163,16 +166,17 @@ extension DeviceInfoProviderExtensions on WidgetRef {
   AsyncValue<String> get deviceFingerprint => watch(deviceFingerprintProvider);
 
   /// Получение категории производительности
-  AsyncValue<DevicePerformanceCategory> get devicePerformanceCategory => 
+  AsyncValue<DevicePerformanceCategory> get devicePerformanceCategory =>
       watch(devicePerformanceCategoryProvider);
 
   /// Получение аналитических данных
-  AsyncValue<Map<String, dynamic>> get deviceAnalytics => 
+  AsyncValue<Map<String, dynamic>> get deviceAnalytics =>
       watch(deviceAnalyticsProvider);
 
   /// Проверка совместимости
-  AsyncValue<bool> deviceCompatibility(DeviceCompatibilityRequirements requirements) =>
-      watch(deviceCompatibilityProvider(requirements));
+  AsyncValue<bool> deviceCompatibility(
+    DeviceCompatibilityRequirements requirements,
+  ) => watch(deviceCompatibilityProvider(requirements));
 
   /// Обновление информации об устройстве
   Future<void> refreshDeviceInfo() async {

@@ -4,15 +4,16 @@ import 'package:flutter_magento/flutter_magento.dart';
 class ElectronicsDemoDataProvider implements DemoDataProvider {
   @override
   String get providerName => 'Electronics Demo Data';
-  
+
   @override
-  String get providerDescription => 'Demo data for electronics store with smartphones, laptops, and accessories';
-  
+  String get providerDescription =>
+      'Demo data for electronics store with smartphones, laptops, and accessories';
+
   @override
   bool supportsDataType(String dataType) {
     return ['products', 'categories', 'cart', 'customer'].contains(dataType);
   }
-  
+
   @override
   List<Product> getDemoProducts() {
     return [
@@ -24,7 +25,8 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         specialPrice: 949.99,
         inStock: true,
         imageUrl: 'https://example.com/iphone15pro.jpg',
-        description: 'The latest iPhone with advanced camera system and A17 Pro chip.',
+        description:
+            'The latest iPhone with advanced camera system and A17 Pro chip.',
         categories: ['Smartphones', 'Apple'],
       ),
       Product(
@@ -34,7 +36,8 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         price: 1199.99,
         inStock: true,
         imageUrl: 'https://example.com/samsung-s24-ultra.jpg',
-        description: 'Premium Android smartphone with S Pen and advanced AI features.',
+        description:
+            'Premium Android smartphone with S Pen and advanced AI features.',
         categories: ['Smartphones', 'Samsung'],
       ),
       Product(
@@ -44,7 +47,8 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         price: 3499.99,
         inStock: true,
         imageUrl: 'https://example.com/macbook-pro-16.jpg',
-        description: 'Professional laptop with M3 Max chip for demanding workflows.',
+        description:
+            'Professional laptop with M3 Max chip for demanding workflows.',
         categories: ['Laptops', 'Apple'],
       ),
       Product(
@@ -84,7 +88,8 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         price: 1099.99,
         inStock: true,
         imageUrl: 'https://example.com/ipad-pro-12.9.jpg',
-        description: 'Professional tablet with M2 chip and Liquid Retina XDR display.',
+        description:
+            'Professional tablet with M2 chip and Liquid Retina XDR display.',
         categories: ['Tablets', 'Apple'],
       ),
       Product(
@@ -104,7 +109,8 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         price: 399.99,
         inStock: true,
         imageUrl: 'https://example.com/apple-watch-series-9.jpg',
-        description: 'Advanced smartwatch with health monitoring and fitness tracking.',
+        description:
+            'Advanced smartwatch with health monitoring and fitness tracking.',
         categories: ['Wearables', 'Apple'],
       ),
       Product(
@@ -114,12 +120,13 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
         price: 349.99,
         inStock: true,
         imageUrl: 'https://example.com/samsung-watch-6-classic.jpg',
-        description: 'Premium smartwatch with rotating bezel and health monitoring.',
+        description:
+            'Premium smartwatch with rotating bezel and health monitoring.',
         categories: ['Wearables', 'Samsung'],
       ),
     ];
   }
-  
+
   @override
   List<Category> getDemoCategories() {
     return [
@@ -240,7 +247,7 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
       ),
     ];
   }
-  
+
   @override
   List<CartItem> getDemoCartItems() {
     return [
@@ -264,7 +271,7 @@ class ElectronicsDemoDataProvider implements DemoDataProvider {
       ),
     ];
   }
-  
+
   @override
   Map<String, dynamic>? getDemoCustomer() {
     return {

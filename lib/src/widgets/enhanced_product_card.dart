@@ -59,13 +59,9 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.95,
-    ).animate(CurvedAnimation(
-      parent: _scaleController,
-      curve: Curves.easeInOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+      CurvedAnimation(parent: _scaleController, curve: Curves.easeInOut),
+    );
 
     // _fadeAnimation = Tween<double>( // Unused animation removed
     //   begin: 0.0,
@@ -121,31 +117,32 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
                       flex: 3,
                       child: _buildProductImageWithOverlay(theme, colorScheme),
                     ),
-                    
+
                     const SizedBox(height: 12),
-                    
+
                     // Product Name
                     _buildProductName(theme),
-                    
+
                     const SizedBox(height: 8),
-                    
+
                     // Tax Lien Specific Info
                     if (widget.showTaxLienInfo) _buildTaxLienInfo(theme),
-                    
+
                     const SizedBox(height: 8),
-                    
+
                     // Price Section
                     if (widget.showPrice) _buildPriceSection(theme),
-                    
+
                     const SizedBox(height: 8),
-                    
+
                     // Stock Status
                     if (widget.showStockStatus) _buildStockStatus(theme),
-                    
+
                     const SizedBox(height: 12),
-                    
+
                     // Action Buttons
-                    if (widget.showActions) _buildActionButtons(theme, colorScheme),
+                    if (widget.showActions)
+                      _buildActionButtons(theme, colorScheme),
                   ],
                 ),
               ),
@@ -156,12 +153,15 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
     );
   }
 
-  Widget _buildProductImageWithOverlay(ThemeData theme, ColorScheme colorScheme) {
+  Widget _buildProductImageWithOverlay(
+    ThemeData theme,
+    ColorScheme colorScheme,
+  ) {
     return Stack(
       children: [
         // Main Product Image
         _buildProductImage(),
-        
+
         // Overlay Actions
         Positioned(
           top: 8,
@@ -176,13 +176,13 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
                   onPressed: widget.onQuickView!,
                   colorScheme: colorScheme,
                 ),
-              
+
               const SizedBox(width: 4),
-              
+
               // Wishlist Button
               _buildOverlayButton(
-                icon: widget.isWishlisted 
-                    ? Icons.favorite 
+                icon: widget.isWishlisted
+                    ? Icons.favorite
                     : Icons.favorite_border,
                 onPressed: widget.onAddToWishlist ?? () {},
                 colorScheme: colorScheme,
@@ -191,15 +191,11 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
             ],
           ),
         ),
-        
+
         // Discount Badge
-        if (widget.product.specialPrice != null && 
+        if (widget.product.specialPrice != null &&
             widget.product.specialPrice! < widget.product.price)
-          Positioned(
-            top: 8,
-            left: 8,
-            child: _buildDiscountBadge(theme),
-          ),
+          Positioned(top: 8, left: 8, child: _buildDiscountBadge(theme)),
       ],
     );
   }
@@ -212,8 +208,8 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: isActive 
-            ? colorScheme.primary 
+        color: isActive
+            ? colorScheme.primary
             : colorScheme.surface.withValues(alpha: 0.9),
         shape: BoxShape.circle,
         boxShadow: [
@@ -229,15 +225,10 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
         icon: Icon(
           icon,
           size: 18,
-          color: isActive 
-              ? colorScheme.onPrimary 
-              : colorScheme.onSurface,
+          color: isActive ? colorScheme.onPrimary : colorScheme.onSurface,
         ),
         padding: const EdgeInsets.all(8),
-        constraints: const BoxConstraints(
-          minWidth: 32,
-          minHeight: 32,
-        ),
+        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
       ),
     );
   }
@@ -283,21 +274,20 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
           const SizedBox(height: 4),
           Text(
             'No Image',
-            style: TextStyle(
-              color: Colors.grey[500],
-              fontSize: 12,
-            ),
+            style: TextStyle(color: Colors.grey[500], fontSize: 12),
           ),
         ],
       ),
     );
   }
 
-
   Widget _buildDiscountBadge(ThemeData theme) {
-    final discount = ((widget.product.price - widget.product.specialPrice!) / 
-                    widget.product.price * 100).round();
-    
+    final discount =
+        ((widget.product.price - widget.product.specialPrice!) /
+                widget.product.price *
+                100)
+            .round();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -358,8 +348,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
             theme: theme,
             textColor: Colors.green[700],
           ),
-        if (riskLevel != null)
-          _buildRiskBadge(riskLevel, theme),
+        if (riskLevel != null) _buildRiskBadge(riskLevel, theme),
       ],
     );
   }
@@ -375,11 +364,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       padding: const EdgeInsets.only(bottom: 2),
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 12,
-            color: Colors.grey[600],
-          ),
+          Icon(icon, size: 12, color: Colors.grey[600]),
           const SizedBox(width: 4),
           Expanded(
             child: Text(
@@ -419,10 +404,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
       decoration: BoxDecoration(
         color: badgeColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          color: badgeColor.withValues(alpha: 0.3),
-          width: 1,
-        ),
+        border: Border.all(color: badgeColor.withValues(alpha: 0.3), width: 1),
       ),
       child: Text(
         riskLevel.toUpperCase(),
@@ -446,11 +428,11 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
             color: theme.colorScheme.primary,
           ),
         ),
-        
+
         const SizedBox(width: 8),
-        
+
         // Special Price (if different)
-        if (widget.product.specialPrice != null && 
+        if (widget.product.specialPrice != null &&
             widget.product.specialPrice! < widget.product.price)
           Text(
             '\$${widget.product.specialPrice!.toStringAsFixed(2)}',
@@ -465,7 +447,7 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
 
   Widget _buildStockStatus(ThemeData theme) {
     final isAvailable = widget.product.isInStock ?? false;
-    
+
     return Row(
       children: [
         Container(
@@ -503,8 +485,8 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
         // Add to Cart Button
         Expanded(
           child: FilledButton.icon(
-            onPressed: (widget.product.isInStock ?? false) 
-                ? widget.onAddToCart 
+            onPressed: (widget.product.isInStock ?? false)
+                ? widget.onAddToCart
                 : null,
             icon: Icon(
               widget.isInCart ? Icons.check : Icons.shopping_cart_outlined,
@@ -515,11 +497,11 @@ class _EnhancedProductCardState extends State<EnhancedProductCard>
               style: const TextStyle(fontSize: 12),
             ),
             style: FilledButton.styleFrom(
-              backgroundColor: widget.isInCart 
-                  ? Colors.green 
+              backgroundColor: widget.isInCart
+                  ? Colors.green
                   : colorScheme.primary,
-              foregroundColor: widget.isInCart 
-                  ? Colors.white 
+              foregroundColor: widget.isInCart
+                  ? Colors.white
                   : colorScheme.onPrimary,
               padding: const EdgeInsets.symmetric(vertical: 8),
               shape: RoundedRectangleBorder(

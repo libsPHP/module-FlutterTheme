@@ -70,8 +70,9 @@ class MagentoServiceManager extends ChangeNotifier {
 
   /// Get cloud feature manager instance
   MagentoCloudFeatureManager get cloudFeatureManager {
-    _cloudFeatureManager ??=
-        MagentoCloudFeatureManager(networkService: networkService);
+    _cloudFeatureManager ??= MagentoCloudFeatureManager(
+      networkService: networkService,
+    );
     return _cloudFeatureManager!;
   }
 
@@ -109,26 +110,32 @@ class MagentoServiceManager extends ChangeNotifier {
       // Determine initial mode based on network state
       if (networkService.isOnline) {
         _setMode(
-            MagentoServiceMode.hybrid, 'Services initialized with network');
+          MagentoServiceMode.hybrid,
+          'Services initialized with network',
+        );
       } else {
         _setMode(MagentoServiceMode.offline, 'Services initialized offline');
       }
 
       _isInitialized = true;
 
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.initialized,
-        message: 'All services initialized successfully',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.initialized,
+          message: 'All services initialized successfully',
+        ),
+      );
 
       return MagentoOperationResult.success(true);
     } catch (e) {
       _setMode(MagentoServiceMode.error, 'Service initialization failed: $e');
 
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.error,
-        message: 'Service initialization failed: $e',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.error,
+          message: 'Service initialization failed: $e',
+        ),
+      );
 
       return MagentoOperationResult.error('Service initialization failed: $e');
     }
@@ -153,8 +160,10 @@ class MagentoServiceManager extends ChangeNotifier {
   }
 
   /// Switch service mode
-  Future<void> switchMode(MagentoServiceMode targetMode,
-      {String? reason}) async {
+  Future<void> switchMode(
+    MagentoServiceMode targetMode, {
+    String? reason,
+  }) async {
     if (_currentMode == targetMode) {
       return;
     }
@@ -180,17 +189,21 @@ class MagentoServiceManager extends ChangeNotifier {
 
       _setMode(targetMode, reason ?? 'Mode switched successfully');
 
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.modeChanged,
-        message: 'Mode changed from $previousMode to $targetMode',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.modeChanged,
+          message: 'Mode changed from $previousMode to $targetMode',
+        ),
+      );
     } catch (e) {
       _setMode(previousMode, 'Mode switch failed: $e');
 
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.error,
-        message: 'Mode switch failed: $e',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.error,
+          message: 'Mode switch failed: $e',
+        ),
+      );
 
       rethrow;
     }
@@ -220,10 +233,12 @@ class MagentoServiceManager extends ChangeNotifier {
 
   /// Reset all services
   Future<void> resetServices() async {
-    _eventController.add(MagentoServiceEvent(
-      type: MagentoServiceEventType.resetting,
-      message: 'Resetting all services',
-    ));
+    _eventController.add(
+      MagentoServiceEvent(
+        type: MagentoServiceEventType.resetting,
+        message: 'Resetting all services',
+      ),
+    );
 
     // Dispose existing services
     _syncService?.dispose();
@@ -241,10 +256,12 @@ class MagentoServiceManager extends ChangeNotifier {
     _isInitialized = false;
     _setMode(MagentoServiceMode.initializing, 'Services reset');
 
-    _eventController.add(MagentoServiceEvent(
-      type: MagentoServiceEventType.reset,
-      message: 'All services reset',
-    ));
+    _eventController.add(
+      MagentoServiceEvent(
+        type: MagentoServiceEventType.reset,
+        message: 'All services reset',
+      ),
+    );
   }
 
   // Private methods
@@ -302,30 +319,40 @@ class MagentoServiceManager extends ChangeNotifier {
   void _setupServiceListeners() {
     // Listen to network changes
     networkService.connectionStream.listen((results) {
-      final isOnline = results.isNotEmpty && !results.every((result) => result == ConnectivityResult.none);
+      final isOnline =
+          results.isNotEmpty &&
+          !results.every((result) => result == ConnectivityResult.none);
       if (isOnline && _currentMode == MagentoServiceMode.offline) {
-        switchMode(MagentoServiceMode.hybrid,
-            reason: 'Network became available');
+        switchMode(
+          MagentoServiceMode.hybrid,
+          reason: 'Network became available',
+        );
       } else if (!isOnline && _currentMode != MagentoServiceMode.offline) {
-        switchMode(MagentoServiceMode.offline,
-            reason: 'Network became unavailable');
+        switchMode(
+          MagentoServiceMode.offline,
+          reason: 'Network became unavailable',
+        );
       }
     });
 
     // Listen to sync events
     syncService.errorStream.listen((error) {
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.error,
-        message: 'Sync error: $error',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.error,
+          message: 'Sync error: $error',
+        ),
+      );
     });
 
     // Listen to cloud feature events
     cloudFeatureManager.errorStream.listen((error) {
-      _eventController.add(MagentoServiceEvent(
-        type: MagentoServiceEventType.error,
-        message: 'Cloud feature error: $error',
-      ));
+      _eventController.add(
+        MagentoServiceEvent(
+          type: MagentoServiceEventType.error,
+          message: 'Cloud feature error: $error',
+        ),
+      );
     });
   }
 
@@ -357,12 +384,14 @@ class MagentoServiceManager extends ChangeNotifier {
     final previousMode = _currentMode;
     _currentMode = mode;
 
-    _modeChangeController.add(MagentoServiceModeChange(
-      previousMode: previousMode,
-      newMode: mode,
-      reason: reason,
-      timestamp: DateTime.now(),
-    ));
+    _modeChangeController.add(
+      MagentoServiceModeChange(
+        previousMode: previousMode,
+        newMode: mode,
+        reason: reason,
+        timestamp: DateTime.now(),
+      ),
+    );
 
     notifyListeners();
   }
@@ -420,7 +449,8 @@ class MagentoServiceModeChange {
   final DateTime timestamp;
 
   @override
-  String toString() => 'MagentoServiceModeChange('
+  String toString() =>
+      'MagentoServiceModeChange('
       '$previousMode -> $newMode: $reason'
       ')';
 }
@@ -472,7 +502,7 @@ class MagentoServiceStatus {
   final MagentoCacheStats? cacheStats;
   final Map<String, MagentoSyncStats>? syncStats;
   final Map<MagentoCloudFeatureType, MagentoCloudFeatureStats>?
-      cloudFeatureStats;
+  cloudFeatureStats;
 
   /// Whether all services are healthy
   bool get isHealthy => serviceStates.values.every((healthy) => healthy);
@@ -485,7 +515,8 @@ class MagentoServiceStatus {
   int get totalServiceCount => serviceStates.length;
 
   @override
-  String toString() => 'MagentoServiceStatus('
+  String toString() =>
+      'MagentoServiceStatus('
       'mode: $mode, '
       'initialized: $isInitialized, '
       'online: $networkOnline, '

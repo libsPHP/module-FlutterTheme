@@ -102,7 +102,9 @@ class OfflineService extends ChangeNotifier {
     // Индексы для оптимизации
     await db.execute('CREATE INDEX idx_cache_key ON cache_entries(key)');
     await db.execute('CREATE INDEX idx_cache_expiry ON cache_entries(expiry)');
-    await db.execute('CREATE INDEX idx_operations_priority ON offline_operations(priority DESC)');
+    await db.execute(
+      'CREATE INDEX idx_operations_priority ON offline_operations(priority DESC)',
+    );
   }
 
   /// Инициализация SQLite базы данных
@@ -120,7 +122,10 @@ class OfflineService extends ChangeNotifier {
 
   /// Обновление схемы базы данных
   Future<void> _upgradeDatabase(
-      Database db, int oldVersion, int newVersion) async {
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
     // Здесь будут миграции для будущих версий
   }
 
@@ -217,8 +222,10 @@ class OfflineService extends ChangeNotifier {
   }
 
   /// Получение данных из кэша
-  Future<T?> getCachedData<T>(String key,
-      {T Function(Map<String, dynamic>)? fromJson}) async {
+  Future<T?> getCachedData<T>(
+    String key, {
+    T Function(Map<String, dynamic>)? fromJson,
+  }) async {
     if (!_isInitialized) return null;
 
     try {
@@ -373,15 +380,16 @@ class OfflineService extends ChangeNotifier {
       // Здесь должна быть логика выполнения HTTP запроса
       // Для демонстрации просто помечаем как выполненную
 
-      _pendingOperations
-          .removeWhere((op) => op.operationId == operation.operationId);
+      _pendingOperations.removeWhere(
+        (op) => op.operationId == operation.operationId,
+      );
 
       if (_database != null) {
         await _database!.update(
           'offline_operations',
           {
             'status': 'completed',
-            'updated_at': DateTime.now().millisecondsSinceEpoch
+            'updated_at': DateTime.now().millisecondsSinceEpoch,
           },
           where: 'operation_id = ?',
           whereArgs: [operation.operationId],
@@ -412,8 +420,9 @@ class OfflineService extends ChangeNotifier {
       }
 
       if (updatedOperation.status == OfflineOperationStatus.failed) {
-        _pendingOperations
-            .removeWhere((op) => op.operationId == operation.operationId);
+        _pendingOperations.removeWhere(
+          (op) => op.operationId == operation.operationId,
+        );
         _emitEvent(OfflineEvent.operationFailed(operation, e.toString()));
       }
 
@@ -465,8 +474,9 @@ class OfflineService extends ChangeNotifier {
     }
 
     try {
-      final totalEntries = await _database!
-          .rawQuery('SELECT COUNT(*) as count FROM cache_entries');
+      final totalEntries = await _database!.rawQuery(
+        'SELECT COUNT(*) as count FROM cache_entries',
+      );
       final expiredEntries = await _database!.rawQuery(
         'SELECT COUNT(*) as count FROM cache_entries WHERE expiry < ?',
         [DateTime.now().millisecondsSinceEpoch],
@@ -506,13 +516,13 @@ class OfflineService extends ChangeNotifier {
 
   /// Получение статуса сервиса
   Map<String, dynamic> get status => {
-        'isInitialized': _isInitialized,
-        'isOfflineMode': _isOfflineMode,
-        'pendingOperationsCount': _pendingOperations.length,
-        'cacheSize': 0, // Будет обновлено при запросе к БД
-        'autoSyncEnabled': _settings.autoSyncEnabled,
-        'autoSyncInterval': _settings.autoSyncInterval?.inMinutes,
-      };
+    'isInitialized': _isInitialized,
+    'isOfflineMode': _isOfflineMode,
+    'pendingOperationsCount': _pendingOperations.length,
+    'cacheSize': 0, // Будет обновлено при запросе к БД
+    'autoSyncEnabled': _settings.autoSyncEnabled,
+    'autoSyncInterval': _settings.autoSyncInterval?.inMinutes,
+  };
 
   /// Отправка события
   void _emitEvent(OfflineEvent event) {

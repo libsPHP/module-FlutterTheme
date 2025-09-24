@@ -174,7 +174,8 @@ class AppProvider extends ChangeNotifier {
   List<MagentoCategory> get categories => _categories;
 
   // Profile service getter
-  ProfileService? get profileService => _isInitialized ? _magento.profile : null;
+  ProfileService? get profileService =>
+      _isInitialized ? _magento.profile : null;
 
   // Environment variables getters
   String? get defaultApiUrl =>
@@ -217,10 +218,10 @@ class AppProvider extends ChangeNotifier {
     try {
       // Инициализируем Magento API с кастомными демо-данными
       _magento = FlutterMagento();
-      
+
       // Создаем кастомный провайдер демо-данных для электроники
       final customDemoProvider = ElectronicsDemoDataProvider();
-      
+
       final success = await _magento.initialize(
         baseUrl: baseUrl,
         demoDataProvider: customDemoProvider,
@@ -389,18 +390,22 @@ class AppProvider extends ChangeNotifier {
         try {
           debugPrint('Using demo products from system...');
           final demoProducts = _magento.getDemoProducts();
-          final magentoProducts = demoProducts.map((product) => MagentoProduct(
-            id: product.id,
-            name: product.name,
-            sku: product.sku,
-            price: product.price,
-            specialPrice: product.specialPrice,
-            inStock: product.inStock,
-            imageUrl: product.imageUrl,
-            description: product.description,
-            categories: product.categories,
-          )).toList();
-          
+          final magentoProducts = demoProducts
+              .map(
+                (product) => MagentoProduct(
+                  id: product.id,
+                  name: product.name,
+                  sku: product.sku,
+                  price: product.price,
+                  specialPrice: product.specialPrice,
+                  inStock: product.inStock,
+                  imageUrl: product.imageUrl,
+                  description: product.description,
+                  categories: product.categories,
+                ),
+              )
+              .toList();
+
           if (page == 1) {
             _products = magentoProducts;
           } else {
@@ -551,21 +556,29 @@ class AppProvider extends ChangeNotifier {
         try {
           debugPrint('Using demo categories from system...');
           final demoCategories = _magento.getDemoCategories();
-          final magentoCategories = demoCategories.map((category) => MagentoCategory(
-            id: category.id,
-            name: category.name,
-            urlKey: category.urlKey,
-            childrenCount: category.childrenCount,
-            level: category.level,
-            children: category.children?.map((child) => MagentoCategory(
-              id: child.id,
-              name: child.name,
-              urlKey: child.urlKey,
-              childrenCount: child.childrenCount,
-              level: child.level,
-            )).toList(),
-          )).toList();
-          
+          final magentoCategories = demoCategories
+              .map(
+                (category) => MagentoCategory(
+                  id: category.id,
+                  name: category.name,
+                  urlKey: category.urlKey,
+                  childrenCount: category.childrenCount,
+                  level: category.level,
+                  children: category.children
+                      ?.map(
+                        (child) => MagentoCategory(
+                          id: child.id,
+                          name: child.name,
+                          urlKey: child.urlKey,
+                          childrenCount: child.childrenCount,
+                          level: child.level,
+                        ),
+                      )
+                      .toList(),
+                ),
+              )
+              .toList();
+
           _categories = magentoCategories;
           notifyListeners();
         } catch (demoError) {

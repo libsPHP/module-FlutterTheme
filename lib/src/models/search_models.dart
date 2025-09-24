@@ -22,7 +22,8 @@ class SearchResponse {
     this.suggestions,
   });
 
-  factory SearchResponse.fromJson(Map<String, dynamic> json) => _$SearchResponseFromJson(json);
+  factory SearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$SearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }
 
@@ -34,14 +35,10 @@ class SearchSuggestion {
   final int? frequency;
   final String? url;
 
-  SearchSuggestion({
-    this.text,
-    this.type,
-    this.frequency,
-    this.url,
-  });
+  SearchSuggestion({this.text, this.type, this.frequency, this.url});
 
-  factory SearchSuggestion.fromJson(Map<String, dynamic> json) => _$SearchSuggestionFromJson(json);
+  factory SearchSuggestion.fromJson(Map<String, dynamic> json) =>
+      _$SearchSuggestionFromJson(json);
   Map<String, dynamic> toJson() => _$SearchSuggestionToJson(this);
 }
 
@@ -54,15 +51,10 @@ class SearchFilter {
   final String? type;
   final List<String>? options;
 
-  SearchFilter({
-    this.field,
-    this.value,
-    this.label,
-    this.type,
-    this.options,
-  });
+  SearchFilter({this.field, this.value, this.label, this.type, this.options});
 
-  factory SearchFilter.fromJson(Map<String, dynamic> json) => _$SearchFilterFromJson(json);
+  factory SearchFilter.fromJson(Map<String, dynamic> json) =>
+      _$SearchFilterFromJson(json);
   Map<String, dynamic> toJson() => _$SearchFilterToJson(this);
 }
 
@@ -81,7 +73,8 @@ class SearchAnalytics {
     required this.conversionRate,
   });
 
-  factory SearchAnalytics.fromJson(Map<String, dynamic> json) => _$SearchAnalyticsFromJson(json);
+  factory SearchAnalytics.fromJson(Map<String, dynamic> json) =>
+      _$SearchAnalyticsFromJson(json);
   Map<String, dynamic> toJson() => _$SearchAnalyticsToJson(this);
 }
 
@@ -98,7 +91,8 @@ class SearchTrend {
     required this.growthRate,
   });
 
-  factory SearchTrend.fromJson(Map<String, dynamic> json) => _$SearchTrendFromJson(json);
+  factory SearchTrend.fromJson(Map<String, dynamic> json) =>
+      _$SearchTrendFromJson(json);
   Map<String, dynamic> toJson() => _$SearchTrendToJson(this);
 }
 
@@ -119,7 +113,8 @@ class FilterableAttribute {
     this.isMultiSelect,
   });
 
-  factory FilterableAttribute.fromJson(Map<String, dynamic> json) => _$FilterableAttributeFromJson(json);
+  factory FilterableAttribute.fromJson(Map<String, dynamic> json) =>
+      _$FilterableAttributeFromJson(json);
   Map<String, dynamic> toJson() => _$FilterableAttributeToJson(this);
 }
 
@@ -130,13 +125,10 @@ class AttributeOption {
   final String? label;
   final int? count;
 
-  AttributeOption({
-    this.value,
-    this.label,
-    this.count,
-  });
+  AttributeOption({this.value, this.label, this.count});
 
-  factory AttributeOption.fromJson(Map<String, dynamic> json) => _$AttributeOptionFromJson(json);
+  factory AttributeOption.fromJson(Map<String, dynamic> json) =>
+      _$AttributeOptionFromJson(json);
   Map<String, dynamic> toJson() => _$AttributeOptionToJson(this);
 }
 
@@ -153,7 +145,8 @@ class PriceRange {
     required this.priceSteps,
   });
 
-  factory PriceRange.fromJson(Map<String, dynamic> json) => _$PriceRangeFromJson(json);
+  factory PriceRange.fromJson(Map<String, dynamic> json) =>
+      _$PriceRangeFromJson(json);
   Map<String, dynamic> toJson() => _$PriceRangeToJson(this);
 }
 
@@ -170,7 +163,8 @@ class AvailabilityFilter {
     required this.value,
   });
 
-  factory AvailabilityFilter.fromJson(Map<String, dynamic> json) => _$AvailabilityFilterFromJson(json);
+  factory AvailabilityFilter.fromJson(Map<String, dynamic> json) =>
+      _$AvailabilityFilterFromJson(json);
   Map<String, dynamic> toJson() => _$AvailabilityFilterToJson(this);
 }
 
@@ -189,7 +183,8 @@ class FilterCombination {
     this.isShared,
   });
 
-  factory FilterCombination.fromJson(Map<String, dynamic> json) => _$FilterCombinationFromJson(json);
+  factory FilterCombination.fromJson(Map<String, dynamic> json) =>
+      _$FilterCombinationFromJson(json);
   Map<String, dynamic> toJson() => _$FilterCombinationToJson(this);
 }
 
@@ -212,7 +207,8 @@ class SearchRequest {
     this.sortOrder,
   });
 
-  factory SearchRequest.fromJson(Map<String, dynamic> json) => _$SearchRequestFromJson(json);
+  factory SearchRequest.fromJson(Map<String, dynamic> json) =>
+      _$SearchRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SearchRequestToJson(this);
 }
 
@@ -229,6 +225,7 @@ class SearchFilterRequest {
     this.operator,
   });
 
-  factory SearchFilterRequest.fromJson(Map<String, dynamic> json) => _$SearchFilterRequestFromJson(json);
+  factory SearchFilterRequest.fromJson(Map<String, dynamic> json) =>
+      _$SearchFilterRequestFromJson(json);
   Map<String, dynamic> toJson() => _$SearchFilterRequestToJson(this);
 }

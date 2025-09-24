@@ -43,7 +43,7 @@ Map<String, dynamic> _$LocalizationSettingsToJson(
   LocalizationSettings instance,
 ) => <String, dynamic>{
   'selectedLanguage': instance.selectedLanguage,
-  if (instance.selectedCountry case final value?) 'selectedCountry': value,
+  'selectedCountry': ?instance.selectedCountry,
   'autoDetectLocale': instance.autoDetectLocale,
   'preferredLanguages': instance.preferredLanguages,
   'customTranslations': instance.customTranslations,

@@ -34,7 +34,7 @@ class TestAdapter extends CustomAttributesAdapter<TestCustomData> {
   @override
   TestCustomData fromCustomAttributes(List<CustomAttribute> attributes) {
     final attrMap = {
-      for (var attr in attributes) attr.attributeCode: attr.value
+      for (var attr in attributes) attr.attributeCode: attr.value,
     };
     return TestCustomData(
       field1: attrMap['field_1'],
@@ -46,12 +46,17 @@ class TestAdapter extends CustomAttributesAdapter<TestCustomData> {
   List<CustomAttribute> toCustomAttributes(TestCustomData model) {
     final attributes = <CustomAttribute>[];
     if (model.field1 != null) {
-      attributes
-          .add(CustomAttribute(attributeCode: 'field_1', value: model.field1!));
+      attributes.add(
+        CustomAttribute(attributeCode: 'field_1', value: model.field1!),
+      );
     }
     if (model.field2 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'field_2', value: model.field2!.toString()));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'field_2',
+          value: model.field2!.toString(),
+        ),
+      );
     }
     return attributes;
   }
@@ -135,43 +140,51 @@ void main() {
         expect(enhanced.hasAdapter, isTrue);
       });
 
-      test('should create enhanced product from base product with adapter ID',
-          () {
+      test(
+        'should create enhanced product from base product with adapter ID',
+        () {
+          final enhanced = EnhancedProduct<TestCustomData>.fromProduct(
+            baseProduct,
+            adapterId: 'test_adapter',
+          );
+
+          expect(enhanced.baseProduct, equals(baseProduct));
+          expect(enhanced.adapterId, equals('test_adapter'));
+          expect(enhanced.customData, isNotNull);
+          expect(enhanced.customData!.field1, equals('test_value'));
+          expect(enhanced.customData!.field2, equals(42));
+        },
+      );
+
+      test('should create enhanced product with auto-detection', () {
         final enhanced = EnhancedProduct<TestCustomData>.fromProduct(
           baseProduct,
-          adapterId: 'test_adapter',
         );
 
         expect(enhanced.baseProduct, equals(baseProduct));
-        expect(enhanced.adapterId, equals('test_adapter'));
-        expect(enhanced.customData, isNotNull);
-        expect(enhanced.customData!.field1, equals('test_value'));
-        expect(enhanced.customData!.field2, equals(42));
-      });
-
-      test('should create enhanced product with auto-detection', () {
-        final enhanced =
-            EnhancedProduct<TestCustomData>.fromProduct(baseProduct);
-
-        expect(enhanced.baseProduct, equals(baseProduct));
-        expect(enhanced.adapterId,
-            equals('test_adapter')); // Should be auto-detected
+        expect(
+          enhanced.adapterId,
+          equals('test_adapter'),
+        ); // Should be auto-detected
         expect(enhanced.customData, isNotNull);
       });
 
-      test('should create enhanced product without custom data when no adapter',
-          () {
-        manager.clearAllAdapters(); // Remove all adapters
+      test(
+        'should create enhanced product without custom data when no adapter',
+        () {
+          manager.clearAllAdapters(); // Remove all adapters
 
-        final enhanced =
-            EnhancedProduct<TestCustomData>.fromProduct(baseProduct);
+          final enhanced = EnhancedProduct<TestCustomData>.fromProduct(
+            baseProduct,
+          );
 
-        expect(enhanced.baseProduct, equals(baseProduct));
-        expect(enhanced.adapterId, isNull);
-        expect(enhanced.customData, isNull);
-        expect(enhanced.hasCustomData, isFalse);
-        expect(enhanced.hasAdapter, isFalse);
-      });
+          expect(enhanced.baseProduct, equals(baseProduct));
+          expect(enhanced.adapterId, isNull);
+          expect(enhanced.customData, isNull);
+          expect(enhanced.hasCustomData, isFalse);
+          expect(enhanced.hasAdapter, isFalse);
+        },
+      );
 
       test('should populate raw custom attributes', () {
         final enhanced = EnhancedProduct<TestCustomData>.fromProduct(
@@ -183,7 +196,9 @@ void main() {
         expect(enhanced.rawCustomAttributes['field_1'], equals('test_value'));
         expect(enhanced.rawCustomAttributes['field_2'], equals('42'));
         expect(
-            enhanced.rawCustomAttributes['other_field'], equals('other_value'));
+          enhanced.rawCustomAttributes['other_field'],
+          equals('other_value'),
+        );
       });
     });
 
@@ -201,26 +216,36 @@ void main() {
         expect(enhanced.getCustomAttribute('field_1'), equals('test_value'));
         expect(enhanced.getCustomAttribute('field_2'), equals('42'));
         expect(
-            enhanced.getCustomAttribute('other_field'), equals('other_value'));
+          enhanced.getCustomAttribute('other_field'),
+          equals('other_value'),
+        );
       });
 
       test('should get typed custom attribute value', () {
-        expect(enhanced.getTypedCustomAttribute<String>('field_1'),
-            equals('test_value'));
+        expect(
+          enhanced.getTypedCustomAttribute<String>('field_1'),
+          equals('test_value'),
+        );
         expect(enhanced.getTypedCustomAttribute<int>('field_2'), equals(42));
         expect(
-            enhanced.getTypedCustomAttribute<double>('field_2'), equals(42.0));
+          enhanced.getTypedCustomAttribute<double>('field_2'),
+          equals(42.0),
+        );
       });
 
       test('should return null for non-existent attribute', () {
         expect(enhanced.getCustomAttribute('non_existent'), isNull);
         expect(
-            enhanced.getTypedCustomAttribute<String>('non_existent'), isNull);
+          enhanced.getTypedCustomAttribute<String>('non_existent'),
+          isNull,
+        );
       });
 
       test('should return null for invalid type conversion', () {
-        expect(enhanced.getTypedCustomAttribute<int>('field_1'),
-            isNull); // 'test_value' is not a number
+        expect(
+          enhanced.getTypedCustomAttribute<int>('field_1'),
+          isNull,
+        ); // 'test_value' is not a number
       });
 
       test('should check if custom attribute exists', () {
@@ -252,7 +277,9 @@ void main() {
           customAttributes: [
             const CustomAttribute(attributeCode: 'field_1', value: 'test'),
             const CustomAttribute(
-                attributeCode: 'field_2', value: '-1'), // Invalid: negative
+              attributeCode: 'field_2',
+              value: '-1',
+            ), // Invalid: negative
           ],
         );
 
@@ -262,8 +289,10 @@ void main() {
         );
 
         expect(enhanced.isCustomDataValid, isFalse);
-        expect(enhanced.customDataValidationErrors,
-            contains('field2 must be non-negative'));
+        expect(
+          enhanced.customDataValidationErrors,
+          contains('field2 must be non-negative'),
+        );
       });
 
       test('should return true for validation when no adapter', () {
@@ -299,16 +328,20 @@ void main() {
         final updated = enhanced.updateCustomData(newCustomData);
 
         expect(updated.customData, equals(newCustomData));
-        expect(updated.baseProduct.customAttributes,
-            isNot(equals(baseProduct.customAttributes)));
+        expect(
+          updated.baseProduct.customAttributes,
+          isNot(equals(baseProduct.customAttributes)),
+        );
         expect(updated.rawCustomAttributes['field_1'], equals('new_value'));
         expect(updated.rawCustomAttributes['field_2'], equals('100'));
       });
 
       test('should create copy with new adapter', () {
         final newAdapter = TestAdapter();
-        final withNewAdapter = enhanced
-            .withAdapter<TestCustomData>('new_adapter', adapter: newAdapter);
+        final withNewAdapter = enhanced.withAdapter<TestCustomData>(
+          'new_adapter',
+          adapter: newAdapter,
+        );
 
         expect(withNewAdapter.adapterId, equals('new_adapter'));
         expect(withNewAdapter.baseProduct, equals(enhanced.baseProduct));
@@ -350,18 +383,13 @@ void main() {
       });
 
       test('should match simple filters', () {
-        final filters = {
-          'field_1': 'test_value',
-          'field_2': '42',
-        };
+        final filters = {'field_1': 'test_value', 'field_2': '42'};
 
         expect(enhanced.matchesFilters(filters), isTrue);
       });
 
       test('should not match incorrect filters', () {
-        final filters = {
-          'field_1': 'wrong_value',
-        };
+        final filters = {'field_1': 'wrong_value'};
 
         expect(enhanced.matchesFilters(filters), isFalse);
       });
@@ -385,7 +413,7 @@ void main() {
       test('should match range filters', () {
         final filters = {
           'field_2': {
-            'range': {'from': '40', 'to': '50'}
+            'range': {'from': '40', 'to': '50'},
           }, // 42 is between 40 and 50
         };
 
@@ -403,7 +431,7 @@ void main() {
       test('should match in filters', () {
         final filters = {
           'field_1': {
-            'in': ['test_value', 'other_value']
+            'in': ['test_value', 'other_value'],
           },
         };
 
@@ -458,9 +486,9 @@ void main() {
     test('should create from product list response', () {
       final enhanced =
           EnhancedProductListResponse<TestCustomData>.fromProductListResponse(
-        baseResponse,
-        adapter: testAdapter,
-      );
+            baseResponse,
+            adapter: testAdapter,
+          );
 
       expect(enhanced.items.length, equals(2));
       expect(enhanced.totalCount, equals(2));
@@ -474,9 +502,9 @@ void main() {
     test('should get items with custom data', () {
       final enhanced =
           EnhancedProductListResponse<TestCustomData>.fromProductListResponse(
-        baseResponse,
-        adapter: testAdapter,
-      );
+            baseResponse,
+            adapter: testAdapter,
+          );
 
       final itemsWithCustomData = enhanced.itemsWithCustomData;
 
@@ -487,23 +515,25 @@ void main() {
     test('should get items with specific adapter', () {
       final enhanced =
           EnhancedProductListResponse<TestCustomData>.fromProductListResponse(
-        baseResponse,
-        adapter: testAdapter,
-      );
+            baseResponse,
+            adapter: testAdapter,
+          );
 
       final itemsWithAdapter = enhanced.getItemsWithAdapter('test_adapter');
 
       expect(itemsWithAdapter.length, equals(2));
-      expect(itemsWithAdapter.every((item) => item.adapterId == 'test_adapter'),
-          isTrue);
+      expect(
+        itemsWithAdapter.every((item) => item.adapterId == 'test_adapter'),
+        isTrue,
+      );
     });
 
     test('should provide custom data statistics', () {
       final enhanced =
           EnhancedProductListResponse<TestCustomData>.fromProductListResponse(
-        baseResponse,
-        adapter: testAdapter,
-      );
+            baseResponse,
+            adapter: testAdapter,
+          );
 
       final stats = enhanced.customDataStatistics;
 

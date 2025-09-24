@@ -13,7 +13,7 @@ class DeviceInfoScreen extends StatefulWidget {
 class _DeviceInfoScreenState extends State<DeviceInfoScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   String? _deviceFingerprint;
   DevicePerformanceCategory? _performanceCategory;
   DeviceOptimizationSettings? _optimizationSettings;
@@ -77,10 +77,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _refreshData,
-          ),
+          IconButton(icon: const Icon(Icons.refresh), onPressed: _refreshData),
         ],
       ),
       body: TabBarView(
@@ -300,9 +297,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
             ),
             const SizedBox(height: 16),
             if (_performanceCategory != null) ...[
-              Center(
-                child: _buildPerformanceBadge(_performanceCategory!),
-              ),
+              Center(child: _buildPerformanceBadge(_performanceCategory!)),
               const SizedBox(height: 16),
               Text(
                 _getPerformanceDescription(_performanceCategory!),
@@ -334,13 +329,36 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
-            _buildSettingTile('Max Concurrent Requests', '${_optimizationSettings!.maxConcurrentRequests}'),
-            _buildSettingTile('Image Quality', '${(_optimizationSettings!.imageQuality * 100).round()}%'),
-            _buildSettingTile('Image Cache Size', '${_optimizationSettings!.imageCacheSize} MB'),
-            _buildSettingTile('Animations', _optimizationSettings!.enableAnimations ? 'Enabled' : 'Disabled'),
-            _buildSettingTile('Advanced Features', _optimizationSettings!.enableAdvancedFeatures ? 'Enabled' : 'Disabled'),
-            _buildSettingTile('List Buffer Size', '${_optimizationSettings!.listBufferSize}'),
-            _buildSettingTile('Lazy Loading', _optimizationSettings!.enableLazyLoading ? 'Enabled' : 'Disabled'),
+            _buildSettingTile(
+              'Max Concurrent Requests',
+              '${_optimizationSettings!.maxConcurrentRequests}',
+            ),
+            _buildSettingTile(
+              'Image Quality',
+              '${(_optimizationSettings!.imageQuality * 100).round()}%',
+            ),
+            _buildSettingTile(
+              'Image Cache Size',
+              '${_optimizationSettings!.imageCacheSize} MB',
+            ),
+            _buildSettingTile(
+              'Animations',
+              _optimizationSettings!.enableAnimations ? 'Enabled' : 'Disabled',
+            ),
+            _buildSettingTile(
+              'Advanced Features',
+              _optimizationSettings!.enableAdvancedFeatures
+                  ? 'Enabled'
+                  : 'Disabled',
+            ),
+            _buildSettingTile(
+              'List Buffer Size',
+              '${_optimizationSettings!.listBufferSize}',
+            ),
+            _buildSettingTile(
+              'Lazy Loading',
+              _optimizationSettings!.enableLazyLoading ? 'Enabled' : 'Disabled',
+            ),
           ],
         ),
       ),
@@ -356,9 +374,9 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
           Text(title),
           Text(
             value,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -378,10 +396,14 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
             ),
             const SizedBox(height: 16),
             _buildCompatibilityTest('Android API 24+', () async {
-              return await DeviceUtils.meetsMinimumRequirements(minAndroidSdk: 24);
+              return await DeviceUtils.meetsMinimumRequirements(
+                minAndroidSdk: 24,
+              );
             }),
             _buildCompatibilityTest('iOS 13.0+', () async {
-              return await DeviceUtils.meetsMinimumRequirements(minIOSVersion: '13.0');
+              return await DeviceUtils.meetsMinimumRequirements(
+                minIOSVersion: '13.0',
+              );
             }),
             _buildCompatibilityTest('4GB RAM+', () async {
               return await DeviceUtils.meetsMinimumRequirements(minRamMb: 4000);
@@ -444,14 +466,32 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
-            _buildCapabilityTile('Advanced Animations', _deviceCapabilities!.supportsAdvancedAnimations),
-            _buildCapabilityTile('High Quality Images', _deviceCapabilities!.supportsHighQualityImages),
-            _buildCapabilityTile('Video Playback', _deviceCapabilities!.supportsVideoPlayback),
-            _buildCapabilityTile('Local Storage', _deviceCapabilities!.supportsLocalStorage),
-            _buildCapabilityTile('Push Notifications', _deviceCapabilities!.supportsPushNotifications),
+            _buildCapabilityTile(
+              'Advanced Animations',
+              _deviceCapabilities!.supportsAdvancedAnimations,
+            ),
+            _buildCapabilityTile(
+              'High Quality Images',
+              _deviceCapabilities!.supportsHighQualityImages,
+            ),
+            _buildCapabilityTile(
+              'Video Playback',
+              _deviceCapabilities!.supportsVideoPlayback,
+            ),
+            _buildCapabilityTile(
+              'Local Storage',
+              _deviceCapabilities!.supportsLocalStorage,
+            ),
+            _buildCapabilityTile(
+              'Push Notifications',
+              _deviceCapabilities!.supportsPushNotifications,
+            ),
             _buildCapabilityTile('Camera', _deviceCapabilities!.supportsCamera),
             _buildCapabilityTile('GPS', _deviceCapabilities!.supportsGPS),
-            _buildCapabilityTile('Biometrics', _deviceCapabilities!.supportsBiometrics),
+            _buildCapabilityTile(
+              'Biometrics',
+              _deviceCapabilities!.supportsBiometrics,
+            ),
           ],
         ),
       ),
@@ -487,9 +527,18 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 16),
-            _buildRecommendationTile('Max Concurrent Requests', '${_deviceCapabilities!.maxConcurrentRequests}'),
-            _buildRecommendationTile('Image Quality', '${(_deviceCapabilities!.recommendedImageQuality * 100).round()}%'),
-            _buildRecommendationTile('Cache Size', '${_deviceCapabilities!.recommendedCacheSize} MB'),
+            _buildRecommendationTile(
+              'Max Concurrent Requests',
+              '${_deviceCapabilities!.maxConcurrentRequests}',
+            ),
+            _buildRecommendationTile(
+              'Image Quality',
+              '${(_deviceCapabilities!.recommendedImageQuality * 100).round()}%',
+            ),
+            _buildRecommendationTile(
+              'Cache Size',
+              '${_deviceCapabilities!.recommendedCacheSize} MB',
+            ),
           ],
         ),
       ),
@@ -543,9 +592,9 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
               ),
               child: Text(
                 _formatJson(_analyticsData!),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontFamily: 'monospace',
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontFamily: 'monospace'),
               ),
             ),
           ],
@@ -570,7 +619,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
-                    onPressed: () => _copyToClipboard(_formatJson(_analyticsData!)),
+                    onPressed: () =>
+                        _copyToClipboard(_formatJson(_analyticsData!)),
                     icon: const Icon(Icons.copy),
                     label: const Text('Copy JSON'),
                   ),
@@ -660,9 +710,9 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen>
 
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Copied to clipboard')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
   }
 
   Future<void> _refreshData() async {

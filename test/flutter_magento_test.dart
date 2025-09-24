@@ -39,9 +39,7 @@ void main() {
       });
 
       test('should fail initialization with invalid base URL', () async {
-        final success = await magento.initialize(
-          baseUrl: 'invalid-url',
-        );
+        final success = await magento.initialize(baseUrl: 'invalid-url');
 
         expect(success, isFalse);
         expect(magento.isInitialized, isFalse);
@@ -116,15 +114,17 @@ void main() {
         }
       });
 
-      test('should handle single product retrieval errors gracefully',
-          () async {
-        try {
-          await magento.getProduct('INVALID-SKU');
-          fail('Should have thrown an exception');
-        } catch (e) {
-          expect(e, isA<MagentoException>());
-        }
-      });
+      test(
+        'should handle single product retrieval errors gracefully',
+        () async {
+          try {
+            await magento.getProduct('INVALID-SKU');
+            fail('Should have thrown an exception');
+          } catch (e) {
+            expect(e, isA<MagentoException>());
+          }
+        },
+      );
     });
 
     group('Cart Operations', () {
@@ -152,10 +152,7 @@ void main() {
 
       test('should handle add to cart errors gracefully', () async {
         try {
-          await magento.addToCustomerCart(
-            sku: 'TEST-SKU',
-            quantity: 1,
-          );
+          await magento.addToCustomerCart(sku: 'TEST-SKU', quantity: 1);
           fail('Should have thrown an exception');
         } catch (e) {
           expect(e, isA<MagentoException>());
@@ -228,10 +225,7 @@ void main() {
       test('should handle shipping estimation errors gracefully', () async {
         try {
           await magento.estimateCustomerCartShipping(
-            Address(
-              countryId: 'US',
-              postcode: '12345',
-            ),
+            Address(countryId: 'US', postcode: '12345'),
           );
           fail('Should have thrown an exception');
         } catch (e) {
@@ -239,15 +233,17 @@ void main() {
         }
       });
 
-      test('should handle payment methods retrieval errors gracefully',
-          () async {
-        try {
-          await magento.getAvailablePaymentMethods(cartId: 'test');
-          fail('Should have thrown an exception');
-        } catch (e) {
-          expect(e, isA<MagentoException>());
-        }
-      });
+      test(
+        'should handle payment methods retrieval errors gracefully',
+        () async {
+          try {
+            await magento.getAvailablePaymentMethods(cartId: 'test');
+            fail('Should have thrown an exception');
+          } catch (e) {
+            expect(e, isA<MagentoException>());
+          }
+        },
+      );
 
       test('should handle order placement errors gracefully', () async {
         try {
@@ -283,35 +279,27 @@ void main() {
 
     group('Error Handling', () {
       test('should throw exception when using uninitialized library', () {
-        expect(
-          () => magento.isAuthenticated,
-          throwsA(isA<MagentoException>()),
-        );
+        expect(() => magento.isAuthenticated, throwsA(isA<MagentoException>()));
 
         expect(magento.isInitialized, isFalse);
       });
 
       test(
-          'should throw exception when calling methods on uninitialized library',
-          () async {
-        expect(
-          () => magento.getProducts(),
-          throwsA(isA<MagentoException>()),
-        );
+        'should throw exception when calling methods on uninitialized library',
+        () async {
+          expect(() => magento.getProducts(), throwsA(isA<MagentoException>()));
 
-        expect(
-          () => magento.authenticateCustomer(
-            email: 'test@example.com',
-            password: 'password',
-          ),
-          throwsA(isA<MagentoException>()),
-        );
+          expect(
+            () => magento.authenticateCustomer(
+              email: 'test@example.com',
+              password: 'password',
+            ),
+            throwsA(isA<MagentoException>()),
+          );
 
-        expect(
-          () => magento.createCart(),
-          throwsA(isA<MagentoException>()),
-        );
-      });
+          expect(() => magento.createCart(), throwsA(isA<MagentoException>()));
+        },
+      );
     });
 
     group('Library State', () {

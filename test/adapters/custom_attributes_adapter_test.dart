@@ -55,17 +55,17 @@ class TestCustomAttributesAdapter
 
   @override
   List<String> get supportedAttributeCodes => [
-        'test_field_1',
-        'test_field_2',
-        'test_field_3',
-        'test_field_4',
-        'test_field_5',
-      ];
+    'test_field_1',
+    'test_field_2',
+    'test_field_3',
+    'test_field_4',
+    'test_field_5',
+  ];
 
   @override
   TestCustomAttributes fromCustomAttributes(List<CustomAttribute> attributes) {
     final attrMap = {
-      for (var attr in attributes) attr.attributeCode: attr.value
+      for (var attr in attributes) attr.attributeCode: attr.value,
     };
 
     return TestCustomAttributes(
@@ -82,24 +82,44 @@ class TestCustomAttributesAdapter
     final attributes = <CustomAttribute>[];
 
     if (model.testField1 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'test_field_1', value: model.testField1!));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'test_field_1',
+          value: model.testField1!,
+        ),
+      );
     }
     if (model.testField2 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'test_field_2', value: model.testField2!.toString()));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'test_field_2',
+          value: model.testField2!.toString(),
+        ),
+      );
     }
     if (model.testField3 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'test_field_3', value: model.testField3!.toString()));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'test_field_3',
+          value: model.testField3!.toString(),
+        ),
+      );
     }
     if (model.testField4 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'test_field_4', value: model.testField4!.toString()));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'test_field_4',
+          value: model.testField4!.toString(),
+        ),
+      );
     }
     if (model.testField5 != null) {
-      attributes.add(CustomAttribute(
-          attributeCode: 'test_field_5', value: model.testField5!.join(',')));
+      attributes.add(
+        CustomAttribute(
+          attributeCode: 'test_field_5',
+          value: model.testField5!.join(','),
+        ),
+      );
     }
 
     return attributes;
@@ -168,14 +188,15 @@ void main() {
 
       test('should have correct supported attribute codes', () {
         expect(
-            adapter.supportedAttributeCodes,
-            equals([
-              'test_field_1',
-              'test_field_2',
-              'test_field_3',
-              'test_field_4',
-              'test_field_5',
-            ]));
+          adapter.supportedAttributeCodes,
+          equals([
+            'test_field_1',
+            'test_field_2',
+            'test_field_3',
+            'test_field_4',
+            'test_field_5',
+          ]),
+        );
       });
 
       test('should have default version', () {
@@ -187,12 +208,16 @@ void main() {
       test('should convert custom attributes to typed model', () {
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'test_field_1', value: 'test_value'),
+            attributeCode: 'test_field_1',
+            value: 'test_value',
+          ),
           const CustomAttribute(attributeCode: 'test_field_2', value: '42'),
           const CustomAttribute(attributeCode: 'test_field_3', value: '3.14'),
           const CustomAttribute(attributeCode: 'test_field_4', value: 'true'),
           const CustomAttribute(
-              attributeCode: 'test_field_5', value: 'item1,item2,item3'),
+            attributeCode: 'test_field_5',
+            value: 'item1,item2,item3',
+          ),
         ];
 
         final result = adapter.fromCustomAttributes(attributes);
@@ -217,33 +242,50 @@ void main() {
 
         expect(result.length, equals(5));
         expect(
-            result.any((attr) =>
+          result.any(
+            (attr) =>
                 attr.attributeCode == 'test_field_1' &&
-                attr.value == 'test_value'),
-            isTrue);
+                attr.value == 'test_value',
+          ),
+          isTrue,
+        );
         expect(
-            result.any((attr) =>
-                attr.attributeCode == 'test_field_2' && attr.value == '42'),
-            isTrue);
+          result.any(
+            (attr) =>
+                attr.attributeCode == 'test_field_2' && attr.value == '42',
+          ),
+          isTrue,
+        );
         expect(
-            result.any((attr) =>
-                attr.attributeCode == 'test_field_3' && attr.value == '3.14'),
-            isTrue);
+          result.any(
+            (attr) =>
+                attr.attributeCode == 'test_field_3' && attr.value == '3.14',
+          ),
+          isTrue,
+        );
         expect(
-            result.any((attr) =>
-                attr.attributeCode == 'test_field_4' && attr.value == 'true'),
-            isTrue);
+          result.any(
+            (attr) =>
+                attr.attributeCode == 'test_field_4' && attr.value == 'true',
+          ),
+          isTrue,
+        );
         expect(
-            result.any((attr) =>
+          result.any(
+            (attr) =>
                 attr.attributeCode == 'test_field_5' &&
-                attr.value == 'item1,item2,item3'),
-            isTrue);
+                attr.value == 'item1,item2,item3',
+          ),
+          isTrue,
+        );
       });
 
       test('should handle null values correctly', () {
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'test_field_1', value: 'test_value'),
+            attributeCode: 'test_field_1',
+            value: 'test_value',
+          ),
         ];
 
         final result = adapter.fromCustomAttributes(attributes);
@@ -292,8 +334,10 @@ void main() {
         expect(result.isValid, isFalse);
         expect(result.errors.length, equals(2));
         expect(result.errors, contains('test_field_2 must be non-negative'));
-        expect(result.errors,
-            contains('test_field_3 must be between 0.0 and 100.0'));
+        expect(
+          result.errors,
+          contains('test_field_3 must be between 0.0 and 100.0'),
+        );
       });
 
       test('should handle null values in validation', () {
@@ -310,11 +354,15 @@ void main() {
       test('should get string attribute value', () {
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'test_field_1', value: 'test_value'),
+            attributeCode: 'test_field_1',
+            value: 'test_value',
+          ),
         ];
 
-        final result =
-            adapter.getAttributeValue<String>(attributes, 'test_field_1');
+        final result = adapter.getAttributeValue<String>(
+          attributes,
+          'test_field_1',
+        );
 
         expect(result, equals('test_value'));
       });
@@ -324,8 +372,10 @@ void main() {
           const CustomAttribute(attributeCode: 'test_field_2', value: '42'),
         ];
 
-        final result =
-            adapter.getAttributeValue<int>(attributes, 'test_field_2');
+        final result = adapter.getAttributeValue<int>(
+          attributes,
+          'test_field_2',
+        );
 
         expect(result, equals(42));
       });
@@ -335,8 +385,10 @@ void main() {
           const CustomAttribute(attributeCode: 'test_field_3', value: '3.14'),
         ];
 
-        final result =
-            adapter.getAttributeValue<double>(attributes, 'test_field_3');
+        final result = adapter.getAttributeValue<double>(
+          attributes,
+          'test_field_3',
+        );
 
         expect(result, equals(3.14));
       });
@@ -346,8 +398,10 @@ void main() {
           const CustomAttribute(attributeCode: 'test_field_4', value: 'true'),
         ];
 
-        final result =
-            adapter.getAttributeValue<bool>(attributes, 'test_field_4');
+        final result = adapter.getAttributeValue<bool>(
+          attributes,
+          'test_field_4',
+        );
 
         expect(result, equals(true));
       });
@@ -355,8 +409,10 @@ void main() {
       test('should return null for non-existent attribute', () {
         final attributes = <CustomAttribute>[];
 
-        final result =
-            adapter.getAttributeValue<String>(attributes, 'non_existent');
+        final result = adapter.getAttributeValue<String>(
+          attributes,
+          'non_existent',
+        );
 
         expect(result, isNull);
       });
@@ -364,11 +420,15 @@ void main() {
       test('should return null for invalid type conversion', () {
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'test_field_2', value: 'not_a_number'),
+            attributeCode: 'test_field_2',
+            value: 'not_a_number',
+          ),
         ];
 
-        final result =
-            adapter.getAttributeValue<int>(attributes, 'test_field_2');
+        final result = adapter.getAttributeValue<int>(
+          attributes,
+          'test_field_2',
+        );
 
         expect(result, isNull);
       });
@@ -385,11 +445,9 @@ void main() {
         final result = adapter.buildSearchFilters(model);
 
         expect(
-            result,
-            equals({
-              'test_field_1': 'test_value',
-              'test_field_2': 42,
-            }));
+          result,
+          equals({'test_field_1': 'test_value', 'test_field_2': 42}),
+        );
       });
 
       test('should handle null values in search filters', () {
@@ -416,9 +474,13 @@ void main() {
       test('should return false for unsupported attributes', () {
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'unsupported_field', value: 'test'),
+            attributeCode: 'unsupported_field',
+            value: 'test',
+          ),
           const CustomAttribute(
-              attributeCode: 'another_unsupported', value: 'other'),
+            attributeCode: 'another_unsupported',
+            value: 'other',
+          ),
         ];
 
         final result = adapter.canHandle(attributes);
@@ -435,12 +497,18 @@ void main() {
 
     group('Helper Methods', () {
       test('should get attribute display name', () {
-        expect(adapter.getAttributeDisplayName('test_field_1'),
-            equals('Test Field 1'));
-        expect(adapter.getAttributeDisplayName('simple_name'),
-            equals('Simple Name'));
         expect(
-            adapter.getAttributeDisplayName('UPPERCASE'), equals('UPPERCASE'));
+          adapter.getAttributeDisplayName('test_field_1'),
+          equals('Test Field 1'),
+        );
+        expect(
+          adapter.getAttributeDisplayName('simple_name'),
+          equals('Simple Name'),
+        );
+        expect(
+          adapter.getAttributeDisplayName('UPPERCASE'),
+          equals('UPPERCASE'),
+        );
       });
 
       test('should get attribute metadata', () {
@@ -451,8 +519,10 @@ void main() {
       });
 
       test('should transform attribute value', () {
-        final result =
-            adapter.transformAttributeValue('test_field_1', 'raw_value');
+        final result = adapter.transformAttributeValue(
+          'test_field_1',
+          'raw_value',
+        );
 
         expect(result, equals('raw_value'));
       });

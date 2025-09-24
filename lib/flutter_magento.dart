@@ -9,18 +9,19 @@
 /// - Pigeon for type-safe platform communication
 /// - Comprehensive testing and monitoring
 
-library flutter_magento;
-
 // Modern Core Platform Interface (New Architecture)
 export 'src/core/result.dart';
-export 'src/implementations/method_channel_implementation.dart' hide MethodChannelFlutterMagento;
-export 'src/examples/modern_usage_example.dart' hide ResultExtensions, ResultUtils;
+export 'src/implementations/method_channel_implementation.dart'
+    hide MethodChannelFlutterMagento;
+export 'src/examples/modern_usage_example.dart'
+    hide ResultExtensions, ResultUtils;
 
 // Legacy exports for backward compatibility
 export 'flutter_magento_platform_interface.dart';
 export 'flutter_magento_method_channel.dart';
 export 'src/flutter_magento_core.dart';
-export 'src/flutter_magento.dart' hide FlutterMagento, MagentoProvider, MagentoException;
+export 'src/flutter_magento.dart'
+    hide FlutterMagento, MagentoProvider, MagentoException;
 
 // API clients and services
 export 'src/api/magento_api_client.dart';

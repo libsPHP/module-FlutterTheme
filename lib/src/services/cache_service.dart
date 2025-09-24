@@ -96,8 +96,10 @@ class MagentoCacheService extends ChangeNotifier {
 
       // Store data
       await _prefs!.setString(cacheKey, serializedData);
-      await _prefs!
-          .setInt('${cacheKey}_expires', expiresAt.millisecondsSinceEpoch);
+      await _prefs!.setInt(
+        '${cacheKey}_expires',
+        expiresAt.millisecondsSinceEpoch,
+      );
 
       // Update metadata
       _expirationTimes[cacheKey] = expiresAt;
@@ -208,8 +210,9 @@ class MagentoCacheService extends ChangeNotifier {
   Future<void> clearAll() async {
     _prefs ??= await SharedPreferences.getInstance();
 
-    final cacheKeys =
-        _prefs!.getKeys().where((key) => key.startsWith('magento_cache_'));
+    final cacheKeys = _prefs!.getKeys().where(
+      (key) => key.startsWith('magento_cache_'),
+    );
 
     for (final key in cacheKeys) {
       await _prefs!.remove(key);
@@ -308,11 +311,7 @@ class MagentoCacheService extends ChangeNotifier {
     final results = <MagentoCacheResult>[];
 
     for (final entry in dataMap.entries) {
-      final result = await cache(
-        key: entry.key,
-        data: entry.value,
-        ttl: ttl,
-      );
+      final result = await cache(key: entry.key, data: entry.value, ttl: ttl);
       results.add(result);
     }
 
@@ -345,7 +344,9 @@ class MagentoCacheService extends ChangeNotifier {
   }
 
   T _deserializeData<T>(
-      String serializedData, T Function(Map<String, dynamic>) fromJson) {
+    String serializedData,
+    T Function(Map<String, dynamic>) fromJson,
+  ) {
     // TODO: Add decompression if needed
     final jsonData = jsonDecode(serializedData) as Map<String, dynamic>;
 
@@ -418,8 +419,9 @@ class MagentoCacheService extends ChangeNotifier {
       final timestamp = _prefs!.getInt(key);
       if (timestamp != null) {
         final cacheKey = key.replaceAll('_expires', '');
-        _expirationTimes[cacheKey] =
-            DateTime.fromMillisecondsSinceEpoch(timestamp);
+        _expirationTimes[cacheKey] = DateTime.fromMillisecondsSinceEpoch(
+          timestamp,
+        );
       }
     }
 
@@ -485,7 +487,8 @@ class MagentoCacheStats {
   int get totalRequests => hitCount + missCount;
 
   @override
-  String toString() => 'MagentoCacheStats('
+  String toString() =>
+      'MagentoCacheStats('
       'hits: $hitCount, '
       'misses: $missCount, '
       'hitRate: ${(hitRate * 100).toStringAsFixed(1)}%, '
@@ -519,7 +522,8 @@ class MagentoCacheEntryInfo {
       lastAccessed != null ? DateTime.now().difference(lastAccessed!) : null;
 
   @override
-  String toString() => 'MagentoCacheEntryInfo('
+  String toString() =>
+      'MagentoCacheEntryInfo('
       'key: $key, '
       'size: ${size}B, '
       'expires: $expiresAt, '

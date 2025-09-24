@@ -33,7 +33,7 @@ class Product with _$Product {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Product;
-  
+
   const Product._();
 
   factory Product.fromJson(Map<String, dynamic> json) =>
@@ -234,8 +234,7 @@ class Review with _$Review {
     List<ReviewRating>? ratings,
   }) = _Review;
 
-  factory Review.fromJson(Map<String, dynamic> json) =>
-      _$ReviewFromJson(json);
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 }
 
 /// Review rating model

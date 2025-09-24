@@ -22,20 +22,17 @@ SearchResponse _$SearchResponseFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$SearchResponseToJson(
-  SearchResponse instance,
-) => <String, dynamic>{
-  if (instance.items?.map((e) => e.toJson()).toList() case final value?)
-    'items': value,
-  if (instance.totalCount case final value?) 'totalCount': value,
-  if (instance.currentPage case final value?) 'currentPage': value,
-  if (instance.pageSize case final value?) 'pageSize': value,
-  if (instance.availableFilters?.map((e) => e.toJson()).toList()
-      case final value?)
-    'availableFilters': value,
-  if (instance.suggestions?.map((e) => e.toJson()).toList() case final value?)
-    'suggestions': value,
-};
+Map<String, dynamic> _$SearchResponseToJson(SearchResponse instance) =>
+    <String, dynamic>{
+      'items': ?instance.items?.map((e) => e.toJson()).toList(),
+      'totalCount': ?instance.totalCount,
+      'currentPage': ?instance.currentPage,
+      'pageSize': ?instance.pageSize,
+      'availableFilters': ?instance.availableFilters
+          ?.map((e) => e.toJson())
+          .toList(),
+      'suggestions': ?instance.suggestions?.map((e) => e.toJson()).toList(),
+    };
 
 SearchSuggestion _$SearchSuggestionFromJson(Map<String, dynamic> json) =>
     SearchSuggestion(
@@ -47,10 +44,10 @@ SearchSuggestion _$SearchSuggestionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SearchSuggestionToJson(SearchSuggestion instance) =>
     <String, dynamic>{
-      if (instance.text case final value?) 'text': value,
-      if (instance.type case final value?) 'type': value,
-      if (instance.frequency case final value?) 'frequency': value,
-      if (instance.url case final value?) 'url': value,
+      'text': ?instance.text,
+      'type': ?instance.type,
+      'frequency': ?instance.frequency,
+      'url': ?instance.url,
     };
 
 SearchFilter _$SearchFilterFromJson(Map<String, dynamic> json) => SearchFilter(
@@ -65,11 +62,11 @@ SearchFilter _$SearchFilterFromJson(Map<String, dynamic> json) => SearchFilter(
 
 Map<String, dynamic> _$SearchFilterToJson(SearchFilter instance) =>
     <String, dynamic>{
-      if (instance.field case final value?) 'field': value,
-      if (instance.value case final value?) 'value': value,
-      if (instance.label case final value?) 'label': value,
-      if (instance.type case final value?) 'type': value,
-      if (instance.options case final value?) 'options': value,
+      'field': ?instance.field,
+      'value': ?instance.value,
+      'label': ?instance.label,
+      'type': ?instance.type,
+      'options': ?instance.options,
     };
 
 SearchAnalytics _$SearchAnalyticsFromJson(Map<String, dynamic> json) =>
@@ -119,12 +116,11 @@ FilterableAttribute _$FilterableAttributeFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$FilterableAttributeToJson(
   FilterableAttribute instance,
 ) => <String, dynamic>{
-  if (instance.code case final value?) 'code': value,
-  if (instance.label case final value?) 'label': value,
-  if (instance.type case final value?) 'type': value,
-  if (instance.options?.map((e) => e.toJson()).toList() case final value?)
-    'options': value,
-  if (instance.isMultiSelect case final value?) 'isMultiSelect': value,
+  'code': ?instance.code,
+  'label': ?instance.label,
+  'type': ?instance.type,
+  'options': ?instance.options?.map((e) => e.toJson()).toList(),
+  'isMultiSelect': ?instance.isMultiSelect,
 };
 
 AttributeOption _$AttributeOptionFromJson(Map<String, dynamic> json) =>
@@ -136,9 +132,9 @@ AttributeOption _$AttributeOptionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$AttributeOptionToJson(AttributeOption instance) =>
     <String, dynamic>{
-      if (instance.value case final value?) 'value': value,
-      if (instance.label case final value?) 'label': value,
-      if (instance.count case final value?) 'count': value,
+      'value': ?instance.value,
+      'label': ?instance.label,
+      'count': ?instance.count,
     };
 
 PriceRange _$PriceRangeFromJson(Map<String, dynamic> json) => PriceRange(
@@ -186,9 +182,8 @@ Map<String, dynamic> _$FilterCombinationToJson(FilterCombination instance) =>
     <String, dynamic>{
       'name': instance.name,
       'filters': instance.filters,
-      if (instance.createdAt?.toIso8601String() case final value?)
-        'createdAt': value,
-      if (instance.isShared case final value?) 'isShared': value,
+      'createdAt': ?instance.createdAt?.toIso8601String(),
+      'isShared': ?instance.isShared,
     };
 
 SearchRequest _$SearchRequestFromJson(Map<String, dynamic> json) =>
@@ -204,11 +199,11 @@ SearchRequest _$SearchRequestFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SearchRequestToJson(SearchRequest instance) =>
     <String, dynamic>{
       'query': instance.query,
-      if (instance.filters case final value?) 'filters': value,
+      'filters': ?instance.filters,
       'page': instance.page,
       'pageSize': instance.pageSize,
-      if (instance.sortBy case final value?) 'sortBy': value,
-      if (instance.sortOrder case final value?) 'sortOrder': value,
+      'sortBy': ?instance.sortBy,
+      'sortOrder': ?instance.sortOrder,
     };
 
 SearchFilterRequest _$SearchFilterRequestFromJson(Map<String, dynamic> json) =>
@@ -223,5 +218,5 @@ Map<String, dynamic> _$SearchFilterRequestToJson(
 ) => <String, dynamic>{
   'field': instance.field,
   'value': instance.value,
-  if (instance.operator case final value?) 'operator': value,
+  'operator': ?instance.operator,
 };

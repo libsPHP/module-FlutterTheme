@@ -27,8 +27,9 @@ class TestAdapter1 extends CustomAttributesAdapter<String> {
   @override
   ValidationResult validate(String model) {
     return ValidationResult(
-        isValid: model.isNotEmpty,
-        errors: model.isEmpty ? ['Model cannot be empty'] : []);
+      isValid: model.isNotEmpty,
+      errors: model.isEmpty ? ['Model cannot be empty'] : [],
+    );
   }
 
   @override
@@ -66,8 +67,9 @@ class TestAdapter2 extends CustomAttributesAdapter<int> {
   @override
   ValidationResult validate(int model) {
     return ValidationResult(
-        isValid: model >= 0,
-        errors: model < 0 ? ['Model must be non-negative'] : []);
+      isValid: model >= 0,
+      errors: model < 0 ? ['Model must be non-negative'] : [],
+    );
   }
 
   @override
@@ -144,23 +146,28 @@ void main() {
 
         expect(mapping['field_1'], equals('test1'));
         expect(
-            mapping['field_2'],
-            anyOf(equals('test1'),
-                equals('test2'))); // Both adapters support field_2
+          mapping['field_2'],
+          anyOf(equals('test1'), equals('test2')),
+        ); // Both adapters support field_2
         expect(mapping['field_3'], equals('test2'));
       });
 
-      test('should prioritize higher priority adapters in attribute mapping',
-          () {
-        manager.registerAdapter('test1', adapter1, priority: 1);
-        manager.registerAdapter('test2', adapter2,
-            priority: 2); // Higher priority
+      test(
+        'should prioritize higher priority adapters in attribute mapping',
+        () {
+          manager.registerAdapter('test1', adapter1, priority: 1);
+          manager.registerAdapter(
+            'test2',
+            adapter2,
+            priority: 2,
+          ); // Higher priority
 
-        final mapping = manager.attributeMapping;
+          final mapping = manager.attributeMapping;
 
-        // field_2 is supported by both, but test2 has higher priority
-        expect(mapping['field_2'], equals('test2'));
-      });
+          // field_2 is supported by both, but test2 has higher priority
+          expect(mapping['field_2'], equals('test2'));
+        },
+      );
     });
 
     group('Adapter Unregistration', () {
@@ -186,7 +193,9 @@ void main() {
 
       test('should handle unregistering non-existent adapter', () {
         expect(
-            () => manager.unregisterAdapter('non_existent'), returnsNormally);
+          () => manager.unregisterAdapter('non_existent'),
+          returnsNormally,
+        );
       });
     });
 
@@ -246,18 +255,21 @@ void main() {
 
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'field_2', value: 'test'), // Supported by both
+            attributeCode: 'field_2',
+            value: 'test',
+          ), // Supported by both
           const CustomAttribute(
-              attributeCode: 'field_3',
-              value: 'other'), // Only supported by adapter2
+            attributeCode: 'field_3',
+            value: 'other',
+          ), // Only supported by adapter2
         ];
 
         final result = manager.detectAdapter(attributes);
 
         expect(
-            result,
-            equals(
-                adapter2)); // Should prefer adapter2 due to more matches + higher priority
+          result,
+          equals(adapter2),
+        ); // Should prefer adapter2 due to more matches + higher priority
       });
 
       test('should return null when no suitable adapter found', () {
@@ -265,7 +277,9 @@ void main() {
 
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'unsupported_field', value: 'test'),
+            attributeCode: 'unsupported_field',
+            value: 'test',
+          ),
         ];
 
         final result = manager.detectAdapter(attributes);
@@ -296,7 +310,9 @@ void main() {
         manager.registerAdapter('test1', adapter1);
 
         final result = manager.validateCustomData(
-            'test1', ''); // Empty string should be invalid
+          'test1',
+          '',
+        ); // Empty string should be invalid
 
         expect(result, isNotNull);
         expect(result!.isValid, isFalse);
@@ -330,7 +346,9 @@ void main() {
 
         final attributes = [
           const CustomAttribute(
-              attributeCode: 'unsupported_field', value: 'test'),
+            attributeCode: 'unsupported_field',
+            value: 'test',
+          ),
         ];
 
         final result = manager.convertCustomAttributes<String>(attributes);

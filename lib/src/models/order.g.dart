@@ -6,7 +6,7 @@ part of 'order.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
+_Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   id: (json['id'] as num).toInt(),
   incrementId: json['incrementId'] as String,
   status: json['status'] as String,
@@ -44,9 +44,7 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
       : DateTime.parse(json['updatedAt'] as String),
 );
 
-Map<String, dynamic> _$$OrderImplToJson(
-  _$OrderImpl instance,
-) => <String, dynamic>{
+Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'id': instance.id,
   'incrementId': instance.incrementId,
   'status': instance.status,
@@ -60,71 +58,63 @@ Map<String, dynamic> _$$OrderImplToJson(
   'billingAddress': instance.billingAddress.toJson(),
   'shippingAddress': instance.shippingAddress.toJson(),
   'payment': instance.payment.toJson(),
-  if (instance.shipping?.toJson() case final value?) 'shipping': value,
-  if (instance.comments?.map((e) => e.toJson()).toList() case final value?)
-    'comments': value,
-  if (instance.customerEmail case final value?) 'customerEmail': value,
-  if (instance.customerFirstname case final value?) 'customerFirstname': value,
-  if (instance.customerLastname case final value?) 'customerLastname': value,
-  if (instance.couponCode case final value?) 'couponCode': value,
-  if (instance.createdAt?.toIso8601String() case final value?)
-    'createdAt': value,
-  if (instance.updatedAt?.toIso8601String() case final value?)
-    'updatedAt': value,
+  'shipping': ?instance.shipping?.toJson(),
+  'comments': ?instance.comments?.map((e) => e.toJson()).toList(),
+  'customerEmail': ?instance.customerEmail,
+  'customerFirstname': ?instance.customerFirstname,
+  'customerLastname': ?instance.customerLastname,
+  'couponCode': ?instance.couponCode,
+  'createdAt': ?instance.createdAt?.toIso8601String(),
+  'updatedAt': ?instance.updatedAt?.toIso8601String(),
 };
 
-_$OrderItemImpl _$$OrderItemImplFromJson(Map<String, dynamic> json) =>
-    _$OrderItemImpl(
-      id: (json['id'] as num).toInt(),
-      sku: json['sku'] as String,
-      name: json['name'] as String,
-      price: (json['price'] as num).toDouble(),
-      quantity: (json['quantity'] as num).toInt(),
-      rowTotal: (json['rowTotal'] as num?)?.toDouble(),
-      image: json['image'] as String?,
-      options: (json['options'] as List<dynamic>?)
-          ?.map((e) => OrderItemOption.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      customAttributes: json['customAttributes'] as Map<String, dynamic>?,
-    );
-
-Map<String, dynamic> _$$OrderItemImplToJson(
-  _$OrderItemImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'sku': instance.sku,
-  'name': instance.name,
-  'price': instance.price,
-  'quantity': instance.quantity,
-  if (instance.rowTotal case final value?) 'rowTotal': value,
-  if (instance.image case final value?) 'image': value,
-  if (instance.options?.map((e) => e.toJson()).toList() case final value?)
-    'options': value,
-  if (instance.customAttributes case final value?) 'customAttributes': value,
-};
-
-_$OrderItemOptionImpl _$$OrderItemOptionImplFromJson(
-  Map<String, dynamic> json,
-) => _$OrderItemOptionImpl(
-  code: json['code'] as String,
-  label: json['label'] as String,
-  value: json['value'] as String,
-  price: (json['price'] as num?)?.toDouble(),
-  priceType: json['priceType'] as String?,
+_OrderItem _$OrderItemFromJson(Map<String, dynamic> json) => _OrderItem(
+  id: (json['id'] as num).toInt(),
+  sku: json['sku'] as String,
+  name: json['name'] as String,
+  price: (json['price'] as num).toDouble(),
+  quantity: (json['quantity'] as num).toInt(),
+  rowTotal: (json['rowTotal'] as num?)?.toDouble(),
+  image: json['image'] as String?,
+  options: (json['options'] as List<dynamic>?)
+      ?.map((e) => OrderItemOption.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  customAttributes: json['customAttributes'] as Map<String, dynamic>?,
 );
 
-Map<String, dynamic> _$$OrderItemOptionImplToJson(
-  _$OrderItemOptionImpl instance,
-) => <String, dynamic>{
-  'code': instance.code,
-  'label': instance.label,
-  'value': instance.value,
-  if (instance.price case final value?) 'price': value,
-  if (instance.priceType case final value?) 'priceType': value,
-};
+Map<String, dynamic> _$OrderItemToJson(_OrderItem instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'sku': instance.sku,
+      'name': instance.name,
+      'price': instance.price,
+      'quantity': instance.quantity,
+      'rowTotal': ?instance.rowTotal,
+      'image': ?instance.image,
+      'options': ?instance.options?.map((e) => e.toJson()).toList(),
+      'customAttributes': ?instance.customAttributes,
+    };
 
-_$OrderAddressImpl _$$OrderAddressImplFromJson(Map<String, dynamic> json) =>
-    _$OrderAddressImpl(
+_OrderItemOption _$OrderItemOptionFromJson(Map<String, dynamic> json) =>
+    _OrderItemOption(
+      code: json['code'] as String,
+      label: json['label'] as String,
+      value: json['value'] as String,
+      price: (json['price'] as num?)?.toDouble(),
+      priceType: json['priceType'] as String?,
+    );
+
+Map<String, dynamic> _$OrderItemOptionToJson(_OrderItemOption instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'label': instance.label,
+      'value': instance.value,
+      'price': ?instance.price,
+      'priceType': ?instance.priceType,
+    };
+
+_OrderAddress _$OrderAddressFromJson(Map<String, dynamic> json) =>
+    _OrderAddress(
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
       middlename: json['middlename'] as String?,
@@ -141,26 +131,26 @@ _$OrderAddressImpl _$$OrderAddressImplFromJson(Map<String, dynamic> json) =>
       vatId: json['vatId'] as String?,
     );
 
-Map<String, dynamic> _$$OrderAddressImplToJson(_$OrderAddressImpl instance) =>
+Map<String, dynamic> _$OrderAddressToJson(_OrderAddress instance) =>
     <String, dynamic>{
       'firstname': instance.firstname,
       'lastname': instance.lastname,
-      if (instance.middlename case final value?) 'middlename': value,
-      if (instance.prefix case final value?) 'prefix': value,
-      if (instance.suffix case final value?) 'suffix': value,
-      if (instance.company case final value?) 'company': value,
+      'middlename': ?instance.middlename,
+      'prefix': ?instance.prefix,
+      'suffix': ?instance.suffix,
+      'company': ?instance.company,
       'street': instance.street,
       'city': instance.city,
       'region': instance.region,
       'postcode': instance.postcode,
       'countryId': instance.countryId,
-      if (instance.telephone case final value?) 'telephone': value,
-      if (instance.fax case final value?) 'fax': value,
-      if (instance.vatId case final value?) 'vatId': value,
+      'telephone': ?instance.telephone,
+      'fax': ?instance.fax,
+      'vatId': ?instance.vatId,
     };
 
-_$OrderPaymentImpl _$$OrderPaymentImplFromJson(Map<String, dynamic> json) =>
-    _$OrderPaymentImpl(
+_OrderPayment _$OrderPaymentFromJson(Map<String, dynamic> json) =>
+    _OrderPayment(
       method: json['method'] as String,
       title: json['title'] as String,
       amount: (json['amount'] as num).toDouble(),
@@ -168,42 +158,41 @@ _$OrderPaymentImpl _$$OrderPaymentImplFromJson(Map<String, dynamic> json) =>
       additionalData: json['additionalData'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$OrderPaymentImplToJson(_$OrderPaymentImpl instance) =>
+Map<String, dynamic> _$OrderPaymentToJson(_OrderPayment instance) =>
     <String, dynamic>{
       'method': instance.method,
       'title': instance.title,
       'amount': instance.amount,
-      if (instance.transactionId case final value?) 'transactionId': value,
-      if (instance.additionalData case final value?) 'additionalData': value,
+      'transactionId': ?instance.transactionId,
+      'additionalData': ?instance.additionalData,
     };
 
-_$OrderShippingImpl _$$OrderShippingImplFromJson(Map<String, dynamic> json) =>
-    _$OrderShippingImpl(
+_OrderShipping _$OrderShippingFromJson(Map<String, dynamic> json) =>
+    _OrderShipping(
       method: json['method'] as String,
       title: json['title'] as String,
       amount: (json['amount'] as num).toDouble(),
       additionalData: json['additionalData'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$$OrderShippingImplToJson(_$OrderShippingImpl instance) =>
+Map<String, dynamic> _$OrderShippingToJson(_OrderShipping instance) =>
     <String, dynamic>{
       'method': instance.method,
       'title': instance.title,
       'amount': instance.amount,
-      if (instance.additionalData case final value?) 'additionalData': value,
+      'additionalData': ?instance.additionalData,
     };
 
-_$OrderCommentImpl _$$OrderCommentImplFromJson(Map<String, dynamic> json) =>
-    _$OrderCommentImpl(
+_OrderComment _$OrderCommentFromJson(Map<String, dynamic> json) =>
+    _OrderComment(
       comment: json['comment'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       isVisibleOnFront: json['isVisibleOnFront'] as bool?,
     );
 
-Map<String, dynamic> _$$OrderCommentImplToJson(
-  _$OrderCommentImpl instance,
-) => <String, dynamic>{
-  'comment': instance.comment,
-  'createdAt': instance.createdAt.toIso8601String(),
-  if (instance.isVisibleOnFront case final value?) 'isVisibleOnFront': value,
-};
+Map<String, dynamic> _$OrderCommentToJson(_OrderComment instance) =>
+    <String, dynamic>{
+      'comment': instance.comment,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'isVisibleOnFront': ?instance.isVisibleOnFront,
+    };

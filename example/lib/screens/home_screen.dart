@@ -8,9 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter Magento Example'),
-      ),
+      appBar: AppBar(title: const Text('Flutter Magento Example')),
       body: Consumer<AppProvider>(
         builder: (context, provider, child) {
           return Padding(
@@ -33,14 +31,22 @@ class HomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              provider.isInitialized ? Icons.check_circle : Icons.error,
-                              color: provider.isInitialized ? Colors.green : Colors.red,
+                              provider.isInitialized
+                                  ? Icons.check_circle
+                                  : Icons.error,
+                              color: provider.isInitialized
+                                  ? Colors.green
+                                  : Colors.red,
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              provider.isInitialized ? 'Connected' : 'Not Connected',
+                              provider.isInitialized
+                                  ? 'Connected'
+                                  : 'Not Connected',
                               style: TextStyle(
-                                color: provider.isInitialized ? Colors.green : Colors.red,
+                                color: provider.isInitialized
+                                    ? Colors.green
+                                    : Colors.red,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -61,9 +67,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Authentication Status
                 Card(
                   child: Padding(
@@ -79,14 +85,22 @@ class HomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              provider.isAuthenticated ? Icons.person : Icons.person_outline,
-                              color: provider.isAuthenticated ? Colors.green : Colors.grey,
+                              provider.isAuthenticated
+                                  ? Icons.person
+                                  : Icons.person_outline,
+                              color: provider.isAuthenticated
+                                  ? Colors.green
+                                  : Colors.grey,
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              provider.isAuthenticated ? 'Logged In' : 'Not Logged In',
+                              provider.isAuthenticated
+                                  ? 'Logged In'
+                                  : 'Not Logged In',
                               style: TextStyle(
-                                color: provider.isAuthenticated ? Colors.green : Colors.grey,
+                                color: provider.isAuthenticated
+                                    ? Colors.green
+                                    : Colors.grey,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -94,16 +108,18 @@ class HomeScreen extends StatelessWidget {
                         ),
                         if (provider.currentCustomer != null) ...[
                           const SizedBox(height: 8),
-                          Text('Welcome, ${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}!'),
+                          Text(
+                            'Welcome, ${provider.currentCustomer!.firstName} ${provider.currentCustomer!.lastName}!',
+                          ),
                           Text('Email: ${provider.currentCustomer!.email}'),
                         ],
                       ],
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Cart Status
                 if (provider.isAuthenticated)
                   Card(
@@ -117,22 +133,26 @@ class HomeScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 8),
-                          Text('Items in cart: ${provider.currentCart.itemsCount}'),
-                          Text('Total: \$${provider.currentCart.grandTotal.toStringAsFixed(2)}'),
+                          Text(
+                            'Items in cart: ${provider.currentCart.itemsCount}',
+                          ),
+                          Text(
+                            'Total: \$${provider.currentCart.grandTotal.toStringAsFixed(2)}',
+                          ),
                         ],
                       ),
                     ),
                   ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Quick Actions
                 Text(
                   'Quick Actions',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
-                
+
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 2,
@@ -174,9 +194,10 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   void _navigateToTab(BuildContext context, int index) {
-    final mainScreenState = context.findAncestorStateOfType<State<StatefulWidget>>();
+    final mainScreenState = context
+        .findAncestorStateOfType<State<StatefulWidget>>();
     if (mainScreenState != null && mainScreenState.mounted) {
       (mainScreenState as dynamic).setState(() {
         (mainScreenState as dynamic)._currentIndex = index;
@@ -190,7 +211,7 @@ class _QuickActionCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final VoidCallback onTap;
-  
+
   const _QuickActionCard({
     required this.icon,
     required this.title,
@@ -209,11 +230,7 @@ class _QuickActionCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                size: 32,
-                color: Theme.of(context).primaryColor,
-              ),
+              Icon(icon, size: 32, color: Theme.of(context).primaryColor),
               const SizedBox(height: 8),
               Text(
                 title,

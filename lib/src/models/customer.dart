@@ -26,7 +26,8 @@ class Customer with _$Customer {
     List<Address>? addresses,
   }) = _Customer;
 
-  factory Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
+  factory Customer.fromJson(Map<String, dynamic> json) =>
+      _$CustomerFromJson(json);
 }
 
 @freezed
@@ -52,5 +53,6 @@ class Address with _$Address {
     Map<String, dynamic>? customAttributes,
   }) = _Address;
 
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
 }

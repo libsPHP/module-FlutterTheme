@@ -29,7 +29,7 @@ void main() {
           DeviceUtils.isIOS,
           DeviceUtils.isWeb,
         ].where((platform) => platform).length;
-        
+
         // В тестовой среде может быть 0 или 1 активная платформа
         expect(platformCount, lessThanOrEqualTo(1));
       });
