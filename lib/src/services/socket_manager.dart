@@ -49,7 +49,7 @@ class MagentoSocketManager {
       // Слушаем различные события
       _setupEventListeners();
 
-      await _socket!.connect();
+      _socket!.connect();
     } catch (e) {
       throw MagentoException('Failed to connect to socket: $e');
     }
