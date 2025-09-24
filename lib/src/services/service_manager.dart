@@ -234,7 +234,7 @@ class MagentoServiceManager extends ChangeNotifier {
   /// Reset all services
   Future<void> resetServices() async {
     _eventController.add(
-      MagentoServiceEvent(
+      const MagentoServiceEvent(
         type: MagentoServiceEventType.resetting,
         message: 'Resetting all services',
       ),
@@ -257,7 +257,7 @@ class MagentoServiceManager extends ChangeNotifier {
     _setMode(MagentoServiceMode.initializing, 'Services reset');
 
     _eventController.add(
-      MagentoServiceEvent(
+      const MagentoServiceEvent(
         type: MagentoServiceEventType.reset,
         message: 'All services reset',
       ),
