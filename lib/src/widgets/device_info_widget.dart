@@ -521,7 +521,7 @@ Performance: ${deviceInfo.performanceInfo.category.displayName} (${deviceInfo.pe
         content: const SizedBox(
           width: double.maxFinite,
           child: SingleChildScrollView(
-            child: const DeviceInfoWidget(
+            child: DeviceInfoWidget(
               displayStyle: DeviceInfoDisplayStyle.list,
               showActions: false,
             ),

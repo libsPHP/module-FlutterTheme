@@ -151,7 +151,7 @@ class DeviceUtils {
 
       if (deviceInfo.isWeb) {
         // Для веб можем получить некоторую информацию через navigator
-        return NetworkInfo(
+        return const NetworkInfo(
           type: 'web',
           isConnected: true, // Предполагаем, что есть соединение
           strength: null,

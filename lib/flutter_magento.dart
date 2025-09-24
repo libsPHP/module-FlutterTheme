@@ -8,6 +8,7 @@
 /// - Result pattern for improved error handling
 /// - Pigeon for type-safe platform communication
 /// - Comprehensive testing and monitoring
+library flutter_magento;
 
 // Modern Core Platform Interface (New Architecture)
 export 'src/core/result.dart';
