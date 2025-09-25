@@ -120,7 +120,7 @@ class MagentoServiceManager extends ChangeNotifier {
       _isInitialized = true;
 
       _eventController.add(
-        MagentoServiceEvent(
+        const MagentoServiceEvent(
           type: MagentoServiceEventType.initialized,
           message: 'All services initialized successfully',
         ),
@@ -144,15 +144,15 @@ class MagentoServiceManager extends ChangeNotifier {
   /// Get a service instance by type
   T getService<T>() {
     switch (T) {
-      case NetworkService:
+      case NetworkService _:
         return networkService as T;
-      case MagentoSyncService:
+      case MagentoSyncService _:
         return syncService as T;
-      case MagentoCacheService:
+      case MagentoCacheService _:
         return cacheService as T;
-      case MagentoCloudFeatureManager:
+      case MagentoCloudFeatureManager _:
         return cloudFeatureManager as T;
-      case MagentoNotificationService:
+      case MagentoNotificationService _:
         return notificationService as T;
       default:
         throw ArgumentError('Unknown service type: $T');

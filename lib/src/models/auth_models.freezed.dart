@@ -15,7 +15,11 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthResponse {
 
- String get accessToken; String get refreshToken; String get tokenType; int get expiresIn; Customer get customer;
+  String get accessToken;
+  String get refreshToken;
+  String get tokenType;
+  int get expiresIn;
+  Customer get customer;
 /// Create a copy of AuthResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
