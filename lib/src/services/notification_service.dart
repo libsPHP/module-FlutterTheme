@@ -314,7 +314,9 @@ class MagentoNotificationService extends ChangeNotifier {
       _notificationHistory.removeWhere((notification) {
         if (type != null && notification.type != type) return false;
         if (olderThan != null &&
-            notification.timestamp.isAfter(DateTime.now().subtract(olderThan))) {
+            notification.timestamp.isAfter(
+              DateTime.now().subtract(olderThan),
+            )) {
           return false;
         }
         return true;
