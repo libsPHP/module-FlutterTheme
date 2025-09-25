@@ -281,11 +281,13 @@ class MagentoNotificationService extends ChangeNotifier {
     var filtered = _notificationHistory.where((notification) {
       if (type != null && notification.type != type) return false;
       if (minPriority != null &&
-          notification.priority.index < minPriority.index)
+          notification.priority.index < minPriority.index) {
         return false;
+      }
       if (since != null &&
-          notification.timestamp.isBefore(DateTime.now().subtract(since)))
+          notification.timestamp.isBefore(DateTime.now().subtract(since))) {
         return false;
+      }
       return true;
     }).toList();
 

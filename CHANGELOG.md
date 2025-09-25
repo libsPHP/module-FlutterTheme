@@ -1,3 +1,10 @@
+## 3.2.1
+
+* **Code Quality**: Fixed linting issues including curly braces in flow control structures
+* **Performance**: Added const constructor for better performance in service manager
+* **Generated Files**: Fixed and regenerated auth_models freezed and json serialization files
+* **Publishing**: Resolved all dart analyze issues for clean package publishing
+
 ## 3.1.1
 
 * **Modern Architecture**: Implemented Dart 3+ base classes for better type safety
