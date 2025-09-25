@@ -357,20 +357,20 @@ class NetworkService extends ChangeNotifier {
   MagentoException _convertDioErrorToMagentoException(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return MagentoException('Connection timeout', code: 'TIMEOUT');
+        return const MagentoException('Connection timeout', code: 'TIMEOUT');
       case DioExceptionType.sendTimeout:
-        return MagentoException('Send timeout', code: 'SEND_TIMEOUT');
+        return const MagentoException('Send timeout', code: 'SEND_TIMEOUT');
       case DioExceptionType.receiveTimeout:
-        return MagentoException('Receive timeout', code: 'RECEIVE_TIMEOUT');
+        return const MagentoException('Receive timeout', code: 'RECEIVE_TIMEOUT');
       case DioExceptionType.badResponse:
         final statusCode = error.response?.statusCode ?? 0;
         final message =
             error.response?.data?['message'] ?? 'Server error: $statusCode';
         return MagentoException(message, code: 'HTTP_$statusCode');
       case DioExceptionType.cancel:
-        return MagentoException('Request cancelled', code: 'CANCELLED');
+        return const MagentoException('Request cancelled', code: 'CANCELLED');
       case DioExceptionType.connectionError:
-        return MagentoException('Connection error', code: 'CONNECTION_ERROR');
+        return const MagentoException('Connection error', code: 'CONNECTION_ERROR');
       default:
         return MagentoException(
           error.message ?? 'Unknown network error',
@@ -382,7 +382,7 @@ class NetworkService extends ChangeNotifier {
   /// Проверка инициализации
   void _checkInitialization() {
     if (!_isInitialized) {
-      throw MagentoException(
+      throw const MagentoException(
         'NetworkService not initialized',
         code: 'NOT_INITIALIZED',
       );
