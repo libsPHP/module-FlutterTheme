@@ -483,7 +483,7 @@ class CartApi {
   /// Set shipping information for cart
   Future<Cart> setShippingInformation({
     required String cartId,
-    required Address address,
+    required CartAddress address,
     required String methodCode,
     required String carrierCode,
   }) async {
@@ -517,7 +517,7 @@ class CartApi {
 
   /// Set shipping information for customer cart
   Future<Cart> setCustomerCartShippingInformation({
-    required Address address,
+    required CartAddress address,
     required String methodCode,
     required String carrierCode,
   }) async {

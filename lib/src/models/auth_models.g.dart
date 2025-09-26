@@ -24,98 +24,6 @@ Map<String, dynamic> _$AuthResponseToJson(_AuthResponse instance) =>
       'customer': instance.customer.toJson(),
     };
 
-_Customer _$CustomerFromJson(Map<String, dynamic> json) => _Customer(
-  id: (json['id'] as num).toInt(),
-  email: json['email'] as String,
-  firstname: json['firstname'] as String,
-  lastname: json['lastname'] as String,
-  middlename: json['middlename'] as String?,
-  groupId: (json['groupId'] as num?)?.toInt(),
-  dob: json['dob'] as String?,
-  taxvat: json['taxvat'] as String?,
-  gender: json['gender'] as String?,
-  isSubscribed: json['isSubscribed'] as bool?,
-  prefix: json['prefix'] as String?,
-  suffix: json['suffix'] as String?,
-  defaultBilling: json['defaultBilling'] as String?,
-  defaultShipping: json['defaultShipping'] as String?,
-  createdAt: json['createdAt'] == null
-      ? null
-      : DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String),
-  addresses: (json['addresses'] as List<dynamic>?)
-      ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
-
-Map<String, dynamic> _$CustomerToJson(_Customer instance) => <String, dynamic>{
-  'id': instance.id,
-  'email': instance.email,
-  'firstname': instance.firstname,
-  'lastname': instance.lastname,
-  'middlename': ?instance.middlename,
-  'groupId': ?instance.groupId,
-  'dob': ?instance.dob,
-  'taxvat': ?instance.taxvat,
-  'gender': ?instance.gender,
-  'isSubscribed': ?instance.isSubscribed,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'defaultBilling': ?instance.defaultBilling,
-  'defaultShipping': ?instance.defaultShipping,
-  'createdAt': ?instance.createdAt?.toIso8601String(),
-  'updatedAt': ?instance.updatedAt?.toIso8601String(),
-  'addresses': ?instance.addresses?.map((e) => e.toJson()).toList(),
-};
-
-_Address _$AddressFromJson(Map<String, dynamic> json) => _Address(
-  id: (json['id'] as num?)?.toInt(),
-  customerId: json['customerId'] as String?,
-  region: json['region'] as String?,
-  regionId: json['regionId'] as String?,
-  regionCode: json['regionCode'] as String?,
-  countryId: json['countryId'] as String?,
-  street: (json['street'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  company: json['company'] as String?,
-  telephone: json['telephone'] as String?,
-  fax: json['fax'] as String?,
-  postcode: json['postcode'] as String?,
-  city: json['city'] as String?,
-  firstname: json['firstname'] as String?,
-  lastname: json['lastname'] as String?,
-  middlename: json['middlename'] as String?,
-  prefix: json['prefix'] as String?,
-  suffix: json['suffix'] as String?,
-  vatId: json['vatId'] as String?,
-  defaultShipping: json['defaultShipping'] as bool?,
-  defaultBilling: json['defaultBilling'] as bool?,
-);
-
-Map<String, dynamic> _$AddressToJson(_Address instance) => <String, dynamic>{
-  'id': ?instance.id,
-  'customerId': ?instance.customerId,
-  'region': ?instance.region,
-  'regionId': ?instance.regionId,
-  'regionCode': ?instance.regionCode,
-  'countryId': ?instance.countryId,
-  'street': ?instance.street,
-  'company': ?instance.company,
-  'telephone': ?instance.telephone,
-  'fax': ?instance.fax,
-  'postcode': ?instance.postcode,
-  'city': ?instance.city,
-  'firstname': ?instance.firstname,
-  'lastname': ?instance.lastname,
-  'middlename': ?instance.middlename,
-  'prefix': ?instance.prefix,
-  'suffix': ?instance.suffix,
-  'vatId': ?instance.vatId,
-  'defaultShipping': ?instance.defaultShipping,
-  'defaultBilling': ?instance.defaultBilling,
-};
-
 _CustomerCreateRequest _$CustomerCreateRequestFromJson(
   Map<String, dynamic> json,
 ) => _CustomerCreateRequest(
@@ -126,7 +34,7 @@ _CustomerCreateRequest _$CustomerCreateRequestFromJson(
   middlename: json['middlename'] as String?,
   prefix: json['prefix'] as String?,
   suffix: json['suffix'] as String?,
-  dob: json['dob'] as String?,
+  dateOfBirth: json['dateOfBirth'] as String?,
   taxvat: json['taxvat'] as String?,
   gender: json['gender'] as String?,
   isSubscribed: json['isSubscribed'] as bool?,
@@ -145,7 +53,7 @@ Map<String, dynamic> _$CustomerCreateRequestToJson(
   'middlename': ?instance.middlename,
   'prefix': ?instance.prefix,
   'suffix': ?instance.suffix,
-  'dob': ?instance.dob,
+  'dateOfBirth': ?instance.dateOfBirth,
   'taxvat': ?instance.taxvat,
   'gender': ?instance.gender,
   'isSubscribed': ?instance.isSubscribed,
@@ -160,7 +68,7 @@ _CustomerUpdateRequest _$CustomerUpdateRequestFromJson(
   middlename: json['middlename'] as String?,
   prefix: json['prefix'] as String?,
   suffix: json['suffix'] as String?,
-  dob: json['dob'] as String?,
+  dateOfBirth: json['dateOfBirth'] as String?,
   taxvat: json['taxvat'] as String?,
   gender: json['gender'] as String?,
   isSubscribed: json['isSubscribed'] as bool?,
@@ -177,7 +85,7 @@ Map<String, dynamic> _$CustomerUpdateRequestToJson(
   'middlename': ?instance.middlename,
   'prefix': ?instance.prefix,
   'suffix': ?instance.suffix,
-  'dob': ?instance.dob,
+  'dateOfBirth': ?instance.dateOfBirth,
   'taxvat': ?instance.taxvat,
   'gender': ?instance.gender,
   'isSubscribed': ?instance.isSubscribed,

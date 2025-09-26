@@ -193,7 +193,7 @@ class CartAddress {
   final bool? isDefaultShipping;
   final bool? isDefaultBilling;
 
-  Address({
+  CartAddress({
     this.id,
     this.customerId,
     this.regionId,
@@ -299,8 +299,8 @@ class CartItemUpdateRequest {
 /// Shipping information request model
 @JsonSerializable()
 class ShippingInformationRequest {
-  final Address? shippingAddress;
-  final Address? billingAddress;
+  final CartAddress? shippingAddress;
+  final CartAddress? billingAddress;
   final String? shippingMethodCode;
   final String? shippingCarrierCode;
   final String? customAttributes;

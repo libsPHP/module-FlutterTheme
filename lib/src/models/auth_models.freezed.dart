@@ -306,656 +306,9 @@ $CustomerCopyWith<$Res> get customer {
 
 
 /// @nodoc
-mixin _$Customer {
-
- int get id; String get email; String get firstname; String get lastname; String? get middlename; int? get groupId; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; String? get prefix; String? get suffix; String? get defaultBilling; String? get defaultShipping; DateTime? get createdAt; DateTime? get updatedAt; List<Address>? get addresses;
-/// Create a copy of Customer
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$CustomerCopyWith<Customer> get copyWith => _$CustomerCopyWithImpl<Customer>(this as Customer, _$identity);
-
-  /// Serializes this Customer to a JSON map.
-  Map<String, dynamic> toJson();
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Customer&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.defaultBilling, defaultBilling) || other.defaultBilling == defaultBilling)&&(identical(other.defaultShipping, defaultShipping) || other.defaultShipping == defaultShipping)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other.addresses, addresses));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,id,email,firstname,lastname,middlename,groupId,dob,taxvat,gender,isSubscribed,prefix,suffix,defaultBilling,defaultShipping,createdAt,updatedAt,const DeepCollectionEquality().hash(addresses));
-
-@override
-String toString() {
-  return 'Customer(id: $id, email: $email, firstname: $firstname, lastname: $lastname, middlename: $middlename, groupId: $groupId, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, prefix: $prefix, suffix: $suffix, defaultBilling: $defaultBilling, defaultShipping: $defaultShipping, createdAt: $createdAt, updatedAt: $updatedAt, addresses: $addresses)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $CustomerCopyWith<$Res>  {
-  factory $CustomerCopyWith(Customer value, $Res Function(Customer) _then) = _$CustomerCopyWithImpl;
-@useResult
-$Res call({
- int id, String email, String firstname, String lastname, String? middlename, int? groupId, String? dob, String? taxvat, String? gender, bool? isSubscribed, String? prefix, String? suffix, String? defaultBilling, String? defaultShipping, DateTime? createdAt, DateTime? updatedAt, List<Address>? addresses
-});
-
-
-
-
-}
-/// @nodoc
-class _$CustomerCopyWithImpl<$Res>
-    implements $CustomerCopyWith<$Res> {
-  _$CustomerCopyWithImpl(this._self, this._then);
-
-  final Customer _self;
-  final $Res Function(Customer) _then;
-
-/// Create a copy of Customer
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? groupId = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? defaultBilling = freezed,Object? defaultShipping = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? addresses = freezed,}) {
-  return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,firstname: null == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
-as String,lastname: null == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
-as String,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
-as String?,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as int?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
-as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
-as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
-as bool?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,defaultBilling: freezed == defaultBilling ? _self.defaultBilling : defaultBilling // ignore: cast_nullable_to_non_nullable
-as String?,defaultShipping: freezed == defaultShipping ? _self.defaultShipping : defaultShipping // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,addresses: freezed == addresses ? _self.addresses : addresses // ignore: cast_nullable_to_non_nullable
-as List<Address>?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [Customer].
-extension CustomerPatterns on Customer {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Customer value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _Customer() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Customer value)  $default,){
-final _that = this;
-switch (_that) {
-case _Customer():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Customer value)?  $default,){
-final _that = this;
-switch (_that) {
-case _Customer() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String email,  String firstname,  String lastname,  String? middlename,  int? groupId,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  String? prefix,  String? suffix,  String? defaultBilling,  String? defaultShipping,  DateTime? createdAt,  DateTime? updatedAt,  List<Address>? addresses)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _Customer() when $default != null:
-return $default(_that.id,_that.email,_that.firstname,_that.lastname,_that.middlename,_that.groupId,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.prefix,_that.suffix,_that.defaultBilling,_that.defaultShipping,_that.createdAt,_that.updatedAt,_that.addresses);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String email,  String firstname,  String lastname,  String? middlename,  int? groupId,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  String? prefix,  String? suffix,  String? defaultBilling,  String? defaultShipping,  DateTime? createdAt,  DateTime? updatedAt,  List<Address>? addresses)  $default,) {final _that = this;
-switch (_that) {
-case _Customer():
-return $default(_that.id,_that.email,_that.firstname,_that.lastname,_that.middlename,_that.groupId,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.prefix,_that.suffix,_that.defaultBilling,_that.defaultShipping,_that.createdAt,_that.updatedAt,_that.addresses);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String email,  String firstname,  String lastname,  String? middlename,  int? groupId,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  String? prefix,  String? suffix,  String? defaultBilling,  String? defaultShipping,  DateTime? createdAt,  DateTime? updatedAt,  List<Address>? addresses)?  $default,) {final _that = this;
-switch (_that) {
-case _Customer() when $default != null:
-return $default(_that.id,_that.email,_that.firstname,_that.lastname,_that.middlename,_that.groupId,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.prefix,_that.suffix,_that.defaultBilling,_that.defaultShipping,_that.createdAt,_that.updatedAt,_that.addresses);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class _Customer extends Customer {
-  const _Customer({required this.id, required this.email, required this.firstname, required this.lastname, this.middlename, this.groupId, this.dob, this.taxvat, this.gender, this.isSubscribed, this.prefix, this.suffix, this.defaultBilling, this.defaultShipping, this.createdAt, this.updatedAt, final  List<Address>? addresses}): _addresses = addresses,super._();
-  factory _Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
-
-@override final  int id;
-@override final  String email;
-@override final  String firstname;
-@override final  String lastname;
-@override final  String? middlename;
-@override final  int? groupId;
-@override final  String? dob;
-@override final  String? taxvat;
-@override final  String? gender;
-@override final  bool? isSubscribed;
-@override final  String? prefix;
-@override final  String? suffix;
-@override final  String? defaultBilling;
-@override final  String? defaultShipping;
-@override final  DateTime? createdAt;
-@override final  DateTime? updatedAt;
- final  List<Address>? _addresses;
-@override List<Address>? get addresses {
-  final value = _addresses;
-  if (value == null) return null;
-  if (_addresses is EqualUnmodifiableListView) return _addresses;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
-
-/// Create a copy of Customer
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$CustomerCopyWith<_Customer> get copyWith => __$CustomerCopyWithImpl<_Customer>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$CustomerToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Customer&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.defaultBilling, defaultBilling) || other.defaultBilling == defaultBilling)&&(identical(other.defaultShipping, defaultShipping) || other.defaultShipping == defaultShipping)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&const DeepCollectionEquality().equals(other._addresses, _addresses));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hash(runtimeType,id,email,firstname,lastname,middlename,groupId,dob,taxvat,gender,isSubscribed,prefix,suffix,defaultBilling,defaultShipping,createdAt,updatedAt,const DeepCollectionEquality().hash(_addresses));
-
-@override
-String toString() {
-  return 'Customer(id: $id, email: $email, firstname: $firstname, lastname: $lastname, middlename: $middlename, groupId: $groupId, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, prefix: $prefix, suffix: $suffix, defaultBilling: $defaultBilling, defaultShipping: $defaultShipping, createdAt: $createdAt, updatedAt: $updatedAt, addresses: $addresses)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$CustomerCopyWith<$Res> implements $CustomerCopyWith<$Res> {
-  factory _$CustomerCopyWith(_Customer value, $Res Function(_Customer) _then) = __$CustomerCopyWithImpl;
-@override @useResult
-$Res call({
- int id, String email, String firstname, String lastname, String? middlename, int? groupId, String? dob, String? taxvat, String? gender, bool? isSubscribed, String? prefix, String? suffix, String? defaultBilling, String? defaultShipping, DateTime? createdAt, DateTime? updatedAt, List<Address>? addresses
-});
-
-
-
-
-}
-/// @nodoc
-class __$CustomerCopyWithImpl<$Res>
-    implements _$CustomerCopyWith<$Res> {
-  __$CustomerCopyWithImpl(this._self, this._then);
-
-  final _Customer _self;
-  final $Res Function(_Customer) _then;
-
-/// Create a copy of Customer
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? groupId = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? defaultBilling = freezed,Object? defaultShipping = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? addresses = freezed,}) {
-  return _then(_Customer(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,firstname: null == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
-as String,lastname: null == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
-as String,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
-as String?,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
-as int?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
-as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
-as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
-as bool?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,defaultBilling: freezed == defaultBilling ? _self.defaultBilling : defaultBilling // ignore: cast_nullable_to_non_nullable
-as String?,defaultShipping: freezed == defaultShipping ? _self.defaultShipping : defaultShipping // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,addresses: freezed == addresses ? _self._addresses : addresses // ignore: cast_nullable_to_non_nullable
-as List<Address>?,
-  ));
-}
-
-
-}
-
-
-/// @nodoc
-mixin _$Address {
-
- int? get id; String? get customerId; String? get region; String? get regionId; String? get regionCode; String? get countryId; List<String>? get street; String? get company; String? get telephone; String? get fax; String? get postcode; String? get city; String? get firstname; String? get lastname; String? get middlename; String? get prefix; String? get suffix; String? get vatId; bool? get defaultShipping; bool? get defaultBilling;
-/// Create a copy of Address
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$AddressCopyWith<Address> get copyWith => _$AddressCopyWithImpl<Address>(this as Address, _$identity);
-
-  /// Serializes this Address to a JSON map.
-  Map<String, dynamic> toJson();
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Address&&(identical(other.id, id) || other.id == id)&&(identical(other.customerId, customerId) || other.customerId == customerId)&&(identical(other.region, region) || other.region == region)&&(identical(other.regionId, regionId) || other.regionId == regionId)&&(identical(other.regionCode, regionCode) || other.regionCode == regionCode)&&(identical(other.countryId, countryId) || other.countryId == countryId)&&const DeepCollectionEquality().equals(other.street, street)&&(identical(other.company, company) || other.company == company)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.fax, fax) || other.fax == fax)&&(identical(other.postcode, postcode) || other.postcode == postcode)&&(identical(other.city, city) || other.city == city)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.vatId, vatId) || other.vatId == vatId)&&(identical(other.defaultShipping, defaultShipping) || other.defaultShipping == defaultShipping)&&(identical(other.defaultBilling, defaultBilling) || other.defaultBilling == defaultBilling));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hashAll([runtimeType,id,customerId,region,regionId,regionCode,countryId,const DeepCollectionEquality().hash(street),company,telephone,fax,postcode,city,firstname,lastname,middlename,prefix,suffix,vatId,defaultShipping,defaultBilling]);
-
-@override
-String toString() {
-  return 'Address(id: $id, customerId: $customerId, region: $region, regionId: $regionId, regionCode: $regionCode, countryId: $countryId, street: $street, company: $company, telephone: $telephone, fax: $fax, postcode: $postcode, city: $city, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, vatId: $vatId, defaultShipping: $defaultShipping, defaultBilling: $defaultBilling)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $AddressCopyWith<$Res>  {
-  factory $AddressCopyWith(Address value, $Res Function(Address) _then) = _$AddressCopyWithImpl;
-@useResult
-$Res call({
- int? id, String? customerId, String? region, String? regionId, String? regionCode, String? countryId, List<String>? street, String? company, String? telephone, String? fax, String? postcode, String? city, String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? vatId, bool? defaultShipping, bool? defaultBilling
-});
-
-
-
-
-}
-/// @nodoc
-class _$AddressCopyWithImpl<$Res>
-    implements $AddressCopyWith<$Res> {
-  _$AddressCopyWithImpl(this._self, this._then);
-
-  final Address _self;
-  final $Res Function(Address) _then;
-
-/// Create a copy of Address
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? customerId = freezed,Object? region = freezed,Object? regionId = freezed,Object? regionCode = freezed,Object? countryId = freezed,Object? street = freezed,Object? company = freezed,Object? telephone = freezed,Object? fax = freezed,Object? postcode = freezed,Object? city = freezed,Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? vatId = freezed,Object? defaultShipping = freezed,Object? defaultBilling = freezed,}) {
-  return _then(_self.copyWith(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int?,customerId: freezed == customerId ? _self.customerId : customerId // ignore: cast_nullable_to_non_nullable
-as String?,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
-as String?,regionId: freezed == regionId ? _self.regionId : regionId // ignore: cast_nullable_to_non_nullable
-as String?,regionCode: freezed == regionCode ? _self.regionCode : regionCode // ignore: cast_nullable_to_non_nullable
-as String?,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as String?,street: freezed == street ? _self.street : street // ignore: cast_nullable_to_non_nullable
-as List<String>?,company: freezed == company ? _self.company : company // ignore: cast_nullable_to_non_nullable
-as String?,telephone: freezed == telephone ? _self.telephone : telephone // ignore: cast_nullable_to_non_nullable
-as String?,fax: freezed == fax ? _self.fax : fax // ignore: cast_nullable_to_non_nullable
-as String?,postcode: freezed == postcode ? _self.postcode : postcode // ignore: cast_nullable_to_non_nullable
-as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as String?,firstname: freezed == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
-as String?,lastname: freezed == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
-as String?,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
-as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,vatId: freezed == vatId ? _self.vatId : vatId // ignore: cast_nullable_to_non_nullable
-as String?,defaultShipping: freezed == defaultShipping ? _self.defaultShipping : defaultShipping // ignore: cast_nullable_to_non_nullable
-as bool?,defaultBilling: freezed == defaultBilling ? _self.defaultBilling : defaultBilling // ignore: cast_nullable_to_non_nullable
-as bool?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [Address].
-extension AddressPatterns on Address {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Address value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _Address() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Address value)  $default,){
-final _that = this;
-switch (_that) {
-case _Address():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Address value)?  $default,){
-final _that = this;
-switch (_that) {
-case _Address() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? customerId,  String? region,  String? regionId,  String? regionCode,  String? countryId,  List<String>? street,  String? company,  String? telephone,  String? fax,  String? postcode,  String? city,  String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? vatId,  bool? defaultShipping,  bool? defaultBilling)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _Address() when $default != null:
-return $default(_that.id,_that.customerId,_that.region,_that.regionId,_that.regionCode,_that.countryId,_that.street,_that.company,_that.telephone,_that.fax,_that.postcode,_that.city,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.vatId,_that.defaultShipping,_that.defaultBilling);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? customerId,  String? region,  String? regionId,  String? regionCode,  String? countryId,  List<String>? street,  String? company,  String? telephone,  String? fax,  String? postcode,  String? city,  String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? vatId,  bool? defaultShipping,  bool? defaultBilling)  $default,) {final _that = this;
-switch (_that) {
-case _Address():
-return $default(_that.id,_that.customerId,_that.region,_that.regionId,_that.regionCode,_that.countryId,_that.street,_that.company,_that.telephone,_that.fax,_that.postcode,_that.city,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.vatId,_that.defaultShipping,_that.defaultBilling);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? customerId,  String? region,  String? regionId,  String? regionCode,  String? countryId,  List<String>? street,  String? company,  String? telephone,  String? fax,  String? postcode,  String? city,  String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? vatId,  bool? defaultShipping,  bool? defaultBilling)?  $default,) {final _that = this;
-switch (_that) {
-case _Address() when $default != null:
-return $default(_that.id,_that.customerId,_that.region,_that.regionId,_that.regionCode,_that.countryId,_that.street,_that.company,_that.telephone,_that.fax,_that.postcode,_that.city,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.vatId,_that.defaultShipping,_that.defaultBilling);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-@JsonSerializable()
-
-class _Address implements Address {
-  const _Address({this.id, this.customerId, this.region, this.regionId, this.regionCode, this.countryId, final  List<String>? street, this.company, this.telephone, this.fax, this.postcode, this.city, this.firstname, this.lastname, this.middlename, this.prefix, this.suffix, this.vatId, this.defaultShipping, this.defaultBilling}): _street = street;
-  factory _Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
-
-@override final  int? id;
-@override final  String? customerId;
-@override final  String? region;
-@override final  String? regionId;
-@override final  String? regionCode;
-@override final  String? countryId;
- final  List<String>? _street;
-@override List<String>? get street {
-  final value = _street;
-  if (value == null) return null;
-  if (_street is EqualUnmodifiableListView) return _street;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
-@override final  String? company;
-@override final  String? telephone;
-@override final  String? fax;
-@override final  String? postcode;
-@override final  String? city;
-@override final  String? firstname;
-@override final  String? lastname;
-@override final  String? middlename;
-@override final  String? prefix;
-@override final  String? suffix;
-@override final  String? vatId;
-@override final  bool? defaultShipping;
-@override final  bool? defaultBilling;
-
-/// Create a copy of Address
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$AddressCopyWith<_Address> get copyWith => __$AddressCopyWithImpl<_Address>(this, _$identity);
-
-@override
-Map<String, dynamic> toJson() {
-  return _$AddressToJson(this, );
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Address&&(identical(other.id, id) || other.id == id)&&(identical(other.customerId, customerId) || other.customerId == customerId)&&(identical(other.region, region) || other.region == region)&&(identical(other.regionId, regionId) || other.regionId == regionId)&&(identical(other.regionCode, regionCode) || other.regionCode == regionCode)&&(identical(other.countryId, countryId) || other.countryId == countryId)&&const DeepCollectionEquality().equals(other._street, _street)&&(identical(other.company, company) || other.company == company)&&(identical(other.telephone, telephone) || other.telephone == telephone)&&(identical(other.fax, fax) || other.fax == fax)&&(identical(other.postcode, postcode) || other.postcode == postcode)&&(identical(other.city, city) || other.city == city)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.vatId, vatId) || other.vatId == vatId)&&(identical(other.defaultShipping, defaultShipping) || other.defaultShipping == defaultShipping)&&(identical(other.defaultBilling, defaultBilling) || other.defaultBilling == defaultBilling));
-}
-
-@JsonKey(includeFromJson: false, includeToJson: false)
-@override
-int get hashCode => Object.hashAll([runtimeType,id,customerId,region,regionId,regionCode,countryId,const DeepCollectionEquality().hash(_street),company,telephone,fax,postcode,city,firstname,lastname,middlename,prefix,suffix,vatId,defaultShipping,defaultBilling]);
-
-@override
-String toString() {
-  return 'Address(id: $id, customerId: $customerId, region: $region, regionId: $regionId, regionCode: $regionCode, countryId: $countryId, street: $street, company: $company, telephone: $telephone, fax: $fax, postcode: $postcode, city: $city, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, vatId: $vatId, defaultShipping: $defaultShipping, defaultBilling: $defaultBilling)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
-  factory _$AddressCopyWith(_Address value, $Res Function(_Address) _then) = __$AddressCopyWithImpl;
-@override @useResult
-$Res call({
- int? id, String? customerId, String? region, String? regionId, String? regionCode, String? countryId, List<String>? street, String? company, String? telephone, String? fax, String? postcode, String? city, String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? vatId, bool? defaultShipping, bool? defaultBilling
-});
-
-
-
-
-}
-/// @nodoc
-class __$AddressCopyWithImpl<$Res>
-    implements _$AddressCopyWith<$Res> {
-  __$AddressCopyWithImpl(this._self, this._then);
-
-  final _Address _self;
-  final $Res Function(_Address) _then;
-
-/// Create a copy of Address
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? customerId = freezed,Object? region = freezed,Object? regionId = freezed,Object? regionCode = freezed,Object? countryId = freezed,Object? street = freezed,Object? company = freezed,Object? telephone = freezed,Object? fax = freezed,Object? postcode = freezed,Object? city = freezed,Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? vatId = freezed,Object? defaultShipping = freezed,Object? defaultBilling = freezed,}) {
-  return _then(_Address(
-id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int?,customerId: freezed == customerId ? _self.customerId : customerId // ignore: cast_nullable_to_non_nullable
-as String?,region: freezed == region ? _self.region : region // ignore: cast_nullable_to_non_nullable
-as String?,regionId: freezed == regionId ? _self.regionId : regionId // ignore: cast_nullable_to_non_nullable
-as String?,regionCode: freezed == regionCode ? _self.regionCode : regionCode // ignore: cast_nullable_to_non_nullable
-as String?,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as String?,street: freezed == street ? _self._street : street // ignore: cast_nullable_to_non_nullable
-as List<String>?,company: freezed == company ? _self.company : company // ignore: cast_nullable_to_non_nullable
-as String?,telephone: freezed == telephone ? _self.telephone : telephone // ignore: cast_nullable_to_non_nullable
-as String?,fax: freezed == fax ? _self.fax : fax // ignore: cast_nullable_to_non_nullable
-as String?,postcode: freezed == postcode ? _self.postcode : postcode // ignore: cast_nullable_to_non_nullable
-as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
-as String?,firstname: freezed == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
-as String?,lastname: freezed == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
-as String?,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
-as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
-as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,vatId: freezed == vatId ? _self.vatId : vatId // ignore: cast_nullable_to_non_nullable
-as String?,defaultShipping: freezed == defaultShipping ? _self.defaultShipping : defaultShipping // ignore: cast_nullable_to_non_nullable
-as bool?,defaultBilling: freezed == defaultBilling ? _self.defaultBilling : defaultBilling // ignore: cast_nullable_to_non_nullable
-as bool?,
-  ));
-}
-
-
-}
-
-
-/// @nodoc
 mixin _$CustomerCreateRequest {
 
- String get email; String get password; String get firstname; String get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
+ String get email; String get password; String get firstname; String get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dateOfBirth; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
 /// Create a copy of CustomerCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -968,16 +321,16 @@ $CustomerCreateRequestCopyWith<CustomerCreateRequest> get copyWith => _$Customer
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerCreateRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other.addresses, addresses));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerCreateRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other.addresses, addresses));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,password,firstname,lastname,middlename,prefix,suffix,dob,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(addresses));
+int get hashCode => Object.hash(runtimeType,email,password,firstname,lastname,middlename,prefix,suffix,dateOfBirth,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(addresses));
 
 @override
 String toString() {
-  return 'CustomerCreateRequest(email: $email, password: $password, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  return 'CustomerCreateRequest(email: $email, password: $password, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
 }
 
 
@@ -988,7 +341,7 @@ abstract mixin class $CustomerCreateRequestCopyWith<$Res>  {
   factory $CustomerCreateRequestCopyWith(CustomerCreateRequest value, $Res Function(CustomerCreateRequest) _then) = _$CustomerCreateRequestCopyWithImpl;
 @useResult
 $Res call({
- String email, String password, String firstname, String lastname, String? middlename, String? prefix, String? suffix, String? dob, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
+ String email, String password, String firstname, String lastname, String? middlename, String? prefix, String? suffix, String? dateOfBirth, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
 });
 
 
@@ -1005,7 +358,7 @@ class _$CustomerCreateRequestCopyWithImpl<$Res>
 
 /// Create a copy of CustomerCreateRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dateOfBirth = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
   return _then(_self.copyWith(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
@@ -1014,7 +367,7 @@ as String,lastname: null == lastname ? _self.lastname : lastname // ignore: cast
 as String,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
 as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
@@ -1104,10 +457,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomerCreateRequest() when $default != null:
-return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   return orElse();
 
 }
@@ -1125,10 +478,10 @@ return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)  $default,) {final _that = this;
 switch (_that) {
 case _CustomerCreateRequest():
-return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1145,10 +498,10 @@ return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String firstname,  String lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomerCreateRequest() when $default != null:
-return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   return null;
 
 }
@@ -1160,7 +513,7 @@ return $default(_that.email,_that.password,_that.firstname,_that.lastname,_that.
 @JsonSerializable()
 
 class _CustomerCreateRequest implements CustomerCreateRequest {
-  const _CustomerCreateRequest({required this.email, required this.password, required this.firstname, required this.lastname, this.middlename, this.prefix, this.suffix, this.dob, this.taxvat, this.gender, this.isSubscribed, final  List<Address>? addresses}): _addresses = addresses;
+  const _CustomerCreateRequest({required this.email, required this.password, required this.firstname, required this.lastname, this.middlename, this.prefix, this.suffix, this.dateOfBirth, this.taxvat, this.gender, this.isSubscribed, final  List<Address>? addresses}): _addresses = addresses;
   factory _CustomerCreateRequest.fromJson(Map<String, dynamic> json) => _$CustomerCreateRequestFromJson(json);
 
 @override final  String email;
@@ -1170,7 +523,7 @@ class _CustomerCreateRequest implements CustomerCreateRequest {
 @override final  String? middlename;
 @override final  String? prefix;
 @override final  String? suffix;
-@override final  String? dob;
+@override final  String? dateOfBirth;
 @override final  String? taxvat;
 @override final  String? gender;
 @override final  bool? isSubscribed;
@@ -1197,16 +550,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerCreateRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other._addresses, _addresses));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerCreateRequest&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other._addresses, _addresses));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,password,firstname,lastname,middlename,prefix,suffix,dob,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(_addresses));
+int get hashCode => Object.hash(runtimeType,email,password,firstname,lastname,middlename,prefix,suffix,dateOfBirth,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(_addresses));
 
 @override
 String toString() {
-  return 'CustomerCreateRequest(email: $email, password: $password, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  return 'CustomerCreateRequest(email: $email, password: $password, firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
 }
 
 
@@ -1217,7 +570,7 @@ abstract mixin class _$CustomerCreateRequestCopyWith<$Res> implements $CustomerC
   factory _$CustomerCreateRequestCopyWith(_CustomerCreateRequest value, $Res Function(_CustomerCreateRequest) _then) = __$CustomerCreateRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, String firstname, String lastname, String? middlename, String? prefix, String? suffix, String? dob, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
+ String email, String password, String firstname, String lastname, String? middlename, String? prefix, String? suffix, String? dateOfBirth, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
 });
 
 
@@ -1234,7 +587,7 @@ class __$CustomerCreateRequestCopyWithImpl<$Res>
 
 /// Create a copy of CustomerCreateRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? firstname = null,Object? lastname = null,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dateOfBirth = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
   return _then(_CustomerCreateRequest(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
@@ -1243,7 +596,7 @@ as String,lastname: null == lastname ? _self.lastname : lastname // ignore: cast
 as String,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
 as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
@@ -1259,7 +612,7 @@ as List<Address>?,
 /// @nodoc
 mixin _$CustomerUpdateRequest {
 
- String? get firstname; String? get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
+ String? get firstname; String? get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dateOfBirth; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
 /// Create a copy of CustomerUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1272,16 +625,16 @@ $CustomerUpdateRequestCopyWith<CustomerUpdateRequest> get copyWith => _$Customer
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerUpdateRequest&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other.addresses, addresses));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerUpdateRequest&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other.addresses, addresses));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,firstname,lastname,middlename,prefix,suffix,dob,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(addresses));
+int get hashCode => Object.hash(runtimeType,firstname,lastname,middlename,prefix,suffix,dateOfBirth,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(addresses));
 
 @override
 String toString() {
-  return 'CustomerUpdateRequest(firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  return 'CustomerUpdateRequest(firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
 }
 
 
@@ -1292,7 +645,7 @@ abstract mixin class $CustomerUpdateRequestCopyWith<$Res>  {
   factory $CustomerUpdateRequestCopyWith(CustomerUpdateRequest value, $Res Function(CustomerUpdateRequest) _then) = _$CustomerUpdateRequestCopyWithImpl;
 @useResult
 $Res call({
- String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? dob, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
+ String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? dateOfBirth, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
 });
 
 
@@ -1309,14 +662,14 @@ class _$CustomerUpdateRequestCopyWithImpl<$Res>
 
 /// Create a copy of CustomerUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dateOfBirth = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
   return _then(_self.copyWith(
 firstname: freezed == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
 as String?,lastname: freezed == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
 as String?,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
 as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
@@ -1406,10 +759,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomerUpdateRequest() when $default != null:
-return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   return orElse();
 
 }
@@ -1427,10 +780,10 @@ return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)  $default,) {final _that = this;
 switch (_that) {
 case _CustomerUpdateRequest():
-return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1447,10 +800,10 @@ return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dob,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? firstname,  String? lastname,  String? middlename,  String? prefix,  String? suffix,  String? dateOfBirth,  String? taxvat,  String? gender,  bool? isSubscribed,  List<Address>? addresses)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomerUpdateRequest() when $default != null:
-return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dob,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
+return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_that.suffix,_that.dateOfBirth,_that.taxvat,_that.gender,_that.isSubscribed,_that.addresses);case _:
   return null;
 
 }
@@ -1462,7 +815,7 @@ return $default(_that.firstname,_that.lastname,_that.middlename,_that.prefix,_th
 @JsonSerializable()
 
 class _CustomerUpdateRequest implements CustomerUpdateRequest {
-  const _CustomerUpdateRequest({this.firstname, this.lastname, this.middlename, this.prefix, this.suffix, this.dob, this.taxvat, this.gender, this.isSubscribed, final  List<Address>? addresses}): _addresses = addresses;
+  const _CustomerUpdateRequest({this.firstname, this.lastname, this.middlename, this.prefix, this.suffix, this.dateOfBirth, this.taxvat, this.gender, this.isSubscribed, final  List<Address>? addresses}): _addresses = addresses;
   factory _CustomerUpdateRequest.fromJson(Map<String, dynamic> json) => _$CustomerUpdateRequestFromJson(json);
 
 @override final  String? firstname;
@@ -1470,7 +823,7 @@ class _CustomerUpdateRequest implements CustomerUpdateRequest {
 @override final  String? middlename;
 @override final  String? prefix;
 @override final  String? suffix;
-@override final  String? dob;
+@override final  String? dateOfBirth;
 @override final  String? taxvat;
 @override final  String? gender;
 @override final  bool? isSubscribed;
@@ -1497,16 +850,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerUpdateRequest&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other._addresses, _addresses));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerUpdateRequest&&(identical(other.firstname, firstname) || other.firstname == firstname)&&(identical(other.lastname, lastname) || other.lastname == lastname)&&(identical(other.middlename, middlename) || other.middlename == middlename)&&(identical(other.prefix, prefix) || other.prefix == prefix)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.taxvat, taxvat) || other.taxvat == taxvat)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.isSubscribed, isSubscribed) || other.isSubscribed == isSubscribed)&&const DeepCollectionEquality().equals(other._addresses, _addresses));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,firstname,lastname,middlename,prefix,suffix,dob,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(_addresses));
+int get hashCode => Object.hash(runtimeType,firstname,lastname,middlename,prefix,suffix,dateOfBirth,taxvat,gender,isSubscribed,const DeepCollectionEquality().hash(_addresses));
 
 @override
 String toString() {
-  return 'CustomerUpdateRequest(firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dob: $dob, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  return 'CustomerUpdateRequest(firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
 }
 
 
@@ -1517,7 +870,7 @@ abstract mixin class _$CustomerUpdateRequestCopyWith<$Res> implements $CustomerU
   factory _$CustomerUpdateRequestCopyWith(_CustomerUpdateRequest value, $Res Function(_CustomerUpdateRequest) _then) = __$CustomerUpdateRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? dob, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
+ String? firstname, String? lastname, String? middlename, String? prefix, String? suffix, String? dateOfBirth, String? taxvat, String? gender, bool? isSubscribed, List<Address>? addresses
 });
 
 
@@ -1534,14 +887,14 @@ class __$CustomerUpdateRequestCopyWithImpl<$Res>
 
 /// Create a copy of CustomerUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dob = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? firstname = freezed,Object? lastname = freezed,Object? middlename = freezed,Object? prefix = freezed,Object? suffix = freezed,Object? dateOfBirth = freezed,Object? taxvat = freezed,Object? gender = freezed,Object? isSubscribed = freezed,Object? addresses = freezed,}) {
   return _then(_CustomerUpdateRequest(
 firstname: freezed == firstname ? _self.firstname : firstname // ignore: cast_nullable_to_non_nullable
 as String?,lastname: freezed == lastname ? _self.lastname : lastname // ignore: cast_nullable_to_non_nullable
 as String?,middlename: freezed == middlename ? _self.middlename : middlename // ignore: cast_nullable_to_non_nullable
 as String?,prefix: freezed == prefix ? _self.prefix : prefix // ignore: cast_nullable_to_non_nullable
 as String?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
-as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirth: freezed == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
 as String?,taxvat: freezed == taxvat ? _self.taxvat : taxvat // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,isSubscribed: freezed == isSubscribed ? _self.isSubscribed : isSubscribed // ignore: cast_nullable_to_non_nullable
