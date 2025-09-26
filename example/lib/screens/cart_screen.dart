@@ -286,13 +286,16 @@ class _CartScreenState extends State<CartScreen> {
       return;
     }
 
-    // In a real implementation, you would call an API to update the quantity
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Quantity updated to $newQuantity'),
-        backgroundColor: Colors.blue,
-      ),
-    );
+    await provider.updateCartItemQuantity(item.productId, newQuantity);
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Quantity updated to $newQuantity'),
+          backgroundColor: Colors.blue,
+        ),
+      );
+    }
   }
 
   Future<void> _removeItem(AppProvider provider, SimpleCartItem item) async {
@@ -318,13 +321,16 @@ class _CartScreenState extends State<CartScreen> {
     );
 
     if (confirmed == true) {
-      // In a real implementation, you would call an API to remove the item
-      scaffoldMessenger.showSnackBar(
-        SnackBar(
-          content: Text('${item.name} removed from cart'),
-          backgroundColor: Colors.orange,
-        ),
-      );
+      await provider.removeFromCart(item.productId);
+
+      if (mounted) {
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text('${item.name} removed from cart'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
     }
   }
 

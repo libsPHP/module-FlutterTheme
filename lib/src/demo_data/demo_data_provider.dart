@@ -2,20 +2,20 @@ import '../models/product.dart' as product_models;
 import '../models/product_models.dart' as models;
 import '../models/cart.dart';
 
-/// Абстрактный интерфейс для предоставления демо-данных
-/// Позволяет каждому приложению кастомизировать демо-контент
+/// Абстрактный интерфейс для предоставления начальных данных
+/// Позволяет каждому приложению кастомизировать начальный контент
 abstract class DemoDataProvider {
-  /// Получить список демо-продуктов
-  List<product_models.Product> getDemoProducts();
+  /// Получить список начальных продуктов
+  List<product_models.Product> getInitialPreloadProducts();
 
-  /// Получить список демо-категорий
-  List<models.Category> getDemoCategories();
+  /// Получить список начальных категорий
+  List<models.Category> getInitialPreloadCategories();
 
-  /// Получить демо-элементы корзины
-  List<CartItem> getDemoCartItems();
+  /// Получить начальные элементы корзины
+  List<CartItem> getInitialPreloadCartItems();
 
-  /// Получить демо-пользователя
-  Map<String, dynamic>? getDemoCustomer();
+  /// Получить начального пользователя
+  Map<String, dynamic>? getInitialPreloadCustomer();
 
   /// Получить название провайдера
   String get providerName;
@@ -27,15 +27,15 @@ abstract class DemoDataProvider {
   bool supportsDataType(String dataType);
 }
 
-/// Стандартный провайдер демо-данных
-/// Содержит базовые демо-продукты и категории
+/// Стандартный провайдер начальных данных
+/// Содержит базовые начальные продукты и категории
 class DefaultDemoDataProvider implements DemoDataProvider {
   @override
-  String get providerName => 'Default Demo Data';
+  String get providerName => 'Default Initial Preload Data';
 
   @override
   String get providerDescription =>
-      'Standard demo products and categories for testing';
+      'Standard initial preload products and categories for testing';
 
   @override
   bool supportsDataType(String dataType) {
@@ -43,7 +43,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<product_models.Product> getDemoProducts() {
+  List<product_models.Product> getInitialPreloadProducts() {
     return [
       product_models.Product(
         id: 1,
@@ -114,7 +114,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<models.Category> getDemoCategories() {
+  List<models.Category> getInitialPreloadCategories() {
     return [
       models.Category(
         id: 1,
@@ -214,7 +214,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<CartItem> getDemoCartItems() {
+  List<CartItem> getInitialPreloadCartItems() {
     return [
       CartItem(
         id: 1,
@@ -240,7 +240,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  Map<String, dynamic>? getDemoCustomer() {
+  Map<String, dynamic>? getInitialPreloadCustomer() {
     return {
       'id': '1',
       'email': 'demo@example.com',

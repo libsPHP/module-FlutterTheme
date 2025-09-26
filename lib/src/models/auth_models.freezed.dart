@@ -312,7 +312,23 @@ $CustomerCopyWith<$Res> get customer {
 /// @nodoc
 mixin _$Customer {
 
- int get id; String get email; String get firstname; String get lastname; String? get middlename; int? get groupId; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; String? get prefix; String? get suffix; String? get defaultBilling; String? get defaultShipping; DateTime? get createdAt; DateTime? get updatedAt; List<Address>? get addresses;
+  int get id;
+  String get email;
+  String get firstname;
+  String get lastname;
+  String? get middlename;
+  int? get groupId;
+  String? get dob;
+  String? get taxvat;
+  String? get gender;
+  bool? get isSubscribed;
+  String? get prefix;
+  String? get suffix;
+  String? get defaultBilling;
+  String? get defaultShipping;
+  DateTime? get createdAt;
+  DateTime? get updatedAt;
+  List<Address>? get addresses;
 /// Create a copy of Customer
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -631,7 +647,26 @@ as List<Address>?,
 /// @nodoc
 mixin _$Address {
 
- int? get id; String? get customerId; String? get region; String? get regionId; String? get regionCode; String? get countryId; List<String>? get street; String? get company; String? get telephone; String? get fax; String? get postcode; String? get city; String? get firstname; String? get lastname; String? get middlename; String? get prefix; String? get suffix; String? get vatId; bool? get defaultShipping; bool? get defaultBilling;
+  int? get id;
+  String? get customerId;
+  String? get region;
+  String? get regionId;
+  String? get regionCode;
+  String? get countryId;
+  List<String>? get street;
+  String? get company;
+  String? get telephone;
+  String? get fax;
+  String? get postcode;
+  String? get city;
+  String? get firstname;
+  String? get lastname;
+  String? get middlename;
+  String? get prefix;
+  String? get suffix;
+  String? get vatId;
+  bool? get defaultShipping;
+  bool? get defaultBilling;
 /// Create a copy of Address
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -959,7 +994,18 @@ as bool?,
 /// @nodoc
 mixin _$CustomerCreateRequest {
 
- String get email; String get password; String get firstname; String get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
+  String get email;
+  String get password;
+  String get firstname;
+  String get lastname;
+  String? get middlename;
+  String? get prefix;
+  String? get suffix;
+  String? get dob;
+  String? get taxvat;
+  String? get gender;
+  bool? get isSubscribed;
+  List<Address>? get addresses;
 /// Create a copy of CustomerCreateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1263,7 +1309,16 @@ as List<Address>?,
 /// @nodoc
 mixin _$CustomerUpdateRequest {
 
- String? get firstname; String? get lastname; String? get middlename; String? get prefix; String? get suffix; String? get dob; String? get taxvat; String? get gender; bool? get isSubscribed; List<Address>? get addresses;
+  String? get firstname;
+  String? get lastname;
+  String? get middlename;
+  String? get prefix;
+  String? get suffix;
+  String? get dob;
+  String? get taxvat;
+  String? get gender;
+  bool? get isSubscribed;
+  List<Address>? get addresses;
 /// Create a copy of CustomerUpdateRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1561,7 +1616,8 @@ as List<Address>?,
 /// @nodoc
 mixin _$PasswordChangeRequest {
 
- String get currentPassword; String get newPassword;
+  String get currentPassword;
+  String get newPassword;
 /// Create a copy of PasswordChangeRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2090,7 +2146,11 @@ as String,
 /// @nodoc
 mixin _$SocialLoginRequest {
 
- String get provider; String get token; String? get email; String? get firstname; String? get lastname;
+  String get provider;
+  String get token;
+  String? get email;
+  String? get firstname;
+  String? get lastname;
 /// Create a copy of SocialLoginRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2628,7 +2688,12 @@ as String,
 /// @nodoc
 mixin _$SessionInfo {
 
- String get sessionId; DateTime get createdAt; DateTime get expiresAt; bool get isValid; String? get customerId; String? get cartId;
+  String get sessionId;
+  DateTime get createdAt;
+  DateTime get expiresAt;
+  bool get isValid;
+  String? get customerId;
+  String? get cartId;
 /// Create a copy of SessionInfo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)

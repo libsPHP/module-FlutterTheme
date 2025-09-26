@@ -27,18 +27,7 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
 
   Future<void> _loadProductsByCategory(AppProvider provider) async {
     try {
-      // TODO: Реализовать загрузку продуктов по категории через API
-      // await provider.loadProductsByCategory(widget.category.id);
-
-      // Временно показываем сообщение
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Loading products for ${widget.category.name}...'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
+      await provider.loadProductsByCategory(widget.category.id);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

@@ -1,6 +1,8 @@
 PODS:
   - connectivity_plus (0.0.1):
     - Flutter
+  - device_info_plus (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - flutter_magento (0.0.1):
     - Flutter
@@ -43,6 +45,7 @@ PODS:
 
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_magento (from `.symlinks/plugins/flutter_magento/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
@@ -58,6 +61,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
   Flutter:
     :path: Flutter
   flutter_magento:
@@ -75,6 +80,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
+  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_magento: d803db393d20b6d50658a07965c193b976ad81f9
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13

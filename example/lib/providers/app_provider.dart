@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_magento/flutter_magento.dart';
-import '../demo_data/custom_demo_data_provider.dart';
+import '../demo_data/custom_initial_preload_data_provider.dart';
 
 // Модели для реальных данных Magento
 class MagentoProduct {
@@ -145,7 +145,7 @@ class AppProvider extends ChangeNotifier {
   String? _baseUrl;
 
   // Magento API instance
-  late FlutterMagento _magento;
+  late FlutterMagentoCore _magento;
 
   // Auth state
   bool _isAuthenticated = false;
@@ -172,10 +172,6 @@ class AppProvider extends ChangeNotifier {
   List<MagentoProduct> get products => _products;
   List<MagentoProduct> get searchResults => _searchResults;
   List<MagentoCategory> get categories => _categories;
-
-  // Profile service getter
-  ProfileService? get profileService =>
-      _isInitialized ? _magento.profile : null;
 
   // Environment variables getters
   String? get defaultApiUrl =>
@@ -217,10 +213,10 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Инициализируем Magento API с кастомными демо-данными
-      _magento = FlutterMagento();
+      _magento = FlutterMagentoCore.instance;
 
       // Создаем кастомный провайдер демо-данных для электроники
-      final customDemoProvider = ElectronicsDemoDataProvider();
+      final customDemoProvider = ElectronicsInitialPreloadDataProvider();
 
       final success = await _magento.initialize(
         baseUrl: baseUrl,
@@ -263,7 +259,7 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Try real authentication
-      final result = await _magento.authenticateCustomer(
+      final result = await _magento.authenticate(
         email: email,
         password: password,
       );
@@ -314,7 +310,7 @@ class AppProvider extends ChangeNotifier {
 
     try {
       // Try real registration
-      final result = await _magento.createCustomer(
+      final result = await _magento.createAccount(
         email: email,
         password: password,
         firstName: firstName,
@@ -369,7 +365,7 @@ class AppProvider extends ChangeNotifier {
         pageSize: pageSize,
       );
 
-      final productsData = response.items;
+      final productsData = response['items'] ?? [];
       final newProducts = productsData
           .map((data) => MagentoProduct.fromGraphQL(data.toJson()))
           .toList();
@@ -424,6 +420,92 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> loadProductsByCategory(
+    String categoryId, {
+    int page = 1,
+    int pageSize = 20,
+  }) async {
+    if (!_isInitialized) {
+      _setError('Magento not initialized');
+      return;
+    }
+
+    _setLoading(true);
+    _clearError();
+
+    try {
+      // Загружаем продукты по категории через GraphQL
+      final response = await _magento.getProducts(
+        page: page,
+        pageSize: pageSize,
+        categoryId: categoryId,
+      );
+
+      final productsData = response['items'] ?? [];
+      final newProducts = productsData
+          .map((data) => MagentoProduct.fromGraphQL(data.toJson()))
+          .toList();
+
+      if (page == 1) {
+        _products = newProducts;
+      } else {
+        _products.addAll(newProducts);
+      }
+
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Load products by category error: $e');
+
+      // Если ошибка 401 (Unauthorized), используем демо-данные из системы
+      if (e.toString().contains('401') ||
+          e.toString().contains('Unauthorized')) {
+        try {
+          debugPrint(
+            'Using demo products from system for category $categoryId...',
+          );
+          final demoProducts = _magento.getDemoProducts();
+          // Фильтруем демо-продукты по категории
+          final filteredProducts = demoProducts.where((product) {
+            return product.categories.any(
+              (cat) => cat.toLowerCase().contains(categoryId.toLowerCase()),
+            );
+          }).toList();
+
+          final magentoProducts = filteredProducts
+              .map(
+                (product) => MagentoProduct(
+                  id: product.id,
+                  name: product.name,
+                  sku: product.sku,
+                  price: product.price,
+                  specialPrice: product.specialPrice,
+                  inStock: product.inStock,
+                  imageUrl: product.imageUrl,
+                  description: product.description,
+                  categories: product.categories,
+                ),
+              )
+              .toList();
+
+          if (page == 1) {
+            _products = magentoProducts;
+          } else {
+            _products.addAll(magentoProducts);
+          }
+
+          notifyListeners();
+        } catch (demoError) {
+          debugPrint('Demo products error: $demoError');
+          _setError('Failed to load products for category: $e');
+        }
+      } else {
+        _setError('Failed to load products for category: $e');
+      }
+    } finally {
+      _setLoading(false);
+    }
+  }
+
   Future<void> searchProducts(String query) async {
     if (!_isInitialized) {
       _setError('Magento not initialized');
@@ -447,7 +529,7 @@ class AppProvider extends ChangeNotifier {
         pageSize: 20,
       );
 
-      final productsData = response.items;
+      final productsData = response['items'] ?? [];
       _searchResults = productsData
           .map((data) => MagentoProduct.fromGraphQL(data.toJson()))
           .toList();
@@ -520,6 +602,56 @@ class AppProvider extends ChangeNotifier {
   Future<void> loadCart() async {
     // Корзина уже загружена в памяти
     notifyListeners();
+  }
+
+  Future<void> updateCartItemQuantity(String productId, int newQuantity) async {
+    if (!_isAuthenticated) {
+      _setError('Please login first');
+      return;
+    }
+
+    if (newQuantity <= 0) {
+      await removeFromCart(productId);
+      return;
+    }
+
+    try {
+      final existingItemIndex = _currentCart.items.indexWhere(
+        (item) => item.productId == productId,
+      );
+
+      if (existingItemIndex >= 0) {
+        final existingItem = _currentCart.items[existingItemIndex];
+        final updatedItems = List<SimpleCartItem>.from(_currentCart.items);
+        updatedItems[existingItemIndex] = SimpleCartItem(
+          productId: existingItem.productId,
+          name: existingItem.name,
+          price: existingItem.price,
+          quantity: newQuantity,
+        );
+        _currentCart = SimpleCart(items: updatedItems);
+        notifyListeners();
+      }
+    } catch (e) {
+      _setError('Update cart error: $e');
+    }
+  }
+
+  Future<void> removeFromCart(String productId) async {
+    if (!_isAuthenticated) {
+      _setError('Please login first');
+      return;
+    }
+
+    try {
+      final updatedItems = _currentCart.items
+          .where((item) => item.productId != productId)
+          .toList();
+      _currentCart = SimpleCart(items: updatedItems);
+      notifyListeners();
+    } catch (e) {
+      _setError('Remove from cart error: $e');
+    }
   }
 
   Future<void> _loadRealData() async {
@@ -635,231 +767,5 @@ class AppProvider extends ChangeNotifier {
   void _clearError() {
     _error = null;
     notifyListeners();
-  }
-
-  /// Create demo categories for testing when API is not available
-  List<MagentoCategory> _createDemoCategories() {
-    return [
-      MagentoCategory(
-        id: '1',
-        name: 'Women',
-        urlKey: 'women',
-        childrenCount: 3,
-        level: 1,
-        children: [
-          MagentoCategory(
-            id: '11',
-            name: 'Tops',
-            urlKey: 'women-tops',
-            childrenCount: 2,
-            level: 2,
-          ),
-          MagentoCategory(
-            id: '12',
-            name: 'Bottoms',
-            urlKey: 'women-bottoms',
-            childrenCount: 2,
-            level: 2,
-          ),
-          MagentoCategory(
-            id: '13',
-            name: 'Accessories',
-            urlKey: 'women-accessories',
-            childrenCount: 0,
-            level: 2,
-          ),
-        ],
-      ),
-      MagentoCategory(
-        id: '2',
-        name: 'Men',
-        urlKey: 'men',
-        childrenCount: 3,
-        level: 1,
-        children: [
-          MagentoCategory(
-            id: '21',
-            name: 'Tops',
-            urlKey: 'men-tops',
-            childrenCount: 2,
-            level: 2,
-          ),
-          MagentoCategory(
-            id: '22',
-            name: 'Bottoms',
-            urlKey: 'men-bottoms',
-            childrenCount: 2,
-            level: 2,
-          ),
-          MagentoCategory(
-            id: '23',
-            name: 'Accessories',
-            urlKey: 'men-accessories',
-            childrenCount: 0,
-            level: 2,
-          ),
-        ],
-      ),
-      MagentoCategory(
-        id: '3',
-        name: 'Gear',
-        urlKey: 'gear',
-        childrenCount: 2,
-        level: 1,
-        children: [
-          MagentoCategory(
-            id: '31',
-            name: 'Bags',
-            urlKey: 'gear-bags',
-            childrenCount: 0,
-            level: 2,
-          ),
-          MagentoCategory(
-            id: '32',
-            name: 'Fitness Equipment',
-            urlKey: 'gear-fitness',
-            childrenCount: 0,
-            level: 2,
-          ),
-        ],
-      ),
-      MagentoCategory(
-        id: '4',
-        name: 'Training',
-        urlKey: 'training',
-        childrenCount: 1,
-        level: 1,
-        children: [
-          MagentoCategory(
-            id: '41',
-            name: 'Video Download',
-            urlKey: 'training-video',
-            childrenCount: 0,
-            level: 2,
-          ),
-        ],
-      ),
-    ];
-  }
-
-  /// Create demo products for testing when API is not available
-  List<MagentoProduct> _createDemoProducts() {
-    return [
-      MagentoProduct(
-        id: '1',
-        name: 'Radiant Tee',
-        sku: 'WS12-XS-Orange',
-        price: 22.00,
-        specialPrice: 20.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
-        description:
-            'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
-        categories: ['Women', 'Tops'],
-      ),
-      MagentoProduct(
-        id: '2',
-        name: 'Argus All-Weather Tank',
-        sku: 'WSH12-XS-White',
-        price: 21.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/wsh12-white_main_2.jpg',
-        description:
-            'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
-        categories: ['Women', 'Tops'],
-      ),
-      MagentoProduct(
-        id: '3',
-        name: 'Hero Hoodie',
-        sku: 'WSH03-XS-Gray',
-        price: 54.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
-        description:
-            'The Hero Hoodie is perfect for those cool days and nights.',
-        categories: ['Men', 'Tops'],
-      ),
-      MagentoProduct(
-        id: '4',
-        name: 'Bruno Compete Hoodie',
-        sku: 'WSH04-XS-Gray',
-        price: 62.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh04-gray_main_2.jpg',
-        description: 'The Bruno Compete Hoodie offers comfort and style.',
-        categories: ['Men', 'Tops'],
-      ),
-      MagentoProduct(
-        id: '5',
-        name: 'Fusion Backpack',
-        sku: '24-WB01',
-        price: 59.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb01_2.jpg',
-        description:
-            'The Fusion Backpack is perfect for your daily adventures.',
-        categories: ['Gear', 'Bags'],
-      ),
-      MagentoProduct(
-        id: '6',
-        name: 'Push It Messenger Bag',
-        sku: '24-WB02',
-        price: 45.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb02_2.jpg',
-        description: 'The Push It Messenger Bag is stylish and functional.',
-        categories: ['Gear', 'Bags'],
-      ),
-      MagentoProduct(
-        id: '7',
-        name: 'Set of Sprite Yoga Straps',
-        sku: '24-WG01',
-        price: 29.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg01_2.jpg',
-        description: 'Perfect for your yoga practice.',
-        categories: ['Gear', 'Fitness Equipment'],
-      ),
-      MagentoProduct(
-        id: '8',
-        name: 'Sprite Foam Roller',
-        sku: '24-WG03',
-        price: 45.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg03_2.jpg',
-        description: 'Great for muscle recovery and flexibility.',
-        categories: ['Gear', 'Fitness Equipment'],
-      ),
-      MagentoProduct(
-        id: '9',
-        name: 'Downloadable Video',
-        sku: '240-LV01',
-        price: 9.99,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/240-lv01_2.jpg',
-        description: 'High-quality training video for download.',
-        categories: ['Training', 'Video Download'],
-      ),
-      MagentoProduct(
-        id: '10',
-        name: 'Yoga Block',
-        sku: '24-WG04',
-        price: 18.00,
-        inStock: true,
-        imageUrl:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wg04_2.jpg',
-        description: 'Essential yoga accessory for proper alignment.',
-        categories: ['Gear', 'Fitness Equipment'],
-      ),
-    ];
   }
 }

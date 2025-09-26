@@ -1,30 +1,76 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:example/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Main App Tests', () {
+    testWidgets('should build app without errors', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      // Should not throw any errors
+      expect(tester.takeException(), isNull);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    testWidgets('should display main screen with navigation', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      // Should show main screen elements
+      expect(find.text('Magento Flutter Demo'), findsOneWidget);
+      expect(find.text('Home'), findsOneWidget);
+      expect(find.text('Products'), findsOneWidget);
+      expect(find.text('Cart'), findsOneWidget);
+      expect(find.text('Categories'), findsOneWidget);
+      expect(find.text('Settings'), findsOneWidget);
+    });
+
+    testWidgets('should navigate between tabs', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
+
+      // Test navigation to different tabs
+      await tester.tap(find.text('Products'));
+      await tester.pumpAndSettle();
+      expect(find.text('Products'), findsOneWidget);
+
+      await tester.tap(find.text('Cart'));
+      await tester.pumpAndSettle();
+      expect(find.text('Cart'), findsOneWidget);
+
+      await tester.tap(find.text('Categories'));
+      await tester.pumpAndSettle();
+      expect(find.text('Categories'), findsOneWidget);
+
+      await tester.tap(find.text('Settings'));
+      await tester.pumpAndSettle();
+      expect(find.text('Settings'), findsOneWidget);
+
+      await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+      expect(find.text('Home'), findsOneWidget);
+    });
+
+    testWidgets('should handle app initialization', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
+
+      // Should initialize without errors
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('should display bottom navigation bar', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.pumpAndSettle();
+
+      // Should show bottom navigation bar
+      expect(find.byType(BottomNavigationBar), findsOneWidget);
+    });
   });
 }
