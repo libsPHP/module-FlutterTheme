@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'customer.dart';
 
 part 'auth_models.freezed.dart';
 part 'auth_models.g.dart';
@@ -18,68 +19,6 @@ class AuthResponse with _$AuthResponse {
       _$AuthResponseFromJson(json);
 }
 
-/// Customer model for authentication
-@freezed
-class Customer with _$Customer {
-  const factory Customer({
-    required int id,
-    required String email,
-    required String firstname,
-    required String lastname,
-    String? middlename,
-    int? groupId,
-    String? dob,
-    String? taxvat,
-    String? gender,
-    bool? isSubscribed,
-    String? prefix,
-    String? suffix,
-    String? defaultBilling,
-    String? defaultShipping,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    List<Address>? addresses,
-  }) = _Customer;
-
-  const Customer._();
-
-  factory Customer.fromJson(Map<String, dynamic> json) =>
-      _$CustomerFromJson(json);
-
-  String get fullName => '$firstname $lastname';
-  String get displayName =>
-      middlename != null ? '$firstname $middlename $lastname' : fullName;
-}
-
-/// Address model
-@freezed
-class Address with _$Address {
-  const factory Address({
-    int? id,
-    String? customerId,
-    String? region,
-    String? regionId,
-    String? regionCode,
-    String? countryId,
-    List<String>? street,
-    String? company,
-    String? telephone,
-    String? fax,
-    String? postcode,
-    String? city,
-    String? firstname,
-    String? lastname,
-    String? middlename,
-    String? prefix,
-    String? suffix,
-    String? vatId,
-    bool? defaultShipping,
-    bool? defaultBilling,
-  }) = _Address;
-
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
-}
 
 /// Customer creation request model
 @freezed
@@ -92,7 +31,7 @@ class CustomerCreateRequest with _$CustomerCreateRequest {
     String? middlename,
     String? prefix,
     String? suffix,
-    String? dob,
+    String? dateOfBirth,
     String? taxvat,
     String? gender,
     bool? isSubscribed,
@@ -112,7 +51,7 @@ class CustomerUpdateRequest with _$CustomerUpdateRequest {
     String? middlename,
     String? prefix,
     String? suffix,
-    String? dob,
+    String? dateOfBirth,
     String? taxvat,
     String? gender,
     bool? isSubscribed,

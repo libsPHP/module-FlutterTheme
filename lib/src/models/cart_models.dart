@@ -171,7 +171,7 @@ class CartGiftCard {
 
 /// Address model for shipping and billing
 @JsonSerializable()
-class Address {
+class CartAddress {
   final int? id;
   final String? customerId;
   final String? regionId;

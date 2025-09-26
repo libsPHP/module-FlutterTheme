@@ -600,7 +600,7 @@ class FlutterMagento {
   /// Estimate shipping for cart
   Future<List<cart_models.ShippingMethod>> estimateShipping({
     required String cartId,
-    required cart_models.Address address,
+    required cart_models.CartAddress address,
   }) async {
     _checkInitialization();
 
@@ -609,7 +609,7 @@ class FlutterMagento {
 
   /// Estimate shipping for customer cart
   Future<List<cart_models.ShippingMethod>> estimateCustomerCartShipping(
-    cart_models.Address address,
+    cart_models.CartAddress address,
   ) async {
     _checkInitialization();
 

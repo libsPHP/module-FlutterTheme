@@ -424,7 +424,7 @@ class CartApi {
   /// Estimate shipping for cart
   Future<List<ShippingMethod>> estimateShipping({
     required String cartId,
-    required Address address,
+    required CartAddress address,
   }) async {
     try {
       final response = await _client.guestRequest<Map<String, dynamic>>(
@@ -452,7 +452,7 @@ class CartApi {
 
   /// Estimate shipping for customer cart
   Future<List<ShippingMethod>> estimateCustomerCartShipping(
-    Address address,
+    CartAddress address,
   ) async {
     try {
       final response = await _client.authenticatedRequest<Map<String, dynamic>>(

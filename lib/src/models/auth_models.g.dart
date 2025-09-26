@@ -6,8 +6,8 @@ part of 'auth_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthResponseImpl _$AuthResponseFromJson(Map<String, dynamic> json) =>
-    _$AuthResponseImpl(
+_AuthResponse _$AuthResponseFromJson(Map<String, dynamic> json) =>
+    _AuthResponse(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
       tokenType: json['tokenType'] as String,
@@ -15,7 +15,7 @@ _$AuthResponseImpl _$AuthResponseFromJson(Map<String, dynamic> json) =>
       customer: Customer.fromJson(json['customer'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$AuthResponseToJson(_$AuthResponseImpl instance) =>
+Map<String, dynamic> _$AuthResponseToJson(_AuthResponse instance) =>
     <String, dynamic>{
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
