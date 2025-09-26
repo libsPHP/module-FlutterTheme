@@ -216,9 +216,9 @@ class CartAddress {
     this.isDefaultBilling,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) =>
-      _$AddressFromJson(json);
-  Map<String, dynamic> toJson() => _$AddressToJson(this);
+  factory CartAddress.fromJson(Map<String, dynamic> json) =>
+      _$CartAddressFromJson(json);
+  Map<String, dynamic> toJson() => _$CartAddressToJson(this);
 }
 
 /// Shipping method model

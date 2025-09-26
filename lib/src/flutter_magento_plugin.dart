@@ -11,6 +11,7 @@ import 'api/checkout_api.dart';
 import 'api/customer_api.dart';
 import 'services/profile_service.dart';
 import 'models/auth_models.dart' as auth_models;
+import 'models/customer.dart';
 import 'models/product_models.dart';
 import 'models/cart_models.dart' as cart_models;
 import 'models/order.dart' as order_freezed;
@@ -220,7 +221,7 @@ class FlutterMagento {
       middlename: middleName,
       prefix: prefix,
       suffix: suffix,
-      dob: dateOfBirth,
+      dateOfBirth: dateOfBirth,
       taxvat: taxVat,
       gender: gender,
       isSubscribed: isSubscribed,
@@ -257,7 +258,7 @@ class FlutterMagento {
       middlename: middleName,
       prefix: prefix,
       suffix: suffix,
-      dob: dateOfBirth,
+      dateOfBirth: dateOfBirth,
       taxvat: taxVat,
       gender: gender,
       isSubscribed: isSubscribed,
