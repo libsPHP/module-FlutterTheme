@@ -225,7 +225,7 @@ void main() {
       test('should handle shipping estimation errors gracefully', () async {
         try {
           await magento.estimateCustomerCartShipping(
-            Address(countryId: 'US', postcode: '12345'),
+            cart_models.CartAddress(countryId: 'US', postcode: '12345'),
           );
           fail('Should have thrown an exception');
         } catch (e) {

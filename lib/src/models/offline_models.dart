@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'offline_models.g.dart';
+
 /// Запись кэша
 @JsonSerializable()
 class CacheEntry {
