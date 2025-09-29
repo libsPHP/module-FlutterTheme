@@ -79,7 +79,7 @@ class _UnifiedApiExampleState extends State<UnifiedApiExample> {
 
       if (result.success) {
         setState(() {
-          _currentCustomer = result.customer;
+          _currentCustomer = result.customer as Map<String, dynamic>?;
           _status = 'Logged in successfully';
         });
       } else {

@@ -910,7 +910,7 @@ class MagentoApiService {
       return result!['data']['customer'];
     }
 
-    throw MagentoException('Failed to get customer information');
+    throw const MagentoException('Failed to get customer information');
   }
 
   /// Get product recommendations via GraphQL
@@ -1097,7 +1097,7 @@ class MagentoApiService {
       return {'token': token};
     }
 
-    throw MagentoException('Invalid authentication response');
+    throw const MagentoException('Invalid authentication response');
   }
 
   /// Create customer account
