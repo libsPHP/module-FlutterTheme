@@ -19,7 +19,7 @@ class _UnifiedApiExampleState extends State<UnifiedApiExample> {
   bool _isLoading = false;
   String _status = 'Not initialized';
   List<dynamic> _products = [];
-  Customer? _currentCustomer;
+  Map<String, dynamic>? _currentCustomer;
 
   @override
   void initState() {

@@ -166,7 +166,7 @@ class EnhancedProductApi {
 
       return EnhancedProductResponse<T>(
         product: enhancedProduct as T,
-        rawProduct: response,
+        rawProduct: response.data!,
       );
     } catch (e) {
       if (kDebugMode) {
