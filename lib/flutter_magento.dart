@@ -23,6 +23,12 @@ export 'src/flutter_magento_core.dart';
 export 'src/flutter_magento.dart'
     hide FlutterMagento, MagentoProvider, MagentoException;
 
+// Unified API (React-style interface)
+export 'src/flutter_magento_unified.dart';
+export 'src/models/unified_models.dart';
+export 'src/api/enhanced_product_api_unified.dart';
+export 'src/examples/unified_api_example.dart';
+
 // API clients and services
 export 'src/api/magento_api_client.dart';
 export 'src/api/auth_api.dart';
