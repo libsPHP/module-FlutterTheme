@@ -1,22 +1,65 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'customer.dart';
 
-part 'auth_models.freezed.dart';
-part 'auth_models.g.dart';
-
 /// Authentication response model
-@freezed
-class AuthResponse with _$AuthResponse {
-  const factory AuthResponse({
-    required String accessToken,
-    required String refreshToken,
-    required String tokenType,
-    required int expiresIn,
-    required Customer customer,
-  }) = _AuthResponse;
+class AuthResponse {
+  final String accessToken;
+  final String refreshToken;
+  final String tokenType;
+  final int expiresIn;
+  final Customer customer;
 
-  factory AuthResponse.fromJson(Map<String, dynamic> json) =>
-      _$AuthResponseFromJson(json);
+  const AuthResponse({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.tokenType,
+    required this.expiresIn,
+    required this.customer,
+  });
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
+      tokenType: json['tokenType'] as String,
+      expiresIn: json['expiresIn'] as int,
+      customer: Customer.fromJson(json['customer'] as Map<String, dynamic>),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'accessToken': accessToken,
+      'refreshToken': refreshToken,
+      'tokenType': tokenType,
+      'expiresIn': expiresIn,
+      'customer': customer.toJson(),
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is AuthResponse &&
+        other.accessToken == accessToken &&
+        other.refreshToken == refreshToken &&
+        other.tokenType == tokenType &&
+        other.expiresIn == expiresIn &&
+        other.customer == customer;
+  }
+
+  @override
+  int get hashCode {
+    return accessToken.hashCode ^
+        refreshToken.hashCode ^
+        tokenType.hashCode ^
+        expiresIn.hashCode ^
+        customer.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'AuthResponse(accessToken: $accessToken, refreshToken: $refreshToken, tokenType: $tokenType, expiresIn: $expiresIn, customer: $customer)';
+  }
 }
 
 
