@@ -57,7 +57,7 @@ class DemoDataManager {
   static List<product_models.Product> getDemoProducts() {
     final provider = currentProvider;
     if (provider != null) {
-      return provider.getDemoProducts();
+      return provider.getInitialPreloadProducts();
     }
 
     if (kDebugMode) {
@@ -70,7 +70,7 @@ class DemoDataManager {
   static List<models.Category> getDemoCategories() {
     final provider = currentProvider;
     if (provider != null) {
-      return provider.getDemoCategories();
+      return provider.getInitialPreloadCategories();
     }
 
     if (kDebugMode) {
@@ -83,7 +83,7 @@ class DemoDataManager {
   static List<CartItem> getDemoCartItems() {
     final provider = currentProvider;
     if (provider != null) {
-      return provider.getDemoCartItems();
+      return provider.getInitialPreloadCartItems();
     }
 
     if (kDebugMode) {
@@ -96,7 +96,7 @@ class DemoDataManager {
   static Map<String, dynamic>? getDemoCustomer() {
     final provider = currentProvider;
     if (provider != null) {
-      return provider.getDemoCustomer();
+      return provider.getInitialPreloadCustomer();
     }
 
     if (kDebugMode) {
@@ -192,7 +192,7 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<product_models.Product> getDemoProducts() {
+  List<product_models.Product> getInitialPreloadProducts() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       final productsData = data['products'] as List<dynamic>? ?? [];
@@ -222,7 +222,7 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<models.Category> getDemoCategories() {
+  List<models.Category> getInitialPreloadCategories() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       final categoriesData = data['categories'] as List<dynamic>? ?? [];
@@ -263,7 +263,7 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<CartItem> getDemoCartItems() {
+  List<CartItem> getInitialPreloadCartItems() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       final cartData = data['cart'] as List<dynamic>? ?? [];
@@ -288,7 +288,7 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  Map<String, dynamic>? getDemoCustomer() {
+  Map<String, dynamic>? getInitialPreloadCustomer() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       return data['customer'] as Map<String, dynamic>?;

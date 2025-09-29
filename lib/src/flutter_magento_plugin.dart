@@ -197,7 +197,7 @@ class FlutterMagento {
   }
 
   /// Create a new customer account
-  Future<auth_models.Customer> createCustomer({
+  Future<Customer> createCustomer({
     required String email,
     required String password,
     required String firstName,
@@ -209,7 +209,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<auth_models.Address>? addresses,
+    List<Address>? addresses,
   }) async {
     _checkInitialization();
 
@@ -232,13 +232,13 @@ class FlutterMagento {
   }
 
   /// Get current customer information
-  Future<auth_models.Customer> getCurrentCustomer() async {
+  Future<Customer> getCurrentCustomer() async {
     _checkInitialization();
     return await _authApi.getCurrentCustomer();
   }
 
   /// Update customer information
-  Future<auth_models.Customer> updateCustomer({
+  Future<Customer> updateCustomer({
     String? firstName,
     String? lastName,
     String? middleName,
@@ -248,7 +248,7 @@ class FlutterMagento {
     String? taxVat,
     String? gender,
     bool? isSubscribed,
-    List<auth_models.Address>? addresses,
+    List<Address>? addresses,
   }) async {
     _checkInitialization();
 
