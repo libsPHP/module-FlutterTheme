@@ -25,7 +25,7 @@ export 'src/flutter_magento.dart'
 
 // Unified API (React-style interface)
 export 'src/flutter_magento_unified.dart';
-export 'src/models/unified_models.dart';
+export 'src/models/unified_models.dart' hide AuthResult;
 export 'src/api/enhanced_product_api_unified.dart';
 export 'src/examples/unified_api_example.dart';
 
@@ -33,7 +33,7 @@ export 'src/examples/unified_api_example.dart';
 export 'src/api/magento_api_client.dart';
 export 'src/api/auth_api.dart';
 export 'src/api/product_api.dart';
-export 'src/api/enhanced_product_api.dart';
+export 'src/api/enhanced_product_api.dart' hide EnhancedProductApi;
 export 'src/api/cart_api.dart';
 export 'src/api/order_api.dart';
 export 'src/api/wishlist_api.dart';
@@ -45,7 +45,7 @@ export 'src/api/customer_api.dart';
 export 'src/models/auth_models.dart';
 export 'src/models/customer.dart';
 export 'src/models/product_models.dart';
-export 'src/models/enhanced_product.dart';
+export 'src/models/enhanced_product.dart' hide EnhancedProductListResponse;
 export 'src/models/cart_models.dart' hide ShippingMethod, PaymentMethod;
 export 'src/models/order_models.dart';
 export 'src/models/wishlist_models.dart';

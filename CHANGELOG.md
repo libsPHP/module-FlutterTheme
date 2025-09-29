@@ -1,3 +1,11 @@
+## 3.4.1
+
+* **Publishing Fixes**: Resolved ambiguous export errors for AuthResult and EnhancedProductApi
+* **API Client**: Fixed method calls in enhanced_product_api_unified.dart to use correct MagentoApiClient methods
+* **Code Generation**: Regenerated all freezed and json_serializable files for proper model implementations
+* **Export Management**: Added proper hide directives to resolve naming conflicts in main library exports
+* **Publishing**: Fixed all dart analyze issues for successful package publishing to pub.dev
+
 ## 3.2.1
 
 * **Code Quality**: Fixed linting issues including curly braces in flow control structures

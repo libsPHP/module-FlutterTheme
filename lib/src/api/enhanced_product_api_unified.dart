@@ -28,12 +28,15 @@ class EnhancedProductApi {
       }
 
       // Get products from Magento API
-      final response = await _apiClient.getProductsRest(
-        page: page,
-        pageSize: pageSize,
+      final response = await _apiClient.guestRequest<Map<String, dynamic>>(
+        '/rest/V1/products',
+        queryParameters: {
+          'searchCriteria[pageSize]': pageSize,
+          'searchCriteria[currentPage]': page,
+        },
       );
 
-      if (response == null || response['items'] == null) {
+      if (response.data == null || response.data!['items'] == null) {
         return EnhancedProductListResponse<T>(
           items: <T>[],
           totalCount: 0,
@@ -44,7 +47,7 @@ class EnhancedProductApi {
         );
       }
 
-      final rawItems = List<Map<String, dynamic>>.from(response['items']);
+      final rawItems = List<Map<String, dynamic>>.from(response.data!['items']);
       final enhancedItems = <T>[];
 
       for (final item in rawItems) {
@@ -96,10 +99,10 @@ class EnhancedProductApi {
 
       return EnhancedProductListResponse<T>(
         items: enhancedItems,
-        totalCount: response['total_count'] ?? enhancedItems.length,
+        totalCount: response.data?['total_count'] ?? enhancedItems.length,
         page: page,
         pageSize: pageSize,
-        hasMore: (response['total_count'] ?? 0) > (page * pageSize),
+        hasMore: (response.data?['total_count'] ?? 0) > (page * pageSize),
         rawItems: rawItems,
       );
     } catch (e) {
@@ -121,13 +124,13 @@ class EnhancedProductApi {
       }
 
       // Get product from Magento API
-      final response = await _apiClient.getProductRest(sku);
-      if (response == null) {
+      final response = await _apiClient.guestRequest<Map<String, dynamic>>('/rest/V1/products/$sku');
+      if (response.data == null) {
         throw Exception('Product not found: $sku');
       }
 
       // Extract custom attributes
-      final customAttributes = _extractCustomAttributes(response);
+      final customAttributes = _extractCustomAttributes(response.data!);
 
       // Apply adapter
       T? customData;
@@ -154,7 +157,7 @@ class EnhancedProductApi {
       }
 
       final enhancedProduct = EnhancedProduct<T>(
-        baseProduct: Product.fromJson(response),
+        baseProduct: Product.fromJson(response.data!),
         customData: customData,
         adapterId: detectedAdapterId,
         rawCustomAttributes: _buildRawAttributes(customAttributes),
@@ -189,13 +192,18 @@ class EnhancedProductApi {
       }
 
       // Search products using Magento API
-      final response = await _apiClient.searchProductsRest(
-        query,
-        page: page,
-        pageSize: pageSize,
+      final response = await _apiClient.guestRequest<Map<String, dynamic>>(
+        '/rest/V1/products',
+        queryParameters: {
+          'searchCriteria[filterGroups][0][filters][0][field]': 'name',
+          'searchCriteria[filterGroups][0][filters][0][value]': query,
+          'searchCriteria[filterGroups][0][filters][0][conditionType]': 'like',
+          'searchCriteria[pageSize]': pageSize,
+          'searchCriteria[currentPage]': page,
+        },
       );
 
-      if (response == null || response['items'] == null) {
+      if (response.data == null || response.data!['items'] == null) {
         return EnhancedProductListResponse<T>(
           items: <T>[],
           totalCount: 0,
@@ -206,7 +214,7 @@ class EnhancedProductApi {
         );
       }
 
-      final rawItems = List<Map<String, dynamic>>.from(response['items']);
+      final rawItems = List<Map<String, dynamic>>.from(response.data!['items']);
       final enhancedItems = <T>[];
 
       for (final item in rawItems) {
@@ -258,10 +266,10 @@ class EnhancedProductApi {
 
       return EnhancedProductListResponse<T>(
         items: enhancedItems,
-        totalCount: response['total_count'] ?? enhancedItems.length,
+        totalCount: response.data?['total_count'] ?? enhancedItems.length,
         page: page,
         pageSize: pageSize,
-        hasMore: (response['total_count'] ?? 0) > (page * pageSize),
+        hasMore: (response.data?['total_count'] ?? 0) > (page * pageSize),
         rawItems: rawItems,
       );
     } catch (e) {
@@ -285,8 +293,8 @@ class EnhancedProductApi {
       }
 
       // Get product
-      final response = await _apiClient.getProductRest(sku);
-      if (response == null) {
+      final response = await _apiClient.guestRequest<Map<String, dynamic>>('/rest/V1/products/$sku');
+      if (response.data == null) {
         return ValidationResult(
           isValid: false,
           errors: ['Product not found: $sku'],
@@ -294,7 +302,7 @@ class EnhancedProductApi {
       }
 
       // Extract custom attributes
-      final customAttributes = _extractCustomAttributes(response);
+      final customAttributes = _extractCustomAttributes(response.data!);
 
       // Get adapter
       final adapter = CustomAttributesManager.instance.getAdapter(adapterId);
