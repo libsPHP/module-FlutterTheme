@@ -64,45 +64,203 @@ class AuthResponse {
 
 
 /// Customer creation request model
-@freezed
-class CustomerCreateRequest with _$CustomerCreateRequest {
-  const factory CustomerCreateRequest({
-    required String email,
-    required String password,
-    required String firstname,
-    required String lastname,
-    String? middlename,
-    String? prefix,
-    String? suffix,
-    String? dateOfBirth,
-    String? taxvat,
-    String? gender,
-    bool? isSubscribed,
-    List<Address>? addresses,
-  }) = _CustomerCreateRequest;
+class CustomerCreateRequest {
+  final String email;
+  final String password;
+  final String firstname;
+  final String lastname;
+  final String? middlename;
+  final String? prefix;
+  final String? suffix;
+  final String? dateOfBirth;
+  final String? taxvat;
+  final String? gender;
+  final bool? isSubscribed;
+  final List<Address>? addresses;
 
-  factory CustomerCreateRequest.fromJson(Map<String, dynamic> json) =>
-      _$CustomerCreateRequestFromJson(json);
+  const CustomerCreateRequest({
+    required this.email,
+    required this.password,
+    required this.firstname,
+    required this.lastname,
+    this.middlename,
+    this.prefix,
+    this.suffix,
+    this.dateOfBirth,
+    this.taxvat,
+    this.gender,
+    this.isSubscribed,
+    this.addresses,
+  });
+
+  factory CustomerCreateRequest.fromJson(Map<String, dynamic> json) {
+    return CustomerCreateRequest(
+      email: json['email'] as String,
+      password: json['password'] as String,
+      firstname: json['firstname'] as String,
+      lastname: json['lastname'] as String,
+      middlename: json['middlename'] as String?,
+      prefix: json['prefix'] as String?,
+      suffix: json['suffix'] as String?,
+      dateOfBirth: json['dateOfBirth'] as String?,
+      taxvat: json['taxvat'] as String?,
+      gender: json['gender'] as String?,
+      isSubscribed: json['isSubscribed'] as bool?,
+      addresses: json['addresses'] != null 
+          ? (json['addresses'] as List).map((e) => Address.fromJson(e as Map<String, dynamic>)).toList()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'password': password,
+      'firstname': firstname,
+      'lastname': lastname,
+      'middlename': middlename,
+      'prefix': prefix,
+      'suffix': suffix,
+      'dateOfBirth': dateOfBirth,
+      'taxvat': taxvat,
+      'gender': gender,
+      'isSubscribed': isSubscribed,
+      'addresses': addresses?.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is CustomerCreateRequest &&
+        other.email == email &&
+        other.password == password &&
+        other.firstname == firstname &&
+        other.lastname == lastname &&
+        other.middlename == middlename &&
+        other.prefix == prefix &&
+        other.suffix == suffix &&
+        other.dateOfBirth == dateOfBirth &&
+        other.taxvat == taxvat &&
+        other.gender == gender &&
+        other.isSubscribed == isSubscribed &&
+        other.addresses == addresses;
+  }
+
+  @override
+  int get hashCode {
+    return email.hashCode ^
+        password.hashCode ^
+        firstname.hashCode ^
+        lastname.hashCode ^
+        middlename.hashCode ^
+        prefix.hashCode ^
+        suffix.hashCode ^
+        dateOfBirth.hashCode ^
+        taxvat.hashCode ^
+        gender.hashCode ^
+        isSubscribed.hashCode ^
+        addresses.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'CustomerCreateRequest(email: $email, password: [HIDDEN], firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  }
 }
 
 /// Customer update request model
-@freezed
-class CustomerUpdateRequest with _$CustomerUpdateRequest {
-  const factory CustomerUpdateRequest({
-    String? firstname,
-    String? lastname,
-    String? middlename,
-    String? prefix,
-    String? suffix,
-    String? dateOfBirth,
-    String? taxvat,
-    String? gender,
-    bool? isSubscribed,
-    List<Address>? addresses,
-  }) = _CustomerUpdateRequest;
+class CustomerUpdateRequest {
+  final String? firstname;
+  final String? lastname;
+  final String? middlename;
+  final String? prefix;
+  final String? suffix;
+  final String? dateOfBirth;
+  final String? taxvat;
+  final String? gender;
+  final bool? isSubscribed;
+  final List<Address>? addresses;
 
-  factory CustomerUpdateRequest.fromJson(Map<String, dynamic> json) =>
-      _$CustomerUpdateRequestFromJson(json);
+  const CustomerUpdateRequest({
+    this.firstname,
+    this.lastname,
+    this.middlename,
+    this.prefix,
+    this.suffix,
+    this.dateOfBirth,
+    this.taxvat,
+    this.gender,
+    this.isSubscribed,
+    this.addresses,
+  });
+
+  factory CustomerUpdateRequest.fromJson(Map<String, dynamic> json) {
+    return CustomerUpdateRequest(
+      firstname: json['firstname'] as String?,
+      lastname: json['lastname'] as String?,
+      middlename: json['middlename'] as String?,
+      prefix: json['prefix'] as String?,
+      suffix: json['suffix'] as String?,
+      dateOfBirth: json['dateOfBirth'] as String?,
+      taxvat: json['taxvat'] as String?,
+      gender: json['gender'] as String?,
+      isSubscribed: json['isSubscribed'] as bool?,
+      addresses: json['addresses'] != null 
+          ? (json['addresses'] as List).map((e) => Address.fromJson(e as Map<String, dynamic>)).toList()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'firstname': firstname,
+      'lastname': lastname,
+      'middlename': middlename,
+      'prefix': prefix,
+      'suffix': suffix,
+      'dateOfBirth': dateOfBirth,
+      'taxvat': taxvat,
+      'gender': gender,
+      'isSubscribed': isSubscribed,
+      'addresses': addresses?.map((e) => e.toJson()).toList(),
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is CustomerUpdateRequest &&
+        other.firstname == firstname &&
+        other.lastname == lastname &&
+        other.middlename == middlename &&
+        other.prefix == prefix &&
+        other.suffix == suffix &&
+        other.dateOfBirth == dateOfBirth &&
+        other.taxvat == taxvat &&
+        other.gender == gender &&
+        other.isSubscribed == isSubscribed &&
+        other.addresses == addresses;
+  }
+
+  @override
+  int get hashCode {
+    return firstname.hashCode ^
+        lastname.hashCode ^
+        middlename.hashCode ^
+        prefix.hashCode ^
+        suffix.hashCode ^
+        dateOfBirth.hashCode ^
+        taxvat.hashCode ^
+        gender.hashCode ^
+        isSubscribed.hashCode ^
+        addresses.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'CustomerUpdateRequest(firstname: $firstname, lastname: $lastname, middlename: $middlename, prefix: $prefix, suffix: $suffix, dateOfBirth: $dateOfBirth, taxvat: $taxvat, gender: $gender, isSubscribed: $isSubscribed, addresses: $addresses)';
+  }
 }
 
 /// Password change request model
