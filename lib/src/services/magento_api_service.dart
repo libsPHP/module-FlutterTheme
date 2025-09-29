@@ -194,7 +194,7 @@ class MagentoApiService {
     } on DioException catch (e) {
       throw MagentoException.fromDioException(e);
     } catch (e) {
-      throw MagentoException('Unexpected error: $e');
+      throw const MagentoException('Unexpected error: $e');
     }
   }
 
@@ -222,7 +222,7 @@ class MagentoApiService {
         if (responseData.containsKey('errors')) {
           final errors = responseData['errors'] as List;
           final errorMessages = errors.map((e) => e['message']).join(', ');
-          throw MagentoException('GraphQL Error: $errorMessages');
+          throw const MagentoException('GraphQL Error: $errorMessages');
         }
 
         return responseData;
@@ -232,7 +232,7 @@ class MagentoApiService {
     } on DioException catch (e) {
       throw MagentoException.fromDioException(e);
     } catch (e) {
-      throw MagentoException('GraphQL request failed: $e');
+      throw const MagentoException('GraphQL request failed: $e');
     }
   }
 
@@ -260,7 +260,7 @@ class MagentoApiService {
       return result!['data']['storeConfig'];
     }
 
-    throw MagentoException('Failed to get store configuration');
+    throw const MagentoException('Failed to get store configuration');
   }
 
   /// Get categories via GraphQL
@@ -412,7 +412,7 @@ class MagentoApiService {
       return result!['data']['products'];
     }
 
-    throw MagentoException('Failed to get products');
+    throw const MagentoException('Failed to get products');
   }
 
   /// Search products via GraphQL
@@ -534,7 +534,7 @@ class MagentoApiService {
       return result!['data']['currency'];
     }
 
-    throw MagentoException('Failed to get currency information');
+    throw const MagentoException('Failed to get currency information');
   }
 
   /// Get CMS pages via GraphQL (if supported)
@@ -621,7 +621,7 @@ class MagentoApiService {
       return result!['data']['category'];
     }
 
-    throw MagentoException('Failed to get category tree');
+    throw const MagentoException('Failed to get category tree');
   }
 
   /// Get product reviews via GraphQL
@@ -668,7 +668,7 @@ class MagentoApiService {
       return result!['data']['products']['items'][0];
     }
 
-    throw MagentoException('Failed to get product reviews');
+    throw const MagentoException('Failed to get product reviews');
   }
 
   /// Get product filters/facets via GraphQL
@@ -749,7 +749,7 @@ class MagentoApiService {
       return result!['data']['customer']['wishlist'];
     }
 
-    throw MagentoException('Failed to get wishlist');
+    throw const MagentoException('Failed to get wishlist');
   }
 
   /// Get customer orders via GraphQL
@@ -867,7 +867,7 @@ class MagentoApiService {
       return result!['data']['customer']['orders'];
     }
 
-    throw MagentoException('Failed to get customer orders');
+    throw const MagentoException('Failed to get customer orders');
   }
 
   /// Get customer information via GraphQL
