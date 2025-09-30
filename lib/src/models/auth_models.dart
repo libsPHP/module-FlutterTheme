@@ -264,64 +264,236 @@ class CustomerUpdateRequest {
 }
 
 /// Password change request model
-@freezed
-class PasswordChangeRequest with _$PasswordChangeRequest {
-  const factory PasswordChangeRequest({
-    required String currentPassword,
-    required String newPassword,
-  }) = _PasswordChangeRequest;
+class PasswordChangeRequest {
+  final String currentPassword;
+  final String newPassword;
 
-  factory PasswordChangeRequest.fromJson(Map<String, dynamic> json) =>
-      _$PasswordChangeRequestFromJson(json);
+  const PasswordChangeRequest({
+    required this.currentPassword,
+    required this.newPassword,
+  });
+
+  factory PasswordChangeRequest.fromJson(Map<String, dynamic> json) {
+    return PasswordChangeRequest(
+      currentPassword: json['currentPassword'] as String,
+      newPassword: json['newPassword'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'currentPassword': currentPassword,
+      'newPassword': newPassword,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is PasswordChangeRequest &&
+        other.currentPassword == currentPassword &&
+        other.newPassword == newPassword;
+  }
+
+  @override
+  int get hashCode {
+    return currentPassword.hashCode ^ newPassword.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'PasswordChangeRequest(currentPassword: [HIDDEN], newPassword: [HIDDEN])';
+  }
 }
 
 /// Password reset request model
-@freezed
-class PasswordResetRequest with _$PasswordResetRequest {
-  const factory PasswordResetRequest({required String email}) =
-      _PasswordResetRequest;
+class PasswordResetRequest {
+  final String email;
 
-  factory PasswordResetRequest.fromJson(Map<String, dynamic> json) =>
-      _$PasswordResetRequestFromJson(json);
+  const PasswordResetRequest({required this.email});
+
+  factory PasswordResetRequest.fromJson(Map<String, dynamic> json) {
+    return PasswordResetRequest(
+      email: json['email'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is PasswordResetRequest && other.email == email;
+  }
+
+  @override
+  int get hashCode => email.hashCode;
+
+  @override
+  String toString() => 'PasswordResetRequest(email: $email)';
 }
 
 /// Social login request model
-@freezed
-class SocialLoginRequest with _$SocialLoginRequest {
-  const factory SocialLoginRequest({
-    required String provider,
-    required String token,
-    String? email,
-    String? firstname,
-    String? lastname,
-  }) = _SocialLoginRequest;
+class SocialLoginRequest {
+  final String provider;
+  final String token;
+  final String? email;
+  final String? firstname;
+  final String? lastname;
 
-  factory SocialLoginRequest.fromJson(Map<String, dynamic> json) =>
-      _$SocialLoginRequestFromJson(json);
+  const SocialLoginRequest({
+    required this.provider,
+    required this.token,
+    this.email,
+    this.firstname,
+    this.lastname,
+  });
+
+  factory SocialLoginRequest.fromJson(Map<String, dynamic> json) {
+    return SocialLoginRequest(
+      provider: json['provider'] as String,
+      token: json['token'] as String,
+      email: json['email'] as String?,
+      firstname: json['firstname'] as String?,
+      lastname: json['lastname'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'provider': provider,
+      'token': token,
+      'email': email,
+      'firstname': firstname,
+      'lastname': lastname,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is SocialLoginRequest &&
+        other.provider == provider &&
+        other.token == token &&
+        other.email == email &&
+        other.firstname == firstname &&
+        other.lastname == lastname;
+  }
+
+  @override
+  int get hashCode {
+    return provider.hashCode ^
+        token.hashCode ^
+        email.hashCode ^
+        firstname.hashCode ^
+        lastname.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'SocialLoginRequest(provider: $provider, token: [HIDDEN], email: $email, firstname: $firstname, lastname: $lastname)';
+  }
 }
 
 /// Token refresh request model
-@freezed
-class TokenRefreshRequest with _$TokenRefreshRequest {
-  const factory TokenRefreshRequest({required String refreshToken}) =
-      _TokenRefreshRequest;
+class TokenRefreshRequest {
+  final String refreshToken;
 
-  factory TokenRefreshRequest.fromJson(Map<String, dynamic> json) =>
-      _$TokenRefreshRequestFromJson(json);
+  const TokenRefreshRequest({required this.refreshToken});
+
+  factory TokenRefreshRequest.fromJson(Map<String, dynamic> json) {
+    return TokenRefreshRequest(
+      refreshToken: json['refreshToken'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'refreshToken': refreshToken,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is TokenRefreshRequest && other.refreshToken == refreshToken;
+  }
+
+  @override
+  int get hashCode => refreshToken.hashCode;
+
+  @override
+  String toString() => 'TokenRefreshRequest(refreshToken: [HIDDEN])';
 }
 
 /// Session information model
-@freezed
-class SessionInfo with _$SessionInfo {
-  const factory SessionInfo({
-    required String sessionId,
-    required DateTime createdAt,
-    required DateTime expiresAt,
-    required bool isValid,
-    String? customerId,
-    String? cartId,
-  }) = _SessionInfo;
+class SessionInfo {
+  final String sessionId;
+  final DateTime createdAt;
+  final DateTime expiresAt;
+  final bool isValid;
+  final String? customerId;
+  final String? cartId;
 
-  factory SessionInfo.fromJson(Map<String, dynamic> json) =>
-      _$SessionInfoFromJson(json);
+  const SessionInfo({
+    required this.sessionId,
+    required this.createdAt,
+    required this.expiresAt,
+    required this.isValid,
+    this.customerId,
+    this.cartId,
+  });
+
+  factory SessionInfo.fromJson(Map<String, dynamic> json) {
+    return SessionInfo(
+      sessionId: json['sessionId'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      expiresAt: DateTime.parse(json['expiresAt'] as String),
+      isValid: json['isValid'] as bool,
+      customerId: json['customerId'] as String?,
+      cartId: json['cartId'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'sessionId': sessionId,
+      'createdAt': createdAt.toIso8601String(),
+      'expiresAt': expiresAt.toIso8601String(),
+      'isValid': isValid,
+      'customerId': customerId,
+      'cartId': cartId,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is SessionInfo &&
+        other.sessionId == sessionId &&
+        other.createdAt == createdAt &&
+        other.expiresAt == expiresAt &&
+        other.isValid == isValid &&
+        other.customerId == customerId &&
+        other.cartId == cartId;
+  }
+
+  @override
+  int get hashCode {
+    return sessionId.hashCode ^
+        createdAt.hashCode ^
+        expiresAt.hashCode ^
+        isValid.hashCode ^
+        customerId.hashCode ^
+        cartId.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'SessionInfo(sessionId: $sessionId, createdAt: $createdAt, expiresAt: $expiresAt, isValid: $isValid, customerId: $customerId, cartId: $cartId)';
+  }
 }
