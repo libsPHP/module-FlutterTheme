@@ -6,6 +6,13 @@
 * **Export Management**: Added proper hide directives to resolve naming conflicts in main library exports
 * **Publishing**: Fixed all dart analyze issues for successful package publishing to pub.dev
 
+## 3.3.2
+
+* **Dependencies**: Updated all dependencies to their latest stable versions
+* **Code Quality**: Fixed all analyzer issues and improved code consistency
+* **Performance**: Optimized network requests and caching mechanisms
+* **Documentation**: Updated API documentation and examples
+
 ## 3.2.1
 
 * **Code Quality**: Fixed linting issues including curly braces in flow control structures
