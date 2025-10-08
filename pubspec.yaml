@@ -72,6 +72,12 @@ dependencies:
   # Real-time Communication
   socket_io_client: ^3.1.2
   
+  # Archive/ZIP support for RADA format
+  archive: ^3.6.1
+  
+  # File operations
+  file_picker: ^8.1.4
+  
 
 dev_dependencies:
   flutter_test:
