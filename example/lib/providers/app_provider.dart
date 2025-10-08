@@ -147,6 +147,9 @@ class AppProvider extends ChangeNotifier {
   // Magento API instance
   late FlutterMagentoCore _magento;
 
+  // API instances for RADA export
+  ProductApi? _productApi;
+
   // Auth state
   bool _isAuthenticated = false;
   SimpleCustomer? _currentCustomer;
@@ -172,6 +175,7 @@ class AppProvider extends ChangeNotifier {
   List<MagentoProduct> get products => _products;
   List<MagentoProduct> get searchResults => _searchResults;
   List<MagentoCategory> get categories => _categories;
+  ProductApi? get productApi => _productApi;
 
   // Environment variables getters
   String? get defaultApiUrl =>
@@ -230,6 +234,13 @@ class AppProvider extends ChangeNotifier {
 
       _isInitialized = true;
       _baseUrl = baseUrl;
+
+      // Initialize ProductApi for RADA export
+      try {
+        _productApi = ProductApi(baseUrl: baseUrl);
+      } catch (e) {
+        debugPrint('Failed to initialize ProductApi: $e');
+      }
 
       // Save configuration
       final prefs = await SharedPreferences.getInstance();
@@ -767,5 +778,59 @@ class AppProvider extends ChangeNotifier {
   void _clearError() {
     _error = null;
     notifyListeners();
+  }
+
+  /// Load data from RADA package
+  Future<void> loadFromRadaPackage(RadaPackage package) async {
+    try {
+      _setLoading(true);
+      _clearError();
+
+      // Convert RADA categories to MagentoCategory
+      final radaCategories = package.data.categories;
+      _categories = radaCategories.map((cat) {
+        return MagentoCategory(
+          id: cat.id.toString(),
+          name: cat.name,
+          urlKey: cat.name.toLowerCase().replaceAll(' ', '-'),
+          childrenCount: cat.childrenCount,
+          level: cat.level,
+          children:
+              cat.children?.map((child) {
+                return MagentoCategory(
+                  id: child.id.toString(),
+                  name: child.name,
+                  urlKey: child.name.toLowerCase().replaceAll(' ', '-'),
+                  childrenCount: child.childrenCount,
+                  level: child.level,
+                );
+              }).toList() ??
+              [],
+        );
+      }).toList();
+
+      // Convert RADA products to MagentoProduct
+      final radaProducts = package.data.products;
+      _products = radaProducts.map((prod) {
+        return MagentoProduct(
+          id: prod.id.toString(),
+          name: prod.name,
+          sku: prod.sku,
+          price: prod.price,
+          specialPrice: prod.specialPrice,
+          inStock: prod.isAvailable,
+          imageUrl: prod.mediaGalleryEntries?.firstOrNull?.file,
+          description: prod.description,
+          categories: prod.categories ?? [],
+        );
+      }).toList();
+
+      notifyListeners();
+    } catch (e) {
+      _setError('Failed to load RADA data: $e');
+      rethrow;
+    } finally {
+      _setLoading(false);
+    }
   }
 }

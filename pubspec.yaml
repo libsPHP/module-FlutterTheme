@@ -1,6 +1,6 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration with authentication, cart management, product catalog, orders, and offline support
-version: 3.4.1
+version: 3.5.1
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 repository: https://gitlab.com/libsFlutter/flutter_magento
 issue_tracker: https://gitlab.com/libsFlutter/flutter_magento/-/issues
@@ -74,6 +74,9 @@ dependencies:
   
   # Archive/ZIP support for RADA format
   archive: ^3.6.1
+  
+  # Path operations for RADA format
+  path: ^1.9.0
   
   # File operations
   file_picker: ^8.1.4

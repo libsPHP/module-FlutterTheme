@@ -10,6 +10,7 @@ import 'screens/config_screen.dart';
 import 'screens/categories_screen.dart';
 import 'screens/device_info_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/rada_screen.dart';
 import 'providers/app_provider.dart';
 
 void main() async {
@@ -75,6 +76,7 @@ class _MainScreenState extends State<MainScreen> {
     const ProductsScreen(),
     const CategoriesScreen(),
     const CartScreen(),
+    const RadaScreen(),
     const DeviceInfoScreen(),
     const ConfigScreen(),
   ];
@@ -98,6 +100,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: Icon(Icons.shopping_cart),
       label: 'Cart',
     ),
+    const BottomNavigationBarItem(icon: Icon(Icons.archive), label: 'RADA'),
     const BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Device'),
     const BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Config'),
   ];

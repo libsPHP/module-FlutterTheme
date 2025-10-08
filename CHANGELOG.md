@@ -1,3 +1,12 @@
+## 3.5.1
+
+* **RADA Format Support**: Added Restorable Application Data Archive (RADA) format for comprehensive data export/import
+* **RADA Features**: Complete data package format with categories, products, customers, orders, and assets
+* **Archive Services**: Added RadaService, RadaExporter, RadaImporter, and RadaPreloadService for RADA operations
+* **Example Implementation**: Added RADA screen in example app demonstrating export/import functionality
+* **Documentation**: Added comprehensive RADA format specification and usage documentation
+* **Dependencies**: Added path package for file path operations in RADA services
+
 ## 3.4.1
 
 * **Publishing Fixes**: Resolved ambiguous export errors for AuthResult and EnhancedProductApi
