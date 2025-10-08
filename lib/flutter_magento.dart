@@ -43,7 +43,6 @@ export 'src/api/customer_api.dart';
 
 // Models
 export 'src/models/auth_models.dart';
-export 'src/models/customer.dart';
 export 'src/models/product_models.dart';
 export 'src/models/enhanced_product.dart' hide EnhancedProductListResponse;
 export 'src/models/cart_models.dart' hide ShippingMethod, PaymentMethod;

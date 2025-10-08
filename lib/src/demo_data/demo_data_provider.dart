@@ -1,15 +1,14 @@
-import '../models/product.dart' as product_models;
-import '../models/product_models.dart' as models;
-import '../models/cart.dart';
+import '../models/product_models.dart';
+import '../models/cart_models.dart';
 
 /// Абстрактный интерфейс для предоставления начальных данных
 /// Позволяет каждому приложению кастомизировать начальный контент
 abstract class DemoDataProvider {
   /// Получить список начальных продуктов
-  List<product_models.Product> getInitialPreloadProducts();
+  List<Product> getInitialPreloadProducts();
 
   /// Получить список начальных категорий
-  List<models.Category> getInitialPreloadCategories();
+  List<Category> getInitialPreloadCategories();
 
   /// Получить начальные элементы корзины
   List<CartItem> getInitialPreloadCartItems();

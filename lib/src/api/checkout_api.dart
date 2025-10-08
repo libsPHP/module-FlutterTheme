@@ -1,5 +1,5 @@
 import '../models/checkout_models.dart';
-import '../models/order.dart';
+import '../models/order_models.dart';
 import 'magento_api_client.dart';
 
 /// API class for checkout operations.

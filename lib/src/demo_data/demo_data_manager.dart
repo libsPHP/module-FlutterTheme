@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'demo_data_provider.dart';
-import '../models/product.dart' as product_models;
-import '../models/product_models.dart' as models;
-import '../models/cart.dart';
+import '../models/product_models.dart';
+import '../models/cart_models.dart';
 
 /// Менеджер для управления провайдерами демо-данных
 /// Позволяет регистрировать и использовать различные источники демо-данных

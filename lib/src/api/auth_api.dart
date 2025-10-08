@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import '../models/auth_models.dart';
-import '../models/customer.dart';
+import '../models/customer_models.dart';
 import 'magento_api_client.dart';
 
 /// Authentication API for Magento integration.
