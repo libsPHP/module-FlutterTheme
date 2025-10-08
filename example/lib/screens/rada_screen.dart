@@ -130,7 +130,7 @@ class _RadaScreenState extends State<RadaScreen> {
                   border: OutlineInputBorder(),
                 ),
                 items: provider.categories.map((category) {
-                  return DropdownMenuItem(
+                  return DropdownMenuItem<int>(
                     value: category.id,
                     child: Text(category.name),
                   );

@@ -237,7 +237,7 @@ class AppProvider extends ChangeNotifier {
 
       // Initialize ProductApi for RADA export
       try {
-        _productApi = ProductApi(baseUrl: baseUrl);
+        _productApi = ProductApi(_flutterMagento.client);
       } catch (e) {
         debugPrint('Failed to initialize ProductApi: $e');
       }

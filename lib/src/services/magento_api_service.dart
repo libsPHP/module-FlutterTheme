@@ -194,7 +194,7 @@ class MagentoApiService {
     } on DioException catch (e) {
       throw MagentoException.fromDioException(e);
     } catch (e) {
-      throw const MagentoException('Unexpected error: $e');
+      throw MagentoException('Unexpected error: $e');
     }
   }
 
@@ -222,7 +222,7 @@ class MagentoApiService {
         if (responseData.containsKey('errors')) {
           final errors = responseData['errors'] as List;
           final errorMessages = errors.map((e) => e['message']).join(', ');
-          throw const MagentoException('GraphQL Error: $errorMessages');
+          throw MagentoException('GraphQL Error: $errorMessages');
         }
 
         return responseData;
@@ -232,7 +232,7 @@ class MagentoApiService {
     } on DioException catch (e) {
       throw MagentoException.fromDioException(e);
     } catch (e) {
-      throw const MagentoException('GraphQL request failed: $e');
+      throw MagentoException('GraphQL request failed: $e');
     }
   }
 
