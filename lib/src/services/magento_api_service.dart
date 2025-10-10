@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../models/customer.dart';
-import '../models/product.dart';
-import '../models/cart.dart';
-import '../models/order.dart';
+import '../models/customer_models.dart';
+import '../models/product_models.dart';
+import '../models/cart_models.dart';
+import '../models/order_models.dart';
 import '../exceptions/magento_exception.dart';
 
 /// Service for interacting with Magento REST API and GraphQL.

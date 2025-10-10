@@ -1,5 +1,5 @@
 import 'flutter_magento_core.dart';
-import 'models/customer.dart';
+import 'models/customer_models.dart';
 
 /// Unified Flutter Magento API - React-style static interface
 ///

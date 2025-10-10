@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../services/profile_service.dart';
 import '../models/customer_models.dart';
-import '../models/customer.dart' as customer_freezed;
+import '../models/customer_models.dart' as customer_freezed;
 
 /// Provider for managing customer profile state
 class ProfileProvider extends ChangeNotifier {

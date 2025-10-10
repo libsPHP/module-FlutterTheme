@@ -15,5 +15,7 @@ targets:
           copy_with: true
           equal: true
           to_string: true
+          map: true
+          when: true
         generate_for:
           - lib/src/models/**.dart

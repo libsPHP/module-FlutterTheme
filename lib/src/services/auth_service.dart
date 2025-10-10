@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'network_service.dart';
 import 'magento_api_service.dart';
 import '../models/auth_models.dart';
-import '../models/customer.dart';
+import '../models/customer_models.dart';
 import '../exceptions/magento_exception.dart';
 
 /// Enhanced authentication service with JWT token management and secure storage.

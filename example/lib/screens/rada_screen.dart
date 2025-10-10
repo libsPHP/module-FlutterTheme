@@ -131,7 +131,7 @@ class _RadaScreenState extends State<RadaScreen> {
                 ),
                 items: provider.categories.map((category) {
                   return DropdownMenuItem<int>(
-                    value: category.id,
+                    value: int.tryParse(category.id) ?? 0,
                     child: Text(category.name),
                   );
                 }).toList(),
@@ -384,10 +384,7 @@ class _RadaScreenState extends State<RadaScreen> {
           '${directory.path}/rada_export_${category.id}_$timestamp.rada';
 
       // Create exporter (simplified - you may need to adjust based on your API)
-      final exporter = RadaExporter(
-        productApi: provider.productApi!,
-        baseUrl: provider.baseUrl!,
-      );
+      final exporter = RadaExporter(baseUrl: provider.baseUrl!);
 
       // Export options
       final options = RadaExportOptions(

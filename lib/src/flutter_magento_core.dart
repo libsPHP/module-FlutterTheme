@@ -4,8 +4,8 @@ import 'services/auth_service.dart';
 import 'services/cart_service.dart';
 import 'exceptions/magento_exception.dart';
 import 'models/auth_models.dart';
-import 'models/customer.dart';
-import 'models/cart.dart';
+import 'models/customer_models.dart';
+import 'models/cart_models.dart';
 import 'demo_data/demo_data_manager.dart';
 import 'demo_data/demo_data_provider.dart';
 

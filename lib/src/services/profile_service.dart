@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import '../models/customer_models.dart';
-import '../models/customer.dart' as customer_freezed;
+import '../models/customer_models.dart' as customer_freezed;
 import '../api/customer_api.dart';
 
 /// Comprehensive profile service for managing customer profiles

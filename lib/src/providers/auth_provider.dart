@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../services/auth_service.dart';
 import '../models/auth_models.dart';
-import '../models/customer.dart';
+import '../models/customer_models.dart';
 
 /// Провайдер для управления состоянием аутентификации
 class AuthProvider extends ChangeNotifier {

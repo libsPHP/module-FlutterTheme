@@ -191,13 +191,13 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<product_models.Product> getInitialPreloadProducts() {
+  List<Product> getInitialPreloadProducts() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       final productsData = data['products'] as List<dynamic>? ?? [];
 
       return productsData.map((productData) {
-        return product_models.Product(
+        return Product(
           id: int.tryParse(productData['id']?.toString() ?? '0') ?? 0,
           name: productData['name'] ?? '',
           sku: productData['sku'] ?? '',
@@ -221,13 +221,13 @@ class JsonDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<models.Category> getInitialPreloadCategories() {
+  List<Category> getInitialPreloadCategories() {
     try {
       final data = jsonDecode(jsonData) as Map<String, dynamic>;
       final categoriesData = data['categories'] as List<dynamic>? ?? [];
 
       return categoriesData.map((categoryData) {
-        return models.Category(
+        return Category(
           id: int.tryParse(categoryData['id']?.toString() ?? '0') ?? 0,
           name: categoryData['name'] ?? '',
           level: categoryData['level'] ?? 1,

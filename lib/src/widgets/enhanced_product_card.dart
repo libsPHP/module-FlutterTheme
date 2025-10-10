@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import '../models/product_models.dart';
 import '../services/image_cache_service.dart';
 
 /// Enhanced product card with Material Design 3 styling

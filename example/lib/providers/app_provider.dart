@@ -147,9 +147,6 @@ class AppProvider extends ChangeNotifier {
   // Magento API instance
   late FlutterMagentoCore _magento;
 
-  // API instances for RADA export
-  ProductApi? _productApi;
-
   // Auth state
   bool _isAuthenticated = false;
   SimpleCustomer? _currentCustomer;
@@ -175,7 +172,6 @@ class AppProvider extends ChangeNotifier {
   List<MagentoProduct> get products => _products;
   List<MagentoProduct> get searchResults => _searchResults;
   List<MagentoCategory> get categories => _categories;
-  ProductApi? get productApi => _productApi;
 
   // Environment variables getters
   String? get defaultApiUrl =>
@@ -234,13 +230,6 @@ class AppProvider extends ChangeNotifier {
 
       _isInitialized = true;
       _baseUrl = baseUrl;
-
-      // Initialize ProductApi for RADA export
-      try {
-        _productApi = ProductApi(_flutterMagento.client);
-      } catch (e) {
-        debugPrint('Failed to initialize ProductApi: $e');
-      }
 
       // Save configuration
       final prefs = await SharedPreferences.getInstance();
