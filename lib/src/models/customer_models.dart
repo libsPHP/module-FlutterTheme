@@ -3,6 +3,60 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'customer_models.freezed.dart';
 part 'customer_models.g.dart';
 
+/// Main customer model
+@freezed
+class Customer with _$Customer {
+  const factory Customer({
+    required int id,
+    required String email,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    String? prefix,
+    String? suffix,
+    int? groupId,
+    int? defaultBilling,
+    int? defaultShipping,
+    String? taxvat,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? websiteId,
+    bool? isSubscribed,
+    int? gender,
+    List<CustomerAddress>? addresses,
+    Map<String, dynamic>? customAttributes,
+    Map<String, dynamic>? extensionAttributes,
+  }) = _Customer;
+
+  factory Customer.fromJson(Map<String, dynamic> json) =>
+      _$CustomerFromJson(json);
+}
+
+/// Address model (simple version for auth)
+@freezed
+class Address with _$Address {
+  const factory Address({
+    int? id,
+    String? customerId,
+    String? firstName,
+    String? lastName,
+    String? company,
+    List<String>? street,
+    String? city,
+    String? region,
+    String? regionId,
+    String? postcode,
+    String? countryId,
+    String? telephone,
+    String? fax,
+    bool? defaultShipping,
+    bool? defaultBilling,
+  }) = _Address;
+
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
+}
+
 /// Customer address model
 @freezed
 class CustomerAddress with _$CustomerAddress {

@@ -230,7 +230,7 @@ class ProfileProvider extends ChangeNotifier {
   Map<String, dynamic> get profileSummary => {
     'isLoaded': currentProfile != null,
     'fullName': currentProfile != null
-        ? '${currentProfile!.firstname} ${currentProfile!.lastname}'
+        ? '${currentProfile!.firstName ?? ''} ${currentProfile!.lastName ?? ''}'
         : null,
     'email': currentProfile?.email,
     'addressCount': addresses?.length ?? 0,

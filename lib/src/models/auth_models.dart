@@ -1,4 +1,4 @@
-import 'customer.dart';
+import 'customer_models.dart';
 
 /// Authentication response model
 class AuthResponse {

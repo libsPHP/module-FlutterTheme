@@ -52,7 +52,7 @@ class CartService {
   bool get isInitialized => _isInitialized;
 
   /// Check if cart is empty
-  bool get isCartEmpty => _currentCart?.items.isEmpty ?? true;
+  bool get isCartEmpty => _currentCart?.items?.isEmpty ?? true;
 
   /// Get cart items count
   int get itemsCount => _currentCart?.items.length ?? 0;
