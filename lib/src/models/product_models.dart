@@ -40,6 +40,7 @@ class Product with _$Product {
       _$ProductFromJson(json);
 
   bool get isAvailable => stockStatus == 1;
+  bool get isInStock => stockStatus == 1; // Alias for compatibility
   bool get hasSpecialPrice => specialPrice != null && specialPrice! < price;
   double get currentPrice => hasSpecialPrice ? specialPrice! : price;
   double get discountPercentage =>

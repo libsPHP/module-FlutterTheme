@@ -197,6 +197,7 @@ class JsonDemoDataProvider implements DemoDataProvider {
       final productsData = data['products'] as List<dynamic>? ?? [];
 
       return productsData.map((productData) {
+        final inStock = productData['inStock'] ?? true;
         return Product(
           id: int.tryParse(productData['id']?.toString() ?? '0') ?? 0,
           name: productData['name'] ?? '',
@@ -204,8 +205,9 @@ class JsonDemoDataProvider implements DemoDataProvider {
           typeId: 'simple',
           price: (productData['price'] as num?)?.toDouble() ?? 0.0,
           specialPrice: (productData['specialPrice'] as num?)?.toDouble(),
-          isInStock: productData['inStock'] ?? true,
-          thumbnail: productData['imageUrl'],
+          status: 1,
+          visibility: 4,
+          stockStatus: inStock ? 1 : 0,
           description: productData['description'],
           categories:
               (productData['categories'] as List<dynamic>?)?.cast<String>() ??

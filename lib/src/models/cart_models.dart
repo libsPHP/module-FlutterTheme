@@ -1,78 +1,64 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'cart_models.freezed.dart';
 part 'cart_models.g.dart';
 
 /// Cart model representing a shopping cart
-@JsonSerializable()
-class Cart {
-  final String? id;
-  final int? customerId;
-  final String? customerEmail;
-  final List<CartItem>? items;
-  final CartTotals? totals;
-  final List<CartCoupon>? appliedCoupons;
-  final List<CartGiftCard>? appliedGiftCards;
-  final String? currencyCode;
-  final bool? isActive;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+@freezed
+class Cart with _$Cart {
+  const factory Cart({
+    String? id,
+    int? customerId,
+    String? customerEmail,
+    List<CartItem>? items,
+    CartTotals? totals,
+    List<CartCoupon>? appliedCoupons,
+    List<CartGiftCard>? appliedGiftCards,
+    String? currencyCode,
+    String? couponCode,
+    bool? isActive,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _Cart;
 
-  Cart({
-    this.id,
-    this.customerId,
-    this.customerEmail,
-    this.items,
-    this.totals,
-    this.appliedCoupons,
-    this.appliedGiftCards,
-    this.currencyCode,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-  });
+  const Cart._();
 
   factory Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
-  Map<String, dynamic> toJson() => _$CartToJson(this);
+
+  // Convenience getters
+  bool get isEmpty => items?.isEmpty ?? true;
+  int get itemCount => items?.length ?? 0;
+  double get grandTotal => totals?.grandTotal ?? 0.0;
 }
 
 /// Cart item model
-@JsonSerializable()
-class CartItem {
-  final int? itemId;
-  final String? sku;
-  final String? name;
-  final int? qty;
-  final double? price;
-  final double? rowTotal;
-  final double? taxAmount;
-  final double? discountAmount;
-  final String? productType;
-  final Map<String, dynamic>? productOptions;
-  final List<CartItemOption>? options;
-  final bool? isVirtual;
-  final String? imageUrl;
-  final String? thumbnailUrl;
+@freezed
+class CartItem with _$CartItem {
+  const factory CartItem({
+    int? itemId,
+    String? sku,
+    String? name,
+    int? qty,
+    double? price,
+    double? rowTotal,
+    double? taxAmount,
+    double? discountAmount,
+    String? productType,
+    Map<String, dynamic>? productOptions,
+    List<CartItemOption>? options,
+    bool? isVirtual,
+    String? imageUrl,
+    String? thumbnailUrl,
+  }) = _CartItem;
 
-  CartItem({
-    this.itemId,
-    this.sku,
-    this.name,
-    this.qty,
-    this.price,
-    this.rowTotal,
-    this.taxAmount,
-    this.discountAmount,
-    this.productType,
-    this.productOptions,
-    this.options,
-    this.isVirtual,
-    this.imageUrl,
-    this.thumbnailUrl,
-  });
+  const CartItem._();
 
   factory CartItem.fromJson(Map<String, dynamic> json) =>
       _$CartItemFromJson(json);
-  Map<String, dynamic> toJson() => _$CartItemToJson(this);
+
+  // Alias getters for compatibility
+  int? get id => itemId;
+  int? get quantity => qty;
 }
 
 /// Cart item option model

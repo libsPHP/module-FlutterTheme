@@ -42,69 +42,69 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<product_models.Product> getInitialPreloadProducts() {
+  List<Product> getInitialPreloadProducts() {
     return [
-      product_models.Product(
+      Product(
         id: 1,
         name: 'Radiant Tee',
         sku: 'WS12-XS-Orange',
         typeId: 'simple',
         price: 22.00,
         specialPrice: 20.00,
-        isInStock: true,
-        thumbnail:
-            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
+        status: 1,
+        visibility: 4,
+        stockStatus: 1,
         description:
             'The Radiant Tee features a soft, lightweight fabric with a comfortable fit.',
         categories: ['Women', 'Tops'],
       ),
-      product_models.Product(
+      Product(
         id: 2,
         name: 'Argus All-Weather Tank',
         sku: 'WSH12-XS-White',
         typeId: 'simple',
         price: 21.00,
-        isInStock: true,
-        thumbnail:
-            'https://luma-demo.scandipwa.com/media/catalog/product/w/s/wsh12-white_main_2.jpg',
+        status: 1,
+        visibility: 4,
+        stockStatus: 1,
         description:
             'The Argus All-Weather Tank is a versatile piece for any wardrobe.',
         categories: ['Women', 'Tops'],
       ),
-      product_models.Product(
+      Product(
         id: 3,
         name: 'Hero Hoodie',
         sku: 'WSH03-XS-Gray',
         typeId: 'simple',
         price: 54.00,
-        isInStock: true,
-        thumbnail:
-            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
+        status: 1,
+        visibility: 4,
+        stockStatus: 1,
         description:
             'The Hero Hoodie is perfect for those cool days and nights.',
         categories: ['Men', 'Tops'],
       ),
-      product_models.Product(
+      Product(
         id: 4,
         name: 'Bruno Compete Hoodie',
         sku: 'WSH04-XS-Gray',
         typeId: 'simple',
         price: 62.00,
-        isInStock: true,
-        thumbnail:
-            'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh04-gray_main_2.jpg',
+        status: 1,
+        visibility: 4,
+        stockStatus: 1,
         description: 'The Bruno Compete Hoodie offers comfort and style.',
         categories: ['Men', 'Tops'],
       ),
-      product_models.Product(
+      Product(
         id: 5,
         name: 'Fusion Backpack',
         sku: '24-WB01',
         typeId: 'simple',
         price: 59.00,
-        isInStock: true,
-        thumbnail:
-            'https://luma-demo.scandipwa.com/media/catalog/product/2/4/24-wb01_2.jpg',
+        status: 1,
+        visibility: 4,
+        stockStatus: 1,
         description:
             'The Fusion Backpack is perfect for your daily adventures.',
         categories: ['Gear', 'Bags'],
@@ -113,9 +113,9 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   }
 
   @override
-  List<models.Category> getInitialPreloadCategories() {
+  List<Category> getInitialPreloadCategories() {
     return [
-      models.Category(
+      Category(
         id: 1,
         name: 'Women',
         level: 1,
@@ -123,7 +123,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
         isActive: true,
         childrenCount: 3,
         children: [
-          models.Category(
+          Category(
             id: 11,
             name: 'Tops',
             level: 2,
@@ -131,7 +131,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
             isActive: true,
             childrenCount: 2,
           ),
-          models.Category(
+          Category(
             id: 12,
             name: 'Bottoms',
             level: 2,
@@ -139,7 +139,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
             isActive: true,
             childrenCount: 2,
           ),
-          models.Category(
+          Category(
             id: 13,
             name: 'Accessories',
             level: 2,
@@ -149,7 +149,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
           ),
         ],
       ),
-      models.Category(
+      Category(
         id: 2,
         name: 'Men',
         level: 1,
@@ -157,7 +157,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
         isActive: true,
         childrenCount: 3,
         children: [
-          models.Category(
+          Category(
             id: 21,
             name: 'Tops',
             level: 2,
@@ -165,7 +165,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
             isActive: true,
             childrenCount: 2,
           ),
-          models.Category(
+          Category(
             id: 22,
             name: 'Bottoms',
             level: 2,
@@ -173,7 +173,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
             isActive: true,
             childrenCount: 2,
           ),
-          models.Category(
+          Category(
             id: 23,
             name: 'Accessories',
             level: 2,
@@ -183,7 +183,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
           ),
         ],
       ),
-      models.Category(
+      Category(
         id: 3,
         name: 'Gear',
         level: 1,
@@ -191,7 +191,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
         isActive: true,
         childrenCount: 2,
         children: [
-          models.Category(
+          Category(
             id: 31,
             name: 'Bags',
             level: 2,
@@ -199,7 +199,7 @@ class DefaultDemoDataProvider implements DemoDataProvider {
             isActive: true,
             childrenCount: 0,
           ),
-          models.Category(
+          Category(
             id: 32,
             name: 'Fitness Equipment',
             level: 2,
@@ -216,23 +216,23 @@ class DefaultDemoDataProvider implements DemoDataProvider {
   List<CartItem> getInitialPreloadCartItems() {
     return [
       CartItem(
-        id: 1,
+        itemId: 1,
         sku: 'WS12-XS-Orange',
         name: 'Radiant Tee',
         price: 22.00,
-        quantity: 2,
+        qty: 2,
         rowTotal: 44.00,
-        image:
+        imageUrl:
             'https://luma-demo.scandipwa.com/media/catalog/product/w/s/ws12-orange_main_2.jpg',
       ),
       CartItem(
-        id: 2,
+        itemId: 2,
         sku: 'WSH03-XS-Gray',
         name: 'Hero Hoodie',
         price: 54.00,
-        quantity: 1,
+        qty: 1,
         rowTotal: 54.00,
-        image:
+        imageUrl:
             'https://luma-demo.scandipwa.com/media/catalog/product/m/h/mh03-gray_main_2.jpg',
       ),
     ];

@@ -28,8 +28,14 @@ class Customer with _$Customer {
     Map<String, dynamic>? extensionAttributes,
   }) = _Customer;
 
+  const Customer._();
+
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);
+
+  // Alias getters for compatibility
+  String? get firstname => firstName;
+  String? get lastname => lastName;
 }
 
 /// Address model (simple version for auth)
