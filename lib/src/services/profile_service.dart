@@ -362,7 +362,7 @@ class ProfileService extends ChangeNotifier {
   Future<void> _loadLoyaltyPoints() async {
     try {
       // This would be implemented if the API supports loyalty points
-      // For now, we'll create demo data
+      // For now, we'll create preload data for offline mode
       _loyaltyPoints = const CustomerLoyaltyPoints(
         currentPoints: 150,
         totalEarned: 500,

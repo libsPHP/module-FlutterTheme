@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_magento/flutter_magento.dart';
-import '../demo_data/custom_initial_preload_data_provider.dart';
+import '../preload_data/custom_initial_preload_data_provider.dart';
 
 // Модели для реальных данных Magento
 class MagentoProduct {
@@ -212,16 +212,16 @@ class AppProvider extends ChangeNotifier {
     _clearError();
 
     try {
-      // Инициализируем Magento API с кастомными демо-данными
+      // Инициализируем Magento API с кастомными данными предзагрузки
       _magento = FlutterMagentoCore.instance;
 
-      // Создаем кастомный провайдер демо-данных для электроники
-      final customDemoProvider = ElectronicsInitialPreloadDataProvider();
+      // Создаем кастомный провайдер данных предзагрузки для электроники
+      final customPreloadProvider = ElectronicsInitialPreloadDataProvider();
 
       final success = await _magento.initialize(
         baseUrl: baseUrl,
-        demoDataProvider: customDemoProvider,
-        enableDemoData: true,
+        preloadDataProvider: customPreloadProvider,
+        enablePreloadData: true,
       );
 
       if (!success) {
@@ -380,12 +380,12 @@ class AppProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Load products error: $e');
 
-      // Если ошибка 401 (Unauthorized), используем демо-данные из системы
+      // Если ошибка 401 (Unauthorized), используем данные предзагрузки из системы
       if (e.toString().contains('401') ||
           e.toString().contains('Unauthorized')) {
         try {
-          debugPrint('Using demo products from system...');
-          final demoProducts = _magento.getDemoProducts();
+          debugPrint('Using preload products from system...');
+          final demoProducts = _magento.getPreloadProducts();
           final magentoProducts = demoProducts
               .map(
                 (product) => MagentoProduct(
@@ -408,8 +408,8 @@ class AppProvider extends ChangeNotifier {
             _products.addAll(magentoProducts);
           }
           notifyListeners();
-          _clearError(); // Очищаем ошибку, так как демо-продукты загружены
-        } catch (demoError) {
+          _clearError(); // Очищаем ошибку, так как preload-продукты загружены
+        } catch (preloadError) {
           _setError('Load products error: $e');
         }
       } else {
@@ -456,15 +456,15 @@ class AppProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Load products by category error: $e');
 
-      // Если ошибка 401 (Unauthorized), используем демо-данные из системы
+      // Если ошибка 401 (Unauthorized), используем данные предзагрузки из системы
       if (e.toString().contains('401') ||
           e.toString().contains('Unauthorized')) {
         try {
           debugPrint(
-            'Using demo products from system for category $categoryId...',
+            'Using preload products from system for category $categoryId...',
           );
-          final demoProducts = _magento.getDemoProducts();
-          // Фильтруем демо-продукты по категории
+          final demoProducts = _magento.getPreloadProducts();
+          // Фильтруем preload-продукты по категории
           final filteredProducts = demoProducts.where((product) {
             return product.categories.any(
               (cat) => cat.toLowerCase().contains(categoryId.toLowerCase()),
@@ -494,8 +494,8 @@ class AppProvider extends ChangeNotifier {
           }
 
           notifyListeners();
-        } catch (demoError) {
-          debugPrint('Demo products error: $demoError');
+        } catch (preloadError) {
+          debugPrint('Preload products error: $preloadError');
           _setError('Failed to load products for category: $e');
         }
       } else {
@@ -682,12 +682,12 @@ class AppProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Failed to load categories: $e');
 
-      // Если ошибка 401 (Unauthorized), используем демо-категории из системы
+      // Если ошибка 401 (Unauthorized), используем категории предзагрузки из системы
       if (e.toString().contains('401') ||
           e.toString().contains('Unauthorized')) {
         try {
-          debugPrint('Using demo categories from system...');
-          final demoCategories = _magento.getDemoCategories();
+          debugPrint('Using preload categories from system...');
+          final demoCategories = _magento.getPreloadCategories();
           final magentoCategories = demoCategories
               .map(
                 (category) => MagentoCategory(
@@ -713,8 +713,8 @@ class AppProvider extends ChangeNotifier {
 
           _categories = magentoCategories;
           notifyListeners();
-        } catch (demoError) {
-          debugPrint('Failed to load demo categories: $demoError');
+        } catch (preloadError) {
+          debugPrint('Failed to load preload categories: $preloadError');
         }
       }
     }

@@ -82,7 +82,7 @@
 - Loading states
 - Error handling
 - Empty states
-- Demo data fallback
+- Preload data fallback
 
 #### 📱 Адаптивность
 - Responsive design

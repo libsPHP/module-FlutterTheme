@@ -3,11 +3,10 @@ import 'services/magento_api_service.dart';
 import 'services/auth_service.dart';
 import 'services/cart_service.dart';
 import 'exceptions/magento_exception.dart';
-import 'models/auth_models.dart';
 import 'models/customer_models.dart';
 import 'models/cart_models.dart';
-import 'demo_data/demo_data_manager.dart';
-import 'demo_data/demo_data_provider.dart';
+import 'preload_data/preload_data_manager.dart';
+import 'preload_data/preload_data_provider.dart';
 
 /// Main singleton class for Flutter Magento library.
 ///
@@ -75,39 +74,39 @@ class FlutterMagentoCore {
   /// Check if the library is online
   bool get isOnline => _isInitialized;
 
-  /// Get demo products for offline fallback
-  List<dynamic> getDemoProducts() {
-    return DemoDataManager.getDemoProducts();
+  /// Get preload products for offline mode
+  List<dynamic> getPreloadProducts() {
+    return PreloadDataManager.getPreloadProducts();
   }
 
-  /// Get demo categories for offline fallback
-  List<dynamic> getDemoCategories() {
-    return DemoDataManager.getDemoCategories();
+  /// Get preload categories for offline mode
+  List<dynamic> getPreloadCategories() {
+    return PreloadDataManager.getPreloadCategories();
   }
 
-  /// Get demo cart items for offline fallback
-  List<CartItem> getDemoCartItems() {
-    return DemoDataManager.getDemoCartItems();
+  /// Get preload cart items for offline mode
+  List<CartItem> getPreloadCartItems() {
+    return PreloadDataManager.getPreloadCartItems();
   }
 
-  /// Get demo customer for offline fallback
-  Map<String, dynamic>? getDemoCustomer() {
-    return DemoDataManager.getDemoCustomer();
+  /// Get preload customer for offline mode
+  Map<String, dynamic>? getPreloadCustomer() {
+    return PreloadDataManager.getPreloadCustomer();
   }
 
-  /// Register a custom demo data provider
-  void registerDemoDataProvider(String name, DemoDataProvider provider) {
-    DemoDataManager.registerProvider(name, provider);
+  /// Register a custom preload data provider
+  void registerPreloadDataProvider(String name, PreloadDataProvider provider) {
+    PreloadDataManager.registerProvider(name, provider);
   }
 
-  /// Set the active demo data provider
-  void setDemoDataProvider(String name) {
-    DemoDataManager.setDefaultProvider(name);
+  /// Set the active preload data provider
+  void setPreloadDataProvider(String name) {
+    PreloadDataManager.setDefaultProvider(name);
   }
 
-  /// Get information about the current demo data provider
-  Map<String, dynamic> getDemoDataProviderInfo() {
-    return DemoDataManager.getCurrentProviderInfo();
+  /// Get information about the current preload data provider
+  Map<String, dynamic> getPreloadDataProviderInfo() {
+    return PreloadDataManager.getCurrentProviderInfo();
   }
 
   /// Initialize the Flutter Magento library.
@@ -122,8 +121,8 @@ class FlutterMagentoCore {
   /// [adminToken] optional admin token for admin-level operations
   /// [enableCaching] whether to enable response caching
   /// [enableRateLimiting] whether to enable rate limiting
-  /// [demoDataProvider] optional custom demo data provider for offline fallback
-  /// [enableDemoData] whether to enable demo data fallback when API is unavailable
+  /// [preloadDataProvider] optional custom preload data provider for offline fallback
+  /// [enablePreloadData] whether to enable preload data fallback when API is unavailable
   ///
   /// Returns `true` if initialization was successful, `false` otherwise.
   Future<bool> initialize({
@@ -134,8 +133,8 @@ class FlutterMagentoCore {
     String? adminToken,
     bool enableCaching = true,
     bool enableRateLimiting = true,
-    DemoDataProvider? demoDataProvider,
-    bool enableDemoData = true,
+    PreloadDataProvider? preloadDataProvider,
+    bool enablePreloadData = true,
   }) async {
     try {
       if (kDebugMode) {
@@ -170,17 +169,17 @@ class FlutterMagentoCore {
         throw const MagentoException('Failed to initialize services');
       }
 
-      // Initialize demo data if enabled
-      if (enableDemoData) {
-        if (demoDataProvider != null) {
-          DemoDataManager.registerProvider('custom', demoDataProvider);
-          DemoDataManager.setDefaultProvider('custom');
+      // Initialize preload data if enabled
+      if (enablePreloadData) {
+        if (preloadDataProvider != null) {
+          PreloadDataManager.registerProvider('custom', preloadDataProvider);
+          PreloadDataManager.setDefaultProvider('custom');
         } else {
-          DemoDataManager.initialize();
+          PreloadDataManager.initialize();
         }
 
         if (kDebugMode) {
-          print('📦 Demo data system initialized');
+          print('📦 Preload data system initialized');
         }
       }
 
@@ -189,8 +188,8 @@ class FlutterMagentoCore {
       if (kDebugMode) {
         print('✅ Flutter Magento initialized successfully');
         print('📍 Base URL: $baseUrl');
-        if (enableDemoData) {
-          print('📦 Demo data fallback enabled');
+        if (enablePreloadData) {
+          print('📦 Preload data fallback enabled');
         }
       }
 

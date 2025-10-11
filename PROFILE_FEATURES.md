@@ -114,7 +114,7 @@ The profile screen has been added to the bottom navigation:
 5. **Example App Integration** - Added to navigation and fully functional
 6. **Error Handling** - Comprehensive error handling and loading states
 7. **Form Validation** - Input validation for all forms
-8. **Demo Data** - Fallback demo data for testing
+8. **Preload Data** - Fallback preload data for offline mode
 
 ### 🚀 Key Capabilities
 - **Complete Profile Management**: View and edit all customer information
@@ -174,7 +174,7 @@ Consumer<ProfileProvider>(
 
 The example app includes comprehensive testing capabilities:
 1. **Authentication Required**: Profile screen properly handles non-authenticated state
-2. **Demo Data**: Works with demo data when API is unavailable
+2. **Preload Data**: Works with preload data when API is unavailable
 3. **Form Validation**: All forms include proper validation
 4. **Error States**: Graceful error handling with user feedback
 5. **Loading States**: Proper loading indicators

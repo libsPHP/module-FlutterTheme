@@ -1,7 +1,7 @@
 import 'package:flutter_magento/flutter_magento.dart';
 
-/// Пример кастомного провайдера начальных данных для электроники
-class ElectronicsInitialPreloadDataProvider implements DemoDataProvider {
+/// Пример кастомного провайдера начальных данных для предзагрузки (электроника)
+class ElectronicsInitialPreloadDataProvider implements PreloadDataProvider {
   @override
   String get providerName => 'Electronics Initial Preload Data';
 
@@ -183,8 +183,8 @@ class ElectronicsInitialPreloadDataProvider implements DemoDataProvider {
   Map<String, dynamic>? getInitialPreloadCustomer() {
     return {
       'id': 1,
-      'email': 'demo@example.com',
-      'firstname': 'Demo',
+      'email': 'preload@example.com',
+      'firstname': 'Preload',
       'lastname': 'User',
       'is_subscribed': true,
     };

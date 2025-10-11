@@ -299,7 +299,7 @@ final options = RadaExportOptions(
   locales: ['en', 'ru', 'es'],
 );
 
-await exporter.exportCategory(options, 'demo_data.rada');
+await exporter.exportCategory(options, 'preload_data.rada');
 
 // 2. Добавить в assets/preload.rada
 // 3. В приложении загрузить при первом запуске

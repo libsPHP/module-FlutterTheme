@@ -2,23 +2,23 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/services.dart';
-import 'demo_data_provider.dart';
+import 'preload_data_provider.dart';
 import '../models/product_models.dart';
 import '../models/cart_models.dart';
 
-/// Менеджер для управления провайдерами демо-данных
-/// Позволяет регистрировать и использовать различные источники демо-данных
-class DemoDataManager {
-  static final Map<String, DemoDataProvider> _providers = {};
-  static DemoDataProvider? _defaultProvider;
+/// Менеджер для управления провайдерами данных предзагрузки
+/// Позволяет регистрировать и использовать различные источники данных для офлайн-режима
+class PreloadDataManager {
+  static final Map<String, PreloadDataProvider> _providers = {};
+  static PreloadDataProvider? _defaultProvider;
   static String? _currentProviderName;
 
-  /// Регистрация провайдера демо-данных
-  static void registerProvider(String name, DemoDataProvider provider) {
+  /// Регистрация провайдера данных предзагрузки
+  static void registerProvider(String name, PreloadDataProvider provider) {
     _providers[name] = provider;
 
     if (kDebugMode) {
-      print('📦 DemoDataProvider registered: $name');
+      print('📦 PreloadDataProvider registered: $name');
     }
   }
 
@@ -29,7 +29,7 @@ class DemoDataManager {
       _currentProviderName = name;
 
       if (kDebugMode) {
-        print('📦 Default DemoDataProvider set to: $name');
+        print('📦 Default PreloadDataProvider set to: $name');
       }
     } else {
       throw ArgumentError('Provider with name "$name" not found');
@@ -37,12 +37,12 @@ class DemoDataManager {
   }
 
   /// Получение провайдера по имени
-  static DemoDataProvider? getProvider(String name) {
+  static PreloadDataProvider? getProvider(String name) {
     return _providers[name];
   }
 
   /// Получение текущего активного провайдера
-  static DemoDataProvider? get currentProvider {
+  static PreloadDataProvider? get currentProvider {
     if (_currentProviderName != null) {
       return _providers[_currentProviderName];
     }
@@ -52,54 +52,54 @@ class DemoDataManager {
   /// Получение списка всех зарегистрированных провайдеров
   static List<String> get registeredProviders => _providers.keys.toList();
 
-  /// Получение демо-продуктов из текущего провайдера
-  static List<product_models.Product> getDemoProducts() {
+  /// Получение данных предзагрузки продуктов из текущего провайдера
+  static List<Product> getPreloadProducts() {
     final provider = currentProvider;
     if (provider != null) {
       return provider.getInitialPreloadProducts();
     }
 
     if (kDebugMode) {
-      print('⚠️ No demo data provider available, returning empty list');
+      print('⚠️ No preload data provider available, returning empty list');
     }
     return [];
   }
 
-  /// Получение демо-категорий из текущего провайдера
-  static List<models.Category> getDemoCategories() {
+  /// Получение данных предзагрузки категорий из текущего провайдера
+  static List<Category> getPreloadCategories() {
     final provider = currentProvider;
     if (provider != null) {
       return provider.getInitialPreloadCategories();
     }
 
     if (kDebugMode) {
-      print('⚠️ No demo data provider available, returning empty list');
+      print('⚠️ No preload data provider available, returning empty list');
     }
     return [];
   }
 
-  /// Получение демо-элементов корзины из текущего провайдера
-  static List<CartItem> getDemoCartItems() {
+  /// Получение данных предзагрузки элементов корзины из текущего провайдера
+  static List<CartItem> getPreloadCartItems() {
     final provider = currentProvider;
     if (provider != null) {
       return provider.getInitialPreloadCartItems();
     }
 
     if (kDebugMode) {
-      print('⚠️ No demo data provider available, returning empty list');
+      print('⚠️ No preload data provider available, returning empty list');
     }
     return [];
   }
 
-  /// Получение демо-пользователя из текущего провайдера
-  static Map<String, dynamic>? getDemoCustomer() {
+  /// Получение данных предзагрузки пользователя из текущего провайдера
+  static Map<String, dynamic>? getPreloadCustomer() {
     final provider = currentProvider;
     if (provider != null) {
       return provider.getInitialPreloadCustomer();
     }
 
     if (kDebugMode) {
-      print('⚠️ No demo data provider available, returning null');
+      print('⚠️ No preload data provider available, returning null');
     }
     return null;
   }
@@ -108,7 +108,7 @@ class DemoDataManager {
   static void initialize({String? defaultProviderName}) {
     // Регистрируем стандартный провайдер, если он еще не зарегистрирован
     if (!_providers.containsKey('default')) {
-      registerProvider('default', DefaultDemoDataProvider());
+      registerProvider('default', DefaultPreloadDataProvider());
     }
 
     // Устанавливаем провайдер по умолчанию
@@ -121,7 +121,7 @@ class DemoDataManager {
 
     if (kDebugMode) {
       print(
-        '📦 DemoDataManager initialized with ${_providers.length} providers',
+        '📦 PreloadDataManager initialized with ${_providers.length} providers',
       );
     }
   }
@@ -133,7 +133,7 @@ class DemoDataManager {
     _currentProviderName = null;
 
     if (kDebugMode) {
-      print('📦 DemoDataManager cleared');
+      print('📦 PreloadDataManager cleared');
     }
   }
 
@@ -165,19 +165,19 @@ class DemoDataManager {
   }
 }
 
-/// Провайдер демо-данных из JSON файла
-class JsonDemoDataProvider implements DemoDataProvider {
+/// Провайдер данных предзагрузки из JSON файла
+class JsonPreloadDataProvider implements PreloadDataProvider {
   final String jsonData;
   final String _providerName;
   final String _providerDescription;
 
-  JsonDemoDataProvider({
+  JsonPreloadDataProvider({
     required this.jsonData,
     String? providerName,
     String? providerDescription,
-  }) : _providerName = providerName ?? 'JSON Demo Data',
+  }) : _providerName = providerName ?? 'JSON Preload Data',
        _providerDescription =
-           providerDescription ?? 'Demo data loaded from JSON';
+           providerDescription ?? 'Preload data loaded from JSON';
 
   @override
   String get providerName => _providerName;
@@ -212,31 +212,31 @@ class JsonDemoDataProvider implements DemoDataProvider {
       return data['customer'] as Map<String, dynamic>?;
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Error parsing JSON demo customer: $e');
+        print('❌ Error parsing JSON preload customer: $e');
       }
       return null;
     }
   }
 }
 
-/// Утилита для загрузки демо-данных из assets
-class AssetDemoDataLoader {
-  /// Загрузка демо-данных из assets файла
-  static Future<JsonDemoDataProvider> loadFromAsset(
+/// Утилита для загрузки данных предзагрузки из assets
+class AssetPreloadDataLoader {
+  /// Загрузка данных предзагрузки из assets файла
+  static Future<JsonPreloadDataProvider> loadFromAsset(
     String assetPath, {
     String? providerName,
     String? providerDescription,
   }) async {
     try {
       final jsonString = await rootBundle.loadString(assetPath);
-      return JsonDemoDataProvider(
+      return JsonPreloadDataProvider(
         jsonData: jsonString,
         providerName: providerName,
         providerDescription: providerDescription,
       );
     } catch (e) {
       if (kDebugMode) {
-        print('❌ Error loading demo data from asset $assetPath: $e');
+        print('❌ Error loading preload data from asset $assetPath: $e');
       }
       rethrow;
     }

@@ -87,9 +87,9 @@ export 'src/services/rada_exporter.dart';
 export 'src/services/rada_importer.dart';
 export 'src/services/rada_preload_service.dart';
 
-// Demo Data System
-export 'src/demo_data/demo_data_provider.dart';
-export 'src/demo_data/demo_data_manager.dart';
+// Preload Data System (Offline Data)
+export 'src/preload_data/preload_data_provider.dart';
+export 'src/preload_data/preload_data_manager.dart';
 
 // Providers
 export 'src/providers/auth_provider.dart';
