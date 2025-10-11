@@ -383,8 +383,16 @@ class _RadaScreenState extends State<RadaScreen> {
       final outputPath =
           '${directory.path}/rada_export_${category.id}_$timestamp.rada';
 
-      // Create exporter (simplified - you may need to adjust based on your API)
-      final exporter = RadaExporter(baseUrl: provider.baseUrl!);
+      // Create API client and exporter
+      final apiClient = MagentoApiClient(
+        baseUrl: provider.baseUrl!,
+        accessToken: provider.accessToken,
+      );
+      final productApi = ProductApi(apiClient);
+      final exporter = RadaExporter(
+        productApi: productApi,
+        baseUrl: provider.baseUrl!,
+      );
 
       // Export options
       final options = RadaExportOptions(

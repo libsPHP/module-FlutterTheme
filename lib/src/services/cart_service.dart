@@ -52,10 +52,10 @@ class CartService {
   bool get isInitialized => _isInitialized;
 
   /// Check if cart is empty
-  bool get isCartEmpty => _currentCart?.items?.isEmpty ?? true;
+  bool get isCartEmpty => _currentCart?.isEmpty ?? true;
 
   /// Get cart items count
-  int get itemsCount => _currentCart?.items.length ?? 0;
+  int get itemsCount => _currentCart?.itemCount ?? 0;
 
   /// Get cart total
   double get cartTotal => _currentCart?.grandTotal ?? 0.0;
@@ -226,7 +226,7 @@ class CartService {
 
   /// Get cart item by ID
   CartItem? getCartItem(int itemId) {
-    return _currentCart?.items.firstWhere(
+    return _currentCart?.items?.firstWhere(
       (item) => item.id == itemId,
       orElse: () => throw MagentoException.notFoundError('Cart item'),
     );
@@ -234,15 +234,15 @@ class CartService {
 
   /// Check if product is in cart
   bool isProductInCart(String sku) {
-    return _currentCart?.items.any((item) => item.sku == sku) ?? false;
+    return _currentCart?.items?.any((item) => item.sku == sku) ?? false;
   }
 
   /// Get product quantity in cart
   int getProductQuantity(String sku) {
-    final item = _currentCart?.items.firstWhere(
+    final item = _currentCart?.items?.firstWhere(
       (item) => item.sku == sku,
       orElse: () =>
-          CartItem(id: 0, sku: sku, name: '', price: 0.0, quantity: 0),
+          CartItem(itemId: 0, sku: sku, name: '', price: 0.0, qty: 0),
     );
 
     return item?.quantity ?? 0;

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/services.dart';
 import 'demo_data_provider.dart';
 import '../models/product_models.dart';
@@ -247,11 +247,11 @@ class JsonDemoDataProvider implements DemoDataProvider {
     }
   }
 
-  List<models.Category> _parseChildren(List<dynamic>? childrenData) {
+  List<Category> _parseChildren(List<dynamic>? childrenData) {
     if (childrenData == null) return [];
 
     return childrenData.map((childData) {
-      return models.Category(
+      return Category(
         id: int.tryParse(childData['id']?.toString() ?? '0') ?? 0,
         name: childData['name'] ?? '',
         level: childData['level'] ?? 1,
@@ -271,13 +271,13 @@ class JsonDemoDataProvider implements DemoDataProvider {
 
       return cartData.map((itemData) {
         return CartItem(
-          id: itemData['id'] ?? 0,
+          itemId: itemData['id'] ?? 0,
           sku: itemData['sku'] ?? '',
           name: itemData['name'] ?? '',
           price: (itemData['price'] as num?)?.toDouble() ?? 0.0,
-          quantity: itemData['quantity'] ?? 1,
+          qty: itemData['quantity'] ?? 1,
           rowTotal: (itemData['rowTotal'] as num?)?.toDouble(),
-          image: itemData['image'],
+          imageUrl: itemData['image'],
         );
       }).toList();
     } catch (e) {
