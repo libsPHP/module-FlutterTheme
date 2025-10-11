@@ -192,100 +192,17 @@ class JsonDemoDataProvider implements DemoDataProvider {
 
   @override
   List<Product> getInitialPreloadProducts() {
-    try {
-      final data = jsonDecode(jsonData) as Map<String, dynamic>;
-      final productsData = data['products'] as List<dynamic>? ?? [];
-
-      return productsData.map((productData) {
-        final inStock = productData['inStock'] ?? true;
-        return Product(
-          id: int.tryParse(productData['id']?.toString() ?? '0') ?? 0,
-          name: productData['name'] ?? '',
-          sku: productData['sku'] ?? '',
-          typeId: 'simple',
-          price: (productData['price'] as num?)?.toDouble() ?? 0.0,
-          specialPrice: (productData['specialPrice'] as num?)?.toDouble(),
-          status: 1,
-          visibility: 4,
-          stockStatus: inStock ? 1 : 0,
-          description: productData['description'],
-          categories:
-              (productData['categories'] as List<dynamic>?)?.cast<String>() ??
-              [],
-        );
-      }).toList();
-    } catch (e) {
-      if (kDebugMode) {
-        print('❌ Error parsing JSON demo products: $e');
-      }
-      return [];
-    }
+    return [];
   }
 
   @override
   List<Category> getInitialPreloadCategories() {
-    try {
-      final data = jsonDecode(jsonData) as Map<String, dynamic>;
-      final categoriesData = data['categories'] as List<dynamic>? ?? [];
-
-      return categoriesData.map((categoryData) {
-        return Category(
-          id: int.tryParse(categoryData['id']?.toString() ?? '0') ?? 0,
-          name: categoryData['name'] ?? '',
-          level: categoryData['level'] ?? 1,
-          position: categoryData['position'] ?? 1,
-          isActive: categoryData['isActive'] ?? true,
-          childrenCount: categoryData['childrenCount'] ?? 0,
-          children: _parseChildren(categoryData['children'] as List<dynamic>?),
-        );
-      }).toList();
-    } catch (e) {
-      if (kDebugMode) {
-        print('❌ Error parsing JSON demo categories: $e');
-      }
-      return [];
-    }
-  }
-
-  List<Category> _parseChildren(List<dynamic>? childrenData) {
-    if (childrenData == null) return [];
-
-    return childrenData.map((childData) {
-      return Category(
-        id: int.tryParse(childData['id']?.toString() ?? '0') ?? 0,
-        name: childData['name'] ?? '',
-        level: childData['level'] ?? 1,
-        position: childData['position'] ?? 1,
-        isActive: childData['isActive'] ?? true,
-        childrenCount: childData['childrenCount'] ?? 0,
-        children: _parseChildren(childData['children'] as List<dynamic>?),
-      );
-    }).toList();
+    return [];
   }
 
   @override
   List<CartItem> getInitialPreloadCartItems() {
-    try {
-      final data = jsonDecode(jsonData) as Map<String, dynamic>;
-      final cartData = data['cart'] as List<dynamic>? ?? [];
-
-      return cartData.map((itemData) {
-        return CartItem(
-          itemId: itemData['id'] ?? 0,
-          sku: itemData['sku'] ?? '',
-          name: itemData['name'] ?? '',
-          price: (itemData['price'] as num?)?.toDouble() ?? 0.0,
-          qty: itemData['quantity'] ?? 1,
-          rowTotal: (itemData['rowTotal'] as num?)?.toDouble(),
-          imageUrl: itemData['image'],
-        );
-      }).toList();
-    } catch (e) {
-      if (kDebugMode) {
-        print('❌ Error parsing JSON demo cart items: $e');
-      }
-      return [];
-    }
+    return [];
   }
 
   @override
