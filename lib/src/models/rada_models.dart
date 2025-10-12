@@ -184,3 +184,4 @@ class RadaImportResult with _$RadaImportResult {
 
   bool get hasError => error != null;
 }
+

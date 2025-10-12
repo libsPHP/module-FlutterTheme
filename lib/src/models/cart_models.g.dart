@@ -6,84 +6,6 @@ part of 'cart_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Cart _$CartFromJson(Map<String, dynamic> json) => Cart(
-  id: json['id'] as String?,
-  customerId: (json['customerId'] as num?)?.toInt(),
-  customerEmail: json['customerEmail'] as String?,
-  items: (json['items'] as List<dynamic>?)
-      ?.map((e) => CartItem.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  totals: json['totals'] == null
-      ? null
-      : CartTotals.fromJson(json['totals'] as Map<String, dynamic>),
-  appliedCoupons: (json['appliedCoupons'] as List<dynamic>?)
-      ?.map((e) => CartCoupon.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  appliedGiftCards: (json['appliedGiftCards'] as List<dynamic>?)
-      ?.map((e) => CartGiftCard.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  currencyCode: json['currencyCode'] as String?,
-  isActive: json['isActive'] as bool?,
-  createdAt: json['createdAt'] == null
-      ? null
-      : DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String),
-);
-
-Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
-  'id': ?instance.id,
-  'customerId': ?instance.customerId,
-  'customerEmail': ?instance.customerEmail,
-  'items': ?instance.items?.map((e) => e.toJson()).toList(),
-  'totals': ?instance.totals?.toJson(),
-  'appliedCoupons': ?instance.appliedCoupons?.map((e) => e.toJson()).toList(),
-  'appliedGiftCards': ?instance.appliedGiftCards
-      ?.map((e) => e.toJson())
-      .toList(),
-  'currencyCode': ?instance.currencyCode,
-  'isActive': ?instance.isActive,
-  'createdAt': ?instance.createdAt?.toIso8601String(),
-  'updatedAt': ?instance.updatedAt?.toIso8601String(),
-};
-
-CartItem _$CartItemFromJson(Map<String, dynamic> json) => CartItem(
-  itemId: (json['itemId'] as num?)?.toInt(),
-  sku: json['sku'] as String?,
-  name: json['name'] as String?,
-  qty: (json['qty'] as num?)?.toInt(),
-  price: (json['price'] as num?)?.toDouble(),
-  rowTotal: (json['rowTotal'] as num?)?.toDouble(),
-  taxAmount: (json['taxAmount'] as num?)?.toDouble(),
-  discountAmount: (json['discountAmount'] as num?)?.toDouble(),
-  productType: json['productType'] as String?,
-  productOptions: json['productOptions'] as Map<String, dynamic>?,
-  options: (json['options'] as List<dynamic>?)
-      ?.map((e) => CartItemOption.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  isVirtual: json['isVirtual'] as bool?,
-  imageUrl: json['imageUrl'] as String?,
-  thumbnailUrl: json['thumbnailUrl'] as String?,
-);
-
-Map<String, dynamic> _$CartItemToJson(CartItem instance) => <String, dynamic>{
-  'itemId': ?instance.itemId,
-  'sku': ?instance.sku,
-  'name': ?instance.name,
-  'qty': ?instance.qty,
-  'price': ?instance.price,
-  'rowTotal': ?instance.rowTotal,
-  'taxAmount': ?instance.taxAmount,
-  'discountAmount': ?instance.discountAmount,
-  'productType': ?instance.productType,
-  'productOptions': ?instance.productOptions,
-  'options': ?instance.options?.map((e) => e.toJson()).toList(),
-  'isVirtual': ?instance.isVirtual,
-  'imageUrl': ?instance.imageUrl,
-  'thumbnailUrl': ?instance.thumbnailUrl,
-};
-
 CartItemOption _$CartItemOptionFromJson(Map<String, dynamic> json) =>
     CartItemOption(
       optionId: json['optionId'] as String?,
@@ -352,4 +274,84 @@ Map<String, dynamic> _$CartValidationResultToJson(
   'errors': ?instance.errors,
   'warnings': ?instance.warnings,
   'additionalData': ?instance.additionalData,
+};
+
+_Cart _$CartFromJson(Map<String, dynamic> json) => _Cart(
+  id: json['id'] as String?,
+  customerId: (json['customerId'] as num?)?.toInt(),
+  customerEmail: json['customerEmail'] as String?,
+  items: (json['items'] as List<dynamic>?)
+      ?.map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  totals: json['totals'] == null
+      ? null
+      : CartTotals.fromJson(json['totals'] as Map<String, dynamic>),
+  appliedCoupons: (json['appliedCoupons'] as List<dynamic>?)
+      ?.map((e) => CartCoupon.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  appliedGiftCards: (json['appliedGiftCards'] as List<dynamic>?)
+      ?.map((e) => CartGiftCard.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  currencyCode: json['currencyCode'] as String?,
+  couponCode: json['couponCode'] as String?,
+  isActive: json['isActive'] as bool?,
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+);
+
+Map<String, dynamic> _$CartToJson(_Cart instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'customerId': ?instance.customerId,
+  'customerEmail': ?instance.customerEmail,
+  'items': ?instance.items?.map((e) => e.toJson()).toList(),
+  'totals': ?instance.totals?.toJson(),
+  'appliedCoupons': ?instance.appliedCoupons?.map((e) => e.toJson()).toList(),
+  'appliedGiftCards': ?instance.appliedGiftCards
+      ?.map((e) => e.toJson())
+      .toList(),
+  'currencyCode': ?instance.currencyCode,
+  'couponCode': ?instance.couponCode,
+  'isActive': ?instance.isActive,
+  'createdAt': ?instance.createdAt?.toIso8601String(),
+  'updatedAt': ?instance.updatedAt?.toIso8601String(),
+};
+
+_CartItem _$CartItemFromJson(Map<String, dynamic> json) => _CartItem(
+  itemId: (json['itemId'] as num?)?.toInt(),
+  sku: json['sku'] as String?,
+  name: json['name'] as String?,
+  qty: (json['qty'] as num?)?.toInt(),
+  price: (json['price'] as num?)?.toDouble(),
+  rowTotal: (json['rowTotal'] as num?)?.toDouble(),
+  taxAmount: (json['taxAmount'] as num?)?.toDouble(),
+  discountAmount: (json['discountAmount'] as num?)?.toDouble(),
+  productType: json['productType'] as String?,
+  productOptions: json['productOptions'] as Map<String, dynamic>?,
+  options: (json['options'] as List<dynamic>?)
+      ?.map((e) => CartItemOption.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  isVirtual: json['isVirtual'] as bool?,
+  imageUrl: json['imageUrl'] as String?,
+  thumbnailUrl: json['thumbnailUrl'] as String?,
+);
+
+Map<String, dynamic> _$CartItemToJson(_CartItem instance) => <String, dynamic>{
+  'itemId': ?instance.itemId,
+  'sku': ?instance.sku,
+  'name': ?instance.name,
+  'qty': ?instance.qty,
+  'price': ?instance.price,
+  'rowTotal': ?instance.rowTotal,
+  'taxAmount': ?instance.taxAmount,
+  'discountAmount': ?instance.discountAmount,
+  'productType': ?instance.productType,
+  'productOptions': ?instance.productOptions,
+  'options': ?instance.options?.map((e) => e.toJson()).toList(),
+  'isVirtual': ?instance.isVirtual,
+  'imageUrl': ?instance.imageUrl,
+  'thumbnailUrl': ?instance.thumbnailUrl,
 };

@@ -226,8 +226,8 @@ return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.middle
 /// @nodoc
 @JsonSerializable()
 
-class _Customer implements Customer {
-  const _Customer({required this.id, required this.email, this.firstName, this.lastName, this.middleName, this.prefix, this.suffix, this.groupId, this.defaultBilling, this.defaultShipping, this.taxvat, this.createdAt, this.updatedAt, this.websiteId, this.isSubscribed, this.gender, final  List<CustomerAddress>? addresses, final  Map<String, dynamic>? customAttributes, final  Map<String, dynamic>? extensionAttributes}): _addresses = addresses,_customAttributes = customAttributes,_extensionAttributes = extensionAttributes;
+class _Customer extends Customer {
+  const _Customer({required this.id, required this.email, this.firstName, this.lastName, this.middleName, this.prefix, this.suffix, this.groupId, this.defaultBilling, this.defaultShipping, this.taxvat, this.createdAt, this.updatedAt, this.websiteId, this.isSubscribed, this.gender, final  List<CustomerAddress>? addresses, final  Map<String, dynamic>? customAttributes, final  Map<String, dynamic>? extensionAttributes}): _addresses = addresses,_customAttributes = customAttributes,_extensionAttributes = extensionAttributes,super._();
   factory _Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
 
 @override final  int id;

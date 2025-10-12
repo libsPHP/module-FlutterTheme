@@ -607,3 +607,4 @@ class _RadaScreenState extends State<RadaScreen> {
     return '${date.day}.${date.month}.${date.year} ${date.hour}:${date.minute}';
   }
 }
+
