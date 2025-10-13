@@ -1,7 +1,8 @@
-## 3.6.4
+## 3.6.5
 
 * **Code Generation**: Regenerated all freezed and json_serializable files for proper model implementations
 * **Model Updates**: Fixed code generation issues for cart, checkout, customer, product, and rada models
+* **Cart Service**: Added null safety improvements in cart item removal
 * **Publishing**: Prepared package for pub.dev publishing with all generated files properly tracked
 * **Bug Fixes**: Resolved build_runner errors and improved code generation workflow
 

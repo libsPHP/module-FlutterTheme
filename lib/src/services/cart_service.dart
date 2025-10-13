@@ -209,9 +209,11 @@ class CartService {
       bool allRemoved = true;
 
       for (final item in items) {
-        final success = await removeFromCart(item.id);
-        if (!success) {
-          allRemoved = false;
+        if (item.id != null) {
+          final success = await removeFromCart(item.id!);
+          if (!success) {
+            allRemoved = false;
+          }
         }
       }
 
@@ -241,8 +243,7 @@ class CartService {
   int getProductQuantity(String sku) {
     final item = _currentCart?.items?.firstWhere(
       (item) => item.sku == sku,
-      orElse: () =>
-          CartItem(itemId: 0, sku: sku, name: '', price: 0.0, qty: 0),
+      orElse: () => CartItem(itemId: 0, sku: sku, name: '', price: 0.0, qty: 0),
     );
 
     return item?.quantity ?? 0;

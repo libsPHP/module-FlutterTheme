@@ -1,6 +1,6 @@
 name: flutter_magento
 description: A comprehensive Flutter plugin for Magento e-commerce platform integration with authentication, cart management, product catalog, orders, and offline support
-version: 3.6.2
+version: 3.6.5
 homepage: https://gitlab.com/libsFlutter/flutter_magento
 repository: https://gitlab.com/libsFlutter/flutter_magento
 issue_tracker: https://gitlab.com/libsFlutter/flutter_magento/-/issues
