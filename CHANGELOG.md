@@ -1,3 +1,38 @@
+## 3.6.4
+
+* **Code Generation**: Regenerated all freezed and json_serializable files for proper model implementations
+* **Model Updates**: Fixed code generation issues for cart, checkout, customer, product, and rada models
+* **Publishing**: Prepared package for pub.dev publishing with all generated files properly tracked
+* **Bug Fixes**: Resolved build_runner errors and improved code generation workflow
+
+## 3.6.3
+
+* **Dependencies**: Updated dependencies and improved compatibility
+* **Code Quality**: Fixed analyzer warnings and improved code consistency
+* **Performance**: Optimized build process and code generation
+
+## 3.6.2
+
+* **Build System**: Improved build_runner configuration and code generation
+* **Model Generation**: Enhanced freezed and json_serializable integration
+* **Code Quality**: Fixed linting issues and improved code organization
+
+## 3.6.1
+
+* **Bug Fixes**: Resolved minor issues in model generation
+* **Code Quality**: Improved code generation workflow
+
+## 3.6.0
+
+* **Major Update**: Enhanced model generation with freezed and json_serializable
+* **Code Generation**: Improved build_runner workflow for better development experience
+* **Dependencies**: Updated to latest compatible versions
+
+## 3.5.2
+
+* **Bug Fixes**: Fixed minor issues in RADA services
+* **Code Quality**: Improved error handling and validation
+
 ## 3.5.1
 
 * **RADA Format Support**: Added Restorable Application Data Archive (RADA) format for comprehensive data export/import
