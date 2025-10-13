@@ -3834,8 +3834,8 @@ return $default(_that.id,_that.ratingName,_that.rating,_that.ratingId);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _ReviewRating implements ReviewRating {
-  const _ReviewRating({required this.id, required this.ratingName, required this.rating, required this.ratingId});
+class _ReviewRating extends ReviewRating {
+  const _ReviewRating({required this.id, required this.ratingName, required this.rating, required this.ratingId}): super._();
   factory _ReviewRating.fromJson(Map<String, dynamic> json) => _$ReviewRatingFromJson(json);
 
 @override final  int id;

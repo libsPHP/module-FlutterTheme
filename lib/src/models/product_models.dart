@@ -241,6 +241,8 @@ class Review with _$Review {
 /// Review rating model
 @freezed
 class ReviewRating with _$ReviewRating {
+  const ReviewRating._();
+  
   const factory ReviewRating({
     required int id,
     required String ratingName,
@@ -250,6 +252,19 @@ class ReviewRating with _$ReviewRating {
 
   factory ReviewRating.fromJson(Map<String, dynamic> json) =>
       _$ReviewRatingFromJson(json);
+      
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ReviewRating &&
+            other.id == id &&
+            other.ratingName == ratingName &&
+            other.rating == rating &&
+            other.ratingId == ratingId);
+  }
+
+  @override
+  int get hashCode => Object.hash(id, ratingName, rating, ratingId);
 }
 
 /// Aggregation model for filters

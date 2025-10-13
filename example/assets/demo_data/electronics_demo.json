@@ -1,147 +1,199 @@
 {
-  "products": [
-    {
-      "id": "1",
-      "name": "iPhone 15 Pro",
-      "sku": "IPHONE-15-PRO",
-      "price": 999.99,
-      "specialPrice": 949.99,
-      "inStock": true,
-      "imageUrl": "https://example.com/iphone15pro.jpg",
-      "description": "The latest iPhone with advanced camera system and A17 Pro chip.",
-      "categories": ["Smartphones", "Apple"]
-    },
-    {
-      "id": "2",
-      "name": "Samsung Galaxy S24 Ultra",
-      "sku": "SAMSUNG-S24-ULTRA",
-      "price": 1199.99,
-      "inStock": true,
-      "imageUrl": "https://example.com/samsung-s24-ultra.jpg",
-      "description": "Premium Android smartphone with S Pen and advanced AI features.",
-      "categories": ["Smartphones", "Samsung"]
-    },
-    {
-      "id": "3",
-      "name": "MacBook Pro 16\" M3 Max",
-      "sku": "MACBOOK-PRO-16-M3-MAX",
-      "price": 3499.99,
-      "inStock": true,
-      "imageUrl": "https://example.com/macbook-pro-16.jpg",
-      "description": "Professional laptop with M3 Max chip for demanding workflows.",
-      "categories": ["Laptops", "Apple"]
-    },
-    {
-      "id": "4",
-      "name": "Dell XPS 15",
-      "sku": "DELL-XPS-15",
-      "price": 1899.99,
-      "inStock": true,
-      "imageUrl": "https://example.com/dell-xps-15.jpg",
-      "description": "Premium Windows laptop with stunning 4K display.",
-      "categories": ["Laptops", "Dell"]
-    },
-    {
-      "id": "5",
-      "name": "AirPods Pro 2nd Gen",
-      "sku": "AIRPODS-PRO-2",
-      "price": 249.99,
-      "inStock": true,
-      "imageUrl": "https://example.com/airpods-pro-2.jpg",
-      "description": "Wireless earbuds with active noise cancellation.",
-      "categories": ["Audio", "Apple"]
-    }
-  ],
+  "version": "1.0.0",
+  "type": "preload_data",
+  "description": "Demo electronics store data for testing",
   "categories": [
     {
-      "id": "1",
-      "name": "Smartphones",
-      "urlKey": "smartphones",
-      "childrenCount": 2,
-      "level": 1,
-      "children": [
-        {
-          "id": "11",
-          "name": "Apple",
-          "urlKey": "smartphones-apple",
-          "childrenCount": 0,
-          "level": 2
-        },
-        {
-          "id": "12",
-          "name": "Samsung",
-          "urlKey": "smartphones-samsung",
-          "childrenCount": 0,
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Laptops",
-      "urlKey": "laptops",
-      "childrenCount": 2,
-      "level": 1,
-      "children": [
-        {
-          "id": "21",
-          "name": "Apple",
-          "urlKey": "laptops-apple",
-          "childrenCount": 0,
-          "level": 2
-        },
-        {
-          "id": "22",
-          "name": "Dell",
-          "urlKey": "laptops-dell",
-          "childrenCount": 0,
-          "level": 2
-        }
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Audio",
-      "urlKey": "audio",
-      "childrenCount": 1,
-      "level": 1,
-      "children": [
-        {
-          "id": "31",
-          "name": "Apple",
-          "urlKey": "audio-apple",
-          "childrenCount": 0,
-          "level": 2
-        }
-      ]
-    }
-  ],
-  "cart": [
-    {
       "id": 1,
-      "sku": "IPHONE-15-PRO",
-      "name": "iPhone 15 Pro",
-      "price": 999.99,
-      "quantity": 1,
-      "rowTotal": 999.99,
-      "image": "https://example.com/iphone15pro.jpg"
+      "name": "Smartphones",
+      "isActive": true,
+      "position": 1,
+      "level": 1,
+      "childrenCount": 2,
+      "children": [
+        {
+          "id": 11,
+          "name": "Apple",
+          "isActive": true,
+          "position": 1,
+          "level": 2,
+          "childrenCount": 0
+        },
+        {
+          "id": 12,
+          "name": "Samsung",
+          "isActive": true,
+          "position": 2,
+          "level": 2,
+          "childrenCount": 0
+        }
+      ]
     },
     {
       "id": 2,
-      "sku": "AIRPODS-PRO-2",
-      "name": "AirPods Pro 2nd Gen",
-      "price": 249.99,
-      "quantity": 1,
-      "rowTotal": 249.99,
-      "image": "https://example.com/airpods-pro-2.jpg"
+      "name": "Laptops",
+      "isActive": true,
+      "position": 2,
+      "level": 1,
+      "childrenCount": 2,
+      "children": [
+        {
+          "id": 21,
+          "name": "Apple",
+          "isActive": true,
+          "position": 1,
+          "level": 2,
+          "childrenCount": 0
+        },
+        {
+          "id": 22,
+          "name": "Dell",
+          "isActive": true,
+          "position": 2,
+          "level": 2,
+          "childrenCount": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Accessories",
+      "isActive": true,
+      "position": 3,
+      "level": 1,
+      "childrenCount": 2,
+      "children": [
+        {
+          "id": 31,
+          "name": "Audio",
+          "isActive": true,
+          "position": 1,
+          "level": 2,
+          "childrenCount": 0
+        },
+        {
+          "id": 32,
+          "name": "Cases",
+          "isActive": true,
+          "position": 2,
+          "level": 2,
+          "childrenCount": 0
+        }
+      ]
     }
   ],
-  "customer": {
-    "id": "1",
-    "email": "tech.enthusiast@example.com",
-    "firstname": "Tech",
-    "lastname": "Enthusiast",
-    "is_active": true,
-    "created_at": "2024-01-15T10:30:00Z"
-  }
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 15 Pro",
+      "sku": "IPHONE-15-PRO",
+      "typeId": "simple",
+      "price": 999.99,
+      "specialPrice": 949.99,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "The latest iPhone with advanced camera system and A17 Pro chip. Features a titanium design, action button, and USB-C.",
+      "categories": ["Smartphones", "Apple"],
+      "imageUrl": "https://via.placeholder.com/400x400/0000FF/FFFFFF?text=iPhone+15+Pro"
+    },
+    {
+      "id": 2,
+      "name": "Samsung Galaxy S24 Ultra",
+      "sku": "SAMSUNG-S24-ULTRA",
+      "typeId": "simple",
+      "price": 1199.99,
+      "specialPrice": null,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Premium Android smartphone with S Pen and advanced camera system. Features AI-powered photography and long battery life.",
+      "categories": ["Smartphones", "Samsung"],
+      "imageUrl": "https://via.placeholder.com/400x400/000000/FFFFFF?text=Galaxy+S24"
+    },
+    {
+      "id": 3,
+      "name": "MacBook Pro 16\"",
+      "sku": "MACBOOK-PRO-16",
+      "typeId": "simple",
+      "price": 2499.99,
+      "specialPrice": 2299.99,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Professional laptop with M3 Pro chip and Liquid Retina XDR display. Perfect for creative professionals and developers.",
+      "categories": ["Laptops", "Apple"],
+      "imageUrl": "https://via.placeholder.com/400x400/C0C0C0/000000?text=MacBook+Pro"
+    },
+    {
+      "id": 4,
+      "name": "Dell XPS 15",
+      "sku": "DELL-XPS-15",
+      "typeId": "simple",
+      "price": 1899.99,
+      "specialPrice": null,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "High-performance laptop with 4K OLED display and Intel i7 processor. Ideal for productivity and content creation.",
+      "categories": ["Laptops", "Dell"],
+      "imageUrl": "https://via.placeholder.com/400x400/4A90E2/FFFFFF?text=Dell+XPS"
+    },
+    {
+      "id": 5,
+      "name": "AirPods Pro 2",
+      "sku": "AIRPODS-PRO-2",
+      "typeId": "simple",
+      "price": 249.99,
+      "specialPrice": null,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Wireless earbuds with active noise cancellation and spatial audio. Features adaptive transparency and personalized spatial audio.",
+      "categories": ["Accessories", "Audio"],
+      "imageUrl": "https://via.placeholder.com/400x400/FFFFFF/000000?text=AirPods+Pro"
+    },
+    {
+      "id": 6,
+      "name": "Sony WH-1000XM5",
+      "sku": "SONY-WH-1000XM5",
+      "typeId": "simple",
+      "price": 399.99,
+      "specialPrice": 349.99,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Premium noise-canceling headphones with 30-hour battery life. Industry-leading noise cancellation and exceptional sound quality.",
+      "categories": ["Accessories", "Audio"],
+      "imageUrl": "https://via.placeholder.com/400x400/1A1A1A/FFFFFF?text=Sony+XM5"
+    },
+    {
+      "id": 7,
+      "name": "Google Pixel 8 Pro",
+      "sku": "PIXEL-8-PRO",
+      "typeId": "simple",
+      "price": 899.99,
+      "specialPrice": null,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Google's flagship smartphone with advanced AI features and exceptional camera. Pure Android experience with guaranteed updates.",
+      "categories": ["Smartphones"],
+      "imageUrl": "https://via.placeholder.com/400x400/4285F4/FFFFFF?text=Pixel+8"
+    },
+    {
+      "id": 8,
+      "name": "iPad Pro 12.9\"",
+      "sku": "IPAD-PRO-129",
+      "typeId": "simple",
+      "price": 1099.99,
+      "specialPrice": null,
+      "status": 1,
+      "visibility": 4,
+      "stockStatus": 1,
+      "description": "Powerful tablet with M2 chip and Liquid Retina XDR display. Perfect for creative work and productivity.",
+      "categories": ["Apple"],
+      "imageUrl": "https://via.placeholder.com/400x400/808080/FFFFFF?text=iPad+Pro"
+    }
+  ]
 }

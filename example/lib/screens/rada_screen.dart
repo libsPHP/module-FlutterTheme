@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_magento/flutter_magento.dart';
 import '../providers/app_provider.dart';
-import 'dart:io';
 
 class RadaScreen extends StatefulWidget {
   const RadaScreen({super.key});
@@ -384,9 +383,10 @@ class _RadaScreenState extends State<RadaScreen> {
           '${directory.path}/rada_export_${category.id}_$timestamp.rada';
 
       // Create API client and exporter
-      final apiClient = MagentoApiClient(
+      final apiClient = MagentoApiClient.instance;
+      await apiClient.initialize(
         baseUrl: provider.baseUrl!,
-        accessToken: provider.accessToken,
+        connectionTimeout: 30000,
       );
       final productApi = ProductApi(apiClient);
       final exporter = RadaExporter(
@@ -607,4 +607,3 @@ class _RadaScreenState extends State<RadaScreen> {
     return '${date.day}.${date.month}.${date.year} ${date.hour}:${date.minute}';
   }
 }
-

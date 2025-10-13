@@ -26,9 +26,9 @@ dependencies:
   plugin_platform_interface: ^2.1.8
   
   # HTTP Client & API Generation
-  dio: ^5.9.0
-  http: ^1.5.0
-  retrofit: ^4.7.2
+  dio: ^5.8.0
+  http: ^1.1.0
+  retrofit: ^4.0.1
   
   # State Management
   riverpod: ^3.0.0
@@ -36,17 +36,17 @@ dependencies:
   provider: ^6.1.5
   
   # JSON Serialization & Immutable Models
-  json_annotation: ^4.9.0
+  json_annotation: ^4.8.1
   freezed_annotation: ^3.1.0
   
-  # Modern Local Storage (2025)
-  drift: ^2.28.1
-  sqlite3_flutter_libs: ^0.5.39
-  shared_preferences: ^2.5.3
+  # Modern Local Storage
+  drift: ^2.13.0
+  sqlite3_flutter_libs: ^0.5.15
+  shared_preferences: ^2.2.2
   
   # Image Caching & Performance
-  cached_network_image: ^3.4.1
-  flutter_cache_manager: ^3.4.1
+  cached_network_image: ^3.2.3
+  flutter_cache_manager: ^3.3.1
   visibility_detector: ^0.4.0+2
   
   # Network & Connectivity
@@ -56,63 +56,60 @@ dependencies:
   device_info_plus: ^12.1.0
   
   # Security & Authentication
-  crypto: ^3.0.6
-  flutter_secure_storage: ^9.2.4
+  crypto: ^3.0.2
+  flutter_secure_storage: ^10.0.0-beta.4
   
   # Logging & Monitoring
-  logger: ^2.6.1
+  logger: ^2.6.2
   
   # Localization
   flutter_localizations:
     sdk: flutter
-  intl: ^0.20.2
+  intl: ^0.20.2  # Aligned with flutter_localizations
+  intl_utils: ^2.8.0  # Version compatible with intl 0.20.2
   
   # Offline Support
-  sqflite: ^2.4.2
-  path_provider: ^2.1.5
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
   
   # Real-time Communication
   socket_io_client: ^3.1.2
   
   # Archive/ZIP support for RADA format
-  archive: ^3.6.1
+  archive: ^4.0.7
   
   # Path operations for RADA format
-  path: ^1.9.0
+  path: ^1.8.3
   
   # File operations
-  file_picker: ^8.1.4
-  
+  file_picker: ^10.3.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  # Code Generation (Latest 2025)
-  build_runner: ^2.7.1
-  json_serializable: ^6.11.1
-  drift_dev: ^2.28.2
+  # Code Generation
+  build_runner: ^2.4.5
+  json_serializable: ^6.7.1
+  drift_dev: ^2.10.1
   freezed: ^3.2.3
-  retrofit_generator: ^10.0.5
+  retrofit_generator: ^10.0.6  # Updated to be compatible with intl 0.20.2
   
   # Pigeon for Type-Safe Code Generation
   pigeon: ^26.0.1
   
-  # Linting & Code Quality
+  # Testing & Quality
   flutter_lints: ^6.0.0
-  very_good_analysis: ^6.0.0
-  
-  # Modern Testing (2025)
+  very_good_analysis: ^10.0.0
   mocktail: ^1.0.4
-  mockito: ^5.4.4
-  test: ^1.26.2
-  alchemist: ^0.12.1
-  patrol: ^3.19.0
+  test: ^1.24.8
   integration_test:
     sdk: flutter
   
   # Test Coverage & Performance
   coverage: ^1.15.0
+  alchemist: ^0.12.1
+  patrol: ^3.19.0
   flutter_driver:
     sdk: flutter
 
