@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Flutter Magento Package Release Script
-# This script publishes the package to pub.dev ignoring errors and warnings
+# This script prepares and publishes the package to pub.dev
+# Ensures all generated files are properly committed
 
 set -e  # Exit on any error
 
@@ -57,44 +58,117 @@ if ! command -v dart &> /dev/null; then
 fi
 
 print_status "Flutter version: $(flutter --version | head -n 1)"
-print_status "Dart version: $(dart --version | head -n 1)"
+print_status "Dart version: $(dart --version 2>&1 | head -n 1)"
 
 # Clean previous builds
 print_status "Cleaning previous builds..."
-flutter clean || print_warning "Clean failed, continuing..."
+flutter clean
 
 # Get dependencies
 print_status "Getting dependencies..."
-flutter pub get || print_warning "Pub get failed, continuing..."
+flutter pub get
 
-# Run code generation (ignore errors)
+# Run code generation
 print_status "Running code generation..."
-flutter packages pub run build_runner build --delete-conflicting-outputs || print_warning "Code generation failed, continuing..."
+dart run build_runner build --delete-conflicting-outputs
 
-# Run tests (ignore failures)
+# Verify generated files exist
+print_status "Verifying generated files..."
+MISSING_FILES=0
+for model_file in lib/src/models/*_models.dart; do
+    if [ -f "$model_file" ]; then
+        base_name="${model_file%.dart}"
+        freezed_file="${base_name}.freezed.dart"
+        g_file="${base_name}.g.dart"
+        
+        if [ ! -f "$freezed_file" ]; then
+            print_error "Missing: $freezed_file"
+            MISSING_FILES=$((MISSING_FILES+1))
+        fi
+        
+        if [ ! -f "$g_file" ]; then
+            print_error "Missing: $g_file"
+            MISSING_FILES=$((MISSING_FILES+1))
+        fi
+    fi
+done
+
+if [ $MISSING_FILES -gt 0 ]; then
+    print_error "Found $MISSING_FILES missing generated files!"
+    print_error "Code generation may have failed."
+    exit 1
+fi
+
+# Check if generated files are committed
+print_status "Checking git status for generated files..."
+UNCOMMITTED_GENERATED=0
+
+if git status --short | grep -E '\.(freezed|g)\.dart$' > /dev/null 2>&1; then
+    print_warning "Found uncommitted generated files:"
+    git status --short | grep -E '\.(freezed|g)\.dart$'
+    UNCOMMITTED_GENERATED=1
+    echo ""
+    print_warning "Generated files MUST be committed for pub.dev packages!"
+    echo ""
+    read -p "Do you want to commit them now? (y/N): " -n 1 -r
+    echo ""
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        print_status "Adding generated files to git..."
+        git add lib/src/models/*.freezed.dart lib/src/models/*.g.dart 2>/dev/null || true
+        git commit -m "chore: update generated files for v${VERSION}"
+        print_success "Generated files committed!"
+    else
+        print_error "Cannot publish without committing generated files!"
+        exit 1
+    fi
+fi
+
+# Run tests
 print_status "Running tests..."
-flutter test || print_warning "Tests failed, continuing..."
+if flutter test; then
+    print_success "All tests passed!"
+else
+    print_warning "Tests failed!"
+    read -p "Continue anyway? (y/N): " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+fi
 
-# Check for analysis issues (ignore them)
+# Check for analysis issues
 print_status "Running analysis..."
-flutter analyze || print_warning "Analysis found issues, continuing..."
+if flutter analyze; then
+    print_success "Analysis passed!"
+else
+    print_warning "Analysis found issues!"
+    read -p "Continue anyway? (y/N): " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+fi
 
-# Format code (ignore errors)
+# Format code
 print_status "Formatting code..."
-dart format . || print_warning "Code formatting failed, continuing..."
+dart format .
 
 # Dry run first to check for major issues
 print_status "Running dry run..."
 if flutter pub publish --dry-run; then
     print_success "Dry run successful!"
 else
-    print_warning "Dry run failed, but continuing with actual publish..."
+    print_error "Dry run failed!"
+    print_error "Please fix the issues before publishing."
+    exit 1
 fi
 
 # Ask for confirmation
 echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 print_warning "About to publish $PACKAGE_NAME version $VERSION to pub.dev"
-print_warning "This will ignore all errors and warnings!"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 read -p "Do you want to continue? (y/N): " -n 1 -r
 echo ""
@@ -104,21 +178,30 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 0
 fi
 
-# Publish the package (force ignore errors)
+# Publish the package
 print_status "Publishing package to pub.dev..."
+flutter pub publish --force
 
-# Use timeout to prevent hanging
-timeout 300 flutter pub publish --force || {
-    print_warning "Publish command timed out or failed, but package might have been published"
-    print_status "Check pub.dev to verify if the package was published successfully"
-}
+# Create git tag if not exists
+TAG_NAME="v${VERSION}"
+if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+    print_status "Creating git tag: $TAG_NAME"
+    git tag -a "$TAG_NAME" -m "Release version ${VERSION}"
+    print_status "Pushing tag to remote..."
+    git push origin "$TAG_NAME"
+    print_success "Tag $TAG_NAME created and pushed!"
+else
+    print_warning "Tag $TAG_NAME already exists"
+fi
 
 # Final status
 echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 print_success "Release process completed!"
-print_status "Check https://pub.dev/packages/$PACKAGE_NAME to verify the publication"
-print_status "Version $VERSION should be available shortly"
-
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+print_status "Package: https://pub.dev/packages/$PACKAGE_NAME"
+print_status "Version: $VERSION"
+print_status "Tag: $TAG_NAME"
 echo ""
-print_warning "Note: This script ignores all errors and warnings as requested."
-print_warning "Please verify the package works correctly on pub.dev"
+print_status "Version $VERSION should be available on pub.dev shortly"
+echo ""

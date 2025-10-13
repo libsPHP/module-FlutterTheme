@@ -1,0 +1,274 @@
+# GitLab CI/CD для Flutter Magento Package
+# Автоматическая проверка, тестирование и публикация на pub.dev
+
+stages:
+  - check
+  - test
+  - build
+  - publish
+
+variables:
+  FLUTTER_VERSION: "3.24.0"
+  PUB_CACHE: "${CI_PROJECT_DIR}/.pub-cache"
+
+# Кэширование для ускорения сборки
+.cache_template: &cache_template
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .pub-cache/
+      - .dart_tool/
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -y -qq git curl unzip
+  # Установка Flutter
+  - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+  - export PATH="$PATH:`pwd`/flutter/bin"
+  - flutter doctor -v
+  - flutter pub get
+
+# ===== STAGE: CHECK =====
+
+# Проверка code generation
+check:codegen:
+  stage: check
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  script:
+    - echo "🔄 Запуск генерации кода..."
+    - dart run build_runner build --delete-conflicting-outputs
+    - echo "✅ Проверка наличия сгенерированных файлов..."
+    - |
+      # Проверяем что все .freezed.dart файлы созданы
+      missing_files=0
+      for model_file in lib/src/models/*.dart; do
+        if [[ "$model_file" == *"_models.dart" ]] && [[ "$model_file" != *".freezed.dart" ]] && [[ "$model_file" != *".g.dart" ]]; then
+          freezed_file="${model_file%.dart}.freezed.dart"
+          g_file="${model_file%.dart}.g.dart"
+          
+          if [ ! -f "$freezed_file" ]; then
+            echo "❌ Отсутствует: $freezed_file"
+            missing_files=$((missing_files+1))
+          fi
+          
+          if [ ! -f "$g_file" ]; then
+            echo "❌ Отсутствует: $g_file"
+            missing_files=$((missing_files+1))
+          fi
+        fi
+      done
+      
+      if [ $missing_files -gt 0 ]; then
+        echo "❌ Найдено $missing_files отсутствующих файлов"
+        exit 1
+      fi
+    - echo "✅ Проверка, что файлы закоммичены в git..."
+    - |
+      # Проверяем что генерируемые файлы есть в git
+      if git status --short | grep -E '\.(freezed|g)\.dart$'; then
+        echo "⚠️  ВНИМАНИЕ: Найдены незакоммиченные генерируемые файлы!"
+        git status --short | grep -E '\.(freezed|g)\.dart$'
+        echo ""
+        echo "📝 Эти файлы должны быть в git для публикации на pub.dev"
+        echo "Выполните: git add . && git commit -m 'Update generated files'"
+        exit 1
+      fi
+    - echo "✅ Все генерируемые файлы на месте!"
+  only:
+    - merge_requests
+    - master
+    - develop
+    - tags
+
+# Анализ кода
+check:analyze:
+  stage: check
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  script:
+    - echo "🔍 Анализ кода..."
+    - flutter analyze
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - develop
+    - tags
+
+# Форматирование кода
+check:format:
+  stage: check
+  image: instrumentisto/flutter:latest
+  script:
+    - echo "📝 Проверка форматирования..."
+    - dart format --set-exit-if-changed .
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - develop
+
+# ===== STAGE: TEST =====
+
+# Запуск тестов
+test:unit:
+  stage: test
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  script:
+    - echo "🧪 Запуск тестов..."
+    - flutter test --coverage
+    - echo "📊 Генерация отчета покрытия..."
+    - genhtml coverage/lcov.info -o coverage/html
+  coverage: '/lines\.*: \d+\.\d+\%/'
+  artifacts:
+    name: coverage
+    paths:
+      - coverage/
+    expire_in: 30 days
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/lcov.info
+  only:
+    - merge_requests
+    - master
+    - develop
+    - tags
+
+# ===== STAGE: BUILD =====
+
+# Сборка документации
+build:docs:
+  stage: build
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  script:
+    - echo "📚 Генерация документации..."
+    - dart doc .
+  artifacts:
+    paths:
+      - doc/api/
+    expire_in: 30 days
+  only:
+    - master
+    - tags
+
+# Dry-run публикации
+build:dry-run:
+  stage: build
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  script:
+    - echo "🔍 Dry-run публикации..."
+    - dart run build_runner build --delete-conflicting-outputs
+    - flutter pub publish --dry-run
+  artifacts:
+    reports:
+      dotenv: build.env
+  only:
+    - master
+    - tags
+
+# ===== STAGE: PUBLISH =====
+
+# Автоматическая публикация на pub.dev
+publish:pub-dev:
+  stage: publish
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git curl unzip
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - export PATH="$PATH:`pwd`/flutter/bin"
+    - flutter doctor -v
+    - flutter pub get
+    # Настройка credentials для pub.dev
+    - mkdir -p ~/.pub-cache
+    - |
+      cat <<EOF > ~/.pub-cache/credentials.json
+      {
+        "accessToken":"${PUB_DEV_ACCESS_TOKEN}",
+        "refreshToken":"${PUB_DEV_REFRESH_TOKEN}",
+        "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+        "scopes":["openid","https://www.googleapis.com/auth/userinfo.email"],
+        "expiration":${PUB_DEV_TOKEN_EXPIRATION}
+      }
+      EOF
+  script:
+    - echo "🚀 Публикация на pub.dev..."
+    # Финальная генерация кода
+    - dart run build_runner build --delete-conflicting-outputs
+    # Проверяем версию
+    - PACKAGE_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+    - echo "📦 Публикуем версию $PACKAGE_VERSION"
+    # Публикуем
+    - flutter pub publish --force
+    - echo "✅ Пакет опубликован на https://pub.dev/packages/flutter_magento"
+  only:
+    - tags
+  when: manual
+  environment:
+    name: production
+    url: https://pub.dev/packages/flutter_magento
+
+# Автоматическая публикация при создании тега версии
+publish:auto-tag:
+  stage: publish
+  image: instrumentisto/flutter:latest
+  <<: *cache_template
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git curl unzip
+    - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+    - export PATH="$PATH:`pwd`/flutter/bin"
+    - flutter doctor -v
+    - flutter pub get
+    - mkdir -p ~/.pub-cache
+    - |
+      cat <<EOF > ~/.pub-cache/credentials.json
+      {
+        "accessToken":"${PUB_DEV_ACCESS_TOKEN}",
+        "refreshToken":"${PUB_DEV_REFRESH_TOKEN}",
+        "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+        "scopes":["openid","https://www.googleapis.com/auth/userinfo.email"],
+        "expiration":${PUB_DEV_TOKEN_EXPIRATION}
+      }
+      EOF
+  script:
+    - echo "🚀 Автоматическая публикация при теге версии..."
+    - dart run build_runner build --delete-conflicting-outputs
+    - TAG_VERSION=$(echo $CI_COMMIT_TAG | sed 's/^v//')
+    - PACKAGE_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+    - |
+      if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
+        echo "❌ Версия в теге ($TAG_VERSION) не совпадает с версией в pubspec.yaml ($PACKAGE_VERSION)"
+        exit 1
+      fi
+    - flutter pub publish --force
+    - echo "✅ Версия $PACKAGE_VERSION опубликована!"
+  only:
+    - /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+  except:
+    - branches
+  environment:
+    name: production
+    url: https://pub.dev/packages/flutter_magento
+
+# Уведомление о необходимости коммита генерируемых файлов
+notify:missing-generated-files:
+  stage: check
+  image: alpine:latest
+  script:
+    - echo "⚠️  ВАЖНО: Убедитесь, что .freezed.dart и .g.dart файлы закоммичены!"
+    - echo "📝 Для Flutter пакетов генерируемые файлы ДОЛЖНЫ быть в git"
+    - echo "Выполните перед коммитом:"
+    - echo "  dart run build_runner build --delete-conflicting-outputs"
+    - echo "  git add lib/src/models/*.freezed.dart lib/src/models/*.g.dart"
+    - echo "  git commit -m 'Update generated files'"
+  allow_failure: true
+  only:
+    - merge_requests
+

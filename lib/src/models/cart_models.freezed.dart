@@ -14,8 +14,18 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Cart {
-
- String? get id; int? get customerId; String? get customerEmail; List<CartItem>? get items; CartTotals? get totals; List<CartCoupon>? get appliedCoupons; List<CartGiftCard>? get appliedGiftCards; String? get currencyCode; String? get couponCode; bool? get isActive; DateTime? get createdAt; DateTime? get updatedAt;
+  String? get id;
+  int? get customerId;
+  String? get customerEmail;
+  List<CartItem>? get items;
+  CartTotals? get totals;
+  List<CartCoupon>? get appliedCoupons;
+  List<CartGiftCard>? get appliedGiftCards;
+  String? get currencyCode;
+  String? get couponCode;
+  bool? get isActive;
+  DateTime? get createdAt;
+  DateTime? get updatedAt;
 /// Create a copy of Cart
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -334,8 +344,20 @@ as DateTime?,
 
 /// @nodoc
 mixin _$CartItem {
-
- int? get itemId; String? get sku; String? get name; int? get qty; double? get price; double? get rowTotal; double? get taxAmount; double? get discountAmount; String? get productType; Map<String, dynamic>? get productOptions; List<CartItemOption>? get options; bool? get isVirtual; String? get imageUrl; String? get thumbnailUrl;
+  int? get itemId;
+  String? get sku;
+  String? get name;
+  int? get qty;
+  double? get price;
+  double? get rowTotal;
+  double? get taxAmount;
+  double? get discountAmount;
+  String? get productType;
+  Map<String, dynamic>? get productOptions;
+  List<CartItemOption>? get options;
+  bool? get isVirtual;
+  String? get imageUrl;
+  String? get thumbnailUrl;
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
