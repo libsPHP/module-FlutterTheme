@@ -59,6 +59,7 @@ export 'src/models/rada_models.dart';
 export 'src/adapters/custom_attributes_adapter.dart';
 export 'src/adapters/custom_attributes_manager.dart';
 export 'src/adapters/validation_result.dart';
+export 'src/adapters/tax_lien_adapter.dart';
 
 // Example adapters (for reference and extension)
 // Note: Example adapters are excluded from package distribution
