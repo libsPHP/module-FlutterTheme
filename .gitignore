@@ -35,3 +35,6 @@ migrate_working_dir/
 # Generated documentation
 /docs/
 /docs_final/
+/doc/docs/
+**/doc/docs/
+**/docs_final/

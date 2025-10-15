@@ -272,3 +272,4 @@ notify:missing-generated-files:
   only:
     - merge_requests
 
+
