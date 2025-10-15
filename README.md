@@ -379,6 +379,194 @@ lib/
 
 ## 🔧 Configuration
 
+### Environment Variables (.env)
+
+**Recommended approach**: Use `.env` file for configuration to keep sensitive data secure and manage different environments easily.
+
+#### 1. Add flutter_dotenv dependency
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_dotenv: ^5.1.0
+
+flutter:
+  assets:
+    - .env
+```
+
+#### 2. Create .env file
+
+Copy the provided `env.example` to `.env`:
+
+```bash
+cp env.example .env
+```
+
+Or create a `.env` file manually in your project root:
+
+```env
+# Magento Configuration
+# Primary API URL (Luma Demo - recommended for testing)
+MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Optional: Alternative demo stores for testing
+MAGENTO_API_URL_ALT_1=https://demo.magento.com
+MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
+MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
+
+# Connection settings
+MAGENTO_CONNECTION_TIMEOUT=30000
+MAGENTO_RECEIVE_TIMEOUT=30000
+
+# Store configuration (optional)
+MAGENTO_API_KEY=your-api-key-here
+MAGENTO_STORE_CODE=default
+
+# Multiple environments example
+# MAGENTO_API_URL_DEV=https://dev-store.com
+# MAGENTO_API_URL_PROD=https://your-production-store.com
+```
+
+**Available demo stores for testing:**
+- 🌟 **Luma Demo** - `https://luma-demo.scandipwa.com/` (Recommended)
+- **Magento Official** - `https://demo.magento.com`
+- **Nexcess Demo** - `https://magento2-demo.nexcess.net`
+- **Bird EU Demo** - `https://demo-m2.bird.eu`
+
+#### 3. Load and use environment variables
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_magento/flutter_magento.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Load .env file
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint('Warning: Could not load .env file: $e');
+    // App will use default values
+  }
+  
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Magento App',
+        home: Consumer<AppProvider>(
+          builder: (context, provider, child) {
+            if (!provider.isInitialized) {
+              return FutureBuilder(
+                future: provider.initializeMagento(
+                  // Use MAGENTO_API_URL from .env or fallback to Luma demo
+                  dotenv.env['MAGENTO_API_URL'] ?? 
+                    'https://luma-demo.scandipwa.com/',
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  return const HomePage();
+                },
+              );
+            }
+            return const HomePage();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class AppProvider extends ChangeNotifier {
+  bool _isInitialized = false;
+  late FlutterMagentoCore _magento;
+  
+  bool get isInitialized => _isInitialized;
+  
+  Future<bool> initializeMagento(String baseUrl) async {
+    try {
+      _magento = FlutterMagentoCore.instance;
+      
+      final success = await _magento.initialize(
+        baseUrl: baseUrl,
+        connectionTimeout: int.tryParse(
+          dotenv.env['MAGENTO_CONNECTION_TIMEOUT'] ?? ''
+        ) ?? 30000,
+        receiveTimeout: int.tryParse(
+          dotenv.env['MAGENTO_RECEIVE_TIMEOUT'] ?? ''
+        ) ?? 30000,
+        headers: dotenv.env['MAGENTO_API_KEY']?.isNotEmpty == true ? {
+          'X-API-Key': dotenv.env['MAGENTO_API_KEY']!,
+          'X-Store-Code': dotenv.env['MAGENTO_STORE_CODE'] ?? 'default',
+        } : null,
+      );
+      
+      _isInitialized = success;
+      notifyListeners();
+      return success;
+    } catch (e) {
+      debugPrint('Initialization error: $e');
+      return false;
+    }
+  }
+}
+```
+
+#### 4. Security best practices
+
+- **Add `.env` to `.gitignore`** to prevent committing sensitive data
+- Create `.env.example` with template values for documentation
+- Use different `.env` files for different environments (`.env.dev`, `.env.prod`)
+- Never hardcode sensitive values in your code
+
+**Example `.gitignore`:**
+```gitignore
+# Environment files
+.env
+.env.local
+.env.*.local
+```
+
+**Example `.env.example`:**
+```env
+# Magento Configuration Template
+# Copy this file to .env and update with your values
+
+# Primary API URL
+MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Alternative demo stores (optional)
+MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
+MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
+MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
+
+# Connection settings
+MAGENTO_CONNECTION_TIMEOUT=30000
+MAGENTO_RECEIVE_TIMEOUT=30000
+
+# Store configuration (optional)
+MAGENTO_API_KEY=your-api-key
+MAGENTO_STORE_CODE=default
+```
+
 ### Environment Setup
 
 ```dart
