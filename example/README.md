@@ -60,8 +60,12 @@ flutter run
 # Primary API URL (Luma Demo)
 MAGENTO_API_URL=https://luma-demo.scandipwa.com/
 
+# Test Credentials for Luma Demo:
+# Email: test@scandipwa.com
+# Password: Test@123456
+
 # Alternative demo stores
-MAGENTO_API_URL_ALT_1=https://demo.magento.com
+MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
 MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
 MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
 ```
@@ -74,14 +78,30 @@ MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
 #### Примеры URL для тестирования:
 
 - `https://luma-demo.scandipwa.com/` ⭐ (Рекомендуется)
-- `https://demo.magento.com`
+  - Тест аккаунт: `test@scandipwa.com` / `Test@123456`
+- `https://tech-demo.scandipwa.com/`
 - `https://magento2-demo.nexcess.net`
 - `https://demo-m2.bird.eu`
 
-### 4. Использование функций
+### 4. Тестовые учетные данные для авторизации
+
+Для тестирования функций авторизации используйте следующие учетные данные:
+
+#### Luma Demo (https://luma-demo.scandipwa.com/)
+```
+Email: test@scandipwa.com
+Password: Test@123456
+```
+
+#### Создание собственного тестового аккаунта
+Вы также можете создать новый аккаунт через вкладку "Auth" → "Register" в приложении.
+
+### 5. Использование функций
 
 1. **Настройка API**: Используйте вкладку "Config" для настройки подключения
 2. **Аутентификация**: Перейдите на вкладку "Auth" для входа или регистрации
+   - Используйте тестовые данные: `test@scandipwa.com` / `Test@123456`
+   - Или создайте новый аккаунт через форму регистрации
 3. **Продукты**: Просматривайте каталог с реальными данными на вкладке "Products"
 4. **Категории**: Изучайте структуру категорий на вкладке "Categories"
 5. **Корзина**: Управляйте товарами в корзине на вкладке "Cart"

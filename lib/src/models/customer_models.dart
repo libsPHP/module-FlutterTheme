@@ -6,6 +6,8 @@ part 'customer_models.g.dart';
 /// Main customer model
 @freezed
 class Customer with _$Customer {
+  const Customer._();
+
   const factory Customer({
     required int id,
     required String email,
@@ -27,8 +29,6 @@ class Customer with _$Customer {
     Map<String, dynamic>? customAttributes,
     Map<String, dynamic>? extensionAttributes,
   }) = _Customer;
-
-  const Customer._();
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);

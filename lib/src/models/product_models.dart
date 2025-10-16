@@ -6,6 +6,8 @@ part 'product_models.g.dart';
 /// Product model
 @freezed
 class Product with _$Product {
+  const Product._();
+
   const factory Product({
     required int id,
     required String sku,
@@ -33,8 +35,6 @@ class Product with _$Product {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Product;
-
-  const Product._();
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
@@ -242,7 +242,7 @@ class Review with _$Review {
 @freezed
 class ReviewRating with _$ReviewRating {
   const ReviewRating._();
-  
+
   const factory ReviewRating({
     required int id,
     required String ratingName,
@@ -252,7 +252,7 @@ class ReviewRating with _$ReviewRating {
 
   factory ReviewRating.fromJson(Map<String, dynamic> json) =>
       _$ReviewRatingFromJson(json);
-      
+
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||

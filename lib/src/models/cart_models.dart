@@ -6,6 +6,8 @@ part 'cart_models.g.dart';
 /// Cart model representing a shopping cart
 @freezed
 class Cart with _$Cart {
+  const Cart._();
+
   const factory Cart({
     String? id,
     int? customerId,
@@ -21,8 +23,6 @@ class Cart with _$Cart {
     DateTime? updatedAt,
   }) = _Cart;
 
-  const Cart._();
-
   factory Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
 
   // Convenience getters
@@ -34,6 +34,8 @@ class Cart with _$Cart {
 /// Cart item model
 @freezed
 class CartItem with _$CartItem {
+  const CartItem._();
+
   const factory CartItem({
     int? itemId,
     String? sku,
@@ -50,8 +52,6 @@ class CartItem with _$CartItem {
     String? imageUrl,
     String? thumbnailUrl,
   }) = _CartItem;
-
-  const CartItem._();
 
   factory CartItem.fromJson(Map<String, dynamic> json) =>
       _$CartItemFromJson(json);

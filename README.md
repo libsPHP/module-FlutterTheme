@@ -174,30 +174,221 @@ class LoginPage extends StatelessWidget {
 }
 ```
 
-## 📚 API Reference
+## 🔐 Authentication & Test Credentials
 
-### Authentication
+### Demo Store Test Accounts
+
+For testing authentication features, you can use the following credentials on demo stores:
+
+#### Luma Demo (https://luma-demo.scandipwa.com/)
+```
+Email: test@scandipwa.com
+Password: Test@123456
+```
+
+#### Alternative Test Account Creation
+You can also create your own test account by registering through the app or using the API:
 
 ```dart
-// Customer login
+// Create a new test account
+final customer = await magento.createCustomer(
+  email: 'your-test@example.com',
+  password: 'SecurePassword123!',
+  firstName: 'Test',
+  lastName: 'User',
+);
+```
+
+### Authentication Flow
+
+#### 1. Customer Login
+
+```dart
+import 'package:flutter_magento/flutter_magento.dart';
+
+// Basic login
 final authResponse = await magento.authenticateCustomer(
-  email: 'customer@example.com',
-  password: 'password123',
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
 );
 
-// Customer registration
-final customer = await magento.createCustomer(
-  email: 'new@example.com',
-  password: 'password123',
+print('Login successful!');
+print('Customer: ${authResponse.customer.firstname} ${authResponse.customer.lastname}');
+print('Token: ${authResponse.token}');
+
+// Login with remember me
+final authWithRemember = await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+  rememberMe: true, // Store token for auto-login
+);
+```
+
+#### 2. Customer Registration
+
+```dart
+// Register new customer
+final newCustomer = await magento.createCustomer(
+  email: 'newuser@example.com',
+  password: 'SecurePass123!',
   firstName: 'John',
   lastName: 'Doe',
 );
 
-// Get current customer
+print('Registration successful!');
+print('Customer ID: ${newCustomer.id}');
+print('Email: ${newCustomer.email}');
+```
+
+#### 3. Get Current Customer Info
+
+```dart
+// Get logged-in customer information
 final currentCustomer = await magento.getCurrentCustomer();
 
-// Logout
+print('Name: ${currentCustomer.firstname} ${currentCustomer.lastname}');
+print('Email: ${currentCustomer.email}');
+print('Created: ${currentCustomer.createdAt}');
+```
+
+#### 4. Update Customer Information
+
+```dart
+// Update customer profile
+final updatedCustomer = await magento.updateCustomer(
+  firstname: 'John',
+  lastname: 'Smith',
+  email: 'john.smith@example.com',
+);
+```
+
+#### 5. Password Management
+
+```dart
+// Change password
+await magento.changePassword(
+  currentPassword: 'OldPassword123!',
+  newPassword: 'NewPassword123!',
+);
+
+// Request password reset
+await magento.resetPassword(
+  email: 'user@example.com',
+);
+```
+
+#### 6. Logout
+
+```dart
+// Logout current customer
 await magento.logout();
+
+print('Logged out successfully');
+```
+
+### Token Management
+
+The plugin automatically handles JWT token storage and refresh:
+
+```dart
+// Token is automatically stored after login
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+);
+
+// Token is automatically included in subsequent API calls
+final orders = await magento.getCustomerOrders();
+
+// Check if user is authenticated
+final isAuthenticated = await magento.isAuthenticated();
+
+if (isAuthenticated) {
+  print('User is logged in');
+} else {
+  print('User needs to login');
+}
+```
+
+### Session Management
+
+```dart
+// Save session (automatic with rememberMe: true)
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+  rememberMe: true,
+);
+
+// Restore session on app start
+await magento.restoreSession();
+
+// Clear session
+await magento.clearSession();
+```
+
+### Guest vs Authenticated Users
+
+```dart
+// Guest cart (no authentication required)
+final guestCart = await magento.createGuestCart();
+await magento.addToGuestCart(
+  cartId: guestCart.id!,
+  sku: 'PRODUCT-SKU',
+  quantity: 1,
+);
+
+// Authenticated cart (requires login)
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+);
+
+final customerCart = await magento.getCustomerCart();
+await magento.addToCart(
+  cartId: customerCart.id!,
+  sku: 'PRODUCT-SKU',
+  quantity: 1,
+);
+```
+
+### Error Handling
+
+```dart
+try {
+  final authResponse = await magento.authenticateCustomer(
+    email: 'test@scandipwa.com',
+    password: 'WrongPassword',
+  );
+} on MagentoException catch (e) {
+  if (e.code == 'invalid_credentials') {
+    print('Invalid email or password');
+  } else if (e.code == 'account_locked') {
+    print('Account is locked. Please contact support.');
+  } else {
+    print('Authentication error: ${e.message}');
+  }
+} catch (e) {
+  print('Unexpected error: $e');
+}
+```
+
+## 📚 API Reference
+
+### Authentication API
+
+```dart
+// All authentication methods from FlutterMagentoCore
+authenticateCustomer({required String email, required String password, bool rememberMe = false})
+createCustomer({required String email, required String password, required String firstName, required String lastName})
+getCurrentCustomer()
+updateCustomer({String? firstname, String? lastname, String? email})
+changePassword({required String currentPassword, required String newPassword})
+resetPassword({required String email})
+logout()
+isAuthenticated()
+restoreSession()
+clearSession()
 ```
 
 ### Products
@@ -411,8 +602,12 @@ Or create a `.env` file manually in your project root:
 # Primary API URL (Luma Demo - recommended for testing)
 MAGENTO_API_URL=https://luma-demo.scandipwa.com/
 
+# Test Credentials for Luma Demo:
+# Email: test@scandipwa.com
+# Password: Test@123456
+
 # Optional: Alternative demo stores for testing
-MAGENTO_API_URL_ALT_1=https://demo.magento.com
+MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
 MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
 MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
 
@@ -431,7 +626,8 @@ MAGENTO_STORE_CODE=default
 
 **Available demo stores for testing:**
 - 🌟 **Luma Demo** - `https://luma-demo.scandipwa.com/` (Recommended)
-- **Magento Official** - `https://demo.magento.com`
+  - Test account: `test@scandipwa.com` / `Test@123456`
+- **Tech Demo** - `https://tech-demo.scandipwa.com/`
 - **Nexcess Demo** - `https://magento2-demo.nexcess.net`
 - **Bird EU Demo** - `https://demo-m2.bird.eu`
 
@@ -552,6 +748,10 @@ class AppProvider extends ChangeNotifier {
 
 # Primary API URL
 MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Test Credentials for Luma Demo:
+# Email: test@scandipwa.com
+# Password: Test@123456
 
 # Alternative demo stores (optional)
 MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/

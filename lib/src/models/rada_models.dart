@@ -126,14 +126,14 @@ class RadaProductTranslation with _$RadaProductTranslation {
 /// Complete RADA package
 @freezed
 class RadaPackage with _$RadaPackage {
+  const RadaPackage._();
+
   const factory RadaPackage({
     required RadaManifest manifest,
     required RadaData data,
     required Map<String, RadaLocalization> localizations,
     required Map<String, List<int>> images,
   }) = _RadaPackage;
-
-  const RadaPackage._();
 
   /// Get image data by path
   List<int>? getImage(String path) => images[path];
@@ -169,6 +169,8 @@ class RadaExportOptions with _$RadaExportOptions {
 /// Import result
 @freezed
 class RadaImportResult with _$RadaImportResult {
+  const RadaImportResult._();
+
   const factory RadaImportResult({
     required bool success,
     required RadaPackage? package,
@@ -180,8 +182,5 @@ class RadaImportResult with _$RadaImportResult {
     required DateTime importedAt,
   }) = _RadaImportResult;
 
-  const RadaImportResult._();
-
   bool get hasError => error != null;
 }
-
