@@ -26,13 +26,13 @@ void main() {
         refreshToken: 'refresh-token-123',
         tokenType: 'Bearer',
         expiresIn: 3600,
-        customer: const Customer(
+        customer: Customer(
           id: 1,
           email: 'test@scandipwa.com',
           firstName: 'Test',
           lastName: 'User',
-          createdAt: '2024-01-01',
-          updatedAt: '2024-01-01',
+          createdAt: DateTime(2024, 1, 1),
+          updatedAt: DateTime(2024, 1, 1),
           groupId: 1,
           websiteId: 1,
         ),
@@ -63,7 +63,7 @@ void main() {
       'Example 2: Customer Registration - should create new customer',
        () async {
          // Arrange
-         final now = DateTime.now().toIso8601String();
+         final now = DateTime.now();
          final expectedCustomer = Customer(
            id: 2,
            email: 'newuser@example.com',
@@ -111,13 +111,13 @@ void main() {
       'Example 3: Get Current Customer - should return customer info',
        () async {
          // Arrange
-         const expectedCustomer = Customer(
+         final expectedCustomer = Customer(
            id: 1,
            email: 'test@scandipwa.com',
            firstName: 'Test',
            lastName: 'User',
-           createdAt: '2024-01-01',
-           updatedAt: '2024-01-01',
+           createdAt: DateTime(2024, 1, 1),
+           updatedAt: DateTime(2024, 1, 1),
            groupId: 1,
            websiteId: 1,
          );

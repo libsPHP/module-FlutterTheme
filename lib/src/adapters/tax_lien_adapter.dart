@@ -207,6 +207,9 @@ class TaxLienAttributes {
 /// Tax Lien Custom Attributes Adapter for Flutter Magento
 class TaxLienAdapter extends CustomAttributesAdapter<TaxLienAttributes> {
   @override
+  String get adapterId => 'tax_lien';
+
+  @override
   List<String> get supportedAttributeCodes => [
     // Basic
     'parcel_id',
