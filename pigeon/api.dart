@@ -151,7 +151,7 @@ class Customer {
   final String? phone;
   final String? dateOfBirth;
   final int? gender;
-  final Map<String, dynamic>? customAttributes;
+  final Map<String, Object?>? customAttributes;
 }
 
 /// Product request parameters
@@ -172,7 +172,7 @@ class ProductRequest {
   final String? categoryId;
   final String? sortBy;
   final String? sortOrder;
-  final Map<String, dynamic>? filters;
+  final Map<String, Object?>? filters;
 }
 
 /// Product information
@@ -195,7 +195,7 @@ class Product {
   final String? description;
   final String? shortDescription;
   final List<String>? images;
-  final Map<String, dynamic>? customAttributes;
+  final Map<String, Object?>? customAttributes;
   final String? stockStatus;
   final int? quantity;
 }
@@ -223,7 +223,7 @@ class CartItem {
 
   final String sku;
   final int quantity;
-  final Map<String, dynamic>? productOptions;
+  final Map<String, Object?>? productOptions;
 }
 
 /// Shopping cart
@@ -272,8 +272,8 @@ class Order {
   final double grandTotal;
   final String createdAt;
   final List<CartItem>? items;
-  final Map<String, dynamic>? billingAddress;
-  final Map<String, dynamic>? shippingAddress;
+  final Map<String, Object?>? billingAddress;
+  final Map<String, Object?>? shippingAddress;
   final String? paymentMethod;
   final String? shippingMethod;
 }

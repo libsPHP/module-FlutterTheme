@@ -184,7 +184,6 @@ ID: ${customer.id}
 Name: ${customer.firstname} ${customer.lastname}
 Email: ${customer.email}
 Created: ${customer.createdAt}
-Store ID: ${customer.storeId}
 Website ID: ${customer.websiteId}
 ''';
       });
@@ -212,7 +211,7 @@ Website ID: ${customer.websiteId}
     });
 
     try {
-      final isAuthenticated = await _magento.isAuthenticated();
+      final isAuthenticated = _magento.isAuthenticated;
 
       setState(() {
         _output =
@@ -389,8 +388,8 @@ class AuthExamples {
   }
 
   /// Example: Check if authenticated
-  Future<bool> isAuthenticated() async {
-    return await magento.isAuthenticated();
+  bool isAuthenticated() {
+    return magento.isAuthenticated;
   }
 
   /// Example: Logout

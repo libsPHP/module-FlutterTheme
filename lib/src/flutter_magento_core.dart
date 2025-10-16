@@ -273,6 +273,20 @@ class FlutterMagentoCore {
     _cartService.reset();
   }
 
+  /// Get current customer (async method for compatibility with examples)
+  /// 
+  /// Returns the currently authenticated customer or throws an exception if not authenticated.
+  /// This is an async wrapper around the [currentCustomer] getter for API consistency.
+  Future<Customer> getCustomer() async {
+    _checkInitialization();
+    final customer = _authService.currentCustomer;
+    if (customer == null) {
+      throw MagentoException('No authenticated customer');
+    }
+    return customer;
+  }
+
+
   /// Get products (using GraphQL by default)
   Future<Map<String, dynamic>> getProducts({
     int page = 1,

@@ -36,6 +36,9 @@ class AuthResponse {
     };
   }
 
+  // Alias getter for compatibility with examples
+  String get token => accessToken;
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

@@ -22,16 +22,18 @@ void main() {
     test('Example 1: Basic Login - should authenticate successfully', () async {
       // Arrange
       final expectedResponse = AuthResponse(
-        token: 'test-token-123',
-        customer: Customer(
+        accessToken: 'test-token-123',
+        refreshToken: 'refresh-token-123',
+        tokenType: 'Bearer',
+        expiresIn: 3600,
+        customer: const Customer(
           id: 1,
           email: 'test@scandipwa.com',
-          firstname: 'Test',
-          lastname: 'User',
+          firstName: 'Test',
+          lastName: 'User',
           createdAt: '2024-01-01',
           updatedAt: '2024-01-01',
           groupId: 1,
-          storeId: 1,
           websiteId: 1,
         ),
       );
@@ -59,19 +61,19 @@ void main() {
 
     test(
       'Example 2: Customer Registration - should create new customer',
-      () async {
-        // Arrange
-        final expectedCustomer = Customer(
-          id: 2,
-          email: 'newuser@example.com',
-          firstname: 'New',
-          lastname: 'User',
-          createdAt: DateTime.now().toIso8601String(),
-          updatedAt: DateTime.now().toIso8601String(),
-          groupId: 1,
-          storeId: 1,
-          websiteId: 1,
-        );
+       () async {
+         // Arrange
+         final now = DateTime.now().toIso8601String();
+         final expectedCustomer = Customer(
+           id: 2,
+           email: 'newuser@example.com',
+           firstName: 'New',
+           lastName: 'User',
+           createdAt: now,
+           updatedAt: now,
+           groupId: 1,
+           websiteId: 1,
+         );
 
         when(
           mockMagento.createAccount(
@@ -107,19 +109,18 @@ void main() {
 
     test(
       'Example 3: Get Current Customer - should return customer info',
-      () async {
-        // Arrange
-        final expectedCustomer = Customer(
-          id: 1,
-          email: 'test@scandipwa.com',
-          firstname: 'Test',
-          lastname: 'User',
-          createdAt: '2024-01-01',
-          updatedAt: '2024-01-01',
-          groupId: 1,
-          storeId: 1,
-          websiteId: 1,
-        );
+       () async {
+         // Arrange
+         const expectedCustomer = Customer(
+           id: 1,
+           email: 'test@scandipwa.com',
+           firstName: 'Test',
+           lastName: 'User',
+           createdAt: '2024-01-01',
+           updatedAt: '2024-01-01',
+           groupId: 1,
+           websiteId: 1,
+         );
 
         when(
           mockMagento.getCustomer(),
@@ -137,16 +138,16 @@ void main() {
 
     test(
       'Example 4: Check Authentication - should return auth status',
-      () async {
+      () {
         // Arrange
-        when(mockMagento.isAuthenticated()).thenAnswer((_) async => true);
+        when(mockMagento.isAuthenticated).thenReturn(true);
 
         // Act
-        final result = await authExamples.isAuthenticated();
+        final result = authExamples.isAuthenticated();
 
         // Assert
         expect(result, isTrue);
-        verify(mockMagento.isAuthenticated()).called(1);
+        verify(mockMagento.isAuthenticated).called(1);
       },
     );
 
