@@ -174,6 +174,100 @@ class LoginPage extends StatelessWidget {
 }
 ```
 
+## 📖 Runnable Examples
+
+Complete, runnable examples are available in [`example/lib/examples/`](example/lib/examples/). Each example can be run directly and includes comprehensive tests.
+
+### Available Examples
+
+#### 🔐 [Authentication Examples](example/lib/examples/auth_examples.dart)
+Demonstrates authentication flows with real API calls:
+- Basic login with test credentials
+- Customer registration
+- Get current customer information
+- Check authentication status
+- Logout functionality
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/auth_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/auth_examples_test.dart
+```
+
+#### 📦 [Product Examples](example/lib/examples/product_examples.dart)
+Shows product operations and catalog management:
+- Get products with pagination
+- Search products by query
+- Get single product by SKU
+- Filter products by category
+- Apply sorting and filters
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/product_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/product_examples_test.dart
+```
+
+#### 🛒 [Cart Examples](example/lib/examples/cart_examples.dart)
+Covers cart operations for e-commerce:
+- Create guest cart
+- Add items to cart
+- Get cart totals
+- View cart items
+- Clear cart
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/cart_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/cart_examples_test.dart
+```
+
+### Using Examples in Your Code
+
+Each example file exports a standalone class that can be used directly:
+
+```dart
+import 'package:flutter_magento/flutter_magento.dart';
+import 'package:your_app/examples/auth_examples.dart';
+
+final magento = FlutterMagentoCore.instance;
+await magento.initialize(baseUrl: 'https://luma-demo.scandipwa.com/');
+
+final authExamples = AuthExamples(magento);
+
+// Use example functions
+final authResponse = await authExamples.basicLogin();
+print('Logged in as: ${authResponse.customer.email}');
+```
+
+### Running All Example Tests
+
+```bash
+# Run all example tests
+flutter test test/examples/
+
+# Run with coverage
+flutter test --coverage test/examples/
+
+# Run integration tests (requires network)
+flutter test --tags integration test/examples/
+```
+
 ## 🔐 Authentication & Test Credentials
 
 ### Demo Store Test Accounts
