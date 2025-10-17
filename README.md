@@ -1,4 +1,4 @@
-# 🚀 Flutter Magento Plugin 3.0
+# 🚀 Flutter Magento Plugin 4.0
 
 A unified Flutter library for Magento e-commerce platform integration. Version 3.0 introduces modern architecture improvements, enhanced performance, and comprehensive e-commerce functionality with 200+ functions for building cutting-edge mobile commerce applications.
 
@@ -20,19 +20,6 @@ A unified Flutter library for Magento e-commerce platform integration. Version 3
 
 ### 🚀 **Modern Architecture**
 - **Flutter 3.8+ Support**: Latest Flutter SDK with enhanced performance
-- **Modern Dependencies**: Updated to latest stable versions
-- **Enhanced State Management**: Improved Riverpod integration
-- **Better Performance**: 30% faster image loading, 40% reduced memory usage
-
-### 🔧 **Enhanced Development Experience**
-- **Modern Testing**: Updated testing framework with mocktail, alchemist, patrol
-- **Better Code Generation**: Enhanced build tools and code generation
-- **Improved Linting**: Updated linting rules for better code quality
-- **Migration Guide**: Comprehensive migration documentation from 2.x
-
-## ✨ Features from Version 2.0
-
-### 🎯 **Unified Architecture**
 - **Eliminate Duplication**: One API for all applications
 - **Modular Structure**: Use only the components you need
 - **Type Safety**: Strong typing with Freezed models
@@ -66,6 +53,14 @@ A unified Flutter library for Magento e-commerce platform integration. Version 3
 - Automatic sync when network is restored
 - Configurable caching strategies
 
+### 📦 **RADA Format - Offline Data Packages**
+- Portable archive format (.rada) for Magento data
+- Complete category trees with products, images, and reviews
+- Multi-language support in single file
+- Fast preload mechanism for app initialization
+- Data validation with checksums
+- Perfect for demo data and offline catalogs
+
 ### 🎨 **State Management**
 - Provider + ChangeNotifier pattern
 - Ready-made providers for all services
@@ -78,6 +73,84 @@ A unified Flutter library for Magento e-commerce platform integration. Version 3
 - Cart with guest user support
 - Wishlist with multiple lists
 - Advanced search and filtering
+
+## 📦 RADA Format - Offline Data Packages
+
+### What is RADA?
+
+**RADA** (Resource Archive for Data Application) is a portable archive format (.rada) designed for packaging Magento catalog data into a single file. Perfect for offline mode, demo data, and fast app initialization.
+
+### Key Features
+
+- **Complete data packaging**: Categories, products, images, reviews in one file
+- **Multi-language support**: Include translations for multiple locales  
+- **Image optimization**: Automatic image resizing and compression
+- **Data validation**: Built-in checksums and version control
+- **Preload mechanism**: Fast app initialization with bundled data
+- **Portable**: Share catalogs between devices or users
+
+### Quick Example
+
+```dart
+// Export demo data from your store
+final exporter = RadaExporter(
+  productApi: productApi,
+  baseUrl: 'https://your-store.com',
+);
+
+final options = RadaExportOptions(
+  categoryId: 1,         // Root category
+  maxProducts: 50,       // Limit products
+  locales: ['en', 'ru'], // Languages
+);
+
+await exporter.exportCategory(options, 'assets/preload.rada');
+```
+
+Add to `pubspec.yaml`:
+```yaml
+flutter:
+  assets:
+    - assets/preload.rada
+```
+
+Load on app start:
+```dart
+final preloadService = RadaPreloadService();
+final package = await preloadService.loadFromAssets('assets/preload.rada');
+
+if (package != null) {
+  await appProvider.loadFromRadaPackage(package);
+}
+```
+
+### RADA File Structure
+
+```
+example.rada (ZIP archive)
+├── manifest.json          # Metadata and version
+├── data.json             # Categories, products, reviews
+├── assets/               # Images
+│   ├── categories/       # Category images
+│   └── products/         # Product images
+└── l10n/                 # Translations
+    ├── en.json
+    └── ru.json
+```
+
+### Use Cases
+
+1. **Demo Data**: Bundle sample catalog with your app
+2. **Offline Catalogs**: Let users download categories for offline browsing
+3. **Data Sharing**: Export and share product collections
+4. **Fast Initialization**: Preload data for instant app start
+
+### Documentation
+
+For detailed information, see:
+- [RADA Format Specification](doc/RADA_FORMAT.md) - Complete format details
+- [RADA Usage Guide](doc/RADA_USAGE.md) - Full API documentation
+- [RADA Implementation](doc/RADA_README.md) - Implementation overview
 
 ## 🚀 Getting Started
 
@@ -906,6 +979,158 @@ flutter test --coverage
 # Generate code
 flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
+
+## 📦 RADA Format - Offline Data Packages
+
+### What is RADA?
+
+**RADA** (Resource Archive for Data Application) is a portable archive format (.rada) designed for packaging Magento catalog data into a single file. Perfect for offline mode, demo data, and fast app initialization.
+
+### Features
+
+- **Complete data packaging**: Categories, products, images, reviews in one file
+- **Multi-language support**: Include translations for multiple locales
+- **Image optimization**: Automatic image resizing and compression
+- **Data validation**: Built-in checksums and version control
+- **Preload mechanism**: Fast app initialization with bundled data
+- **Portable**: Share catalogs between devices or users
+
+### Use Cases
+
+#### 1. Demo Data for Your App
+Bundle a sample catalog with your app for instant demo:
+
+```dart
+// Export demo data from your store
+final exporter = RadaExporter(
+  productApi: productApi,
+  baseUrl: 'https://your-store.com',
+);
+
+final options = RadaExportOptions(
+  categoryId: 1,        // Root category
+  maxProducts: 50,      // Limit products
+  maxDepth: 3,          // Category tree depth
+  locales: ['en', 'ru'], // Languages
+);
+
+await exporter.exportCategory(options, 'assets/preload.rada');
+```
+
+Add to `pubspec.yaml`:
+```yaml
+flutter:
+  assets:
+    - assets/preload.rada
+```
+
+Load on app start:
+```dart
+final preloadService = RadaPreloadService();
+final package = await preloadService.loadFromAssets('assets/preload.rada');
+
+if (package != null) {
+  await appProvider.loadFromRadaPackage(package);
+}
+```
+
+#### 2. Offline Catalogs
+Let users download categories for offline browsing:
+
+```dart
+Future<void> downloadCategoryForOffline(int categoryId) async {
+  final exporter = RadaExporter(productApi: productApi, baseUrl: baseUrl);
+  
+  final options = RadaExportOptions(
+    categoryId: categoryId,
+    includeSubcategories: true,
+    includeProducts: true,
+    includeImages: true,
+  );
+  
+  final dir = await getApplicationDocumentsDirectory();
+  final path = '${dir.path}/offline_$categoryId.rada';
+  
+  await exporter.exportCategory(options, path);
+}
+```
+
+#### 3. Data Sharing
+Export and share product collections:
+
+```dart
+// Export favorites
+final result = await exportFavorites(['SKU-001', 'SKU-002']);
+// Share file via email, messaging, etc.
+
+// Import on another device
+final importer = RadaImporter();
+final importResult = await importer.importFromFile('favorites.rada');
+```
+
+### RADA File Structure
+
+```
+example.rada (ZIP archive)
+├── manifest.json          # Metadata and version
+├── data.json             # Categories, products, reviews
+├── assets/               # Images
+│   ├── categories/       # Category images
+│   └── products/         # Product images
+└── l10n/                 # Translations
+    ├── en.json
+    └── ru.json
+```
+
+### Import RADA Data
+
+```dart
+final importer = RadaImporter();
+
+// Import from file
+final result = await importer.importFromFile('/path/to/file.rada');
+
+if (result.success) {
+  print('Imported:');
+  print('- ${result.categoriesImported} categories');
+  print('- ${result.productsImported} products');
+  print('- ${result.imagesImported} images');
+  
+  // Access data
+  final package = result.package!;
+  final categories = package.data.categories;
+  final products = package.data.products;
+}
+```
+
+### Export Options
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `categoryId` | `int` | required | Category ID to export |
+| `includeSubcategories` | `bool` | `true` | Include subcategories |
+| `includeProducts` | `bool` | `true` | Include products |
+| `includeReviews` | `bool` | `true` | Include reviews |
+| `includeImages` | `bool` | `true` | Include images |
+| `locales` | `List<String>` | `['en']` | Languages to export |
+| `maxImageWidth` | `int` | `1024` | Max image width (px) |
+| `imageQuality` | `int` | `80` | JPEG quality (1-100) |
+| `maxProducts` | `int?` | `null` | Limit products |
+| `maxDepth` | `int?` | `null` | Max category depth |
+
+### Best Practices
+
+1. **Optimize file size**: Use `maxProducts`, `maxImageWidth`, and `imageQuality`
+2. **Validate before import**: Always check file integrity
+3. **Cache strategically**: Store frequently used RADA files locally
+4. **Update regularly**: Refresh offline data periodically
+
+### Complete Documentation
+
+For detailed information, see:
+- [RADA Format Specification](doc/RADA_FORMAT.md)
+- [RADA Usage Guide](doc/RADA_USAGE.md)
+- [RADA Implementation](doc/RADA_README.md)
 
 ## 📱 Platform Support
 
