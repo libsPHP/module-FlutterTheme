@@ -1,0 +1,89 @@
+# Deliverfile
+# More info: https://docs.fastlane.tools/actions/deliver/
+
+# The bundle identifier of your app
+app_identifier "com.example.example"
+
+# Your Apple ID email address
+username "anton.v.dodonov@gmail.com"
+
+# App Store Connect Team ID
+team_id "120374799"
+
+# App version to submit
+# Automatically fetched from Info.plist if not specified
+# app_version "1.0.0"
+
+# Build number
+# Automatically fetched from Info.plist if not specified
+# build_number "1"
+
+# Path to metadata directory
+metadata_path "./fastlane/metadata"
+
+# Path to screenshots directory
+screenshots_path "./fastlane/metadata"
+
+# Platform
+platform "ios"
+
+# Submission options
+submit_for_review false
+automatic_release false
+force false
+
+# Skip options (set to true to skip these steps)
+skip_binary_upload false
+skip_screenshots false
+skip_metadata false
+skip_app_version_update false
+
+# Pricing
+# price_tier 0  # Free app
+
+# Phased release
+# phased_release true
+
+# Edit live version
+# edit_live true
+
+# App icon badge
+# app_icon_badge_color "#FFFFFF"
+
+# App rating config
+# app_rating_config_path "./rating_config.json"
+
+# Precheck
+precheck_include_in_app_purchases false
+
+# Languages to verify
+languages ["ru-RU", "en-US"]
+
+# Reject if possible (for testing)
+# reject_if_possible true
+
+# Copyright notice
+copyright "© 2025 Flutter Magento SDK. All rights reserved."
+
+# Primary and secondary categories
+primary_category "DEVELOPER_TOOLS"
+secondary_category "SHOPPING"
+
+# Privacy URL
+# privacy_url "https://gitlab.com/libsFlutter/flutter_magento/-/blob/master/PRIVACY.md"
+
+# Support URL
+# support_url "https://gitlab.com/libsFlutter/flutter_magento"
+
+# Marketing URL
+# marketing_url "https://gitlab.com/libsFlutter/flutter_magento"
+
+# Run precheck before submit
+run_precheck_before_submit true
+
+# Ignore certain warnings
+# ignore_language_directory_validation true
+
+# Overwrite screenshots
+overwrite_screenshots false
+
