@@ -270,3 +270,4 @@ bundle update fastlane
 4. **Делайте backup** перед major изменениями
 5. **Используйте fastlane match** для управления сертификатами в команде
 
+

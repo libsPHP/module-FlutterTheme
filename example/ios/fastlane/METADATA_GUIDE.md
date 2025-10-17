@@ -356,3 +356,4 @@ fastlane deliver --submit_for_review
 3. Создайте issue в [GitLab](https://gitlab.com/libsFlutter/flutter_magento/-/issues)
 4. Email: anton.v.dodonov@gmail.com
 
+

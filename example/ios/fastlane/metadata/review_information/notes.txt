@@ -8,3 +8,4 @@ Demo Credentials:
 The app includes pre-configured demo stores for testing. You can switch between different Magento stores in the Config tab.
 
 All features work with the public demo Magento stores listed above.
+
