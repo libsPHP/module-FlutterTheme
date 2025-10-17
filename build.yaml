@@ -8,6 +8,7 @@ targets:
           include_if_null: false
         generate_for:
           - lib/src/models/**.dart
+          - lib/src/marketplace/models/**.dart
       
       freezed:
         options:
@@ -19,3 +20,4 @@ targets:
           when: true
         generate_for:
           - lib/src/models/**.dart
+          - lib/src/marketplace/models/**.dart

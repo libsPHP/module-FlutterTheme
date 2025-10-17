@@ -107,3 +107,6 @@ export 'src/utils/device_utils.dart';
 
 // Exceptions
 export 'src/exceptions/magento_exception.dart';
+
+// Marketplace functionality
+export 'src/marketplace/flutter_magento_marketplace.dart';
