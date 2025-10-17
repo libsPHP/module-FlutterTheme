@@ -1,0 +1,111 @@
+# Fastfile for Flutter Magento Example
+# Install: gem install fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    # Ensure clean state
+    clean_build_artifacts
+    
+    # Build the Flutter app
+    sh("cd .. && flutter clean && flutter pub get")
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    # Build and sign
+    build_app(
+      workspace: "ios/Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        method: "app-store",
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false,
+        signingStyle: "automatic"
+      }
+    )
+    
+    # Upload to TestFlight
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      skip_submission: true
+    )
+  end
+
+  desc "Build for App Store submission"
+  lane :release do
+    # Ensure clean state
+    clean_build_artifacts
+    
+    # Build the Flutter app
+    sh("cd .. && flutter clean && flutter pub get")
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    # Build and sign
+    build_app(
+      workspace: "ios/Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        method: "app-store",
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false,
+        signingStyle: "automatic"
+      }
+    )
+    
+    # Upload to App Store Connect
+    upload_to_app_store(
+      skip_metadata: true,
+      skip_screenshots: true,
+      submit_for_review: false
+    )
+  end
+
+  desc "Build Ad-Hoc for internal distribution"
+  lane :adhoc do
+    clean_build_artifacts
+    
+    sh("cd .. && flutter clean && flutter pub get")
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    build_app(
+      workspace: "ios/Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "ad-hoc",
+      export_options: {
+        method: "ad-hoc",
+        uploadBitcode: false,
+        uploadSymbols: true,
+        compileBitcode: false,
+        signingStyle: "automatic"
+      }
+    )
+  end
+
+  desc "Take screenshots for App Store"
+  lane :screenshots do
+    # Run the app and take screenshots
+    # Requires additional setup with snapshot testing
+    snapshot
+  end
+
+  desc "Increment build number"
+  lane :bump_build do
+    increment_build_number(xcodeproj: "ios/Runner.xcodeproj")
+  end
+
+  desc "Increment version number"
+  lane :bump_version do |options|
+    version_type = options[:type] || "patch"
+    increment_version_number(
+      xcodeproj: "ios/Runner.xcodeproj",
+      bump_type: version_type
+    )
+  end
+end
+
+

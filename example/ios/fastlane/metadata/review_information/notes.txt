@@ -1,0 +1,10 @@
+This is an example application for Flutter Magento SDK.
+
+Demo Credentials:
+- Demo Store: https://luma-demo.scandipwa.com/
+- Email: test@scandipwa.com
+- Password: Test@123456
+
+The app includes pre-configured demo stores for testing. You can switch between different Magento stores in the Config tab.
+
+All features work with the public demo Magento stores listed above.
