@@ -180,6 +180,8 @@ class CustomerActivity with _$CustomerActivity {
 /// Customer statistics model
 @freezed
 class CustomerStatistics with _$CustomerStatistics {
+  const CustomerStatistics._();
+
   const factory CustomerStatistics({
     required int totalOrders,
     required double totalSpent,
@@ -199,6 +201,8 @@ class CustomerStatistics with _$CustomerStatistics {
 /// Customer notification preferences model
 @freezed
 class CustomerNotificationPreferences with _$CustomerNotificationPreferences {
+  const CustomerNotificationPreferences._();
+
   const factory CustomerNotificationPreferences({
     required bool emailNotifications,
     required bool smsNotifications,
@@ -217,6 +221,8 @@ class CustomerNotificationPreferences with _$CustomerNotificationPreferences {
 /// Customer loyalty points model
 @freezed
 class CustomerLoyaltyPoints with _$CustomerLoyaltyPoints {
+  const CustomerLoyaltyPoints._();
+
   const factory CustomerLoyaltyPoints({
     required int currentPoints,
     required int totalEarned,
@@ -233,6 +239,8 @@ class CustomerLoyaltyPoints with _$CustomerLoyaltyPoints {
 /// Customer subscription model
 @freezed
 class CustomerSubscription with _$CustomerSubscription {
+  const CustomerSubscription._();
+
   const factory CustomerSubscription({
     required String id,
     required String status,
@@ -252,6 +260,8 @@ class CustomerSubscription with _$CustomerSubscription {
 /// Customer review model
 @freezed
 class CustomerReview with _$CustomerReview {
+  const CustomerReview._();
+
   const factory CustomerReview({
     required String id,
     required String productId,

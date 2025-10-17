@@ -1818,8 +1818,8 @@ return $default(_that.attributeCode,_that.value,_that.label,_that.type,_that.opt
 /// @nodoc
 @JsonSerializable()
 
-class _CustomAttribute implements CustomAttribute {
-  const _CustomAttribute({required this.attributeCode, required this.value, this.label, this.type, final  List<String>? options}): _options = options;
+class _CustomAttribute extends CustomAttribute {
+  const _CustomAttribute({required this.attributeCode, required this.value, this.label, this.type, final  List<String>? options}): _options = options,super._();
   factory _CustomAttribute.fromJson(Map<String, dynamic> json) => _$CustomAttributeFromJson(json);
 
 @override final  String attributeCode;
@@ -2106,8 +2106,8 @@ return $default(_that.id,_that.mediaType,_that.label,_that.position,_that.disabl
 /// @nodoc
 @JsonSerializable()
 
-class _MediaGalleryEntry implements MediaGalleryEntry {
-  const _MediaGalleryEntry({required this.id, required this.mediaType, required this.label, required this.position, required this.disabled, final  List<String>? types, required this.file, this.thumbnail, this.smallImage, this.baseImage}): _types = types;
+class _MediaGalleryEntry extends MediaGalleryEntry {
+  const _MediaGalleryEntry({required this.id, required this.mediaType, required this.label, required this.position, required this.disabled, final  List<String>? types, required this.file, this.thumbnail, this.smallImage, this.baseImage}): _types = types,super._();
   factory _MediaGalleryEntry.fromJson(Map<String, dynamic> json) => _$MediaGalleryEntryFromJson(json);
 
 @override final  int id;
@@ -2404,8 +2404,8 @@ return $default(_that.id,_that.title,_that.type,_that.required,_that.values,_tha
 /// @nodoc
 @JsonSerializable()
 
-class _ProductOption implements ProductOption {
-  const _ProductOption({required this.id, required this.title, required this.type, required this.required, final  List<ProductOptionValue>? values, this.defaultValue, this.maxCharacters, this.fileExtension, this.imageSizeX, this.imageSizeY}): _values = values;
+class _ProductOption extends ProductOption {
+  const _ProductOption({required this.id, required this.title, required this.type, required this.required, final  List<ProductOptionValue>? values, this.defaultValue, this.maxCharacters, this.fileExtension, this.imageSizeX, this.imageSizeY}): _values = values,super._();
   factory _ProductOption.fromJson(Map<String, dynamic> json) => _$ProductOptionFromJson(json);
 
 @override final  int id;
@@ -2698,8 +2698,8 @@ return $default(_that.id,_that.title,_that.price,_that.priceType,_that.sku,_that
 /// @nodoc
 @JsonSerializable()
 
-class _ProductOptionValue implements ProductOptionValue {
-  const _ProductOptionValue({required this.id, required this.title, this.price, this.priceType, this.sku, this.sortOrder});
+class _ProductOptionValue extends ProductOptionValue {
+  const _ProductOptionValue({required this.id, required this.title, this.price, this.priceType, this.sku, this.sortOrder}): super._();
   factory _ProductOptionValue.fromJson(Map<String, dynamic> json) => _$ProductOptionValueFromJson(json);
 
 @override final  int id;
@@ -2983,8 +2983,8 @@ return $default(_that.id,_that.linkType,_that.linkedProduct,_that.position);case
 /// @nodoc
 @JsonSerializable()
 
-class _ProductLink implements ProductLink {
-  const _ProductLink({required this.id, required this.linkType, required this.linkedProduct, this.position});
+class _ProductLink extends ProductLink {
+  const _ProductLink({required this.id, required this.linkType, required this.linkedProduct, this.position}): super._();
   factory _ProductLink.fromJson(Map<String, dynamic> json) => _$ProductLinkFromJson(json);
 
 @override final  int id;
@@ -3265,8 +3265,8 @@ return $default(_that.id,_that.customerGroupId,_that.price,_that.qty,_that.websi
 /// @nodoc
 @JsonSerializable()
 
-class _TierPrice implements TierPrice {
-  const _TierPrice({required this.id, required this.customerGroupId, required this.price, required this.qty, this.websiteId});
+class _TierPrice extends TierPrice {
+  const _TierPrice({required this.id, required this.customerGroupId, required this.price, required this.qty, this.websiteId}): super._();
   factory _TierPrice.fromJson(Map<String, dynamic> json) => _$TierPriceFromJson(json);
 
 @override final  int id;
@@ -3544,8 +3544,8 @@ return $default(_that.id,_that.title,_that.detail,_that.nickname,_that.customerI
 /// @nodoc
 @JsonSerializable()
 
-class _Review implements Review {
-  const _Review({required this.id, required this.title, required this.detail, required this.nickname, required this.customerId, required this.rating, required this.createdAt, this.status, final  List<ReviewRating>? ratings}): _ratings = ratings;
+class _Review extends Review {
+  const _Review({required this.id, required this.title, required this.detail, required this.nickname, required this.customerId, required this.rating, required this.createdAt, this.status, final  List<ReviewRating>? ratings}): _ratings = ratings,super._();
   factory _Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
 
 @override final  int id;
@@ -4106,8 +4106,8 @@ return $default(_that.attributeCode,_that.label,_that.options,_that.count);case 
 /// @nodoc
 @JsonSerializable()
 
-class _Aggregation implements Aggregation {
-  const _Aggregation({required this.attributeCode, required this.label, required final  List<AggregationOption> options, required this.count}): _options = options;
+class _Aggregation extends Aggregation {
+  const _Aggregation({required this.attributeCode, required this.label, required final  List<AggregationOption> options, required this.count}): _options = options,super._();
   factory _Aggregation.fromJson(Map<String, dynamic> json) => _$AggregationFromJson(json);
 
 @override final  String attributeCode;
@@ -4384,8 +4384,8 @@ return $default(_that.value,_that.label,_that.count,_that.isSelected);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _AggregationOption implements AggregationOption {
-  const _AggregationOption({required this.value, required this.label, required this.count, this.isSelected});
+class _AggregationOption extends AggregationOption {
+  const _AggregationOption({required this.value, required this.label, required this.count, this.isSelected}): super._();
   factory _AggregationOption.fromJson(Map<String, dynamic> json) => _$AggregationOptionFromJson(json);
 
 @override final  String value;
@@ -4655,8 +4655,8 @@ return $default(_that.value,_that.label,_that.isSelected);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _SortOption implements SortOption {
-  const _SortOption({required this.value, required this.label, this.isSelected});
+class _SortOption extends SortOption {
+  const _SortOption({required this.value, required this.label, this.isSelected}): super._();
   factory _SortOption.fromJson(Map<String, dynamic> json) => _$SortOptionFromJson(json);
 
 @override final  String value;
@@ -4924,8 +4924,8 @@ return $default(_that.attributeCode,_that.value,_that.label);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _CategoryAttribute implements CategoryAttribute {
-  const _CategoryAttribute({required this.attributeCode, required this.value, this.label});
+class _CategoryAttribute extends CategoryAttribute {
+  const _CategoryAttribute({required this.attributeCode, required this.value, this.label}): super._();
   factory _CategoryAttribute.fromJson(Map<String, dynamic> json) => _$CategoryAttributeFromJson(json);
 
 @override final  String attributeCode;

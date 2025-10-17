@@ -2688,8 +2688,8 @@ return $default(_that.totalOrders,_that.totalSpent,_that.totalProductsPurchased,
 /// @nodoc
 @JsonSerializable()
 
-class _CustomerStatistics implements CustomerStatistics {
-  const _CustomerStatistics({required this.totalOrders, required this.totalSpent, required this.totalProductsPurchased, required this.firstOrderDate, this.lastOrderDate, required this.averageOrderValue, required this.wishlistItems, required this.cartItems, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes;
+class _CustomerStatistics extends CustomerStatistics {
+  const _CustomerStatistics({required this.totalOrders, required this.totalSpent, required this.totalProductsPurchased, required this.firstOrderDate, this.lastOrderDate, required this.averageOrderValue, required this.wishlistItems, required this.cartItems, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes,super._();
   factory _CustomerStatistics.fromJson(Map<String, dynamic> json) => _$CustomerStatisticsFromJson(json);
 
 @override final  int totalOrders;
@@ -2982,8 +2982,8 @@ return $default(_that.emailNotifications,_that.smsNotifications,_that.pushNotifi
 /// @nodoc
 @JsonSerializable()
 
-class _CustomerNotificationPreferences implements CustomerNotificationPreferences {
-  const _CustomerNotificationPreferences({required this.emailNotifications, required this.smsNotifications, required this.pushNotifications, required this.orderUpdates, required this.promotionalOffers, required this.productRecommendations, required this.priceAlerts, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes;
+class _CustomerNotificationPreferences extends CustomerNotificationPreferences {
+  const _CustomerNotificationPreferences({required this.emailNotifications, required this.smsNotifications, required this.pushNotifications, required this.orderUpdates, required this.promotionalOffers, required this.productRecommendations, required this.priceAlerts, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes,super._();
   factory _CustomerNotificationPreferences.fromJson(Map<String, dynamic> json) => _$CustomerNotificationPreferencesFromJson(json);
 
 @override final  bool emailNotifications;
@@ -3272,8 +3272,8 @@ return $default(_that.currentPoints,_that.totalEarned,_that.totalRedeemed,_that.
 /// @nodoc
 @JsonSerializable()
 
-class _CustomerLoyaltyPoints implements CustomerLoyaltyPoints {
-  const _CustomerLoyaltyPoints({required this.currentPoints, required this.totalEarned, required this.totalRedeemed, required this.pointsToExpire, this.expirationDate, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes;
+class _CustomerLoyaltyPoints extends CustomerLoyaltyPoints {
+  const _CustomerLoyaltyPoints({required this.currentPoints, required this.totalEarned, required this.totalRedeemed, required this.pointsToExpire, this.expirationDate, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes,super._();
   factory _CustomerLoyaltyPoints.fromJson(Map<String, dynamic> json) => _$CustomerLoyaltyPointsFromJson(json);
 
 @override final  int currentPoints;
@@ -3561,8 +3561,8 @@ return $default(_that.id,_that.status,_that.type,_that.startDate,_that.endDate,_
 /// @nodoc
 @JsonSerializable()
 
-class _CustomerSubscription implements CustomerSubscription {
-  const _CustomerSubscription({required this.id, required this.status, required this.type, required this.startDate, this.endDate, required this.amount, required this.currency, this.frequency, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes;
+class _CustomerSubscription extends CustomerSubscription {
+  const _CustomerSubscription({required this.id, required this.status, required this.type, required this.startDate, this.endDate, required this.amount, required this.currency, this.frequency, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes,super._();
   factory _CustomerSubscription.fromJson(Map<String, dynamic> json) => _$CustomerSubscriptionFromJson(json);
 
 @override final  String id;
@@ -3857,8 +3857,8 @@ return $default(_that.id,_that.productId,_that.productName,_that.title,_that.det
 /// @nodoc
 @JsonSerializable()
 
-class _CustomerReview implements CustomerReview {
-  const _CustomerReview({required this.id, required this.productId, required this.productName, required this.title, required this.detail, required this.rating, required this.createdAt, this.updatedAt, this.status, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes;
+class _CustomerReview extends CustomerReview {
+  const _CustomerReview({required this.id, required this.productId, required this.productName, required this.title, required this.detail, required this.rating, required this.createdAt, this.updatedAt, this.status, final  Map<String, dynamic>? extensionAttributes}): _extensionAttributes = extensionAttributes,super._();
   factory _CustomerReview.fromJson(Map<String, dynamic> json) => _$CustomerReviewFromJson(json);
 
 @override final  String id;

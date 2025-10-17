@@ -123,6 +123,8 @@ class ProductFilterParams with _$ProductFilterParams {
 /// Custom attribute model
 @freezed
 class CustomAttribute with _$CustomAttribute {
+  const CustomAttribute._();
+
   const factory CustomAttribute({
     required String attributeCode,
     required String value,
@@ -138,6 +140,8 @@ class CustomAttribute with _$CustomAttribute {
 /// Media gallery entry model
 @freezed
 class MediaGalleryEntry with _$MediaGalleryEntry {
+  const MediaGalleryEntry._();
+
   const factory MediaGalleryEntry({
     required int id,
     required String mediaType,
@@ -158,6 +162,8 @@ class MediaGalleryEntry with _$MediaGalleryEntry {
 /// Product option model
 @freezed
 class ProductOption with _$ProductOption {
+  const ProductOption._();
+
   const factory ProductOption({
     required int id,
     required String title,
@@ -178,6 +184,8 @@ class ProductOption with _$ProductOption {
 /// Product option value model
 @freezed
 class ProductOptionValue with _$ProductOptionValue {
+  const ProductOptionValue._();
+
   const factory ProductOptionValue({
     required int id,
     required String title,
@@ -194,6 +202,8 @@ class ProductOptionValue with _$ProductOptionValue {
 /// Product link model
 @freezed
 class ProductLink with _$ProductLink {
+  const ProductLink._();
+
   const factory ProductLink({
     required int id,
     required String linkType,
@@ -208,6 +218,8 @@ class ProductLink with _$ProductLink {
 /// Tier price model
 @freezed
 class TierPrice with _$TierPrice {
+  const TierPrice._();
+
   const factory TierPrice({
     required int id,
     required int customerGroupId,
@@ -223,6 +235,8 @@ class TierPrice with _$TierPrice {
 /// Review model
 @freezed
 class Review with _$Review {
+  const Review._();
+
   const factory Review({
     required int id,
     required String title,
@@ -270,6 +284,8 @@ class ReviewRating with _$ReviewRating {
 /// Aggregation model for filters
 @freezed
 class Aggregation with _$Aggregation {
+  const Aggregation._();
+
   const factory Aggregation({
     required String attributeCode,
     required String label,
@@ -284,6 +300,8 @@ class Aggregation with _$Aggregation {
 /// Aggregation option model
 @freezed
 class AggregationOption with _$AggregationOption {
+  const AggregationOption._();
+
   const factory AggregationOption({
     required String value,
     required String label,
@@ -298,6 +316,8 @@ class AggregationOption with _$AggregationOption {
 /// Sort option model
 @freezed
 class SortOption with _$SortOption {
+  const SortOption._();
+
   const factory SortOption({
     required String value,
     required String label,
@@ -311,6 +331,8 @@ class SortOption with _$SortOption {
 /// Category attribute model
 @freezed
 class CategoryAttribute with _$CategoryAttribute {
+  const CategoryAttribute._();
+
   const factory CategoryAttribute({
     required String attributeCode,
     required String value,
