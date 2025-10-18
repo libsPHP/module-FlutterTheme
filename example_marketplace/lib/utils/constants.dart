@@ -59,7 +59,8 @@ class AppConstants {
       'Thank you for your application. We will review it and get back to you within 2-3 business days.';
   static const String errorGeneric =
       'An error occurred. Please try again later.';
-  static const String errorNetwork = 'Network error. Please check your connection.';
+  static const String errorNetwork =
+      'Network error. Please check your connection.';
 }
 
 class AppTheme {
@@ -69,18 +70,11 @@ class AppTheme {
       useMaterial3: true,
       cardTheme: CardThemeData(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      appBarTheme: const AppBarTheme(
-        centerTitle: false,
-        elevation: 0,
-      ),
+      appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: true,
         fillColor: Colors.grey[50],
       ),
@@ -104,11 +98,8 @@ class AppTheme {
       useMaterial3: true,
       cardTheme: CardThemeData(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
 }
-

@@ -60,4 +60,3 @@ class Formatters {
     return rating.toStringAsFixed(1);
   }
 }
-

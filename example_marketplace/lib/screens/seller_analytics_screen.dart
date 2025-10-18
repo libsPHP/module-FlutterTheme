@@ -37,7 +37,10 @@ class SellerAnalyticsScreen extends StatelessWidget {
                       ),
                       const Text(
                         'Last 30 Days',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -128,8 +131,14 @@ class SellerAnalyticsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Daily Sales', style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text('Last 7 days', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                      const Text(
+                        'Daily Sales',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Last 7 days',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -145,7 +154,10 @@ class SellerAnalyticsScreen extends StatelessWidget {
                           children: [
                             Text(
                               '\$${(150 + index * 50)}',
-                              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Container(
@@ -153,13 +165,26 @@ class SellerAnalyticsScreen extends StatelessWidget {
                               height: height,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,
-                                borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(4),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index],
-                              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                              [
+                                'Mon',
+                                'Tue',
+                                'Wed',
+                                'Thu',
+                                'Fri',
+                                'Sat',
+                                'Sun',
+                              ][index],
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ],
                         );
@@ -200,7 +225,10 @@ class SellerAnalyticsScreen extends StatelessWidget {
                   children: [
                     Text(
                       '\$${(500 - index * 80)}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                     Text(
                       '+${15 - index * 3}%',
@@ -235,7 +263,10 @@ class SellerAnalyticsScreen extends StatelessWidget {
               children: [
                 Icon(icon, color: Theme.of(context).primaryColor),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: isPositive
                         ? Colors.green.withOpacity(0.1)
@@ -258,7 +289,10 @@ class SellerAnalyticsScreen extends StatelessWidget {
               value,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            Text(title, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+            Text(
+              title,
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            ),
           ],
         ),
       ),
@@ -282,8 +316,14 @@ class SellerAnalyticsScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                Text(displayValue, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  displayValue,
+                  style: TextStyle(color: color, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -336,4 +376,3 @@ class SellerAnalyticsScreen extends StatelessWidget {
     );
   }
 }
-

@@ -53,7 +53,11 @@ class _SellerManageProductsScreenState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey[400]),
+                        Icon(
+                          Icons.inventory_2_outlined,
+                          size: 64,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(height: 16),
                         const Text('No products found'),
                       ],
@@ -109,10 +113,7 @@ class _SellerManageProductsScreenState
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-          ),
+          Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[700])),
         ],
       ),
     );
@@ -146,7 +147,10 @@ class _SellerManageProductsScreenState
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: statusColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
@@ -161,7 +165,10 @@ class _SellerManageProductsScreenState
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text('Stock: ${product['stock']}', style: const TextStyle(fontSize: 12)),
+                Text(
+                  'Stock: ${product['stock']}',
+                  style: const TextStyle(fontSize: 12),
+                ),
               ],
             ),
           ],
@@ -397,4 +404,3 @@ class _SellerManageProductsScreenState
     );
   }
 }
-

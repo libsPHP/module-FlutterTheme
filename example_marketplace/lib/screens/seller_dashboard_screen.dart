@@ -135,7 +135,8 @@ class SellerDashboardScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SellerManageProductsScreen(),
+                        builder: (context) =>
+                            const SellerManageProductsScreen(),
                       ),
                     );
                   },

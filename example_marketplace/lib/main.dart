@@ -168,7 +168,9 @@ class MarketplaceHomePage extends StatelessWidget {
             color: Colors.teal,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SellerSearchScreen()),
+              MaterialPageRoute(
+                builder: (context) => const SellerSearchScreen(),
+              ),
             ),
           ),
           _buildFeatureCard(
@@ -371,7 +373,10 @@ class MarketplaceHomePage extends StatelessWidget {
             children: [
               Text(
                 AppConstants.appName,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
               const SizedBox(height: 8),
               Text('Version: ${AppConstants.appVersion}'),

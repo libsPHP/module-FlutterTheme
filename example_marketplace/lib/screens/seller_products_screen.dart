@@ -12,9 +12,7 @@ class SellerProductsScreen extends StatelessWidget {
     final products = _generateDemoProducts();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${seller.companyName} Products'),
-      ),
+      appBar: AppBar(title: Text('${seller.companyName} Products')),
       body: Column(
         children: [
           // Seller Info Header
@@ -26,7 +24,11 @@ class SellerProductsScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.store, size: 30, color: Theme.of(context).primaryColor),
+                  child: Icon(
+                    Icons.store,
+                    size: 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -35,7 +37,10 @@ class SellerProductsScreen extends StatelessWidget {
                     children: [
                       Text(
                         seller.companyName,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         '${seller.productCount} products',
@@ -55,23 +60,31 @@ class SellerProductsScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey[400]),
+                        Icon(
+                          Icons.inventory_2_outlined,
+                          size: 64,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(height: 16),
                         Text(
                           'No products available',
-                          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
                         ),
                       ],
                     ),
                   )
                 : GridView.builder(
                     padding: const EdgeInsets.all(16),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.7,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                        ),
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
@@ -106,7 +119,11 @@ class SellerProductsScreen extends StatelessWidget {
                         product['image'],
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Icon(Icons.image, size: 48, color: Colors.grey[400]);
+                          return Icon(
+                            Icons.image,
+                            size: 48,
+                            color: Colors.grey[400],
+                          );
                         },
                       )
                     : Icon(Icons.image, size: 48, color: Colors.grey[400]),
@@ -169,4 +186,3 @@ class SellerProductsScreen extends StatelessWidget {
     );
   }
 }
-

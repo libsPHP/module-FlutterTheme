@@ -352,7 +352,10 @@ class _SellerDetailScreenState extends State<SellerDetailScreen>
             children: [
               Text(
                 '${widget.seller.productCount} Products',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -390,7 +393,11 @@ class _SellerDetailScreenState extends State<SellerDetailScreen>
                       child: Container(
                         color: Colors.grey[200],
                         child: Center(
-                          child: Icon(Icons.image, size: 48, color: Colors.grey[400]),
+                          child: Icon(
+                            Icons.image,
+                            size: 48,
+                            color: Colors.grey[400],
+                          ),
                         ),
                       ),
                     ),

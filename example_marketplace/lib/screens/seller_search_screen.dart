@@ -47,8 +47,12 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
     // Apply search query
     if (_searchQuery.isNotEmpty) {
       sellers = sellers.where((s) {
-        return s.companyName.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-            (s.description?.toLowerCase().contains(_searchQuery.toLowerCase()) ??
+        return s.companyName.toLowerCase().contains(
+              _searchQuery.toLowerCase(),
+            ) ||
+            (s.description?.toLowerCase().contains(
+                  _searchQuery.toLowerCase(),
+                ) ??
                 false);
       }).toList();
     }
@@ -153,10 +157,13 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
                       _applyFilters();
                     }),
                   if (_minRating > 0)
-                    _buildFilterChip('${_minRating.toStringAsFixed(1)}+ stars', () {
-                      setState(() => _minRating = 0);
-                      _applyFilters();
-                    }),
+                    _buildFilterChip(
+                      '${_minRating.toStringAsFixed(1)}+ stars',
+                      () {
+                        setState(() => _minRating = 0);
+                        _applyFilters();
+                      },
+                    ),
                 ],
               ),
             ),
@@ -166,7 +173,10 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                const Text('Sort by:', style: TextStyle(fontWeight: FontWeight.w500)),
+                const Text(
+                  'Sort by:',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
                 const SizedBox(width: 8),
                 DropdownButton<String>(
                   value: _sortBy,
@@ -174,7 +184,10 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
                   items: const [
                     DropdownMenuItem(value: 'rating', child: Text('Rating')),
                     DropdownMenuItem(value: 'reviews', child: Text('Reviews')),
-                    DropdownMenuItem(value: 'products', child: Text('Products')),
+                    DropdownMenuItem(
+                      value: 'products',
+                      child: Text('Products'),
+                    ),
                     DropdownMenuItem(value: 'name', child: Text('Name')),
                   ],
                   onChanged: (value) {
@@ -208,16 +221,26 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
+                        Icon(
+                          Icons.search_off,
+                          size: 64,
+                          color: Colors.grey[400],
+                        ),
                         const SizedBox(height: 16),
                         Text(
                           'No sellers found',
-                          style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey[600],
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Try adjusting your filters',
-                          style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[500],
+                          ),
                         ),
                       ],
                     ),
@@ -236,7 +259,8 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SellerDetailScreen(seller: seller),
+                            builder: (context) =>
+                                SellerDetailScreen(seller: seller),
                           ),
                         );
                       },
@@ -313,7 +337,10 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
               const SizedBox(height: 16),
               Text(
                 'Minimum Rating: ${_minRating.toStringAsFixed(1)}',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               Slider(
                 value: _minRating,
@@ -345,4 +372,3 @@ class _SellerSearchScreenState extends State<SellerSearchScreen> {
     );
   }
 }
-
