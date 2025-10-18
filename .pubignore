@@ -1,56 +1,36 @@
-# Generated files
-*.g.dart
-*.freezed.dart
-
-# Analysis files
-analysis_*.txt
-analysis_*.yaml
-analysis_grouped.txt
+# Exclude development and temporary files
+analysis_errors.json
+analysis_errors_detailed.json
 analysis_errors_grouped.txt
-analysis_report*.txt
+analysis_grouped.txt
+analysis_report.txt
+analysis_report_final.txt
 
-# Coverage files
+# Exclude backup files
+doc_backup/
+
+# Exclude test coverage
 coverage/
-lcov.info
-
-# Build files
-build/
-.dart_tool/
-.packages
-
-# Test files (keep test directory structure but exclude specific test artifacts)
 test_coverage.sh
 TEST_COVERAGE_REPORT.md
 
-# Development files
-DEVELOPMENT.md
-docker-compose.yml
-Dockerfile.web
-gitlab-variables.md
+# Exclude release scripts
+release.sh
 update.sh
 
-# Documentation backup
-doc_backup/
-gitbook/
+# Exclude docker files
+docker-compose.yml
+Dockerfile.web
 
-# Example app (not needed for package distribution)
-example/
+# Exclude GitLab specific
+gitlab-variables.md
 
-# Screenshots (too large for package)
-screenshots/
+# Exclude example marketplace (has freezed issues)
+# Uncomment when marketplace models are fixed:
+# example_marketplace/
 
-# IDE files
-*.iml
-.vscode/
-.idea/
+# Exclude marketplace with broken freezed models temporarily
+lib/src/marketplace/
+lib/src/marketplace_disabled/**
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Temporary files
-*.tmp
-*.temp
+# Keep example_marketplace for now but exclude from analysis

@@ -1,3 +1,21 @@
+## 4.3.1
+
+* **Marketplace Support**: Added comprehensive multi-seller marketplace functionality
+* **Example Applications**: Created two separate example apps (standard e-commerce and marketplace)
+* **Marketplace Features**: 
+  - Seller management and registration
+  - Seller dashboard with analytics
+  - Seller products and reviews
+  - Advanced seller search with filters
+  - Rating and review system
+* **Documentation**: Added extensive marketplace documentation and comparison guides
+* **Dependencies**: Added equatable package for marketplace models
+* **Code Quality**: Fixed linter issues and improved code consistency
+* **Examples Structure**: 
+  - `example/` - Standard e-commerce demo
+  - `example_marketplace/` - Multi-seller marketplace demo with full desktop support
+* **UI Improvements**: Modern Material Design 3 implementation with dark theme support
+
 ## 3.6.5
 
 * **Code Generation**: Regenerated all freezed and json_serializable files for proper model implementations

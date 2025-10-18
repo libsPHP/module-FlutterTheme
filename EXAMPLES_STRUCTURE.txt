@@ -1,0 +1,203 @@
+Flutter Magento - Examples Structure
+=====================================
+
+flutter_magento/
+│
+├── 📦 example/                           ← Standard E-commerce Example
+│   │
+│   ├── 📱 Platform Support
+│   │   ├── iOS ✅
+│   │   ├── Android ✅
+│   │   └── Web ✅
+│   │
+│   ├── 🎯 Features
+│   │   ├── Product Catalog ✅
+│   │   ├── Shopping Cart ✅
+│   │   ├── Authentication ✅
+│   │   ├── Orders ✅
+│   │   ├── Wishlist ✅
+│   │   ├── Search ✅
+│   │   ├── Profile ✅
+│   │   └── RADA Offline Data ✅
+│   │
+│   ├── 📂 Structure
+│   │   ├── lib/
+│   │   │   ├── main.dart
+│   │   │   ├── screens/
+│   │   │   │   ├── home_screen.dart
+│   │   │   │   ├── products_screen.dart
+│   │   │   │   ├── cart_screen.dart
+│   │   │   │   ├── auth_screen.dart
+│   │   │   │   ├── profile_screen.dart
+│   │   │   │   └── categories_screen.dart
+│   │   │   ├── providers/
+│   │   │   │   └── app_provider.dart
+│   │   │   └── preload_data/
+│   │   │       └── custom_initial_preload_data_provider.dart
+│   │   ├── .env                    ← MARKETPLACE=false
+│   │   ├── pubspec.yaml
+│   │   └── README.md
+│   │
+│   └── ⚙️ Configuration
+│       └── MARKETPLACE=false (or omit)
+│
+│
+├── 🏪 example_marketplace/               ← Marketplace Example
+│   │
+│   ├── 📱 Platform Support
+│   │   ├── iOS ✅
+│   │   ├── Android ✅
+│   │   ├── Web ✅
+│   │   ├── macOS ✅
+│   │   ├── Linux ✅
+│   │   └── Windows ✅
+│   │
+│   ├── 🎯 Features
+│   │   ├── All Standard Features ✅
+│   │   ├── ─────────────────────
+│   │   ├── Seller Registration ✅
+│   │   ├── Seller Dashboard ✅
+│   │   ├── Seller Products ✅
+│   │   ├── Seller Ratings ✅
+│   │   ├── Seller Reviews ✅
+│   │   ├── Seller Search ✅
+│   │   ├── Seller Statistics ✅
+│   │   └── Multi-Seller Checkout ✅
+│   │
+│   ├── 📂 Structure
+│   │   ├── lib/
+│   │   │   ├── main.dart
+│   │   │   ├── screens/
+│   │   │   │   ├── marketplace_home_screen.dart
+│   │   │   │   ├── sellers_screen.dart
+│   │   │   │   ├── seller_detail_screen.dart
+│   │   │   │   ├── seller_registration_screen.dart
+│   │   │   │   └── seller_dashboard_screen.dart
+│   │   │   ├── providers/
+│   │   │   │   └── marketplace_provider.dart
+│   │   │   └── widgets/
+│   │   │       ├── seller_card.dart
+│   │   │       └── rating_stars.dart
+│   │   ├── .env                    ← MARKETPLACE=true
+│   │   ├── pubspec.yaml
+│   │   └── README.md
+│   │
+│   ├── ⚙️ Configuration
+│   │   ├── MARKETPLACE=true
+│   │   ├── ENABLE_SELLER_REGISTRATION=true
+│   │   ├── ENABLE_SELLER_DASHBOARD=true
+│   │   └── ENABLE_SELLER_RATINGS=true
+│   │
+│   └── 🔧 Backend Requirements
+│       └── module-marketplace ✅ Required
+│
+│
+├── 📚 Documentation
+│   ├── EXAMPLES_GUIDE.md           ← Quick start guide
+│   ├── EXAMPLES_COMPARISON.md      ← Detailed comparison
+│   ├── example/README.md           ← Standard example docs
+│   └── example_marketplace/README.md ← Marketplace docs
+│
+│
+└── 🔗 Shared Resources
+    ├── flutter_magento (package)   ← Used by both examples
+    ├── module-marketplace          ← Backend module
+    └── doc/                        ← Main documentation
+
+
+═══════════════════════════════════════════════════════════════════
+
+Quick Commands
+══════════════
+
+Standard Example:
+  cd example
+  flutter run
+
+Marketplace Example:
+  cd example_marketplace
+  flutter run
+
+Run Both:
+  # Terminal 1
+  cd example && flutter run -d chrome --web-port=8080
+  
+  # Terminal 2
+  cd example_marketplace && flutter run -d chrome --web-port=8081
+
+
+═══════════════════════════════════════════════════════════════════
+
+Feature Matrix
+══════════════
+
+Feature                  │ example/ │ example_marketplace/
+─────────────────────────┼──────────┼─────────────────────
+Product Catalog          │    ✅    │         ✅
+Shopping Cart            │    ✅    │         ✅
+Authentication           │    ✅    │         ✅
+Orders                   │    ✅    │         ✅
+Wishlist                 │    ✅    │         ✅
+Search                   │    ✅    │         ✅
+Profile                  │    ✅    │         ✅
+RADA Offline             │    ✅    │         ✅
+─────────────────────────┼──────────┼─────────────────────
+Seller Management        │    ❌    │         ✅
+Seller Registration      │    ❌    │         ✅
+Seller Dashboard         │    ❌    │         ✅
+Seller Ratings           │    ❌    │         ✅
+Seller Reviews           │    ❌    │         ✅
+Seller Search            │    ❌    │         ✅
+Seller Statistics        │    ❌    │         ✅
+─────────────────────────┼──────────┼─────────────────────
+Complexity               │  Simple  │      Advanced
+Backend Requirements     │ Magento2 │ Magento2 + Module
+
+
+═══════════════════════════════════════════════════════════════════
+
+Decision Tree
+═════════════
+
+Need multi-seller functionality?
+├─ NO  → Use example/
+│        • Simpler setup
+│        • Standard Magento only
+│        • Perfect for learning
+│
+└─ YES → Use example_marketplace/
+         • Full marketplace features
+         • Requires module-marketplace
+         • Advanced functionality
+
+
+═══════════════════════════════════════════════════════════════════
+
+Environment Configuration
+═════════════════════════
+
+example/.env:
+  MARKETPLACE=false
+  MAGENTO_API_URL=https://your-store.com/
+
+example_marketplace/.env:
+  MARKETPLACE=true
+  MAGENTO_API_URL=https://your-marketplace.com/
+  ENABLE_SELLER_REGISTRATION=true
+  ENABLE_SELLER_DASHBOARD=true
+  ENABLE_SELLER_RATINGS=true
+
+
+═══════════════════════════════════════════════════════════════════
+
+Support & Resources
+═══════════════════
+
+📧 Email: contact@nativemind.net
+📖 Docs: /doc folder
+🐛 Issues: GitHub
+💡 Examples: Both examples included!
+
+
+═══════════════════════════════════════════════════════════════════
+
