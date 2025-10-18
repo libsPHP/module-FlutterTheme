@@ -1,220 +1,180 @@
-# Flutter Magento Example
+# Flutter Magento - Standard Example
 
-Это пример приложения, демонстрирующий использование Flutter Magento плагина.
+This is the **standard example** demonstrating core e-commerce functionality without marketplace features.
 
-## Возможности
+## What's Included
 
-- ✅ Конфигурация подключения к Magento API (с поддержкой .env файлов)
-- ✅ Аутентификация (вход и регистрация)
-- ✅ Просмотр каталога продуктов с реальными данными из Magento
-- ✅ Поиск по продуктам через GraphQL API
-- ✅ Отображение категорий товаров
-- ✅ Загрузка реальных изображений продуктов
-- ✅ Отображение специальных цен и скидок
-- ✅ Добавление товаров в корзину
-- ✅ Управление корзиной
-- ✅ Современный Material Design интерфейс
-- ✅ Поддержка GraphQL API для быстрой загрузки данных
+This example showcases:
 
-## Структура приложения
+- 🛒 **Product Catalog** - Browse products and categories
+- 🔐 **Authentication** - Login, register, and manage account
+- 🛍️ **Shopping Cart** - Add to cart, update quantities
+- 📦 **Orders** - View order history and details
+- ⭐ **Wishlist** - Save favorite products
+- 🔍 **Search** - Find products by keyword
+- 👤 **Profile** - Manage customer information
+- 🌍 **Localization** - Multi-language support
+- 📱 **Device Info** - Platform-specific features
+- 💾 **Offline Mode** - RADA format data preloading
 
-### Экраны
+## For Marketplace Features
 
-1. **Home Screen** - Главная страница с обзором статуса подключения
-2. **Auth Screen** - Вход и регистрация пользователей
-3. **Products Screen** - Каталог продуктов с поиском и реальными данными
-4. **Categories Screen** - Просмотр категорий товаров
-5. **Cart Screen** - Корзина покупок
-6. **Config Screen** - Настройка подключения к Magento API
+If you need **multi-seller marketplace** functionality (sellers, ratings, seller dashboard), use the **[example_marketplace](../example_marketplace/)** instead.
 
-### Провайдеры
+## Quick Start
 
-- **AppProvider** - Основной провайдер состояния приложения
+### 1. Configure Environment
 
-## Быстрый старт
+```bash
+cp env.example .env
+```
 
-### 1. Установка зависимостей
+Edit `.env`:
+
+```env
+# Standard mode (marketplace disabled)
+MARKETPLACE=false
+
+# Your Magento API URL
+MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Test Credentials:
+# Email: test@scandipwa.com
+# Password: Test@123456
+```
+
+### 2. Install Dependencies
 
 ```bash
 flutter pub get
 ```
 
-### 2. Запуск приложения
+### 3. Run
 
 ```bash
-flutter run
+# iOS
+flutter run -d "iPhone 14 Pro"
+
+# Android
+flutter run -d emulator-5554
+
+# Chrome
+flutter run -d chrome
 ```
 
-### 3. Настройка Magento API
+## Project Structure
 
-#### Вариант 1: Использование .env файла (рекомендуется)
-1. Скопируйте `env.example` в `.env`:
-   ```bash
-   cp env.example .env
-   ```
-2. Отредактируйте `.env` файл и укажите нужные URL (или оставьте Luma demo по умолчанию)
-3. Запустите приложение - настройки загрузятся автоматически
-
-**Пример содержимого .env:**
-```env
-# Primary API URL (Luma Demo)
-MAGENTO_API_URL=https://luma-demo.scandipwa.com/
-
-# Test Credentials for Luma Demo:
-# Email: test@scandipwa.com
-# Password: Test@123456
-
-# Alternative demo stores
-MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
-MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
-MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
+```
+example/
+├── lib/
+│   ├── main.dart
+│   ├── screens/
+│   │   ├── home_screen.dart
+│   │   ├── products_screen.dart
+│   │   ├── cart_screen.dart
+│   │   ├── auth_screen.dart
+│   │   ├── profile_screen.dart
+│   │   └── categories_screen.dart
+│   ├── providers/
+│   │   └── app_provider.dart
+│   └── preload_data/
+│       └── custom_initial_preload_data_provider.dart
+├── .env
+├── pubspec.yaml
+└── README.md
 ```
 
-#### Вариант 2: Через интерфейс приложения
-1. Откройте вкладку "Config"
-2. Введите URL вашего Magento магазина или используйте кнопку "Use Default Demo"
-3. Нажмите "Save & Initialize"
+## Features Demonstrated
 
-#### Примеры URL для тестирования:
+### Authentication
+- Customer registration
+- Login/Logout
+- Password reset
+- Token management
 
-- `https://luma-demo.scandipwa.com/` ⭐ (Рекомендуется)
-  - Тест аккаунт: `test@scandipwa.com` / `Test@123456`
-- `https://tech-demo.scandipwa.com/`
-- `https://magento2-demo.nexcess.net`
-- `https://demo-m2.bird.eu`
+### Product Catalog
+- Product listing
+- Category browsing
+- Product details
+- Custom attributes
+- Product images
+- Price tiers
 
-### 4. Тестовые учетные данные для авторизации
+### Shopping Cart
+- Add to cart
+- Update quantities
+- Remove items
+- Apply coupons
+- Cart totals
 
-Для тестирования функций авторизации используйте следующие учетные данные:
+### Orders
+- Order placement
+- Order history
+- Order details
+- Order tracking
 
-#### Luma Demo (https://luma-demo.scandipwa.com/)
+### Customer Profile
+- View profile
+- Edit information
+- Address management
+- Order history
+
+### RADA Format
+- Offline data preloading
+- Custom data providers
+- Data export/import
+
+## Examples vs example_marketplace
+
+| Feature | example/ | example_marketplace/ |
+|---------|----------|---------------------|
+| Product Catalog | ✅ | ✅ |
+| Shopping Cart | ✅ | ✅ |
+| Checkout | ✅ | ✅ |
+| Orders | ✅ | ✅ |
+| **Multi-Seller** | ❌ | ✅ |
+| **Seller Dashboard** | ❌ | ✅ |
+| **Seller Registration** | ❌ | ✅ |
+| **Seller Ratings** | ❌ | ✅ |
+| **Seller Search** | ❌ | ✅ |
+
+## Test Credentials
+
 ```
 Email: test@scandipwa.com
 Password: Test@123456
 ```
 
-#### Создание собственного тестового аккаунта
-Вы также можете создать новый аккаунт через вкладку "Auth" → "Register" в приложении.
+## Documentation
 
-### 5. Использование функций
+- [Getting Started](../doc/getting-started.md)
+- [Authentication Guide](../doc/auth.md)
+- [Cart Guide](../doc/cart.md)
+- [Catalog Guide](../doc/catalog.md)
+- [Orders Guide](../doc/orders.md)
+- [RADA Format](../doc/RADA_README.md)
 
-1. **Настройка API**: Используйте вкладку "Config" для настройки подключения
-2. **Аутентификация**: Перейдите на вкладку "Auth" для входа или регистрации
-   - Используйте тестовые данные: `test@scandipwa.com` / `Test@123456`
-   - Или создайте новый аккаунт через форму регистрации
-3. **Продукты**: Просматривайте каталог с реальными данными на вкладке "Products"
-4. **Категории**: Изучайте структуру категорий на вкладке "Categories"
-5. **Корзина**: Управляйте товарами в корзине на вкладке "Cart"
+## API Endpoints
 
-#### Особенности
+This example uses standard Magento REST API:
 
-- **Реальные данные**: Все продукты и категории загружаются из Magento API
-- **Изображения**: Автоматическая загрузка изображений продуктов
-- **Цены**: Отображение обычных и специальных цен со скидками
-- **Поиск**: Быстрый поиск по названию и описанию продуктов
-- **Категории**: Иерархическое отображение категорий товаров
+- `POST /rest/V1/integration/customer/token` - Customer login
+- `GET /rest/V1/products` - Product listing
+- `GET /rest/V1/categories` - Category tree
+- `POST /rest/V1/carts/mine` - Create cart
+- `POST /rest/V1/carts/mine/items` - Add to cart
+- `POST /rest/V1/orders` - Place order
 
-## Архитектура
+## Need Marketplace?
 
-Приложение использует архитектуру Provider для управления состоянием:
+For multi-seller marketplace features, see **[example_marketplace](../example_marketplace/)**
 
-```
-lib/
-├── main.dart                 # Точка входа в приложение
-├── providers/
-│   └── app_provider.dart     # Основной провайдер состояния
-└── screens/
-    ├── home_screen.dart      # Главная страница
-    ├── config_screen.dart    # Настройки API
-    ├── auth_screen.dart      # Аутентификация
-    ├── products_screen.dart  # Каталог продуктов
-    └── cart_screen.dart      # Корзина
-```
+## Support
 
-## Основные компоненты
+- 📧 Email: contact@nativemind.net
+- 🐛 Issues: https://github.com/your-repo/issues
+- 📖 Docs: https://docs.flutter-magento.com
 
-### AppProvider
+## License
 
-Центральный провайдер, управляющий:
-- Инициализацией Magento API
-- Состоянием аутентификации
-- Загрузкой продуктов
-- Управлением корзиной
-- Обработкой ошибок
-
-### Расширения моделей
-
-Добавлены расширения для удобства работы:
-
-```dart
-extension CartExtension on Cart {
-  int get itemsCount => items?.length ?? 0;
-  double get grandTotal => totals?.grandTotal ?? 0.0;
-}
-
-extension CartItemExtension on CartItem {
-  int get quantity => qty ?? 0;
-}
-```
-
-## Функции
-
-### Конфигурация API
-
-- Ввод и сохранение URL Magento магазина
-- Проверка соединения
-- Отображение статуса подключения
-
-### Аутентификация
-
-- Вход по email и паролю
-- Регистрация новых пользователей
-- Отображение информации о пользователе
-- Выход из системы
-
-### Каталог продуктов
-
-- Загрузка списка продуктов
-- Поиск по названию
-- Отображение информации о продукте
-- Добавление в корзину
-
-### Корзина
-
-- Просмотр товаров в корзине
-- Изменение количества
-- Удаление товаров
-- Подсчет общей стоимости
-
-## Требования
-
-- Flutter 3.9.2+
-- Dart 3.0+
-- iOS 11.0+ / Android API 21+
-
-## Зависимости
-
-- `flutter_magento` - основной плагин
-- `provider` - управление состоянием
-- `shared_preferences` - локальное хранение настроек
-- `flutter_secure_storage` - безопасное хранение токенов
-
-## Разработка
-
-### Добавление новых функций
-
-1. Создайте новый экран в папке `screens/`
-2. Добавьте необходимые методы в `AppProvider`
-3. Обновите навигацию в `main.dart`
-
-### Обработка ошибок
-
-Все ошибки обрабатываются в `AppProvider` и отображаются пользователю через SnackBar или специальные виджеты.
-
-### Локализация
-
-Приложение подготовлено для локализации. Строки можно вынести в отдельные файлы локализации.
-
-## Поддержка
-
-Если у вас возникли вопросы или проблемы, обратитесь к документации основного плагина или создайте issue в репозитории.
+MIT License
