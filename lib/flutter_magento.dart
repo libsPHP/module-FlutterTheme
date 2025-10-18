@@ -88,6 +88,11 @@ export 'src/services/rada_exporter.dart';
 export 'src/services/rada_importer.dart';
 export 'src/services/rada_preload_service.dart';
 
+// Blockchain Integration Services
+export 'src/services/flutter_magento_icp_service.dart';
+export 'src/services/flutter_magento_nft_service.dart';
+export 'src/services/flutter_magento_yuku_service.dart';
+
 // Preload Data System (Offline Data)
 export 'src/preload_data/preload_data_provider.dart';
 export 'src/preload_data/preload_data_manager.dart';

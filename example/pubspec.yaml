@@ -46,6 +46,11 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   flutter_dotenv: ^5.1.0
 
+dependency_overrides:
+  # Force local flutter_yuku for blockchain packages
+  flutter_yuku:
+    path: ../../flutter_yuku
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
