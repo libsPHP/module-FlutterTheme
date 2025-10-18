@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'seller_analytics_screen.dart';
+import 'seller_manage_products_screen.dart';
 
 class SellerDashboardScreen extends StatelessWidget {
   const SellerDashboardScreen({super.key});
@@ -130,9 +132,10 @@ class SellerDashboardScreen extends StatelessWidget {
                   title: 'Manage Products',
                   color: Colors.orange,
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Manage Products - Coming Soon!'),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SellerManageProductsScreen(),
                       ),
                     );
                   },
@@ -164,8 +167,11 @@ class SellerDashboardScreen extends StatelessWidget {
                   title: 'Analytics',
                   color: Colors.purple,
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Analytics - Coming Soon!')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SellerAnalyticsScreen(),
+                      ),
                     );
                   },
                 ),

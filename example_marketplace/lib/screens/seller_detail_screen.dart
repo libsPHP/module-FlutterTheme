@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/seller.dart';
 import '../providers/marketplace_provider.dart';
 import '../widgets/rating_stars.dart';
+import 'seller_products_screen.dart';
 
 class SellerDetailScreen extends StatefulWidget {
   final Seller seller;
@@ -257,9 +258,11 @@ class _SellerDetailScreenState extends State<SellerDetailScreen>
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('View Products - Coming Soon!'),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SellerProductsScreen(seller: widget.seller),
                       ),
                     );
                   },
@@ -330,23 +333,95 @@ class _SellerDetailScreenState extends State<SellerDetailScreen>
   }
 
   Widget _buildProductsTab() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.inventory_2_outlined, size: 64, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          Text(
-            'Products section',
-            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+    // Generate sample products for preview
+    final sampleProducts = List.generate(
+      6,
+      (i) => {
+        'name': 'Product ${i + 1}',
+        'price': (20 + i * 5).toStringAsFixed(2),
+        'image': 'https://via.placeholder.com/150',
+      },
+    );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${widget.seller.productCount} Products',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SellerProductsScreen(seller: widget.seller),
+                    ),
+                  );
+                },
+                child: const Text('View All'),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${widget.seller.productCount} products available',
-            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+        ),
+        Expanded(
+          child: GridView.builder(
+            padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: sampleProducts.length,
+            itemBuilder: (context, index) {
+              final product = sampleProducts[index];
+              return Card(
+                clipBehavior: Clip.antiAlias,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.grey[200],
+                        child: Center(
+                          child: Icon(Icons.image, size: 48, color: Colors.grey[400]),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product['name']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            '\$${product['price']}',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

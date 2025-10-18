@@ -6,6 +6,7 @@ import 'screens/sellers_screen.dart';
 import 'screens/seller_registration_screen.dart';
 import 'screens/seller_dashboard_screen.dart';
 import 'screens/seller_search_screen.dart';
+import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,18 +25,11 @@ class MarketplaceApp extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => MarketplaceProvider())],
       child: MaterialApp(
-        title: 'Flutter Magento Marketplace',
+        title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          cardTheme: CardTheme(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.system,
         home: const MarketplaceHomePage(),
       ),
     );
@@ -370,30 +364,45 @@ class MarketplaceHomePage extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('About Marketplace'),
-        content: const SingleChildScrollView(
+        content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Flutter Magento Marketplace',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                AppConstants.appName,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              SizedBox(height: 8),
-              Text('Version: 1.0.0'),
-              SizedBox(height: 16),
-              Text(
-                'A comprehensive multi-seller marketplace example demonstrating:',
+              const SizedBox(height: 8),
+              Text('Version: ${AppConstants.appVersion}'),
+              const SizedBox(height: 8),
+              Text(AppConstants.appDescription),
+              const SizedBox(height: 16),
+              const Text(
+                'Features:',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
-              Text('• Seller Management'),
-              Text('• Seller Registration'),
-              Text('• Seller Dashboard'),
-              Text('• Product Management'),
-              Text('• Ratings & Reviews'),
-              Text('• Advanced Search'),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 8),
+              const Text('• Seller Management'),
+              const Text('• Seller Registration'),
+              const Text('• Seller Dashboard'),
+              const Text('• Product Management'),
+              const Text('• Ratings & Reviews'),
+              const Text('• Advanced Search'),
+              const Text('• Analytics & Insights'),
+              const SizedBox(height: 16),
+              const Divider(),
+              const SizedBox(height: 8),
+              const Text(
+                'Support:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Text('📧 ${AppConstants.supportEmail}'),
+              Text('📞 ${AppConstants.supportPhone}'),
+              Text('🕐 ${AppConstants.supportHours}'),
+              const SizedBox(height: 16),
+              const Text(
                 'This is a demo application with sample data.',
                 style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
               ),
