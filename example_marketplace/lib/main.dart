@@ -5,6 +5,7 @@ import 'providers/marketplace_provider.dart';
 import 'screens/sellers_screen.dart';
 import 'screens/seller_registration_screen.dart';
 import 'screens/seller_dashboard_screen.dart';
+import 'screens/seller_search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -173,7 +174,7 @@ class MarketplaceHomePage extends StatelessWidget {
             color: Colors.teal,
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SellersScreen()),
+              MaterialPageRoute(builder: (context) => const SellerSearchScreen()),
             ),
           ),
           _buildFeatureCard(
