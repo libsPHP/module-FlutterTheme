@@ -21,7 +21,7 @@ dependencies:
   # State management and storage
   provider: ^6.1.5
   shared_preferences: ^2.5.3
-  flutter_secure_storage: ^10.0.0-beta.4
+  flutter_secure_storage: ^9.2.2
   
   # Environment configuration
   flutter_dotenv: ^5.1.0
