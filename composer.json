@@ -1,7 +1,7 @@
 {
     "name": "nativemind/module-flutter-theme",
-    "description": "Progressive Enhancement theme for Magento 2 with Flutter Web integration. Serves SEO-friendly HTML for bots and crawlers, while delivering full Flutter Web experience for JavaScript-enabled browsers.",
-    "version": "1.0.0",
+    "description": "Progressive Enhancement theme for Magento 2 with Flutter Web integration. Serves SEO-friendly HTML for bots and crawlers, while delivering full Flutter Web experience for JavaScript-enabled browsers. Includes 3 Vishakha Devi design styles.",
+    "version": "1.1.0",
     "type": "magento2-module",
     "license": "MIT",
     "authors": [

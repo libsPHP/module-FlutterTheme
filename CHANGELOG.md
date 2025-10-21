@@ -72,6 +72,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2024-10-21
+
+### Added
+- **Vishakha Devi Design Styles** - Three unique CSS variants:
+  - **Style A - Elegant & Feminine**: Dusty rose colors, soft gradients, romantic aesthetic with serif fonts
+  - **Style B - Modern Minimal**: Monochrome palette, clean lines, minimalist design with sans-serif fonts
+  - **Style C - Bold & Vibrant**: Bright colors, gradients, energetic style with playful typography
+- Complete documentation for all three styles in `VISHAKHA_DEVI_STYLES.md`
+- Style comparison table and usage guide
+- CSS variables system for easy customization
+- Responsive design for all style variants
+- Performance-optimized CSS (~10-14KB per style)
+
+### Documentation
+- Added `PUBLISHING.md` with Packagist publishing guide
+- Added `VISHAKHA_DEVI_STYLES.md` with comprehensive style documentation
+- Style selection guide with target audience recommendations
+
+### Technical Details
+- CSS Variables for all color schemes
+- Browser support: Chrome 90+, Firefox 88+, Safari 14+
+- GPU-accelerated animations
+- Three complete CSS files ready to use
+
+---
+
 ## [Unreleased]
 
 ### Planned Features
@@ -81,4 +107,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Analytics integration
 - Multi-language SEO improvements
 - Enhanced PWA features
+- Admin panel style selector
 

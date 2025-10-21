@@ -2,6 +2,8 @@
 
 Progressive Enhancement theme for Magento 2 that combines Flutter Web for modern browsers with SEO-friendly HTML fallback for search engines and browsers without JavaScript support.
 
+**✨ Now includes 3 Vishakha Devi design styles!**
+
 ## 📋 Features
 
 ### ✨ Progressive Enhancement
@@ -31,6 +33,14 @@ Progressive Enhancement theme for Magento 2 that combines Flutter Web for modern
 - Per-store settings
 - Flexible detection rules
 - Debug and testing modes
+
+### 🎨 Vishakha Devi Design Styles
+Three unique CSS variants for different aesthetics:
+- **Style A - Elegant & Feminine**: Dusty rose, romantic, premium feel
+- **Style B - Modern Minimal**: Monochrome, clean, professional
+- **Style C - Bold & Vibrant**: Colorful, energetic, youth-oriented
+
+See [VISHAKHA_DEVI_STYLES.md](VISHAKHA_DEVI_STYLES.md) for details.
 
 ## 📦 Installation
 
