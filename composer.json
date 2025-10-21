@@ -1,0 +1,64 @@
+{
+    "name": "nativemind/module-flutter-theme",
+    "description": "Progressive Enhancement theme for Magento 2 with Flutter Web integration. Serves SEO-friendly HTML for bots and crawlers, while delivering full Flutter Web experience for JavaScript-enabled browsers.",
+    "version": "1.0.0",
+    "type": "magento2-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "NativeMind",
+            "email": "contact@nativemind.net",
+            "homepage": "https://nativemind.net"
+        }
+    ],
+    "keywords": [
+        "magento2",
+        "flutter",
+        "flutter-web",
+        "pwa",
+        "progressive-enhancement",
+        "seo",
+        "theme",
+        "mobile-first",
+        "ecommerce"
+    ],
+    "require": {
+        "php": "^7.4.0|^8.0|^8.1|^8.2",
+        "magento/framework": "^103.0.0",
+        "magento/module-store": "^101.1.0",
+        "magento/module-catalog": "^104.0.0",
+        "magento/module-theme": "^101.1.0",
+        "magento/module-cms": "^103.0.0",
+        "magento/module-backend": "^102.0.0"
+    },
+    "suggest": {
+        "nativemind/flutter-magento": "For Flutter application integration",
+        "magento/module-elasticsearch": "For advanced product search"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "NativeMind\\FlutterTheme\\": ""
+        }
+    },
+    "extra": {
+        "magento-root-dir": "../../../../../../",
+        "magento-force": true,
+        "map": [
+            [
+                "*",
+                "NativeMind/FlutterTheme"
+            ]
+        ]
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ]
+}
+

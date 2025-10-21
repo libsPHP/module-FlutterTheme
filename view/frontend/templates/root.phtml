@@ -1,0 +1,192 @@
+<?php
+/**
+ * NativeMind FlutterTheme Root Template
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ * 
+ * @var \NativeMind\FlutterTheme\Block\Root $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$helper = $block->getHelper();
+$shouldUseFallback = $block->shouldUseFallback();
+$isCrawler = $helper->isCrawler();
+$cookieConfig = $block->getJsCookieConfig();
+$flutterConfig = $block->getFlutterConfig();
+?>
+<!DOCTYPE html>
+<html lang="<?= $escaper->escapeHtmlAttr($block->getHtmlLang()) ?>">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title><?= $escaper->escapeHtml($block->getTitle()) ?></title>
+    <meta name="description" content="<?= $escaper->escapeHtmlAttr($block->getDescription()) ?>">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="<?= $escaper->escapeHtmlAttr($block->getTitle()) ?>">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1976d2">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?= $escaper->escapeUrl($block->getViewFileUrl('favicon.ico')) ?>">
+    
+    <?php if ($helper->isStructuredDataEnabled()): ?>
+    <!-- Structured Data for SEO -->
+    <?= /* @noEscape */ $block->getStructuredData() ?>
+    <?php endif; ?>
+    
+    <?php if (!$isCrawler && !$helper->hasJavaScriptSupport()): ?>
+    <!-- JavaScript Detection -->
+    <script>
+        // Set cookie to indicate JS is enabled
+        document.cookie = "<?= $escaper->escapeJs($cookieConfig['name']) ?>=1; path=/; max-age=<?= (int)$cookieConfig['lifetime'] ?>; SameSite=Lax";
+    </script>
+    <?php endif; ?>
+    
+    <?php if ($shouldUseFallback): ?>
+    <!-- Fallback CSS for Bots and Non-JS Browsers -->
+    <link rel="stylesheet" href="<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::css/fallback.css')) ?>">
+    <noscript>
+        <style>
+            .flutter-app { display: none; }
+            .js-reload-prompt { display: none; }
+        </style>
+    </noscript>
+    <?php else: ?>
+    <!-- Preload Flutter Critical Resources -->
+    <?php if ($helper->isCanvasKitEnabled()): ?>
+    <link rel="preload" as="fetch" crossorigin href="<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/canvaskit/canvaskit.wasm')) ?>">
+    <?php endif; ?>
+    <link rel="modulepreload" href="<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/main.dart.js')) ?>">
+    <?php endif; ?>
+</head>
+<body>
+    <?php if ($shouldUseFallback): ?>
+        <!-- ============================================ -->
+        <!-- FALLBACK VERSION: Simple HTML для ботов/no-JS -->
+        <!-- ============================================ -->
+        <div id="fallback-content" class="fallback-wrapper">
+            <?= /* @noEscape */ $block->getFallbackContent() ?>
+        </div>
+        
+        <?php if (!$isCrawler): ?>
+        <!-- Message for users without JS -->
+        <noscript>
+            <div class="js-warning">
+                <div class="js-warning-content">
+                    <h2>JavaScript Required</h2>
+                    <p>This website requires JavaScript for the full experience.</p>
+                    <p>Please enable JavaScript in your browser settings.</p>
+                    <a href="https://enable-javascript.com/" target="_blank" rel="noopener">
+                        How to enable JavaScript?
+                    </a>
+                </div>
+            </div>
+        </noscript>
+        
+        <!-- Auto-reload when JS is detected -->
+        <div class="js-reload-prompt" style="display: none;">
+            <script>
+                // If this runs, JS is enabled and cookie wasn't set yet
+                if (document.cookie.indexOf('<?= $escaper->escapeJs($cookieConfig['name']) ?>') === -1) {
+                    document.cookie = "<?= $escaper->escapeJs($cookieConfig['name']) ?>=1; path=/; max-age=<?= (int)$cookieConfig['lifetime'] ?>; SameSite=Lax";
+                    // Reload page to get Flutter version
+                    window.location.reload();
+                }
+            </script>
+        </div>
+        <?php endif; ?>
+        
+    <?php else: ?>
+        <!-- ============================================ -->
+        <!-- FLUTTER WEB VERSION: Full Application -->
+        <!-- ============================================ -->
+        <div id="flutter-app" class="flutter-app">
+            <!-- Loading indicator -->
+            <div id="flutter-loading" class="flutter-loading">
+                <div class="flutter-spinner"></div>
+                <p class="flutter-loading-text">Loading store...</p>
+            </div>
+        </div>
+        
+        <!-- Flutter Configuration -->
+        <script>
+            window.flutterConfiguration = {
+                assetBase: "<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/')) ?>",
+                canvasKitBaseUrl: "<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/canvaskit/')) ?>",
+                serviceWorkerUrl: "<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/flutter_service_worker.js')) ?>",
+                useCanvasKit: <?= $flutterConfig['canvasKit'] ? 'true' : 'false' ?>,
+                serviceWorkerEnabled: <?= $flutterConfig['serviceWorker'] ? 'true' : 'false' ?>,
+                magento: {
+                    baseUrl: "<?= $escaper->escapeUrl($flutterConfig['baseUrl']) ?>",
+                    storeCode: "<?= $escaper->escapeJs($flutterConfig['storeCode']) ?>",
+                    currency: "<?= $escaper->escapeJs($flutterConfig['currency']) ?>",
+                    locale: "<?= $escaper->escapeJs($flutterConfig['locale']) ?>"
+                }
+            };
+        </script>
+        
+        <!-- Flutter Loader -->
+        <script src="<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::flutter/flutter.js')) ?>" defer></script>
+        <script src="<?= $escaper->escapeUrl($block->getViewFileUrl('NativeMind_FlutterTheme::js/flutter-loader.js')) ?>" defer></script>
+        
+        <!-- Inline Loading Styles -->
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            }
+            
+            .flutter-app {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #fafafa;
+            }
+            
+            .flutter-loading {
+                text-align: center;
+            }
+            
+            .flutter-spinner {
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 20px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #1976d2;
+                border-radius: 50%;
+                animation: flutter-spin 1s linear infinite;
+            }
+            
+            @keyframes flutter-spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            .flutter-loading-text {
+                color: #666;
+                font-size: 16px;
+                margin: 0;
+            }
+        </style>
+    <?php endif; ?>
+</body>
+</html>
+

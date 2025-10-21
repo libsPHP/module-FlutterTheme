@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind FlutterTheme System Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="nativemind" translate="label" sortOrder="300">
+            <label>NativeMind</label>
+        </tab>
+        <section id="flutter_theme" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Flutter Theme</label>
+            <tab>nativemind</tab>
+            <resource>NativeMind_FlutterTheme::config</resource>
+            
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Flutter Theme</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Progressive Enhancement with Flutter Web</comment>
+                </field>
+                <field id="force_fallback" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Force Fallback Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Always serve HTML fallback version (for testing)</comment>
+                </field>
+            </group>
+            
+            <group id="detection" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Detection Settings</label>
+                <field id="detect_crawlers" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Detect Search Crawlers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Automatically serve fallback to search engine bots</comment>
+                </field>
+                <field id="detect_js" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Detect JavaScript Support</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Check if browser supports JavaScript before loading Flutter</comment>
+                </field>
+                <field id="js_cookie_name" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>JS Cookie Name</label>
+                    <comment>Cookie name for JavaScript detection</comment>
+                </field>
+                <field id="js_cookie_lifetime" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>JS Cookie Lifetime (seconds)</label>
+                    <comment>How long to remember JS support (default: 1 year)</comment>
+                </field>
+            </group>
+            
+            <group id="flutter" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Flutter Settings</label>
+                <field id="canvas_kit_renderer" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use CanvasKit Renderer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>CanvasKit provides better performance but larger bundle size</comment>
+                </field>
+                <field id="service_worker_enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Service Worker</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enables offline support and caching</comment>
+                </field>
+                <field id="preload_assets" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Preload Flutter Assets</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Preload critical Flutter assets for faster initialization</comment>
+                </field>
+            </group>
+            
+            <group id="seo" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SEO Settings</label>
+                <field id="structured_data" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Structured Data</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Add JSON-LD structured data for search engines</comment>
+                </field>
+                <field id="fallback_css" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Load Fallback CSS</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Include CSS for fallback HTML version</comment>
+                </field>
+                <field id="minimal_html" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimal HTML Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Generate minimal HTML for crawlers (faster loading)</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+

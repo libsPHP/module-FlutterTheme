@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind FlutterTheme Dependency Injection Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Helper preferences -->
+    <preference for="NativeMind\FlutterTheme\Helper\DataInterface" type="NativeMind\FlutterTheme\Helper\Data"/>
+    
+    <!-- Block types -->
+    <type name="NativeMind\FlutterTheme\Block\Root">
+        <arguments>
+            <argument name="helper" xsi:type="object">NativeMind\FlutterTheme\Helper\Data</argument>
+        </arguments>
+    </type>
+</config>
+

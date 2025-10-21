@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind FlutterTheme Default Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <flutter_theme>
+            <general>
+                <enabled>1</enabled>
+                <force_fallback>0</force_fallback>
+            </general>
+            <detection>
+                <detect_crawlers>1</detect_crawlers>
+                <detect_js>1</detect_js>
+                <js_cookie_name>js_enabled</js_cookie_name>
+                <js_cookie_lifetime>31536000</js_cookie_lifetime>
+            </detection>
+            <flutter>
+                <canvas_kit_renderer>1</canvas_kit_renderer>
+                <service_worker_enabled>1</service_worker_enabled>
+                <preload_assets>1</preload_assets>
+            </flutter>
+            <seo>
+                <structured_data>1</structured_data>
+                <fallback_css>1</fallback_css>
+                <minimal_html>1</minimal_html>
+            </seo>
+        </flutter_theme>
+    </default>
+</config>
+

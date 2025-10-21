@@ -1,0 +1,124 @@
+<?php
+/**
+ * NativeMind FlutterTheme Fallback Category Template
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ * 
+ * @var \NativeMind\FlutterTheme\Block\Fallback\Category $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$category = $block->getLayer()->getCurrentCategory();
+$productCollection = $block->getLoadedProductCollection();
+$isMinimal = $block->isMinimalMode();
+
+if (!$category || !$category->getId()) {
+    echo '<div class="category-error">Category not found</div>';
+    return;
+}
+?>
+
+<?= /* @noEscape */ $block->getCategoryStructuredData() ?>
+
+<div class="fallback-category" itemscope itemtype="https://schema.org/CollectionPage">
+    <div class="category-container">
+        
+        <?php if (!$isMinimal): ?>
+        <!-- Breadcrumbs -->
+        <?= $block->getLayout()->createBlock(\Magento\Theme\Block\Html\Breadcrumbs::class)->toHtml() ?>
+        <?php endif; ?>
+        
+        <!-- Category Header -->
+        <div class="category-header">
+            <h1 itemprop="name" class="category-title">
+                <?= $escaper->escapeHtml($category->getName()) ?>
+            </h1>
+            
+            <?php if ($category->getDescription()): ?>
+            <div itemprop="description" class="category-description">
+                <?= /* @noEscape */ $category->getDescription() ?>
+            </div>
+            <?php endif; ?>
+        </div>
+        
+        <?php if (!$isMinimal): ?>
+        <!-- Toolbar (Sorting, Paging) -->
+        <?= $block->getToolbarHtml() ?>
+        <?php endif; ?>
+        
+        <!-- Products List -->
+        <?php if ($productCollection && $productCollection->getSize()): ?>
+        <div class="products-grid" itemscope itemtype="https://schema.org/ItemList">
+            <?php $position = 0; ?>
+            <?php foreach ($productCollection as $product): ?>
+                <?php $position++; ?>
+                <article class="product-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
+                    <meta itemprop="position" content="<?= (int)$position ?>">
+                    
+                    <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>" class="product-item-link">
+                        <!-- Product Image -->
+                        <div class="product-item-image">
+                            <?php $productImage = $block->getImage($product, 'category_page_grid'); ?>
+                            <img itemprop="image" 
+                                 src="<?= $escaper->escapeUrl($productImage->getImageUrl()) ?>" 
+                                 alt="<?= $escaper->escapeHtmlAttr($product->getName()) ?>">
+                        </div>
+                        
+                        <!-- Product Info -->
+                        <div class="product-item-info">
+                            <h2 itemprop="name" class="product-item-name">
+                                <?= $escaper->escapeHtml($product->getName()) ?>
+                            </h2>
+                            
+                            <?php if (!$isMinimal && $product->getShortDescription()): ?>
+                            <div class="product-item-description">
+                                <?= $escaper->escapeHtml(substr(strip_tags($product->getShortDescription()), 0, 100)) ?>...
+                            </div>
+                            <?php endif; ?>
+                            
+                            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-item-price">
+                                <span itemprop="price" content="<?= $escaper->escapeHtmlAttr($product->getFinalPrice()) ?>">
+                                    <?= $block->getProductPrice($product) ?>
+                                </span>
+                                <meta itemprop="priceCurrency" content="<?= $escaper->escapeHtmlAttr($block->getCurrentCurrency()) ?>">
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <?php if (!$isMinimal): ?>
+                    <!-- Add to Cart Button -->
+                    <?php if ($product->isSaleable()): ?>
+                    <form action="<?= $escaper->escapeUrl($block->getAddToCartUrl($product)) ?>" 
+                          method="post" 
+                          class="product-item-add-form">
+                        <input type="hidden" name="product" value="<?= (int)$product->getId() ?>">
+                        <input type="hidden" name="qty" value="1">
+                        <input type="hidden" name="form_key" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
+                        <button type="submit" class="btn-add-to-cart-mini">
+                            <?= $escaper->escapeHtml(__('Add to Cart')) ?>
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                    <?php endif; ?>
+                </article>
+            <?php endforeach; ?>
+        </div>
+        
+        <?php if (!$isMinimal): ?>
+        <!-- Bottom Toolbar -->
+        <?= $block->getToolbarHtml() ?>
+        <?php endif; ?>
+        
+        <?php else: ?>
+        <div class="message info empty">
+            <span><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></span>
+        </div>
+        <?php endif; ?>
+        
+    </div>
+</div>
+
