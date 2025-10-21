@@ -1,0 +1,323 @@
+/**
+ * Vishakha Devi Style A - Elegant & Feminine
+ * Элегантная женская эстетика с пастельными тонами
+ * 
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+
+/* ============================================
+ * Vishakha Devi A - Elegant Palette
+ * ============================================ */
+:root {
+    /* Primary Colors - Soft & Elegant */
+    --vd-primary: #D4A5A5;        /* Dusty Rose */
+    --vd-primary-light: #E8C4C4;  /* Light Blush */
+    --vd-primary-dark: #B88B8B;   /* Deep Rose */
+    
+    /* Accent Colors - Feminine Touch */
+    --vd-accent: #C5A3BD;         /* Mauve */
+    --vd-accent-2: #B8D4D1;       /* Sage Green */
+    --vd-gold: #D4AF37;           /* Gold Accent */
+    --vd-success: #A8C5A0;        /* Soft Green */
+    --vd-warning: #E8B896;        /* Peach */
+    
+    /* Neutral Colors - Soft Palette */
+    --vd-black: #3D3535;
+    --vd-gray-900: #5A5050;
+    --vd-gray-700: #7A6E6E;
+    --vd-gray-500: #9B8F8F;
+    --vd-gray-300: #C7BCBC;
+    --vd-gray-100: #E8E2E2;
+    --vd-gray-50: #F5F1F1;
+    --vd-white: #FFFBFB;
+    --vd-cream: #FFF8F3;
+    
+    /* Typography - Elegant Fonts */
+    --vd-font-heading: 'Playfair Display', 'Georgia', serif;
+    --vd-font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    --vd-font-accent: 'Dancing Script', cursive;
+}
+
+/* ============================================
+ * Base Styles
+ * ============================================ */
+body {
+    font-family: var(--vd-font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--vd-gray-900);
+    background: var(--vd-cream);
+    letter-spacing: 0.3px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--vd-font-heading);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+a {
+    color: var(--vd-primary);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--vd-primary-dark);
+}
+
+/* ============================================
+ * Product Card - Elegant Style
+ * ============================================ */
+.product-item {
+    background: var(--vd-white);
+    border: 1px solid var(--vd-gray-100);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(212, 165, 165, 0.08);
+}
+
+.product-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(212, 165, 165, 0.2);
+    border-color: var(--vd-primary-light);
+}
+
+.product-item-image {
+    position: relative;
+    padding-top: 140%;
+    background: linear-gradient(135deg, var(--vd-gray-50) 0%, var(--vd-cream) 100%);
+    overflow: hidden;
+}
+
+.product-item-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(212, 165, 165, 0.05) 100%);
+    z-index: 1;
+}
+
+.product-item-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.product-item:hover .product-item-image img {
+    transform: scale(1.08);
+}
+
+.product-item-info {
+    padding: 20px;
+}
+
+.product-item-name {
+    font-family: var(--vd-font-heading);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--vd-black);
+    margin-bottom: 10px;
+    line-height: 1.5;
+    min-height: 3em;
+}
+
+.product-item-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--vd-primary);
+    margin-top: 12px;
+    font-family: var(--vd-font-body);
+}
+
+.product-item-price::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--vd-gold);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* ============================================
+ * Buttons - Elegant Style
+ * ============================================ */
+.btn-add-to-cart,
+.btn-add-to-cart-mini {
+    width: 100%;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--vd-primary) 0%, var(--vd-primary-dark) 100%);
+    color: var(--vd-white);
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(212, 165, 165, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-add-to-cart::before,
+.btn-add-to-cart-mini::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-add-to-cart:hover::before,
+.btn-add-to-cart-mini:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-add-to-cart:hover,
+.btn-add-to-cart-mini:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 165, 165, 0.35);
+}
+
+/* ============================================
+ * Product Page
+ * ============================================ */
+.product-name {
+    font-family: var(--vd-font-heading);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--vd-black);
+    margin-bottom: 16px;
+    line-height: 1.3;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.product-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--vd-gold) 0%, transparent 100%);
+}
+
+.product-price {
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--vd-primary);
+    margin: 24px 0;
+}
+
+.product-price::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--vd-gold);
+    margin-bottom: 16px;
+}
+
+/* ============================================
+ * Category Header
+ * ============================================ */
+.category-title {
+    font-family: var(--vd-font-heading);
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--vd-black);
+    margin-bottom: 16px;
+    position: relative;
+    display: inline-block;
+}
+
+.category-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--vd-gold) 0%, var(--vd-primary) 50%, transparent 100%);
+}
+
+/* ============================================
+ * Decorative Elements
+ * ============================================ */
+.product-add-form {
+    background: linear-gradient(135deg, var(--vd-white) 0%, var(--vd-gray-50) 100%);
+    border: 2px solid var(--vd-gray-100);
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-add-form::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 165, 165, 0.05) 0%, transparent 70%);
+}
+
+/* ============================================
+ * Typography Accents
+ * ============================================ */
+.product-description h2,
+.category-description {
+    font-family: var(--vd-font-heading);
+    color: var(--vd-gray-900);
+    font-weight: 400;
+}
+
+.stock.in-stock {
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    color: var(--vd-success);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+ * Responsive Design
+ * ============================================ */
+@media (max-width: 768px) {
+    .product-name {
+        font-size: 28px;
+    }
+    
+    .category-title {
+        font-size: 32px;
+    }
+    
+    .product-price {
+        font-size: 32px;
+    }
+}
+
