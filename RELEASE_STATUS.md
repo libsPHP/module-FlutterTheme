@@ -278,3 +278,4 @@ Example_marketplace готов к релизу через fastlane.
 **Date**: October 18, 2025  
 **Next**: Publish to pub.dev + Release examples
 
+
