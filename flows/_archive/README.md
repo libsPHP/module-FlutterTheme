@@ -1,0 +1,1046 @@
+# 🚀 Flutter Magento Plugin 4.0
+
+A unified Flutter library for Magento e-commerce platform integration. Version 3.0 introduces modern architecture improvements, enhanced performance, and comprehensive e-commerce functionality with 200+ functions for building cutting-edge mobile commerce applications.
+
+## 📱 Screenshots
+
+<div align="center">
+  <img src="screenshots/main.jpg" alt="Main page" width="250"/>
+  <img src="screenshots/login.jpg" alt="Login page" width="250"/>
+  <img src="screenshots/signup.jpg" alt="Registration page" width="250"/>
+</div>
+
+<div align="center">
+  <img src="screenshots/products.jpg" alt="Products page" width="250"/>
+  <img src="screenshots/cart.jpg" alt="Shopping cart" width="250"/>
+  <img src="screenshots/settings.jpg" alt="Settings" width="250"/>
+</div>
+
+## ✨ New Features in Version 4.0
+
+### 🚀 **Modern Architecture**
+- **Flutter 3.8+ Support**: Latest Flutter SDK with enhanced performance
+- **Eliminate Duplication**: One API for all applications
+- **Modular Structure**: Use only the components you need
+- **Type Safety**: Strong typing with Freezed models
+- **Consistency**: Same approach across all applications
+
+### 🔐 **Advanced Authentication**
+- JWT tokens with automatic refresh
+- Secure storage with FlutterSecureStorage
+- "Remember me" support
+- Automatic token validation
+- Session expiration handling
+
+### 🌐 **Unified Network Layer**
+- Dio + HTTP client with automatic retries
+- Internet connectivity monitoring
+- Automatic error handling
+- Request logging in debug mode
+- Response caching
+
+### 🌍 **Localization System**
+- **45+ languages** out of the box
+- Automatic system locale detection
+- Pluralization support
+- RTL support for Arabic and Hebrew
+- Custom translations
+
+### 📱 **Offline Mode**
+- Automatic data caching
+- Offline operation queue
+- SQLite + Hive for fast access
+- Automatic sync when network is restored
+- Configurable caching strategies
+
+### 📦 **RADA Format - Offline Data Packages**
+- Portable archive format (.rada) for Magento data
+- Complete category trees with products, images, and reviews
+- Multi-language support in single file
+- Fast preload mechanism for app initialization
+- Data validation with checksums
+- Perfect for demo data and offline catalogs
+
+### 🎨 **State Management**
+- Provider + ChangeNotifier pattern
+- Ready-made providers for all services
+- Reactive UI updates
+- Centralized state management
+
+### 🛍️ **Extended E-commerce Functionality**
+- Full Magento REST API integration
+- GraphQL support for complex queries
+- Cart with guest user support
+- Wishlist with multiple lists
+- Advanced search and filtering
+
+## 📦 RADA Format - Offline Data Packages
+
+### What is RADA?
+
+**RADA** (Resource Archive for Data Application) is a portable archive format (.rada) designed for packaging Magento catalog data into a single file. Perfect for offline mode, demo data, and fast app initialization.
+
+### Key Features
+
+- **Complete data packaging**: Categories, products, images, reviews in one file
+- **Multi-language support**: Include translations for multiple locales  
+- **Image optimization**: Automatic image resizing and compression
+- **Data validation**: Built-in checksums and version control
+- **Preload mechanism**: Fast app initialization with bundled data
+- **Portable**: Share catalogs between devices or users
+
+### Quick Example
+
+```dart
+// Export demo data from your store
+final exporter = RadaExporter(
+  productApi: productApi,
+  baseUrl: 'https://your-store.com',
+);
+
+final options = RadaExportOptions(
+  categoryId: 1,         // Root category
+  maxProducts: 50,       // Limit products
+  locales: ['en', 'ru'], // Languages
+);
+
+await exporter.exportCategory(options, 'assets/preload.rada');
+```
+
+Add to `pubspec.yaml`:
+```yaml
+flutter:
+  assets:
+    - assets/preload.rada
+```
+
+Load on app start:
+```dart
+final preloadService = RadaPreloadService();
+final package = await preloadService.loadFromAssets('assets/preload.rada');
+
+if (package != null) {
+  await appProvider.loadFromRadaPackage(package);
+}
+```
+
+### RADA File Structure
+
+```
+example.rada (ZIP archive)
+├── manifest.json          # Metadata and version
+├── data.json             # Categories, products, reviews
+├── assets/               # Images
+│   ├── categories/       # Category images
+│   └── products/         # Product images
+└── l10n/                 # Translations
+    ├── en.json
+    └── ru.json
+```
+
+### Use Cases
+
+1. **Demo Data**: Bundle sample catalog with your app
+2. **Offline Catalogs**: Let users download categories for offline browsing
+3. **Data Sharing**: Export and share product collections
+4. **Fast Initialization**: Preload data for instant app start
+
+### Documentation
+
+For detailed information, see:
+- [RADA Format Specification](doc/RADA_FORMAT.md) - Complete format details
+- [RADA Usage Guide](doc/RADA_USAGE.md) - Full API documentation
+- [RADA Implementation](doc/RADA_README.md) - Implementation overview
+
+## 🚀 Getting Started
+
+### Installation
+
+Add the dependency to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_magento: ^3.0.0
+```
+
+### Quick Start
+
+```dart
+import 'package:flutter_magento/flutter_magento.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MagentoProvider()),
+        ChangeNotifierProxyProvider<MagentoProvider, AuthProvider>(
+          create: (context) => AuthProvider(context.read<MagentoProvider>().auth),
+          update: (context, magentoProvider, previous) => 
+              previous ?? AuthProvider(magentoProvider.auth),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Consumer<MagentoProvider>(
+        builder: (context, magento, child) {
+          if (!magento.isInitialized) {
+            return FutureBuilder(
+              future: magento.initialize(
+                baseUrl: 'https://your-magento-store.com',
+                supportedLanguages: ['en', 'ru', 'de', 'fr', 'es'],
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Scaffold(body: Center(child: CircularProgressIndicator()));
+                }
+                return HomePage();
+              },
+            );
+          }
+          return HomePage();
+        },
+      ),
+    );
+  }
+}
+
+// Authentication usage example
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthProvider>(
+      builder: (context, auth, child) {
+        return Scaffold(
+          body: Column(
+            children: [
+              TextField(/* email field */),
+              TextField(/* password field */),
+              ElevatedButton(
+                onPressed: auth.isLoading ? null : () async {
+                  final success = await auth.authenticate(
+                    email: emailController.text,
+                    password: passwordController.text,
+                    rememberMe: true,
+                  );
+                  if (success) {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  }
+                },
+                child: auth.isLoading 
+                    ? CircularProgressIndicator() 
+                    : Text('Login'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+## 📖 Runnable Examples
+
+Complete, runnable examples are available in [`example/lib/examples/`](example/lib/examples/). Each example can be run directly and includes comprehensive tests.
+
+### Available Examples
+
+#### 🔐 [Authentication Examples](example/lib/examples/auth_examples.dart)
+Demonstrates authentication flows with real API calls:
+- Basic login with test credentials
+- Customer registration
+- Get current customer information
+- Check authentication status
+- Logout functionality
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/auth_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/auth_examples_test.dart
+```
+
+#### 📦 [Product Examples](example/lib/examples/product_examples.dart)
+Shows product operations and catalog management:
+- Get products with pagination
+- Search products by query
+- Get single product by SKU
+- Filter products by category
+- Apply sorting and filters
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/product_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/product_examples_test.dart
+```
+
+#### 🛒 [Cart Examples](example/lib/examples/cart_examples.dart)
+Covers cart operations for e-commerce:
+- Create guest cart
+- Add items to cart
+- Get cart totals
+- View cart items
+- Clear cart
+
+**Run:**
+```bash
+cd example
+flutter run lib/examples/cart_examples.dart
+```
+
+**Test:**
+```bash
+flutter test test/examples/cart_examples_test.dart
+```
+
+### Using Examples in Your Code
+
+Each example file exports a standalone class that can be used directly:
+
+```dart
+import 'package:flutter_magento/flutter_magento.dart';
+import 'package:your_app/examples/auth_examples.dart';
+
+final magento = FlutterMagentoCore.instance;
+await magento.initialize(baseUrl: 'https://luma-demo.scandipwa.com/');
+
+final authExamples = AuthExamples(magento);
+
+// Use example functions
+final authResponse = await authExamples.basicLogin();
+print('Logged in as: ${authResponse.customer.email}');
+```
+
+### Running All Example Tests
+
+```bash
+# Run all example tests
+flutter test test/examples/
+
+# Run with coverage
+flutter test --coverage test/examples/
+
+# Run integration tests (requires network)
+flutter test --tags integration test/examples/
+```
+
+## 🔐 Authentication & Test Credentials
+
+### Demo Store Test Accounts
+
+For testing authentication features, you can use the following credentials on demo stores:
+
+#### Luma Demo (https://luma-demo.scandipwa.com/)
+```
+Email: test@scandipwa.com
+Password: Test@123456
+```
+
+#### Alternative Test Account Creation
+You can also create your own test account by registering through the app or using the API:
+
+```dart
+// Create a new test account
+final customer = await magento.createCustomer(
+  email: 'your-test@example.com',
+  password: 'SecurePassword123!',
+  firstName: 'Test',
+  lastName: 'User',
+);
+```
+
+### Authentication Flow
+
+#### 1. Customer Login
+
+```dart
+import 'package:flutter_magento/flutter_magento.dart';
+
+// Basic login
+final authResponse = await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+);
+
+print('Login successful!');
+print('Customer: ${authResponse.customer.firstname} ${authResponse.customer.lastname}');
+print('Token: ${authResponse.token}');
+
+// Login with remember me
+final authWithRemember = await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+  rememberMe: true, // Store token for auto-login
+);
+```
+
+#### 2. Customer Registration
+
+```dart
+// Register new customer
+final newCustomer = await magento.createCustomer(
+  email: 'newuser@example.com',
+  password: 'SecurePass123!',
+  firstName: 'John',
+  lastName: 'Doe',
+);
+
+print('Registration successful!');
+print('Customer ID: ${newCustomer.id}');
+print('Email: ${newCustomer.email}');
+```
+
+#### 3. Get Current Customer Info
+
+```dart
+// Get logged-in customer information
+final currentCustomer = await magento.getCurrentCustomer();
+
+print('Name: ${currentCustomer.firstname} ${currentCustomer.lastname}');
+print('Email: ${currentCustomer.email}');
+print('Created: ${currentCustomer.createdAt}');
+```
+
+#### 4. Update Customer Information
+
+```dart
+// Update customer profile
+final updatedCustomer = await magento.updateCustomer(
+  firstname: 'John',
+  lastname: 'Smith',
+  email: 'john.smith@example.com',
+);
+```
+
+#### 5. Password Management
+
+```dart
+// Change password
+await magento.changePassword(
+  currentPassword: 'OldPassword123!',
+  newPassword: 'NewPassword123!',
+);
+
+// Request password reset
+await magento.resetPassword(
+  email: 'user@example.com',
+);
+```
+
+#### 6. Logout
+
+```dart
+// Logout current customer
+await magento.logout();
+
+print('Logged out successfully');
+```
+
+### Token Management
+
+The plugin automatically handles JWT token storage and refresh:
+
+```dart
+// Token is automatically stored after login
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+);
+
+// Token is automatically included in subsequent API calls
+final orders = await magento.getCustomerOrders();
+
+// Check if user is authenticated
+final isAuthenticated = await magento.isAuthenticated();
+
+if (isAuthenticated) {
+  print('User is logged in');
+} else {
+  print('User needs to login');
+}
+```
+
+### Session Management
+
+```dart
+// Save session (automatic with rememberMe: true)
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+  rememberMe: true,
+);
+
+// Restore session on app start
+await magento.restoreSession();
+
+// Clear session
+await magento.clearSession();
+```
+
+### Guest vs Authenticated Users
+
+```dart
+// Guest cart (no authentication required)
+final guestCart = await magento.createGuestCart();
+await magento.addToGuestCart(
+  cartId: guestCart.id!,
+  sku: 'PRODUCT-SKU',
+  quantity: 1,
+);
+
+// Authenticated cart (requires login)
+await magento.authenticateCustomer(
+  email: 'test@scandipwa.com',
+  password: 'Test@123456',
+);
+
+final customerCart = await magento.getCustomerCart();
+await magento.addToCart(
+  cartId: customerCart.id!,
+  sku: 'PRODUCT-SKU',
+  quantity: 1,
+);
+```
+
+### Error Handling
+
+```dart
+try {
+  final authResponse = await magento.authenticateCustomer(
+    email: 'test@scandipwa.com',
+    password: 'WrongPassword',
+  );
+} on MagentoException catch (e) {
+  if (e.code == 'invalid_credentials') {
+    print('Invalid email or password');
+  } else if (e.code == 'account_locked') {
+    print('Account is locked. Please contact support.');
+  } else {
+    print('Authentication error: ${e.message}');
+  }
+} catch (e) {
+  print('Unexpected error: $e');
+}
+```
+
+## 📚 API Reference
+
+### Authentication API
+
+```dart
+// All authentication methods from FlutterMagentoCore
+authenticateCustomer({required String email, required String password, bool rememberMe = false})
+createCustomer({required String email, required String password, required String firstName, required String lastName})
+getCurrentCustomer()
+updateCustomer({String? firstname, String? lastname, String? email})
+changePassword({required String currentPassword, required String newPassword})
+resetPassword({required String email})
+logout()
+isAuthenticated()
+restoreSession()
+clearSession()
+```
+
+### Products
+
+```dart
+// Get products with filters
+final products = await magento.getProducts(
+  page: 1,
+  pageSize: 20,
+  searchQuery: 'phone',
+  categoryId: '123',
+  sortBy: 'price',
+  sortOrder: 'asc',
+  filters: {'brand': 'Apple'},
+);
+
+// Get single product
+final product = await magento.getProduct('SKU123');
+
+// Search products
+final searchResults = await magento.searchProducts(
+  'smartphone',
+  page: 1,
+  pageSize: 20,
+);
+
+// Get product reviews
+final reviews = await magento.getProductReviews('SKU123');
+```
+
+### Cart Management
+
+```dart
+// Create cart
+final cart = await magento.createCart();
+
+// Add item to cart
+final updatedCart = await magento.addToCart(
+  cartId: cart.id!,
+  sku: 'SKU123',
+  quantity: 2,
+);
+
+// Get cart totals
+final totals = await magento.getCartTotals(cart.id!);
+
+// Apply coupon
+final cartWithCoupon = await magento.applyCoupon(
+  cartId: cart.id!,
+  couponCode: 'SAVE20',
+);
+
+// Estimate shipping
+final shippingMethods = await magento.estimateShipping(
+  cartId: cart.id!,
+  address: shippingAddress,
+);
+```
+
+### Orders
+
+```dart
+// Get customer orders
+final orders = await magento.getCustomerOrders(
+  page: 1,
+  pageSize: 20,
+);
+
+// Get order details
+final order = await magento.getOrder('ORDER123');
+
+// Get order status
+final status = await magento.getOrderStatus('ORDER123');
+
+// Cancel order
+final cancelled = await magento.cancelOrder(
+  'ORDER123',
+  reason: 'Changed mind',
+);
+
+// Reorder
+final newCart = await magento.reorder('ORDER123');
+```
+
+### Wishlist
+
+```dart
+// Get wishlist
+final wishlist = await magento.getWishlist();
+
+// Add to wishlist
+final wishlistItem = await magento.addToDefaultWishlist(
+  productId: '123',
+);
+
+// Remove from wishlist
+final removed = await magento.removeFromDefaultWishlist(1);
+
+// Share wishlist
+final shared = await magento.shareDefaultWishlist(
+  email: 'friend@example.com',
+  message: 'Check out my wishlist!',
+);
+
+// Add all to cart
+final addedToCart = await magento.addAllDefaultWishlistToCart();
+```
+
+### Advanced Search
+
+```dart
+// Advanced search
+final searchResults = await magento.search(
+  query: 'smartphone',
+  filters: {'brand': 'Apple', 'price': '100-500'},
+  page: 1,
+  pageSize: 20,
+  sortBy: 'price',
+  sortOrder: 'asc',
+);
+
+// Search by category
+final categoryResults = await magento.searchByCategory(
+  categoryId: '123',
+  query: 'phone',
+);
+
+// Search by attribute
+final attributeResults = await magento.searchByAttribute(
+  attribute: 'brand',
+  value: 'Apple',
+);
+
+// Get search suggestions
+final suggestions = await magento.getSearchSuggestions('smart');
+
+// Get filterable attributes
+final attributes = await magento.getFilterableAttributes();
+
+// Apply price filter
+final priceFiltered = await magento.applyPriceFilter(
+  minPrice: 100.0,
+  maxPrice: 500.0,
+);
+```
+
+## 🏗️ Architecture
+
+The plugin follows a clean architecture pattern with the following layers:
+
+- **API Layer**: HTTP client with Dio, REST API integration
+- **Service Layer**: Business logic and data processing
+- **Model Layer**: Data models with JSON serialization
+- **Plugin Layer**: Flutter plugin interface
+
+### Directory Structure
+
+```
+lib/
+├── src/
+│   ├── api/           # API classes
+│   │   ├── auth_api.dart
+│   │   ├── product_api.dart
+│   │   ├── cart_api.dart
+│   │   ├── order_api.dart
+│   │   ├── wishlist_api.dart
+│   │   └── search_api.dart
+│   ├── models/        # Data models
+│   │   ├── auth_models.dart
+│   │   ├── product_models.dart
+│   │   ├── cart_models.dart
+│   │   ├── order_models.dart
+│   │   ├── wishlist_models.dart
+│   │   └── search_models.dart
+│   └── flutter_magento_plugin.dart
+├── flutter_magento.dart
+└── flutter_magento_platform_interface.dart
+```
+
+## 🔧 Configuration
+
+### Environment Variables (.env)
+
+**Recommended approach**: Use `.env` file for configuration to keep sensitive data secure and manage different environments easily.
+
+#### 1. Add flutter_dotenv dependency
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_dotenv: ^5.1.0
+
+flutter:
+  assets:
+    - .env
+```
+
+#### 2. Create .env file
+
+Copy the provided `env.example` to `.env`:
+
+```bash
+cp env.example .env
+```
+
+Or create a `.env` file manually in your project root:
+
+```env
+# Magento Configuration
+# Primary API URL (Luma Demo - recommended for testing)
+MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Test Credentials for Luma Demo:
+# Email: test@scandipwa.com
+# Password: Test@123456
+
+# Optional: Alternative demo stores for testing
+MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
+MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
+MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
+
+# Connection settings
+MAGENTO_CONNECTION_TIMEOUT=30000
+MAGENTO_RECEIVE_TIMEOUT=30000
+
+# Store configuration (optional)
+MAGENTO_API_KEY=your-api-key-here
+MAGENTO_STORE_CODE=default
+
+# Multiple environments example
+# MAGENTO_API_URL_DEV=https://dev-store.com
+# MAGENTO_API_URL_PROD=https://your-production-store.com
+```
+
+**Available demo stores for testing:**
+- 🌟 **Luma Demo** - `https://luma-demo.scandipwa.com/` (Recommended)
+  - Test account: `test@scandipwa.com` / `Test@123456`
+- **Tech Demo** - `https://tech-demo.scandipwa.com/`
+- **Nexcess Demo** - `https://magento2-demo.nexcess.net`
+- **Bird EU Demo** - `https://demo-m2.bird.eu`
+
+#### 3. Load and use environment variables
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_magento/flutter_magento.dart';
+import 'package:provider/provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Load .env file
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint('Warning: Could not load .env file: $e');
+    // App will use default values
+  }
+  
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Magento App',
+        home: Consumer<AppProvider>(
+          builder: (context, provider, child) {
+            if (!provider.isInitialized) {
+              return FutureBuilder(
+                future: provider.initializeMagento(
+                  // Use MAGENTO_API_URL from .env or fallback to Luma demo
+                  dotenv.env['MAGENTO_API_URL'] ?? 
+                    'https://luma-demo.scandipwa.com/',
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  return const HomePage();
+                },
+              );
+            }
+            return const HomePage();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class AppProvider extends ChangeNotifier {
+  bool _isInitialized = false;
+  late FlutterMagentoCore _magento;
+  
+  bool get isInitialized => _isInitialized;
+  
+  Future<bool> initializeMagento(String baseUrl) async {
+    try {
+      _magento = FlutterMagentoCore.instance;
+      
+      final success = await _magento.initialize(
+        baseUrl: baseUrl,
+        connectionTimeout: int.tryParse(
+          dotenv.env['MAGENTO_CONNECTION_TIMEOUT'] ?? ''
+        ) ?? 30000,
+        receiveTimeout: int.tryParse(
+          dotenv.env['MAGENTO_RECEIVE_TIMEOUT'] ?? ''
+        ) ?? 30000,
+        headers: dotenv.env['MAGENTO_API_KEY']?.isNotEmpty == true ? {
+          'X-API-Key': dotenv.env['MAGENTO_API_KEY']!,
+          'X-Store-Code': dotenv.env['MAGENTO_STORE_CODE'] ?? 'default',
+        } : null,
+      );
+      
+      _isInitialized = success;
+      notifyListeners();
+      return success;
+    } catch (e) {
+      debugPrint('Initialization error: $e');
+      return false;
+    }
+  }
+}
+```
+
+#### 4. Security best practices
+
+- **Add `.env` to `.gitignore`** to prevent committing sensitive data
+- Create `.env.example` with template values for documentation
+- Use different `.env` files for different environments (`.env.dev`, `.env.prod`)
+- Never hardcode sensitive values in your code
+
+**Example `.gitignore`:**
+```gitignore
+# Environment files
+.env
+.env.local
+.env.*.local
+```
+
+**Example `.env.example`:**
+```env
+# Magento Configuration Template
+# Copy this file to .env and update with your values
+
+# Primary API URL
+MAGENTO_API_URL=https://luma-demo.scandipwa.com/
+
+# Test Credentials for Luma Demo:
+# Email: test@scandipwa.com
+# Password: Test@123456
+
+# Alternative demo stores (optional)
+MAGENTO_API_URL_ALT_1=https://tech-demo.scandipwa.com/
+MAGENTO_API_URL_ALT_2=https://magento2-demo.nexcess.net
+MAGENTO_API_URL_ALT_3=https://demo-m2.bird.eu
+
+# Connection settings
+MAGENTO_CONNECTION_TIMEOUT=30000
+MAGENTO_RECEIVE_TIMEOUT=30000
+
+# Store configuration (optional)
+MAGENTO_API_KEY=your-api-key
+MAGENTO_STORE_CODE=default
+```
+
+### Environment Setup
+
+```dart
+// Development
+await magento.initialize(
+  baseUrl: 'https://dev-store.com',
+  connectionTimeout: 30000,
+  receiveTimeout: 30000,
+);
+
+// Production
+await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'X-API-Key': 'your-api-key',
+    'X-Store-Code': 'default',
+  },
+);
+```
+
+### Custom Headers
+
+```dart
+await magento.initialize(
+  baseUrl: 'https://store.com',
+  headers: {
+    'Authorization': 'Bearer token',
+    'Accept-Language': 'en-US',
+    'X-Custom-Header': 'value',
+  },
+);
+```
+
+## 🧪 Testing
+
+```bash
+# Run tests
+flutter test
+
+# Run tests with coverage
+flutter test --coverage
+
+# Generate code
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
+## 📱 Platform Support
+
+- ✅ Android
+- ✅ iOS
+- ✅ Web
+- ✅ Windows
+- ✅ macOS
+- ✅ Linux
+
+## 🔒 Security Features
+
+- JWT token authentication
+- HTTPS enforcement
+- Input validation and sanitization
+- Secure token storage
+- Rate limiting support
+- CSRF protection
+
+## 📊 Performance Features
+
+- Request caching
+- Image optimization
+- Lazy loading support
+- Offline mode
+- Background sync
+- Memory management
+
+## 🌍 Localization
+
+This README is available in multiple languages:
+- [English](README.md) (Current)
+- [Русский](README_ru.md)
+- [ไทย](README_th.md)
+- [中文](README_cn.md)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the NativeMindNONC License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- 📧 Email: support@nativemind.net
+- 🐛 Issues: [GitHub Issues](https://github.com/nativemind/flutter_magento/issues)
+- 📚 Documentation: [Wiki](https://github.com/nativemind/flutter_magento/wiki)
+- 💬 Community: [Discord](https://discord.gg/nativemind)
+
+## 🙏 Acknowledgments
+
+- Magento team for the excellent e-commerce platform
+- Flutter team for the amazing framework
+- ScandiPWA team for inspiration and best practices
+- All contributors and community members
+
+---
+
+**Made with ❤️ by NativeMind Team**
