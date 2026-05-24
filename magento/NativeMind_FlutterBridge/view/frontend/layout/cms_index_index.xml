@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind FlutterTheme Home Page Layout
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="root">
+            <block class="NativeMind\FlutterTheme\Block\Root" 
+                   name="flutter.root" 
+                   template="NativeMind_FlutterTheme::root.phtml">
+                <block class="Magento\Cms\Block\Page" 
+                       name="flutter.fallback" 
+                       template="NativeMind_FlutterTheme::fallback/page.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+

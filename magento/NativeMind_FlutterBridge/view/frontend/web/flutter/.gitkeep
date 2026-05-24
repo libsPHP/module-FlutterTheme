@@ -1,0 +1,42 @@
+# Flutter Web Build Directory
+
+Place your Flutter Web build files here.
+
+## How to build and copy:
+
+1. Build your Flutter app:
+   ```bash
+   flutter build web --web-renderer canvaskit --release
+   ```
+
+2. Copy build files to this directory:
+   ```bash
+   cp -r build/web/* /path/to/module/view/frontend/web/flutter/
+   ```
+
+## Required files:
+- flutter.js
+- main.dart.js
+- flutter_service_worker.js (optional, for PWA)
+- canvaskit/ (if using CanvasKit renderer)
+- assets/
+
+## File structure after copying:
+```
+flutter/
+├── flutter.js
+├── main.dart.js
+├── flutter_service_worker.js
+├── manifest.json
+├── canvaskit/
+│   ├── canvaskit.wasm
+│   ├── canvaskit.js
+│   └── profiling/
+└── assets/
+    ├── AssetManifest.json
+    ├── FontManifest.json
+    └── ...
+```
+
+See FLUTTER_INTEGRATION.md for detailed instructions.
+

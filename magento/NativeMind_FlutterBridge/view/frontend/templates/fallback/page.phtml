@@ -1,0 +1,42 @@
+<?php
+/**
+ * NativeMind FlutterTheme Fallback CMS Page Template
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ * 
+ * @var \Magento\Cms\Block\Page $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$page = $block->getPage();
+
+if (!$page || !$page->getId()) {
+    echo '<div class="page-error">Page not found</div>';
+    return;
+}
+?>
+
+<div class="fallback-page">
+    <div class="page-container">
+        
+        <!-- Page Title -->
+        <?php if ($page->getContentHeading()): ?>
+        <div class="page-header">
+            <h1 class="page-title">
+                <?= $escaper->escapeHtml($page->getContentHeading()) ?>
+            </h1>
+        </div>
+        <?php endif; ?>
+        
+        <!-- Page Content -->
+        <div class="page-content cms-content">
+            <?= /* @noEscape */ $page->getContent() ?>
+        </div>
+        
+    </div>
+</div>
+

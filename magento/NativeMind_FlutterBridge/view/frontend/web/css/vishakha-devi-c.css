@@ -1,0 +1,464 @@
+/**
+ * Vishakha Devi Style C - Bold & Vibrant
+ * Яркий молодежный стиль с динамичным дизайном
+ * 
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+
+/* ============================================
+ * Vishakha Devi C - Vibrant Palette
+ * ============================================ */
+:root {
+    /* Primary Colors - Bold & Bright */
+    --vd-primary: #FF6B6B;        /* Coral Red */
+    --vd-primary-light: #FF8E8E;  /* Light Coral */
+    --vd-primary-dark: #E84848;   /* Deep Coral */
+    
+    /* Accent Colors - Rainbow Pop */
+    --vd-accent: #4ECDC4;         /* Turquoise */
+    --vd-accent-2: #FFE66D;       /* Sunny Yellow */
+    --vd-accent-3: #A8E6CF;       /* Mint Green */
+    --vd-accent-4: #FF6BA6;       /* Hot Pink */
+    --vd-accent-5: #9B59B6;       /* Purple */
+    --vd-success: #2ECC71;        /* Bright Green */
+    --vd-warning: #F39C12;        /* Orange */
+    
+    /* Neutral Colors - Clean Base */
+    --vd-black: #2C3E50;
+    --vd-gray-900: #34495E;
+    --vd-gray-700: #526579;
+    --vd-gray-500: #7F8C8D;
+    --vd-gray-300: #BDC3C7;
+    --vd-gray-100: #ECF0F1;
+    --vd-gray-50: #F8F9FA;
+    --vd-white: #FFFFFF;
+    
+    /* Typography - Modern & Fun */
+    --vd-font-heading: 'Poppins', 'Helvetica Neue', sans-serif;
+    --vd-font-body: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    --vd-font-accent: 'Fredoka One', cursive;
+}
+
+/* ============================================
+ * Base Styles
+ * ============================================ */
+body {
+    font-family: var(--vd-font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--vd-gray-900);
+    background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--vd-font-heading);
+    font-weight: 700;
+}
+
+a {
+    color: var(--vd-primary);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+a:hover {
+    color: var(--vd-accent);
+    transform: scale(1.05);
+}
+
+/* ============================================
+ * Product Card - Vibrant Style
+ * ============================================ */
+.product-item {
+    background: var(--vd-white);
+    border: 3px solid transparent;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.1);
+    position: relative;
+}
+
+.product-item::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, 
+        var(--vd-primary) 0%, 
+        var(--vd-accent) 33%, 
+        var(--vd-accent-4) 66%, 
+        var(--vd-accent-5) 100%);
+    border-radius: 24px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.product-item:hover::before {
+    opacity: 1;
+}
+
+.product-item:hover {
+    transform: translateY(-12px) rotate(2deg);
+    box-shadow: 0 16px 32px rgba(255, 107, 107, 0.25);
+}
+
+.product-item-image {
+    position: relative;
+    padding-top: 120%;
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 107, 0.1) 0%, 
+        rgba(78, 205, 196, 0.1) 100%);
+    overflow: hidden;
+}
+
+.product-item-image::after {
+    content: '✨';
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 24px;
+    opacity: 0;
+    transform: rotate(-15deg) scale(0);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.product-item:hover .product-item-image::after {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.product-item-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: saturate(1.1);
+}
+
+.product-item:hover .product-item-image img {
+    transform: scale(1.15) rotate(-2deg);
+    filter: saturate(1.3);
+}
+
+.product-item-info {
+    padding: 20px;
+    background: var(--vd-white);
+}
+
+.product-item-name {
+    font-family: var(--vd-font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--vd-black);
+    margin-bottom: 10px;
+    line-height: 1.4;
+    min-height: 2.8em;
+}
+
+.product-item-price {
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--vd-primary) 0%, var(--vd-accent-4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 12px;
+    font-family: var(--vd-font-heading);
+}
+
+/* ============================================
+ * Buttons - Vibrant Style
+ * ============================================ */
+.btn-add-to-cart,
+.btn-add-to-cart-mini {
+    width: 100%;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, var(--vd-primary) 0%, var(--vd-accent-4) 100%);
+    color: var(--vd-white);
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-add-to-cart::before,
+.btn-add-to-cart-mini::before {
+    content: '🛒';
+    position: absolute;
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    transition: left 0.3s ease;
+}
+
+.btn-add-to-cart:hover::before,
+.btn-add-to-cart-mini:hover::before {
+    left: 20px;
+}
+
+.btn-add-to-cart:hover,
+.btn-add-to-cart-mini:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(255, 107, 107, 0.5);
+    padding-left: 48px;
+}
+
+.btn-add-to-cart:active,
+.btn-add-to-cart-mini:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+ * Product Page
+ * ============================================ */
+.product-name {
+    font-family: var(--vd-font-heading);
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(135deg, 
+        var(--vd-primary) 0%, 
+        var(--vd-accent) 50%, 
+        var(--vd-accent-5) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.product-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 120px;
+    height: 6px;
+    background: linear-gradient(90deg, var(--vd-accent-2) 0%, var(--vd-accent) 100%);
+    border-radius: 3px;
+}
+
+.product-price {
+    font-size: 56px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--vd-primary) 0%, var(--vd-accent-4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 32px 0;
+    font-family: var(--vd-font-heading);
+    position: relative;
+}
+
+.product-price::before {
+    content: '💰';
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 36px;
+}
+
+/* ============================================
+ * Category Header
+ * ============================================ */
+.category-title {
+    font-family: var(--vd-font-heading);
+    font-size: 52px;
+    font-weight: 900;
+    background: linear-gradient(135deg, 
+        var(--vd-primary) 0%, 
+        var(--vd-accent) 33%, 
+        var(--vd-accent-5) 66%, 
+        var(--vd-accent-4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+}
+
+.category-title::after {
+    content: '🌟';
+    position: absolute;
+    top: -10px;
+    right: -40px;
+    font-size: 28px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-15deg) scale(1.2); }
+    75% { transform: rotate(15deg) scale(0.8); }
+}
+
+.category-header {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(90deg, 
+        var(--vd-primary) 0%, 
+        var(--vd-accent) 33%, 
+        var(--vd-accent-4) 66%, 
+        var(--vd-accent-5) 100%) 1;
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+}
+
+/* ============================================
+ * Grid Layout
+ * ============================================ */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+    margin: 48px 0;
+}
+
+@media (min-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 28px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 32px;
+    }
+}
+
+/* ============================================
+ * Decorative Elements
+ * ============================================ */
+.product-add-form {
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 107, 0.05) 0%, 
+        rgba(78, 205, 196, 0.05) 100%);
+    border: 3px solid transparent;
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-add-form::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, 
+        var(--vd-primary) 0%, 
+        var(--vd-accent) 50%, 
+        var(--vd-accent-5) 100%);
+    border-radius: 24px;
+    z-index: -1;
+}
+
+.product-image-main {
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+    transition: transform 0.4s ease;
+}
+
+.product-image-main:hover {
+    transform: rotate(-2deg) scale(1.02);
+}
+
+.qty-input {
+    border: 3px solid var(--vd-gray-300);
+    border-radius: 16px;
+    padding: 14px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: var(--vd-font-heading);
+    transition: all 0.3s ease;
+}
+
+.qty-input:focus {
+    outline: none;
+    border-color: var(--vd-primary);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+    transform: scale(1.05);
+}
+
+/* ============================================
+ * Stock Badge
+ * ============================================ */
+.stock.in-stock {
+    background: linear-gradient(135deg, var(--vd-success) 0%, var(--vd-accent-3) 100%);
+    color: var(--vd-white);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.stock.in-stock::before {
+    content: '✓ ';
+    font-size: 16px;
+}
+
+/* ============================================
+ * Animations
+ * ============================================ */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.product-item:hover {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+ * Responsive Design
+ * ============================================ */
+@media (max-width: 768px) {
+    .product-name {
+        font-size: 28px;
+    }
+    
+    .category-title {
+        font-size: 36px;
+    }
+    
+    .product-price {
+        font-size: 40px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+

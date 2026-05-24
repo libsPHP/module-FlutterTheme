@@ -1,0 +1,138 @@
+<?php
+/**
+ * NativeMind FlutterTheme Fallback Product Template
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterTheme
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ * 
+ * @var \NativeMind\FlutterTheme\Block\Fallback\Product $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$product = $block->getProduct();
+$isMinimal = $block->isMinimalMode();
+
+if (!$product || !$product->getId()) {
+    echo '<div class="product-error">Product not found</div>';
+    return;
+}
+?>
+
+<?= /* @noEscape */ $block->getProductStructuredData() ?>
+
+<article class="fallback-product" itemscope itemtype="https://schema.org/Product">
+    <div class="product-container">
+        
+        <?php if (!$isMinimal): ?>
+        <!-- Breadcrumbs -->
+        <?= $block->getLayout()->createBlock(\Magento\Theme\Block\Html\Breadcrumbs::class)->toHtml() ?>
+        <?php endif; ?>
+        
+        <div class="product-main">
+            <!-- Product Image -->
+            <div class="product-media">
+                <?php $image = $block->getImage($product, 'product_page_image_large'); ?>
+                <img itemprop="image" 
+                     src="<?= $escaper->escapeUrl($image->getImageUrl()) ?>" 
+                     alt="<?= $escaper->escapeHtmlAttr($product->getName()) ?>"
+                     class="product-image-main">
+                
+                <?php if (!$isMinimal && $product->getMediaGalleryImages()): ?>
+                <div class="product-gallery">
+                    <?php foreach ($product->getMediaGalleryImages() as $galleryImage): ?>
+                        <img src="<?= $escaper->escapeUrl($galleryImage->getUrl()) ?>" 
+                             alt="<?= $escaper->escapeHtmlAttr($product->getName()) ?>"
+                             class="product-gallery-image">
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 itemprop="name" class="product-name">
+                    <?= $escaper->escapeHtml($product->getName()) ?>
+                </h1>
+                
+                <?php if ($product->getShortDescription()): ?>
+                <div class="product-description-short">
+                    <?= /* @noEscape */ $product->getShortDescription() ?>
+                </div>
+                <?php endif; ?>
+                
+                <!-- Price -->
+                <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-price">
+                    <span itemprop="price" content="<?= $escaper->escapeHtmlAttr($product->getFinalPrice()) ?>" class="price">
+                        <?= $block->getProductPrice($product) ?>
+                    </span>
+                    <meta itemprop="priceCurrency" content="<?= $escaper->escapeHtmlAttr($block->getCurrentCurrency()) ?>">
+                    <?php if ($product->isAvailable()): ?>
+                    <link itemprop="availability" href="https://schema.org/InStock">
+                    <span class="stock in-stock"><?= $escaper->escapeHtml(__('In Stock')) ?></span>
+                    <?php else: ?>
+                    <link itemprop="availability" href="https://schema.org/OutOfStock">
+                    <span class="stock out-of-stock"><?= $escaper->escapeHtml(__('Out of Stock')) ?></span>
+                    <?php endif; ?>
+                </div>
+                
+                <!-- SKU -->
+                <div class="product-sku">
+                    <strong><?= $escaper->escapeHtml(__('SKU:')) ?></strong>
+                    <span itemprop="sku"><?= $escaper->escapeHtml($product->getSku()) ?></span>
+                </div>
+                
+                <!-- Add to Cart Form (Simplified) -->
+                <?php if ($product->isAvailable() && $product->isSaleable()): ?>
+                <form action="<?= $escaper->escapeUrl($block->getAddToCartUrl($product)) ?>" 
+                      method="post" 
+                      class="product-add-form">
+                    <input type="hidden" name="product" value="<?= (int)$product->getId() ?>">
+                    <input type="hidden" name="form_key" value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
+                    
+                    <?php if (!$isMinimal): ?>
+                    <div class="product-qty">
+                        <label for="qty"><?= $escaper->escapeHtml(__('Qty:')) ?></label>
+                        <input type="number" 
+                               name="qty" 
+                               id="qty" 
+                               value="1" 
+                               min="1" 
+                               class="qty-input">
+                    </div>
+                    <?php else: ?>
+                    <input type="hidden" name="qty" value="1">
+                    <?php endif; ?>
+                    
+                    <button type="submit" class="btn-add-to-cart">
+                        <?= $escaper->escapeHtml(__('Add to Cart')) ?>
+                    </button>
+                </form>
+                <?php endif; ?>
+            </div>
+        </div>
+        
+        <?php if (!$isMinimal && $product->getDescription()): ?>
+        <!-- Full Description -->
+        <div class="product-description" itemprop="description">
+            <h2><?= $escaper->escapeHtml(__('Product Details')) ?></h2>
+            <?= /* @noEscape */ $product->getDescription() ?>
+        </div>
+        <?php endif; ?>
+        
+        <?php if (!$isMinimal): ?>
+        <!-- Additional Information -->
+        <?= $block->getChildHtml('product.info.additional') ?>
+        
+        <!-- Reviews -->
+        <?= $block->getChildHtml('reviews') ?>
+        
+        <!-- Related Products -->
+        <?= $block->getChildHtml('related') ?>
+        <?php endif; ?>
+        
+    </div>
+</article>
+

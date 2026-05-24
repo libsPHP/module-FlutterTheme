@@ -1,0 +1,30 @@
+# Flutter Web Build (copy here after building)
+# Uncomment if you want to exclude Flutter files from repo
+# view/frontend/web/flutter/*
+# !view/frontend/web/flutter/.gitkeep
+
+# Keep the flutter directory but ignore built files
+view/frontend/web/flutter/*.js
+view/frontend/web/flutter/*.json
+view/frontend/web/flutter/canvaskit/
+view/frontend/web/flutter/assets/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
