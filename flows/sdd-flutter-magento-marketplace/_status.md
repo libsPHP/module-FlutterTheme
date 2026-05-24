@@ -1,4 +1,4 @@
-# Status: sdd-flutter-magento-blockchain
+# Status: sdd-flutter-magento-marketplace
 
 ## Current Phase
 
@@ -30,15 +30,15 @@ DRAFTING
 ## Context Notes
 
 - Uses MagentoExtensionRegistry from core
-- ICPPaymentAdapter implements MagentoPaymentAdapter
-- NFTProductExtension implements MagentoProductExtension
-- Multi-chain support via BlockchainNetwork enum
-- Testnet/mainnet via BlockchainConfig
+- SellerProductExtension provides product-seller mapping
+- MarketplaceCartExtension handles split cart by seller
+- MarketplaceCheckoutExtension for multi-vendor checkout
+- Compatible with Webkul/Amasty/custom marketplace modules
 
 ## Next Actions
 
 1. Create implementation plan
-2. Implement BlockchainConfig
-3. Implement ICPPaymentAdapter
-4. Implement NFTProductExtension
-5. Implement YukuMarketplaceExtension
+2. Implement Seller model and repository
+3. Implement product extension
+4. Implement cart extension
+5. Implement checkout extension
