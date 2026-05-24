@@ -1,0 +1,5 @@
+package net.nativemind.flutter.magento.flutter_magento_blockchain_example
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
