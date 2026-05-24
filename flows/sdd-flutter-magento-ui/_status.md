@@ -1,4 +1,4 @@
-# Status: sdd-flutter-magento-offline
+# Status: sdd-flutter-magento-ui
 
 ## Current Phase
 
@@ -29,16 +29,15 @@ DRAFTING
 
 ## Context Notes
 
-- Decorator pattern wraps repositories
-- Hive for local storage (fast, simple)
-- OperationQueue for pending offline mutations
-- SyncEngine coordinates background sync
-- LRU cache eviction for storage limits
+- State management agnostic widgets
+- MagentoTheme for consistent styling
+- Widgets consume SDK models directly
+- Accessibility-first design
 
 ## Next Actions
 
 1. Create implementation plan
-2. Implement MagentoCache interface
-3. Implement HiveMagentoCache
-4. Implement cached repositories
-5. Implement sync engine
+2. Implement theme system
+3. Implement product widgets
+4. Implement cart widgets
+5. Implement form widgets

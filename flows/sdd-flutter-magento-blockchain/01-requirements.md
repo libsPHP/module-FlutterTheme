@@ -1,68 +1,69 @@
-# Requirements: Blockchain Integration
+# Requirements: flutter_magento_blockchain
 
-> Version: 1.0 (Retrospective)  
-> Status: APPROVED  
-> Last Updated: March 1, 2026
-
----
+> Version: 1.0
+> Status: APPROVED
+> Last Updated: 2026-05-24
 
 ## Problem Statement
 
-**Problem**: Modern e-commerce needs blockchain integration for crypto payments, NFT products, and decentralized marketplaces.
-
-**Why it matters**:
-- Growing demand for crypto payments
-- NFTs for digital product ownership
-- Decentralized marketplace opportunities
-- Web3 integration competitive advantage
-
----
+Modern e-commerce increasingly integrates with blockchain for crypto payments, NFT-based digital products, and decentralized marketplaces. This package provides Magento extension interfaces for blockchain integrations (ICP, NFT, Yuku marketplace).
 
 ## User Stories
 
 ### Primary
 
-**As a** crypto user  
-**I want** pay with ICP tokens  
-**So that** use cryptocurrency for purchases
+**As a** Flutter developer
+**I want** crypto payment adapter
+**So that** users can pay with ICP tokens
 
-**As a** creator  
-**I want** mint NFTs for products  
-**So that** prove authenticity and ownership
+**As a** Flutter developer
+**I want** NFT product extension
+**So that** digital products can be tokenized
 
-**As a** vendor  
-**I want** join Yuku marketplace  
-**So that** sell products on decentralized platform
+**As a** Flutter developer
+**I want** Yuku marketplace integration
+**So that** products can be listed on decentralized platform
 
----
+### Secondary
+
+**As a** Flutter developer
+**I want** wallet connection UI helpers
+**So that** users can easily connect their wallets
 
 ## Acceptance Criteria
 
 ### Must Have
 
-1. **Given** user has ICP wallet  
-   **When** connects to app  
-   **Then** can pay with ICP tokens
+1. **Given** user has ICP wallet
+   **When** checkout payment method selected
+   **Then** ICP payment adapter handles transaction
 
-2. **Given** product is NFT-enabled  
-   **When** purchased  
-   **Then** NFT transfers to buyer
+2. **Given** product has NFT flag
+   **When** fetched via catalog
+   **Then** NFT extension provides token metadata
 
-3. **Given** vendor account  
-   **When** lists on Yuku  
-   **Then** visible on marketplace
+3. **Given** vendor on Yuku
+   **When** products synced
+   **Then** appear on both Magento and Yuku
 
----
+### Should Have
+
+- Multi-chain NFT support (ICP, Ethereum)
+- Testnet/mainnet toggle
+- Wallet balance display
+
+### Won't Have (This Iteration)
+
+- Custom blockchain deployment
+- DAO governance features
+- DeFi integrations
 
 ## Constraints
 
-### Technical
-- Integration with flutter_icp, flutter_nft, flutter_yuku
-- Multi-chain support for NFTs
-- Testnet and mainnet support
+- **Technical**: Use flutter_icp, flutter_nft, flutter_yuku packages
+- **Platform**: Mobile only (wallet limitations on web)
 
----
+## References
 
-## Approval
-
-- [x] Approved on: March 1, 2026
+- Internet Computer Protocol documentation
+- flutter_icp, flutter_nft, flutter_yuku packages

@@ -1,4 +1,4 @@
-# Status: sdd-flutter-magento-offline
+# Status: sdd-flutter-magento-riverpod
 
 ## Current Phase
 
@@ -29,16 +29,14 @@ DRAFTING
 
 ## Context Notes
 
-- Decorator pattern wraps repositories
-- Hive for local storage (fast, simple)
-- OperationQueue for pending offline mutations
-- SyncEngine coordinates background sync
-- LRU cache eviction for storage limits
+- AsyncNotifierProvider for stateful controllers (auth, cart, checkout)
+- FutureProvider.family for query-based data (products, orders)
+- Auth controller triggers cart merge on login
+- magentoConfigProvider must be overridden by app
 
 ## Next Actions
 
 1. Create implementation plan
-2. Implement MagentoCache interface
-3. Implement HiveMagentoCache
-4. Implement cached repositories
-5. Implement sync engine
+2. Implement core providers
+3. Implement controllers
+4. Implement query providers

@@ -1,81 +1,252 @@
-# Specifications: Offline Mode & Data Sync
+# Specifications: flutter_magento_offline
 
-> Version: 1.3
-> Status: DRAFT
-> Last Updated: 2026-01-30
-> Requirements: [link to 01-requirements.md]
+> Version: 1.0
+> Status: APPROVED
+> Last Updated: 2026-05-24
+> Requirements: [01-requirements.md](./01-requirements.md)
 
 ## Overview
 
-The Offline Mode feature enables users to continue swiping and annotating properties without an active internet connection. It achieves this by:
-1.  **Proactive Caching:** Maintaining a local buffer of `N` items in a SQLite database.
-2.  **Tiered Image Caching:** Fetching images optimized for the device, with a subset (`M%`) fetched in Ultra-High-Res for zooming.
-3.  **Smart Management:** Using an LRU strategy while protecting "Liked" and high-priority data.
-4.  **Queue Sync:** Synchronizing user actions in the background.
+flutter_magento_offline provides cache decorators for repositories and a sync engine for offline operations. It uses the decorator pattern to wrap existing repositories without changing their interface.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `TaxLienService` | Modify | Route requests through `DataRepository`. |
-| `SwipeFeature` | Modify | Consume stream of properties from repository. |
-| `LocalStorage` | Create | SQLite schema for properties, images, and action queue. |
-| `SyncManager` | Create | Background service for prefetching and syncing. |
+| MagentoCache interface | Create | Abstract cache operations |
+| HiveMagentoCache | Create | Hive-based implementation |
+| CachedCatalogRepository | Create | Caching decorator |
+| OfflineCartRepository | Create | Queue + cache decorator |
+| MagentoSyncEngine | Create | Background sync |
+| OperationQueue | Create | Pending operations storage |
+
+## Architecture
+
+### Component Diagram
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  flutter_magento_offline                     │
+├─────────────────────────────────────────────────────────────┤
+│  ┌────────────────────────────────────────────────────┐     │
+│  │               MagentoSyncEngine                     │     │
+│  │         (Background sync coordinator)               │     │
+│  └────────────────────────────────────────────────────┘     │
+│                          │                                   │
+│  ┌───────────────────────┼───────────────────────────┐      │
+│  ▼                       ▼                           ▼      │
+│ ┌──────────┐  ┌──────────────────┐  ┌──────────────────┐   │
+│ │ Cached   │  │ OfflineCart      │  │ Operation        │   │
+│ │ Catalog  │  │ Repository       │  │ Queue            │   │
+│ │ Repo     │  │                  │  │                  │   │
+│ └────┬─────┘  └────────┬─────────┘  └──────────────────┘   │
+│      │                 │                                    │
+│      └─────────────────┼────────────────────────────────┐  │
+│                        ▼                                │  │
+│               ┌──────────────────┐                      │  │
+│               │  MagentoCache    │◄─────────────────────┘  │
+│               │  (Interface)     │                          │
+│               └────────┬─────────┘                          │
+│                        │                                    │
+│               ┌────────▼─────────┐                          │
+│               │ HiveMagentoCache │                          │
+│               └──────────────────┘                          │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Interfaces
 
-### New Interfaces
-
-#### IDataRepository
+### MagentoCache
 
 ```dart
-abstract class IDataRepository {
-  Stream<List<Property>> getPropertiesStream(FilterContext context);
-  Future<void> queueAction(UserAction action);
-  
-  /// Triggers a proactive refill of the cache.
-  /// Requests:
-  /// - 'Device-Max' resolution for 100% of batch.
-  /// - 'Source-Max' (Ultra) resolution for the first M% of the batch.
-  Future<void> prefetchBatch({
-    required int limit, 
-    required int ultraResLimit,
-    required DeviceCapabilities caps
-  });
+abstract interface class MagentoCache {
+  Future<T?> get<T>(String key, T Function(Map<String, dynamic>) decoder);
+  Future<void> set<T>(String key, T value, {Duration? ttl});
+  Future<void> delete(String key);
+  Future<void> deleteByPrefix(String prefix);
+  Future<void> clear();
+  Future<bool> containsKey(String key);
+  Future<CacheEntry<T>?> getWithMetadata<T>(
+    String key,
+    T Function(Map<String, dynamic>) decoder,
+  );
+}
+
+class CacheEntry<T> {
+  final T data;
+  final DateTime createdAt;
+  final DateTime? expiresAt;
+  final bool isExpired;
+
+  const CacheEntry({...});
 }
 ```
 
-## Integration Points
+### HiveMagentoCache
 
-### External API Recommendations (Gateway)
+```dart
+class HiveMagentoCache implements MagentoCache {
+  final Box<Map> _box;
+  final Duration defaultTtl;
+  final int maxEntries;
 
-1.  **`POST /api/v1/sync/actions`**: Batch upload.
-2.  **`GET /api/v1/properties/discovery`**: Recommendation feed with `priority_score`.
-3.  **`POST /api/v1/properties/priority-updates`**: Score deltas.
-4.  **`POST /api/v1/properties/details/bulk`**: High-res data fetch.
+  HiveMagentoCache({
+    required Box<Map> box,
+    this.defaultTtl = const Duration(hours: 1),
+    this.maxEntries = 1000,
+  }) : _box = box;
 
-### Image Strategy Recommendation
-- **Quality Mandate:** **ALL** photos must be stored and served in maximum quality.
-- **Two-Tier Preloading:**
-    - **Tier 1 (Device-Max):** 100% of preloaded items fetch images optimized for the device's maximum display dimensions (e.g., `?w=2048&q=90`).
-    - **Tier 2 (Ultra-Source):** A top subset (`M%`, e.g., first 20 items) fetches the original full-resolution source image (e.g., `?quality=source`) to allow offline zooming.
-- **Device-Specific Parameters:** Preload requests include `max_w`, `max_h`, and `dpr`.
-- **Processing:** On-the-fly resizing proxy to serve requested resolutions while maintaining source quality.
+  static Future<HiveMagentoCache> open({
+    String boxName = 'magento_cache',
+    Duration? defaultTtl,
+    int? maxEntries,
+  }) async {
+    await Hive.initFlutter();
+    final box = await Hive.openBox<Map>(boxName);
+    return HiveMagentoCache(
+      box: box,
+      defaultTtl: defaultTtl ?? const Duration(hours: 1),
+      maxEntries: maxEntries ?? 1000,
+    );
+  }
+}
+```
 
-## Testing Strategy
+### CachedCatalogRepository
 
-### Unit Tests
-- `DataRepository`: Verify tiered prefetching logic (correct number of Ultra vs Device-Max requests).
-- `LRU`: Verify "Liked" and "Ultra" items are handled correctly (Ultra might be heavier, but important).
+```dart
+class CachedCatalogRepository implements CatalogRepository {
+  final CatalogRepository inner;
+  final MagentoCache cache;
+  final CatalogCacheConfig config;
 
-### Integration Tests
-- Verify zooming works offline for the first `M%` of items.
-- Verify correct image dimensions/quality flags are sent to the Gateway.
+  CachedCatalogRepository({
+    required this.inner,
+    required this.cache,
+    this.config = const CatalogCacheConfig(),
+  });
+
+  @override
+  Future<ProductPage> searchProducts({...}) async {
+    final key = _buildProductsKey(query, filter, sort, page, pageSize);
+    final cached = await cache.getWithMetadata(key, ProductPage.fromJson);
+
+    if (cached != null && !cached.isExpired) {
+      return cached.data;
+    }
+
+    if (!await _isOnline() && cached != null) {
+      return cached.data;  // Stale data when offline
+    }
+
+    final fresh = await inner.searchProducts(...);
+    await cache.set(key, fresh, ttl: config.productListTtl);
+    return fresh;
+  }
+}
+```
+
+### OfflineCartRepository
+
+```dart
+class OfflineCartRepository implements CartRepository {
+  final CartRepository inner;
+  final MagentoCache cache;
+  final OperationQueue queue;
+
+  @override
+  Future<Cart> addSimpleProduct({
+    required String sku,
+    required int quantity,
+  }) async {
+    if (!await _isOnline()) {
+      await queue.enqueue(CartOperation.addSimple(sku: sku, quantity: quantity));
+      // Optimistic update on cached cart
+      final cached = await cache.get('cart:current', Cart.fromJson);
+      if (cached != null) {
+        return cached.withOptimisticAdd(sku, quantity);
+      }
+      throw MagentoNetworkException('Offline and no cached cart');
+    }
+
+    final cart = await inner.addSimpleProduct(sku: sku, quantity: quantity);
+    await cache.set('cart:current', cart);
+    return cart;
+  }
+}
+```
+
+### MagentoSyncEngine
+
+```dart
+class MagentoSyncEngine {
+  final OperationQueue queue;
+  final CartRepository cartRepository;
+
+  Stream<SyncEvent> get events => _eventController.stream;
+
+  Future<SyncResult> sync() async {
+    final operations = await queue.getPending();
+    int completed = 0, failed = 0;
+
+    for (final op in operations) {
+      try {
+        await _executeOperation(op);
+        await queue.markCompleted(op.id);
+        completed++;
+      } catch (e) {
+        await queue.markFailed(op.id, e.toString());
+        failed++;
+      }
+    }
+
+    return SyncResult(completed: completed, failed: failed);
+  }
+}
+
+sealed class SyncEvent {
+  factory SyncEvent.started() = SyncStarted;
+  factory SyncEvent.progress(int current, int total) = SyncProgress;
+  factory SyncEvent.completed(int completed, int failed) = SyncCompleted;
+  factory SyncEvent.failed(MagentoException error) = SyncFailed;
+}
+```
+
+## Dependencies
+
+### Requires
+
+- flutter_magento_core
+- hive: ^2.2.0
+- hive_flutter: ^1.1.0
+- connectivity_plus: ^5.0.0
+
+## Package Structure
+
+```
+lib/
+├── flutter_magento_offline.dart
+└── src/
+    ├── cache/
+    │   ├── magento_cache.dart
+    │   ├── hive_magento_cache.dart
+    │   └── cache_entry.dart
+    ├── repositories/
+    │   ├── cached_catalog_repository.dart
+    │   └── offline_cart_repository.dart
+    ├── queue/
+    │   ├── operation_queue.dart
+    │   └── operations.dart
+    ├── sync/
+    │   ├── magento_sync_engine.dart
+    │   └── sync_event.dart
+    └── config/
+        └── cache_config.dart
+```
 
 ---
 
 ## Approval
 
-- [ ] Reviewed by:
-- [ ] Approved on:
-- [ ] Notes:
+- [x] Reviewed by: User
+- [x] Approved on: 2026-05-24

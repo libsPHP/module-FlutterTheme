@@ -1,114 +1,175 @@
-# Specifications: Localization (l10n)
+# Specifications: flutter_magento_localizations
 
-**Status:** DRAFT
-**Created:** 2026-02-02
+> Version: 1.0
+> Status: APPROVED
+> Last Updated: 2026-05-24
+> Requirements: [01-requirements.md](./01-requirements.md)
 
-## 1. Technical Architecture
+## Overview
 
-### 1.1 Dependencies
-- **`flutter_localizations`**: Needed for standard Flutter localization widgets and classes.
-- **`intl`**: Already present, used for message formatting.
-- **`shared_preferences`**: Already present, used for persisting the user's language choice.
-- **`provider`**: Already present, used for state management (`LocaleProvider`).
+flutter_magento_localizations provides formatting utilities and generated localizations for magento_ui widgets. It handles currency, dates, and UI strings with multi-store awareness.
 
-### 1.2 Configuration (`l10n.yaml`)
-A `l10n.yaml` file will be created in the project root to configure the generation of localization classes.
-```yaml
-arb-dir: lib/l10n
-template-arb-file: app_en.arb
-output-localization-file: app_localizations.dart
+## Affected Systems
+
+| System | Impact | Notes |
+|--------|--------|-------|
+| MagentoFormatters | Create | Currency, date, number formatting |
+| MagentoLocalizations | Create | Generated l10n delegate |
+| ARB files | Create | Translation strings |
+| StoreLocale resolver | Create | Maps store context to Locale |
+
+## Architecture
+
+### Component Diagram
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                flutter_magento_localizations                 │
+├─────────────────────────────────────────────────────────────┤
+│  ┌────────────────────────────────────────────────────┐     │
+│  │            MagentoLocalizations                     │     │
+│  │         (Generated LocalizationsDelegate)           │     │
+│  └────────────────────────────────────────────────────┘     │
+│                          │                                   │
+│  ┌───────────┬───────────┼───────────┬───────────────┐      │
+│  ▼           ▼           ▼           ▼               ▼      │
+│ ┌─────┐   ┌─────┐   ┌─────┐   ┌─────────┐   ┌───────┐      │
+│ │Money│   │Date │   │Number│  │ Store   │   │ RTL   │      │
+│ │Fmt  │   │Fmt  │   │Fmt   │  │ Locale  │   │Support│      │
+│ └─────┘   └─────┘   └─────┘  └─────────┘   └───────┘      │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### 1.3 File Structure
+## Formatters
+
+### MagentoFormatters
+
+```dart
+class MagentoFormatters {
+  final Locale locale;
+  final String currency;
+
+  MagentoFormatters({
+    required this.locale,
+    required this.currency,
+  });
+
+  factory MagentoFormatters.fromContext(MagentoStoreContext context) {
+    return MagentoFormatters(
+      locale: Locale(context.locale.split('_').first),
+      currency: context.currency,
+    );
+  }
+
+  /// Format money value
+  String formatMoney(Money money);
+
+  /// Format plain number
+  String formatNumber(num value, {int? decimalPlaces});
+
+  /// Format quantity
+  String formatQuantity(int quantity);
+
+  /// Format date only
+  String formatDate(DateTime date);
+
+  /// Format date and time
+  String formatDateTime(DateTime dateTime);
+
+  /// Format relative time
+  String formatRelative(DateTime dateTime);
+
+  /// Format weight
+  String formatWeight(double weight, {String unit = 'kg'});
+
+  /// Format percentage
+  String formatPercent(double value);
+}
+```
+
+### StoreLocaleResolver
+
+```dart
+class StoreLocaleResolver {
+  static Locale resolveLocale(MagentoStoreContext context);
+  static bool isRtl(MagentoStoreContext context);
+  static TextDirection textDirection(MagentoStoreContext context);
+}
+```
+
+## Generated Localizations
+
+```dart
+abstract class MagentoLocalizations {
+  static MagentoLocalizations of(BuildContext context);
+  static const LocalizationsDelegate<MagentoLocalizations> delegate;
+  static const List<Locale> supportedLocales;
+
+  // Cart strings
+  String get cartTitle;
+  String get cartEmpty;
+  String get cartSubtotal;
+  String get cartTotal;
+  String get cartCheckout;
+  String cartItemCount(int count);
+
+  // Product strings
+  String get addToCart;
+  String get outOfStock;
+  String get inStock;
+
+  // Checkout strings
+  String get shippingAddress;
+  String get billingAddress;
+  String get paymentMethod;
+  String get placeOrder;
+
+  // Form strings
+  String get firstName;
+  String get lastName;
+  String get email;
+  // ... etc
+}
+```
+
+## ARB Files
+
+```
+lib/l10n/
+├── magento_en.arb
+├── magento_es.arb
+├── magento_de.arb
+├── magento_fr.arb
+└── magento_ar.arb
+```
+
+## Dependencies
+
+### Requires
+
+- flutter_magento_core (MagentoStoreContext, Money)
+- intl: ^0.19.0
+- flutter_localizations (SDK)
+
+## Package Structure
+
 ```
 lib/
+├── flutter_magento_localizations.dart
 ├── l10n/
-│   ├── app_en.arb (English - Template)
-│   ├── app_zh.arb (Chinese)
-│   ├── app_hi.arb (Hindi)
-│   ├── app_bn.arb (Bengali)
-│   ├── app_ru.arb (Russian)
-│   └── app_th.arb (Thai)
-├── core/
-│   ├── localization/
-│   │   ├── locale_provider.dart
-│   │   └── language_constants.dart
+│   └── *.arb files
+└── src/
+    ├── formatters/
+    │   └── magento_formatters.dart
+    ├── locale/
+    │   └── store_locale_resolver.dart
+    └── generated/
+        └── magento_localizations.dart
 ```
 
-### 1.4 State Management (`LocaleProvider`)
-A `LocaleProvider` class (extending `ChangeNotifier`) will manage the application's locale state.
+---
 
-**Responsibilities:**
-1.  **Initialization:** Load the saved locale from `SharedPreferences` on app start.
-2.  **Fallback:** If no preference is saved, use `WidgetsBinding.instance.platformDispatcher.locale` to check if the device locale is supported. If not, default to English.
-3.  **Update:** Allow the UI to set a new locale, update the state, and persist the choice to `SharedPreferences`.
+## Approval
 
-**Interface:**
-```dart
-class LocaleProvider extends ChangeNotifier {
-  Locale? _locale;
-  Locale get locale => _locale ?? const Locale('en');
-
-  Future<void> setLocale(Locale locale);
-  Future<void> loadSavedLocale();
-  bool isSupported(Locale locale);
-}
-```
-
-## 2. Implementation Details
-
-### 2.1 `app_en.arb` (Initial Scope)
-The initial ARB file will contain basic structural strings and strings for the Profile screen to demonstrate functionality.
-
-```json
-{
-  "appTitle": "TaxLien Swipe",
-  "profileTitle": "Expert Profile",
-  "language": "Language",
-  "settings": "Settings",
-  "roles": "Roles",
-  "switchProfile": "Switch Profile"
-}
-```
-
-### 2.2 Integration in `main.dart`
-The `MaterialApp` must be updated to use the generated delegates and the provider's locale.
-
-```dart
-// inside build()
-return MaterialApp.router(
-  // ...
-  locale: provider.locale,
-  localizationsDelegates: AppLocalizations.localizationsDelegates,
-  supportedLocales: AppLocalizations.supportedLocales,
-  // ...
-);
-```
-
-### 2.3 UI: Language Switcher
-A new widget `LanguageSelector` will be added to `ProfileScreen`.
-
-**Design:**
-- A `ListTile` with title "Language" and a trailing dropdown or text indicating the current language.
-- Tapping it opens a selection dialog or navigates to a selection screen.
-- **Display Names:**
-    - English
-    - 中文 (Chinese)
-    - हिन्दी (Hindi)
-    - বাংলা (Bengali)
-    - Русский (Russian)
-    - ไทย (Thai)
-
-## 3. Workflow for Adding Strings
-1.  Developer adds a new key-value pair to `lib/l10n/app_en.arb`.
-2.  Run `flutter gen-l10n` (or rely on IDE auto-gen).
-3.  Use `AppLocalizations.of(context)!.keyName` in widgets.
-4.  Translators (or AI) populate other `.arb` files.
-
-## 4. Testing
-- **Unit:** Verify `LocaleProvider` correctly persists and loads locales.
-- **Manual:**
-    1.  Launch app -> Default should be System or En.
-    2.  Go to Profile -> Change to Russian.
-    3.  Verify UI updates immediately.
-    4.  Restart app -> Verify Russian is still selected.
+- [x] Reviewed by: User
+- [x] Approved on: 2026-05-24
