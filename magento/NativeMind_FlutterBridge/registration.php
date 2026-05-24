@@ -1,9 +1,11 @@
 <?php
 /**
- * NativeMind FlutterTheme Module Registration
+ * NativeMind FlutterBridge Module Registration
+ *
+ * Theme-agnostic Magento 2 module for flutter_magento integration.
  *
  * @category    NativeMind
- * @package     NativeMind_FlutterTheme
+ * @package     NativeMind_FlutterBridge
  * @author      NativeMind <contact@nativemind.net>
  * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
  * @license     https://opensource.org/licenses/MIT
@@ -13,7 +15,6 @@ use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
-    'NativeMind_FlutterTheme',
+    'NativeMind_FlutterBridge',
     __DIR__
 );
-

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * NativeMind FlutterTheme ACL Configuration
+ * NativeMind FlutterBridge ACL Configuration
  *
  * @category    NativeMind
- * @package     NativeMind_FlutterTheme
+ * @package     NativeMind_FlutterBridge
  * @author      NativeMind <contact@nativemind.net>
  * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
  * @license     https://opensource.org/licenses/MIT
@@ -17,7 +17,7 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="NativeMind_FlutterTheme::config" title="Flutter Theme" sortOrder="100"/>
+                            <resource id="NativeMind_FlutterBridge::config" title="Flutter Bridge" sortOrder="100"/>
                         </resource>
                     </resource>
                 </resource>
@@ -25,4 +25,3 @@
         </resources>
     </acl>
 </config>
-

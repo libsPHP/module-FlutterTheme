@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * NativeMind FlutterTheme System Configuration
+ * NativeMind FlutterBridge System Configuration
  *
  * @category    NativeMind
- * @package     NativeMind_FlutterTheme
+ * @package     NativeMind_FlutterBridge
  * @author      NativeMind <contact@nativemind.net>
  * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
  * @license     https://opensource.org/licenses/MIT
@@ -15,85 +15,281 @@
         <tab id="nativemind" translate="label" sortOrder="300">
             <label>NativeMind</label>
         </tab>
-        <section id="flutter_theme" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Flutter Theme</label>
+
+        <section id="nativemind_flutterbridge" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Flutter Bridge</label>
             <tab>nativemind</tab>
-            <resource>NativeMind_FlutterTheme::config</resource>
-            
+            <resource>NativeMind_FlutterBridge::config</resource>
+
+            <!-- General Settings -->
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General Settings</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable Flutter Theme</label>
+                    <label>Enable Flutter Bridge</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enable Progressive Enhancement with Flutter Web</comment>
+                    <comment>Enable route metadata and SEO features for flutter_magento integration</comment>
                 </field>
-                <field id="force_fallback" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Force Fallback Mode</label>
+                <field id="debug_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug Mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Always serve HTML fallback version (for testing)</comment>
+                    <comment>Enable debug endpoint at /flutterbridge/debug/route</comment>
                 </field>
             </group>
-            
-            <group id="detection" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Detection Settings</label>
-                <field id="detect_crawlers" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Detect Search Crawlers</label>
+
+            <!-- Route Metadata Settings -->
+            <group id="route" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Route Metadata</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Route Metadata</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Automatically serve fallback to search engine bots</comment>
+                    <comment>Output flutter_magento route JSON on pages</comment>
                 </field>
-                <field id="detect_js" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Detect JavaScript Support</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Check if browser supports JavaScript before loading Flutter</comment>
+                <field id="standard_version" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Standard Version</label>
+                    <comment>Route standard version identifier</comment>
                 </field>
-                <field id="js_cookie_name" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>JS Cookie Name</label>
-                    <comment>Cookie name for JavaScript detection</comment>
+                <field id="product_app_route" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product App Route</label>
+                    <comment>Pattern: /product/{sku} - Variables: {id}, {sku}, {urlKey}</comment>
                 </field>
-                <field id="js_cookie_lifetime" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>JS Cookie Lifetime (seconds)</label>
-                    <comment>How long to remember JS support (default: 1 year)</comment>
+                <field id="category_app_route" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category App Route</label>
+                    <comment>Pattern: /category/{id} - Variables: {id}, {urlKey}, {urlPath}</comment>
+                </field>
+                <field id="cms_app_route" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CMS Page App Route</label>
+                    <comment>Pattern: /page/{identifier} - Variables: {id}, {identifier}</comment>
+                </field>
+                <field id="search_app_route" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search App Route</label>
+                    <comment>Pattern: /search?q={query}</comment>
                 </field>
             </group>
-            
-            <group id="flutter" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Flutter Settings</label>
-                <field id="canvas_kit_renderer" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Use CanvasKit Renderer</label>
+
+            <!-- Canonical URL Settings -->
+            <group id="canonical" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Canonical URLs</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Canonical Management</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>CanvasKit provides better performance but larger bundle size</comment>
+                    <comment>Manage canonical URLs via Flutter Bridge</comment>
                 </field>
-                <field id="service_worker_enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable Service Worker</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Enables offline support and caching</comment>
+                <field id="product_mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Canonical Mode</label>
+                    <source_model>NativeMind\FlutterBridge\Model\Config\Source\ProductCanonicalMode</source_model>
+                    <comment>How to generate product canonical URLs</comment>
                 </field>
-                <field id="preload_assets" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Preload Flutter Assets</label>
+                <field id="category_filtered_mode" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filtered Category Mode</label>
+                    <source_model>NativeMind\FlutterBridge\Model\Config\Source\CategoryFilteredMode</source_model>
+                    <comment>How to handle canonical for filtered category pages</comment>
+                </field>
+                <field id="strip_utm" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Strip UTM Parameters</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Preload critical Flutter assets for faster initialization</comment>
+                    <comment>Remove utm_* parameters from canonical URLs</comment>
+                </field>
+                <field id="strip_tracking" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Strip Tracking Parameters</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Remove common tracking parameters (gclid, fbclid, etc.)</comment>
                 </field>
             </group>
-            
-            <group id="seo" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>SEO Settings</label>
-                <field id="structured_data" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Include Structured Data</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Add JSON-LD structured data for search engines</comment>
+
+            <!-- Robots Meta Settings -->
+            <group id="robots" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Robots Meta</label>
+                <field id="search_robots" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Results Robots</label>
+                    <comment>e.g., noindex,follow</comment>
                 </field>
-                <field id="fallback_css" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Load Fallback CSS</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Include CSS for fallback HTML version</comment>
+                <field id="filtered_category_robots" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filtered Category Robots</label>
+                    <comment>Applied when category has active filters</comment>
                 </field>
-                <field id="minimal_html" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Minimal HTML Mode</label>
+                <field id="cart_robots" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Page Robots</label>
+                </field>
+                <field id="checkout_robots" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Page Robots</label>
+                </field>
+                <field id="customer_robots" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Account Robots</label>
+                </field>
+            </group>
+
+            <!-- JSON-LD Settings -->
+            <group id="jsonld" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>JSON-LD Structured Data</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable JSON-LD</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Generate minimal HTML for crawlers (faster loading)</comment>
+                    <comment>Output schema.org structured data</comment>
+                </field>
+                <field id="mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>JSON-LD Mode</label>
+                    <source_model>NativeMind\FlutterBridge\Model\Config\Source\JsonLdMode</source_model>
+                    <comment>How to handle if theme already outputs JSON-LD</comment>
+                </field>
+                <field id="product_enabled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product JSON-LD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="breadcrumb_enabled" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Breadcrumb JSON-LD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="organization_enabled" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Organization JSON-LD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="category_itemlist_enabled" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category ItemList JSON-LD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Output ItemList for category product listings (can be large)</comment>
+                </field>
+            </group>
+
+            <!-- OpenGraph Settings -->
+            <group id="opengraph" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>OpenGraph / Twitter</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable OpenGraph</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Output OpenGraph and Twitter meta tags</comment>
+                </field>
+                <field id="mode" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>OpenGraph Mode</label>
+                    <source_model>NativeMind\FlutterBridge\Model\Config\Source\OpenGraphMode</source_model>
+                    <comment>How to handle if theme already outputs OG tags</comment>
+                </field>
+                <field id="default_image" translate="label comment" type="image" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Share Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">nativemind/flutterbridge</upload_dir>
+                    <base_url type="media" scope_info="1">nativemind/flutterbridge</base_url>
+                    <comment>Fallback image for pages without product/category image</comment>
+                </field>
+                <field id="twitter_card_type" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter Card Type</label>
+                    <source_model>NativeMind\FlutterBridge\Model\Config\Source\TwitterCardType</source_model>
+                </field>
+            </group>
+
+            <!-- App Links Settings -->
+            <group id="app_links" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>App Links</label>
+                <field id="android_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Android App Links</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="android_package_name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Android Package Name</label>
+                    <comment>e.g., com.example.myapp</comment>
+                    <depends>
+                        <field id="android_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="android_sha256_fingerprints" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Android SHA256 Fingerprints</label>
+                    <comment>One fingerprint per line (AA:BB:CC:DD:...)</comment>
+                    <depends>
+                        <field id="android_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="android_playstore_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Google Play Store URL</label>
+                    <depends>
+                        <field id="android_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="ios_enabled" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable iOS Universal Links</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ios_team_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>iOS Team ID</label>
+                    <comment>Apple Developer Team ID</comment>
+                    <depends>
+                        <field id="ios_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="ios_bundle_id" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>iOS Bundle ID</label>
+                    <comment>e.g., com.example.myapp</comment>
+                    <depends>
+                        <field id="ios_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="ios_appstore_url" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>App Store URL</label>
+                    <depends>
+                        <field id="ios_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- App Banner Settings -->
+            <group id="app_banner" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>App Banner</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable App Banner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show "Open in App" banner on pages</comment>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Banner Title</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="subtitle" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Banner Subtitle</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="open_button_text" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Open Button Text</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="install_button_text" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Install Button Text</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="show_on_product" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show on Product Pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="show_on_category" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show on Category Pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="show_on_home" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show on Home Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="dismiss_cookie_days" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dismiss Duration (days)</label>
+                    <comment>How long to hide banner after user dismisses it</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                 </field>
             </group>
         </section>
     </system>
 </config>
-
