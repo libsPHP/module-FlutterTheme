@@ -1,0 +1,58 @@
+name: flutter_magento_marketplace
+description: "DEPRECATED: This package has been merged into flutter_magento. Use flutter_magento ^3.6.0 instead. Flutter library for Magento 2 Marketplace functionality with multi-seller support, subdomains, ratings, and messaging"
+version: 1.2.0
+homepage: https://github.com/nativemind/flutter_magento_marketplace
+deprecated: true
+
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Core dependencies
+  cached_network_image: ^3.4.1
+  device_info_plus: ^12.1.0
+  dio: ^5.9.0
+  equatable: ^2.0.5
+  flutter_magento:
+    path: ../flutter_magento
+  flutter_riverpod: ^3.0.0
+  flutter_staggered_grid_view: ^0.7.0
+  freezed_annotation: ^3.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  image_picker: ^1.0.4
+  intl: ^0.20.0
+  json_annotation: ^4.9.0
+  package_info_plus: ^8.1.0
+  pull_to_refresh: ^2.0.0
+  riverpod_annotation: ^3.0.0
+  shared_preferences: ^2.5.3
+  shimmer: ^3.0.0
+  url_launcher: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # Code generation
+  build_runner: ^2.7.1
+  freezed: ^3.2.3
+  json_serializable: ^6.11.1
+  riverpod_generator: ^3.0.0
+  
+  # Linting
+  flutter_lints: ^6.0.0
+  very_good_analysis: ^5.1.0
+  
+  # Testing
+  integration_test:
+    sdk: flutter
+  mockito: ^5.4.4
+
+flutter:
+  uses-material-design: true
+

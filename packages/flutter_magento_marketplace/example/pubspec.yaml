@@ -1,0 +1,24 @@
+name: flutter_magento_marketplace_example
+description: Example app for flutter_magento_marketplace package
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State management
+  flutter_riverpod: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # Linting
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
