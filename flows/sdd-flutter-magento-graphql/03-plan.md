@@ -159,5 +159,5 @@ After each phase, verify:
 
 ## Approval
 
-- [ ] Reviewed by: [name]
-- [ ] Approved on: [date]
+- [x] Reviewed by: User
+- [x] Approved on: 2026-05-25

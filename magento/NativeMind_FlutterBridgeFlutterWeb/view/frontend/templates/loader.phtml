@@ -1,0 +1,133 @@
+<?php
+/** @var \NativeMind\FlutterBridgeFlutterWeb\Block\Loader $block */
+if (!$block->isEnabled()) {
+    return;
+}
+$config = $block->getLoaderConfig();
+$baseUrl = $block->escapeUrl($config['baseUrl']);
+$timeout = (int) $config['timeout'];
+$serviceWorkerEnabled = $config['serviceWorkerEnabled'] ? 'true' : 'false';
+$debug = $config['debug'] ? 'true' : 'false';
+?>
+<!-- Flutter Web Progressive Enhancement Loader -->
+<div id="flutter-container" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;display:none;background:#fff;">
+    <div id="flutter-loading" style="display:flex;justify-content:center;align-items:center;height:100%;">
+        <div style="text-align:center;">
+            <div style="width:48px;height:48px;border:4px solid #f3f3f3;border-top:4px solid #3498db;border-radius:50%;animation:flutter-spin 1s linear infinite;margin:0 auto;"></div>
+            <p style="margin-top:16px;color:#666;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Loading...</p>
+        </div>
+    </div>
+</div>
+<style>
+@keyframes flutter-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+<script>
+(function() {
+    'use strict';
+
+    var config = {
+        baseUrl: <?= /* @noEscape */ json_encode($baseUrl) ?>,
+        timeout: <?= $timeout ?>,
+        serviceWorkerEnabled: <?= $serviceWorkerEnabled ?>,
+        debug: <?= $debug ?>
+    };
+
+    var flutterContainer = document.getElementById('flutter-container');
+    var flutterLoading = document.getElementById('flutter-loading');
+    var flutterLoaded = false;
+    var timeoutId = null;
+
+    function log(message) {
+        if (config.debug) {
+            console.log('[FlutterWeb]', message);
+        }
+    }
+
+    function showMagento() {
+        if (flutterContainer) {
+            flutterContainer.style.display = 'none';
+        }
+        log('Falling back to Magento content');
+    }
+
+    function showFlutter() {
+        if (flutterContainer) {
+            flutterContainer.style.display = 'block';
+        }
+        if (flutterLoading) {
+            flutterLoading.style.display = 'none';
+        }
+        log('Flutter Web loaded successfully');
+    }
+
+    function loadFlutter() {
+        log('Loading Flutter Web from: ' + config.baseUrl);
+
+        flutterContainer.style.display = 'block';
+
+        timeoutId = setTimeout(function() {
+            if (!flutterLoaded) {
+                log('Flutter load timeout after ' + config.timeout + 'ms');
+                showMagento();
+            }
+        }, config.timeout);
+
+        var script = document.createElement('script');
+        script.src = config.baseUrl + 'main.dart.js';
+        script.async = true;
+
+        script.onload = function() {
+            log('main.dart.js loaded');
+        };
+
+        script.onerror = function() {
+            log('Failed to load main.dart.js');
+            clearTimeout(timeoutId);
+            showMagento();
+        };
+
+        document.body.appendChild(script);
+
+        if (config.serviceWorkerEnabled && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.register(config.baseUrl + 'flutter_service_worker.js')
+                .then(function(reg) {
+                    log('Service Worker registered: ' + reg.scope);
+                })
+                .catch(function(err) {
+                    log('Service Worker registration failed: ' + err);
+                });
+        }
+    }
+
+    window._flutter = window._flutter || {};
+    window._flutter.loader = window._flutter.loader || {};
+
+    var originalOnEntrypointLoaded = window._flutter.loader.onEntrypointLoaded;
+    window._flutter.loader.onEntrypointLoaded = function(config) {
+        log('Flutter entrypoint loaded');
+        flutterLoaded = true;
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
+        config.initializeEngine().then(function(engine) {
+            log('Flutter engine initialized');
+            return engine.runApp();
+        }).then(function() {
+            showFlutter();
+        }).catch(function(err) {
+            log('Flutter initialization error: ' + err);
+            showMagento();
+        });
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFlutter);
+    } else {
+        loadFlutter();
+    }
+})();
+</script>

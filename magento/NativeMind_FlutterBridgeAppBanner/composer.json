@@ -1,0 +1,20 @@
+{
+    "name": "nativemind/module-flutter-bridge-app-banner",
+    "description": "NativeMind FlutterBridge App Banner - Open in App smart banner",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "2.0.0",
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "^103.0",
+        "nativemind/module-flutter-bridge-core": "^2.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "NativeMind\\FlutterBridgeAppBanner\\": ""
+        }
+    }
+}

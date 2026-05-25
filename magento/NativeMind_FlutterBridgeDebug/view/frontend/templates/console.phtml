@@ -1,0 +1,50 @@
+<?php
+/** @var \NativeMind\FlutterBridgeDebug\Block\Console $block */
+if (!$block->isEnabled()) {
+    return;
+}
+$version = $block->escapeJs($block->getVersion());
+?>
+<script>
+(function() {
+    'use strict';
+
+    var version = <?= /* @noEscape */ json_encode($version) ?>;
+
+    console.log(
+        '%c FlutterBridge v' + version + ' %c Debug Mode Enabled ',
+        'background: #3498db; color: white; padding: 2px 6px; border-radius: 3px 0 0 3px;',
+        'background: #e74c3c; color: white; padding: 2px 6px; border-radius: 0 3px 3px 0;'
+    );
+
+    window.FlutterBridgeDebug = {
+        version: version,
+        log: function(message, data) {
+            console.log('%c[FlutterBridge]%c ' + message, 'color: #3498db; font-weight: bold;', 'color: inherit;', data || '');
+        },
+        warn: function(message, data) {
+            console.warn('%c[FlutterBridge]%c ' + message, 'color: #f39c12; font-weight: bold;', 'color: inherit;', data || '');
+        },
+        error: function(message, data) {
+            console.error('%c[FlutterBridge]%c ' + message, 'color: #e74c3c; font-weight: bold;', 'color: inherit;', data || '');
+        },
+        getRouteMetadata: function() {
+            var el = document.getElementById('flutter-magento-v1-route');
+            if (el) {
+                try {
+                    return JSON.parse(el.textContent);
+                } catch (e) {
+                    this.error('Failed to parse route metadata', e);
+                    return null;
+                }
+            }
+            return null;
+        },
+        inspect: function() {
+            this.log('Route Metadata:', this.getRouteMetadata());
+        }
+    };
+
+    window.FlutterBridgeDebug.log('Debug utilities loaded. Use FlutterBridgeDebug.inspect() to view route metadata.');
+})();
+</script>
