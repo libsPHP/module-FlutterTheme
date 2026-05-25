@@ -1,8 +1,18 @@
+/// Magento localization and formatting utilities.
+///
+/// Provides locale-aware formatting for currency, dates, numbers,
+/// and UI strings for magento_ui widgets.
+library;
 
-import 'flutter_magento_localizations_platform_interface.dart';
+// Re-export core types
+export 'package:flutter_magento_core/flutter_magento_core.dart'
+    show MagentoStoreContext, Money;
 
-class FlutterMagentoLocalizations {
-  Future<String?> getPlatformVersion() {
-    return FlutterMagentoLocalizationsPlatform.instance.getPlatformVersion();
-  }
-}
+// Formatters
+export 'src/formatters/magento_formatters.dart';
+
+// Locale utilities
+export 'src/locale/store_locale_resolver.dart';
+
+// Localizations
+export 'src/l10n/magento_localizations.dart';
