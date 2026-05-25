@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="nativemind_flutterbridge">
+            <group id="applinks" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>App Links</label>
+                <comment><![CDATA[Configure .well-known endpoints for Android App Links and iOS Universal Links]]></comment>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable App Links</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable .well-known/assetlinks.json and .well-known/apple-app-site-association endpoints</comment>
+                </field>
+                <field id="android_package_name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Android Package Name</label>
+                    <comment>e.g., com.example.app</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="android_sha256_fingerprints" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Android SHA-256 Fingerprints</label>
+                    <comment>One fingerprint per line (e.g., 14:6D:E9:83:...)</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="ios_app_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>iOS App ID</label>
+                    <comment>Format: TEAM_ID.BUNDLE_ID (e.g., ABCDE12345.com.example.app)</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

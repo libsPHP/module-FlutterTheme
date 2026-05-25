@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="nativemind_flutterbridge">
+            <group id="canonical" translate="label" sortOrder="30"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Canonical URLs</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Canonical URL Normalization</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_mode" translate="label comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Canonical Mode</label>
+                    <source_model>NativeMind\FlutterBridgeSeo\Model\Config\Source\ProductCanonicalMode</source_model>
+                    <comment>How to generate product canonical URLs</comment>
+                </field>
+                <field id="strip_utm" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Strip UTM Parameters</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="strip_tracking" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Strip Tracking Parameters</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="robots" translate="label" sortOrder="40"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Robots Meta</label>
+                <field id="search_robots" translate="label" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Results Robots</label>
+                </field>
+                <field id="filtered_category_robots" translate="label" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Filtered Category Robots</label>
+                </field>
+                <field id="cart_robots" translate="label" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Page Robots</label>
+                </field>
+                <field id="checkout_robots" translate="label" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout Robots</label>
+                </field>
+                <field id="customer_robots" translate="label" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Account Robots</label>
+                </field>
+            </group>
+            <group id="jsonld" translate="label" sortOrder="50"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>JSON-LD Structured Data</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable JSON-LD</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_enabled" translate="label" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Schema</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="breadcrumb_enabled" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Breadcrumb Schema</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

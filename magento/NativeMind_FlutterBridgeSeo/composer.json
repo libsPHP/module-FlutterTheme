@@ -1,0 +1,20 @@
+{
+    "name": "nativemind/module-flutter-bridge-seo",
+    "description": "FlutterBridge SEO - Canonical, robots, JSON-LD, OpenGraph",
+    "type": "magento2-module",
+    "version": "2.0.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "NativeMind\\FlutterBridgeSeo\\": ""
+        },
+        "files": ["registration.php"]
+    },
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": ">=103.0",
+        "magento/module-catalog": ">=104.0",
+        "magento/module-cms": ">=104.0",
+        "nativemind/module-flutter-bridge-core": ">=2.0.0"
+    }
+}

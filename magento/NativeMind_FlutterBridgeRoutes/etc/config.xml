@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind FlutterBridgeRoutes Default Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_FlutterBridgeRoutes
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <nativemind_flutterbridge>
+            <route>
+                <enabled>1</enabled>
+                <standard_version>flutter_magento_v1</standard_version>
+                <product_app_route>/product/{sku}</product_app_route>
+                <category_app_route>/category/{id}</category_app_route>
+                <cms_app_route>/page/{identifier}</cms_app_route>
+                <search_app_route>/search?q={query}</search_app_route>
+                <cart_app_route>/cart</cart_app_route>
+                <checkout_app_route>/checkout</checkout_app_route>
+                <customer_app_route>/account</customer_app_route>
+                <home_app_route>/</home_app_route>
+            </route>
+        </nativemind_flutterbridge>
+    </default>
+</config>
