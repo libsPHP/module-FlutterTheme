@@ -1,37 +1,160 @@
-# Plan: Localization (l10n)
+# Implementation Plan: flutter_magento_localizations
 
-**Status:** DRAFT
-**Created:** 2026-02-02
+> Version: 1.0
+> Status: DRAFT
+> Last Updated: 2026-05-25
+> Specifications: [02-specifications.md](./02-specifications.md)
 
-## 1. Setup & Configuration
-- [x] **Dependency Check:** Verify `flutter_localizations` is added (it's part of the SDK, but needs declaration in `pubspec.yaml`).
-- [x] **Config File:** Create `l10n.yaml` in the project root.
-- [x] **Directory Structure:** Create `lib/l10n` directory.
+## Summary
 
-## 2. Core Localization Logic
-- [x] **ARB Creation:** Create `lib/l10n/app_en.arb` with initial strings (App Title, Profile, Language, etc.).
-- [x] **Placeholder ARBs:** Create empty/skeleton ARB files for other languages (`zh`, `hi`, `bn`, `ru`, `th`) to ensure compilation works.
-- [x] **Locale Provider:** Implement `lib/core/localization/locale_provider.dart` with `SharedPreferences` logic for persistence.
-- [x] **Main Integration:** Update `lib/main.dart` to:
-    - Initialize `LocaleProvider`.
-    - Inject `LocaleProvider` into the widget tree.
-    - Configure `MaterialApp.router` with localization delegates and supported locales.
+flutter_magento_localizations provides MagentoFormatters for currency/date/number formatting and generated localizations (ARB) for UI strings. Maps MagentoStoreContext to Locale with RTL support.
 
-## 3. UI Implementation
-- [x] **Profile Screen Update:**
-    - Modify `lib/features/profile/screens/profile_screen.dart`.
-    - Add a `LanguageSelector` widget (dropdown or list tile) that consumes `LocaleProvider`.
-    - Use `AppLocalizations` strings for the UI text.
-- [x] **Language Mapping:** Create a constant map of Locale codes to Native Names (e.g., 'ru': 'Русский') for the selector.
+## Task Breakdown
 
-## 4. Translation Population
-- [x] **Populate ARBs:** Fill in the translation strings for `zh`, `hi`, `bn`, `ru`, `th` for the initial set of keys (using AI translation for now).
+### Phase 1: Package Setup
 
-## 5. Verification
-- [x] **Manual Test:**
-    - Run the app.
-    - Go to Profile.
-    - Switch language to Russian.
-    - Verify text changes.
-    - Restart app.
-    - Verify Russian persists.
+#### Task 1.1: Remove Plugin Boilerplate
+- **Description**: Remove default Flutter plugin template code
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/flutter_magento_localizations.dart` - Modify
+  - `packages/flutter_magento_localizations/lib/flutter_magento_localizations_method_channel.dart` - Delete
+  - `packages/flutter_magento_localizations/lib/flutter_magento_localizations_platform_interface.dart` - Delete
+  - `packages/flutter_magento_localizations/android/` - Delete
+  - `packages/flutter_magento_localizations/ios/` - Delete
+  - `packages/flutter_magento_localizations/linux/` - Delete
+  - `packages/flutter_magento_localizations/macos/` - Delete
+  - `packages/flutter_magento_localizations/windows/` - Delete
+- **Dependencies**: flutter_magento_core implemented
+- **Verification**: `flutter pub get` succeeds
+- **Complexity**: Low
+
+#### Task 1.2: Update pubspec.yaml
+- **Description**: Add dependencies: flutter_magento_core, intl, flutter_localizations
+- **Files**:
+  - `packages/flutter_magento_localizations/pubspec.yaml` - Modify
+- **Dependencies**: Task 1.1
+- **Verification**: `flutter pub get` succeeds
+- **Complexity**: Low
+
+### Phase 2: Formatters
+
+#### Task 2.1: Create MagentoFormatters
+- **Description**: Currency, date, number formatting class
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/src/formatters/magento_formatters.dart` - Create
+- **Dependencies**: Task 1.2
+- **Verification**: Format methods work for various locales
+- **Complexity**: Medium
+
+#### Task 2.2: Create StoreLocaleResolver
+- **Description**: Map store context to Locale, detect RTL
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/src/locale/store_locale_resolver.dart` - Create
+- **Dependencies**: Task 1.2
+- **Verification**: Resolves common Magento locale codes
+- **Complexity**: Low
+
+### Phase 3: ARB Localizations
+
+#### Task 3.1: Create English ARB File
+- **Description**: Base English translations
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/l10n/magento_en.arb` - Create
+- **Dependencies**: Task 1.2
+- **Verification**: Valid ARB syntax
+- **Complexity**: Low
+
+#### Task 3.2: Create Additional ARB Files
+- **Description**: Spanish, German, French, Arabic translations
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/l10n/magento_es.arb` - Create
+  - `packages/flutter_magento_localizations/lib/l10n/magento_de.arb` - Create
+  - `packages/flutter_magento_localizations/lib/l10n/magento_fr.arb` - Create
+  - `packages/flutter_magento_localizations/lib/l10n/magento_ar.arb` - Create
+- **Dependencies**: Task 3.1
+- **Verification**: Valid ARB syntax
+- **Complexity**: Low
+
+#### Task 3.3: Configure l10n.yaml
+- **Description**: Set up localization generation
+- **Files**:
+  - `packages/flutter_magento_localizations/l10n.yaml` - Create
+- **Dependencies**: Task 3.1
+- **Verification**: Generation config valid
+- **Complexity**: Low
+
+#### Task 3.4: Generate Localizations
+- **Description**: Run flutter gen-l10n
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/src/generated/magento_localizations.dart` - Generate
+  - `packages/flutter_magento_localizations/lib/src/generated/magento_localizations_en.dart` - Generate
+  - `packages/flutter_magento_localizations/lib/src/generated/magento_localizations_*.dart` - Generate
+- **Dependencies**: Task 3.2, Task 3.3
+- **Verification**: Generated code compiles
+- **Complexity**: Low
+
+### Phase 4: Exports and Tests
+
+#### Task 4.1: Create Public Export File
+- **Description**: Export formatters, localizations, resolver
+- **Files**:
+  - `packages/flutter_magento_localizations/lib/flutter_magento_localizations.dart` - Modify
+- **Dependencies**: Task 2.1, Task 2.2, Task 3.4
+- **Verification**: All types accessible
+- **Complexity**: Low
+
+#### Task 4.2: Create Unit Tests
+- **Description**: Test formatters for various locales
+- **Files**:
+  - `packages/flutter_magento_localizations/test/magento_formatters_test.dart` - Create
+  - `packages/flutter_magento_localizations/test/store_locale_resolver_test.dart` - Create
+- **Dependencies**: Task 4.1
+- **Verification**: All tests pass
+- **Complexity**: Medium
+
+## Dependency Graph
+
+```
+Task 1.1 ──→ Task 1.2 ──┬──→ Task 2.1 ──────────────────┐
+                        │                               │
+                        ├──→ Task 2.2 ──────────────────┤
+                        │                               │
+                        └──→ Task 3.1 ──→ Task 3.2 ──┐  │
+                                     │               │  │
+                                     └──→ Task 3.3 ──┴──→ Task 3.4 ──┴──→ Task 4.1 ──→ Task 4.2
+```
+
+## File Change Summary
+
+| File | Action | Reason |
+|------|--------|--------|
+| `lib/flutter_magento_localizations.dart` | Modify | Public exports |
+| Plugin boilerplate files | Delete | No native code |
+| `pubspec.yaml` | Modify | Add dependencies |
+| `lib/src/formatters/*.dart` | Create | Formatting utilities |
+| `lib/src/locale/*.dart` | Create | Locale resolution |
+| `lib/l10n/*.arb` | Create | Translation files |
+| `l10n.yaml` | Create | Generation config |
+| `lib/src/generated/*.dart` | Generate | Localization code |
+
+## Risk Assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|------------|
+| Missing translations | Medium | Low | Fall back to English |
+| Locale parsing issues | Low | Low | Handle gracefully |
+
+## Checkpoints
+
+After each phase, verify:
+
+- [ ] All tests pass
+- [ ] No analyzer warnings
+- [ ] Localizations generate correctly
+
+---
+
+## Approval
+
+- [ ] Reviewed by: [name]
+- [ ] Approved on: [date]

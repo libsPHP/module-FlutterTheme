@@ -12,5 +12,18 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <!-- Product-specific blocks (JSON-LD) will be added in Phase 6 -->
+    <body>
+        <!-- JSON-LD structured data for product -->
+        <referenceContainer name="before.body.end">
+            <block class="NativeMind\FlutterBridge\Block\Head\JsonLd"
+                   name="nativemind.flutterbridge.jsonld.product"
+                   template="NativeMind_FlutterBridge::head/jsonld.phtml"
+                   ifconfig="nativemind_flutterbridge/jsonld/enabled"
+                   cacheable="true">
+                <arguments>
+                    <argument name="builder_type" xsi:type="string">product</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
 </page>

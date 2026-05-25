@@ -1,0 +1,18 @@
+<?php
+/**
+ * JSON-LD Template
+ *
+ * Outputs schema.org structured data
+ *
+ * @var \NativeMind\FlutterBridge\Block\Head\JsonLd $block
+ */
+
+if (!$block->isEnabled() || !$block->hasData()) {
+    return;
+}
+
+$jsonLd = $block->getJsonLd();
+?>
+<script type="application/ld+json">
+<?= /* @noEscape */ $jsonLd ?>
+</script>

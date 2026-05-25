@@ -1,0 +1,134 @@
+/**
+ * NativeMind FlutterBridge CSS
+ *
+ * Namespaced styles for app banner.
+ * All classes prefixed with nm-flutterbridge- to avoid conflicts.
+ */
+
+/* Banner Container */
+.nm-flutterbridge-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nm-flutterbridge-banner__content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+/* Text */
+.nm-flutterbridge-banner__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nm-flutterbridge-banner__title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.nm-flutterbridge-banner__subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Actions */
+.nm-flutterbridge-banner__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.nm-flutterbridge-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nm-flutterbridge-banner__btn--open {
+    background: #ffffff;
+    color: #1a1a2e;
+}
+
+.nm-flutterbridge-banner__btn--open:hover {
+    background: #f0f0f0;
+    color: #1a1a2e;
+}
+
+.nm-flutterbridge-banner__btn--install {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.nm-flutterbridge-banner__btn--install:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+}
+
+/* Close Button */
+.nm-flutterbridge-banner__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: 12px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nm-flutterbridge-banner__close:hover {
+    color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .nm-flutterbridge-banner {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .nm-flutterbridge-banner__content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .nm-flutterbridge-banner__close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        margin: 0;
+    }
+}

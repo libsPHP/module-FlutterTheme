@@ -11,10 +11,47 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <!-- API Interface Preferences -->
-    <preference for="NativeMind\FlutterBridge\Api\RoutePayloadBuilderInterface"
-                type="NativeMind\FlutterBridge\Model\Route\RoutePayloadBuilderPool"/>
 
-    <preference for="NativeMind\FlutterBridge\Api\CanonicalResolverInterface"
-                type="NativeMind\FlutterBridge\Model\Canonical\CanonicalResolverPool"/>
+    <!-- Type configurations for blocks and models -->
+
+    <!-- Route Meta Block -->
+    <type name="NativeMind\FlutterBridge\Block\Head\RouteMeta">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- JSON-LD Block -->
+    <type name="NativeMind\FlutterBridge\Block\Head\JsonLd">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- App Banner Block -->
+    <type name="NativeMind\FlutterBridge\Block\App\Banner">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Custom Router for .well-known endpoints -->
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="nativemind_flutterbridge" xsi:type="array">
+                    <item name="class" xsi:type="string">NativeMind\FlutterBridge\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">25</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

@@ -1,0 +1,95 @@
+<?php
+/**
+ * App Banner Template
+ *
+ * @var \NativeMind\FlutterBridge\Block\App\Banner $block
+ */
+
+if (!$block->isEnabled()) {
+    return;
+}
+
+$dismissDays = $block->getDismissDays();
+?>
+<div class="nm-flutterbridge-banner"
+     id="nm-flutterbridge-banner"
+     data-dismiss-days="<?= $block->escapeHtmlAttr($dismissDays) ?>"
+     style="display: none;">
+    <div class="nm-flutterbridge-banner__content">
+        <div class="nm-flutterbridge-banner__text">
+            <strong class="nm-flutterbridge-banner__title">
+                <?= $block->escapeHtml($block->getTitle()) ?>
+            </strong>
+            <span class="nm-flutterbridge-banner__subtitle">
+                <?= $block->escapeHtml($block->getSubtitle()) ?>
+            </span>
+        </div>
+        <div class="nm-flutterbridge-banner__actions">
+            <a class="nm-flutterbridge-banner__btn nm-flutterbridge-banner__btn--open"
+               href="<?= $block->escapeUrl($block->getCurrentUrl()) ?>"
+               rel="nofollow">
+                <?= $block->escapeHtml($block->getOpenButtonText()) ?>
+            </a>
+            <?php if ($block->getInstallUrl() !== '#'): ?>
+            <a class="nm-flutterbridge-banner__btn nm-flutterbridge-banner__btn--install"
+               href="<?= $block->escapeUrl($block->getInstallUrl()) ?>"
+               target="_blank"
+               rel="nofollow noopener">
+                <?= $block->escapeHtml($block->getInstallButtonText()) ?>
+            </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <button type="button"
+            class="nm-flutterbridge-banner__close"
+            id="nm-flutterbridge-banner-close"
+            aria-label="Close">
+        &times;
+    </button>
+</div>
+
+<script>
+(function() {
+    var banner = document.getElementById('nm-flutterbridge-banner');
+    var closeBtn = document.getElementById('nm-flutterbridge-banner-close');
+    var cookieName = 'nm_flutterbridge_dismissed';
+    var dismissDays = parseInt(banner.getAttribute('data-dismiss-days')) || 7;
+
+    function getCookie(name) {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+    }
+
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + value + expires + '; path=/';
+    }
+
+    function showBanner() {
+        if (!getCookie(cookieName)) {
+            banner.style.display = 'flex';
+        }
+    }
+
+    function dismissBanner() {
+        banner.style.display = 'none';
+        setCookie(cookieName, '1', dismissDays);
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', dismissBanner);
+    }
+
+    // Show banner after page load
+    if (document.readyState === 'complete') {
+        showBanner();
+    } else {
+        window.addEventListener('load', showBanner);
+    }
+})();
+</script>

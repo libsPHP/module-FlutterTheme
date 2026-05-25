@@ -15,8 +15,6 @@
         <route id="flutterbridge" frontName="flutterbridge">
             <module name="NativeMind_FlutterBridge"/>
         </route>
-        <route id="wellknown" frontName=".well-known">
-            <module name="NativeMind_FlutterBridge"/>
-        </route>
+        <!-- .well-known routes handled by custom router in Controller/Router.php -->
     </router>
 </config>
