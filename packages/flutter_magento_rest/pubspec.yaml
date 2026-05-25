@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  dio: ^5.8.0
+  flutter_magento_core:
+    path: ../flutter_magento_core
 
 dev_dependencies:
   flutter_test:
