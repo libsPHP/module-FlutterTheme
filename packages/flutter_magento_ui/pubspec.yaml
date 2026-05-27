@@ -1,8 +1,14 @@
 name: flutter_magento_ui
-description: Reusable UI widgets for Magento Flutter apps
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: UI components for Flutter Magento SDK - product cards, cart widgets, theme.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_ui
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - ui
 
 environment:
   sdk: ^3.0.0
@@ -11,10 +17,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
-  flutter_magento_localizations:
-    path: ../flutter_magento_localizations
+  flutter_magento_core: ^1.0.0
+  flutter_magento_localizations: ^1.0.0
   cached_network_image: ^3.3.0
 
 dev_dependencies:

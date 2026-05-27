@@ -1,9 +1,14 @@
 name: flutter_magento_core
-description: Core abstractions for flutter_magento SDK - transport, repositories, models, errors.
+description: Core abstractions for Flutter Magento SDK - transport, repositories, models, errors.
 version: 1.0.0
-homepage: https://github.com/nicholaskh/flutter_magento
-repository: https://github.com/nicholaskh/flutter_magento
-issue_tracker: https://github.com/nicholaskh/flutter_magento/issues
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_core
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - sdk
 
 environment:
   sdk: ^3.0.0

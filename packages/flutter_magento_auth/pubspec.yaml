@@ -1,8 +1,14 @@
 name: flutter_magento_auth
-description: Magento authentication with secure token storage
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Authentication module for Flutter Magento SDK - login, registration, token management.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_auth
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - authentication
 
 environment:
   sdk: ^3.0.0
@@ -11,8 +17,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
+  flutter_magento_core: ^1.0.0
   flutter_secure_storage: ^9.0.0
   shared_preferences: ^2.2.0
 

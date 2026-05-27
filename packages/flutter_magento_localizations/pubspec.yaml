@@ -1,8 +1,14 @@
 name: flutter_magento_localizations
-description: Localization and formatting utilities for Magento Flutter apps
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Localization module for Flutter Magento SDK - i18n, currency, date formatting.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_localizations
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - localization
 
 environment:
   sdk: ^3.0.0
@@ -13,8 +19,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
+  flutter_magento_core: ^1.0.0
   intl: ^0.20.0
 
 dev_dependencies:

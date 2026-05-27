@@ -1,15 +1,20 @@
 name: flutter_magento_cart
-description: Magento shopping cart repository with add/remove/update operations
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Cart module for Flutter Magento SDK - cart management, checkout, payments.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_cart
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - cart
 
 environment:
   sdk: ^3.0.0
 
 dependencies:
-  flutter_magento_core:
-    path: ../flutter_magento_core
+  flutter_magento_core: ^1.0.0
 
 dev_dependencies:
   lints: ^5.0.0
