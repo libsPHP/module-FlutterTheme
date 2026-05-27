@@ -15,6 +15,7 @@ class RoutePayload
     private string $standard;
     private string $type;
     private string $canonicalUrl;
+    private ?string $sourceUrl;
     private string $webPath;
     private string $appRoute;
     private array $entity;
@@ -27,11 +28,13 @@ class RoutePayload
         string $appRoute,
         array $entity = [],
         array $store = [],
-        string $standard = 'flutter_magento_v1'
+        string $standard = 'flutter_magento_v1',
+        ?string $sourceUrl = null
     ) {
         $this->standard = $standard;
         $this->type = $type;
         $this->canonicalUrl = $canonicalUrl;
+        $this->sourceUrl = $sourceUrl;
         $this->webPath = $webPath;
         $this->appRoute = $appRoute;
         $this->entity = $entity;
@@ -51,6 +54,11 @@ class RoutePayload
     public function getCanonicalUrl(): string
     {
         return $this->canonicalUrl;
+    }
+
+    public function getSourceUrl(): ?string
+    {
+        return $this->sourceUrl;
     }
 
     public function getWebPath(): string
@@ -75,7 +83,7 @@ class RoutePayload
 
     public function toArray(): array
     {
-        return [
+        $data = [
             'standard' => $this->standard,
             'type' => $this->type,
             'canonicalUrl' => $this->canonicalUrl,
@@ -84,6 +92,13 @@ class RoutePayload
             'entity' => $this->entity,
             'store' => $this->store,
         ];
+
+        // Include sourceUrl only if different from canonicalUrl
+        if ($this->sourceUrl !== null && $this->sourceUrl !== $this->canonicalUrl) {
+            $data['sourceUrl'] = $this->sourceUrl;
+        }
+
+        return $data;
     }
 
     public function toJson(): string

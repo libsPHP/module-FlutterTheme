@@ -68,3 +68,8 @@ export 'src/extensions/magento_product_extension.dart';
 // Client
 export 'src/client/magento_client.dart';
 export 'src/client/magento_observer.dart';
+
+// Route (flutter_magento_v1 standard)
+export 'src/route/magento_route_type.dart';
+export 'src/route/magento_route_payload.dart';
+export 'src/route/magento_route_parser.dart';
