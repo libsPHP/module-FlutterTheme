@@ -1,45 +1,29 @@
-/**
- * Flutter Magento Marketplace Library
- * 
- * ⚠️ DEPRECATED: This package has been merged into the main flutter_magento package.
- * Please use flutter_magento ^3.6.0 instead.
- * 
- * Migration:
- * - Replace: import 'package:flutter_magento_marketplace/flutter_magento_marketplace.dart';
- * - With:    import 'package:flutter_magento/flutter_magento.dart';
- * 
- * All functionality remains exactly the same, only the import changes.
- * 
- * @deprecated Use flutter_magento ^3.6.0 instead
- * @author NativeMind <contact@nativemind.net>
- * @version 1.2.0
- * @license MIT
- */
-
-@Deprecated(
-  'Use flutter_magento ^3.6.0 instead. This package has been merged into flutter_magento.',
-)
-library flutter_magento_marketplace;
-
-// Core exports
-export 'src/core/magento_marketplace_client.dart';
-export 'src/core/marketplace_config.dart';
-export 'src/core/marketplace_exceptions.dart';
+/// Multi-vendor marketplace support for Flutter Magento SDK.
+///
+/// Provides seller management, product-seller relationships,
+/// and split checkout for multi-vendor orders.
+library;
 
 // Models
 export 'src/models/seller.dart';
+export 'src/models/seller_filter.dart';
+export 'src/models/seller_info.dart';
+export 'src/models/seller_location.dart';
+export 'src/models/seller_review.dart';
+export 'src/models/seller_sort.dart';
+export 'src/models/seller_statistics.dart';
 
-// Services
-export 'src/services/seller_service.dart';
+// Repositories
+export 'src/repositories/seller_repository.dart';
+export 'src/repositories/magento_seller_repository.dart';
 
-// Providers
-export 'src/providers/marketplace_providers.dart';
+// Extensions
+export 'src/extensions/seller_product_extension.dart';
+export 'src/extensions/marketplace_cart_extension.dart';
+export 'src/extensions/marketplace_checkout_extension.dart';
 
-// Widgets
-export 'src/widgets/seller_card.dart';
+// Mappers (for custom implementations)
+export 'src/mappers/seller_mapper.dart';
 
-// Screens
-export 'src/screens/marketplace_home_screen.dart';
-
-// Utils
-export 'src/utils/marketplace_utils.dart';
+// Queries (for custom implementations)
+export 'src/queries/seller_queries.dart';
