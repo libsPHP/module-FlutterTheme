@@ -1,29 +1,38 @@
 {
     "name": "nativemind/module-flutter-bridge-routes",
-    "description": "FlutterBridge Routes - flutter_magento_v1 route metadata",
-    "type": "magento2-module",
+    "description": "Route metadata module for Flutter Bridge - page context and app routing",
     "version": "2.0.0",
+    "type": "magento2-module",
     "license": "MIT",
     "authors": [
         {
             "name": "NativeMind",
-            "email": "contact@nativemind.net"
+            "email": "contact@nativemind.net",
+            "homepage": "https://nativemind.net"
         }
     ],
+    "homepage": "https://github.com/libsMagento/flutter_magento",
+    "keywords": [
+        "magento2",
+        "flutter",
+        "mobile",
+        "routes",
+        "deep-linking"
+    ],
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "^103.0",
+        "magento/module-store": "^101.0",
+        "magento/module-catalog": "^104.0",
+        "magento/module-cms": "^104.0",
+        "nativemind/module-flutter-bridge-core": "^2.0"
+    },
     "autoload": {
-        "psr-4": {
-            "NativeMind\\FlutterBridgeRoutes\\": ""
-        },
         "files": [
             "registration.php"
-        ]
-    },
-    "require": {
-        "php": ">=8.1",
-        "magento/framework": ">=103.0",
-        "magento/module-catalog": ">=104.0",
-        "magento/module-cms": ">=104.0",
-        "magento/module-store": ">=101.0",
-        "nativemind/module-flutter-bridge-core": ">=2.0.0"
+        ],
+        "psr-4": {
+            "NativeMind\\FlutterBridgeRoutes\\": ""
+        }
     }
 }
