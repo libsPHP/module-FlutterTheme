@@ -1,0 +1,355 @@
+name: Publish Changed Packages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'packages/**/pubspec.yaml'
+
+env:
+  FLUTTER_VERSION: '3.24.0'
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      core: ${{ steps.changes.outputs.core }}
+      catalog: ${{ steps.changes.outputs.catalog }}
+      auth: ${{ steps.changes.outputs.auth }}
+      cart: ${{ steps.changes.outputs.cart }}
+      profile: ${{ steps.changes.outputs.profile }}
+      localizations: ${{ steps.changes.outputs.localizations }}
+      ui: ${{ steps.changes.outputs.ui }}
+      offline: ${{ steps.changes.outputs.offline }}
+      marketplace: ${{ steps.changes.outputs.marketplace }}
+      blockchain: ${{ steps.changes.outputs.blockchain }}
+      riverpod: ${{ steps.changes.outputs.riverpod }}
+      umbrella: ${{ steps.changes.outputs.umbrella }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect version changes
+        id: changes
+        run: |
+          check_version_change() {
+            local pkg=$1
+            local path="packages/$pkg/pubspec.yaml"
+            if git diff HEAD~1 HEAD -- "$path" | grep -q "^+version:"; then
+              echo "true"
+            else
+              echo "false"
+            fi
+          }
+
+          echo "core=$(check_version_change flutter_magento_core)" >> $GITHUB_OUTPUT
+          echo "catalog=$(check_version_change flutter_magento_catalog)" >> $GITHUB_OUTPUT
+          echo "auth=$(check_version_change flutter_magento_auth)" >> $GITHUB_OUTPUT
+          echo "cart=$(check_version_change flutter_magento_cart)" >> $GITHUB_OUTPUT
+          echo "profile=$(check_version_change flutter_magento_profile)" >> $GITHUB_OUTPUT
+          echo "localizations=$(check_version_change flutter_magento_localizations)" >> $GITHUB_OUTPUT
+          echo "ui=$(check_version_change flutter_magento_ui)" >> $GITHUB_OUTPUT
+          echo "offline=$(check_version_change flutter_magento_offline)" >> $GITHUB_OUTPUT
+          echo "marketplace=$(check_version_change flutter_magento_marketplace)" >> $GITHUB_OUTPUT
+          echo "blockchain=$(check_version_change flutter_magento_blockchain)" >> $GITHUB_OUTPUT
+          echo "riverpod=$(check_version_change flutter_magento_riverpod)" >> $GITHUB_OUTPUT
+          echo "umbrella=$(check_version_change flutter_magento)" >> $GITHUB_OUTPUT
+
+  publish-core:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.core == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Publish
+        working-directory: packages/flutter_magento_core
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-catalog:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.catalog == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_catalog
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-auth:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.auth == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_auth
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-cart:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.cart == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_cart
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-profile:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.profile == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_profile
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-localizations:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.localizations == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_localizations
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-ui:
+    needs: [detect-changes, publish-core, publish-localizations]
+    if: always() && needs.detect-changes.outputs.ui == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        run: sleep 90
+
+      - name: Publish
+        working-directory: packages/flutter_magento_ui
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-offline:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.offline == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_offline
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-marketplace:
+    needs: [detect-changes, publish-core, publish-catalog, publish-cart]
+    if: always() && needs.detect-changes.outputs.marketplace == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        run: sleep 120
+
+      - name: Publish
+        working-directory: packages/flutter_magento_marketplace
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-blockchain:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.blockchain == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_blockchain
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-riverpod:
+    needs: [detect-changes, publish-core, publish-auth, publish-catalog, publish-cart, publish-profile]
+    if: always() && needs.detect-changes.outputs.riverpod == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        run: sleep 120
+
+      - name: Publish
+        working-directory: packages/flutter_magento_riverpod
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-umbrella:
+    needs: [detect-changes, publish-core, publish-auth, publish-catalog, publish-cart, publish-profile, publish-localizations, publish-ui, publish-riverpod]
+    if: always() && needs.detect-changes.outputs.umbrella == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        run: sleep 180
+
+      - name: Publish
+        working-directory: packages/flutter_magento
+        run: |
+          flutter pub get
+          dart pub publish --force
+        continue-on-error: true

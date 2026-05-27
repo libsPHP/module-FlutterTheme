@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial stable release
+* Customer profile management
+* Address book with CRUD operations
+* Order history
+* Wishlist management

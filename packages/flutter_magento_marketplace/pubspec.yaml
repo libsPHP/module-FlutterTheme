@@ -1,8 +1,14 @@
 name: flutter_magento_marketplace
-description: Multi-vendor marketplace support for Flutter Magento SDK
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Multi-vendor marketplace support for Flutter Magento SDK - sellers, commissions.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_marketplace
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - marketplace
 
 environment:
   sdk: ^3.0.0
@@ -11,12 +17,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
-  flutter_magento_cart:
-    path: ../flutter_magento_cart
-  flutter_magento_catalog:
-    path: ../flutter_magento_catalog
+  flutter_magento_core: ^1.0.0
+  flutter_magento_cart: ^1.0.0
+  flutter_magento_catalog: ^1.0.0
 
 dev_dependencies:
   flutter_test:

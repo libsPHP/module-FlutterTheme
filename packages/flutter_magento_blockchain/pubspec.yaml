@@ -1,8 +1,14 @@
 name: flutter_magento_blockchain
-description: Blockchain integrations for Flutter Magento SDK (ICP payments, NFT products, Yuku marketplace)
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Blockchain integrations for Flutter Magento SDK - ICP payments, NFT products, Yuku.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_blockchain
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - blockchain
 
 environment:
   sdk: ^3.0.0
@@ -11,8 +17,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
+  flutter_magento_core: ^1.0.0
 
 dev_dependencies:
   flutter_test:

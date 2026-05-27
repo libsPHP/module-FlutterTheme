@@ -1,8 +1,14 @@
 name: flutter_magento_riverpod
-description: Riverpod providers and controllers for Magento Flutter apps
-version: 2.0.0
-repository: https://github.com/nativemind/flutter_magento
-publish_to: none
+description: Riverpod providers and state management for Flutter Magento SDK.
+version: 1.0.0
+homepage: https://github.com/libsMagento/flutter_magento
+repository: https://github.com/libsMagento/flutter_magento/tree/main/packages/flutter_magento_riverpod
+issue_tracker: https://github.com/libsMagento/flutter_magento/issues
+
+topics:
+  - magento
+  - ecommerce
+  - riverpod
 
 environment:
   sdk: ^3.0.0
@@ -11,16 +17,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_magento_core:
-    path: ../flutter_magento_core
-  flutter_magento_auth:
-    path: ../flutter_magento_auth
-  flutter_magento_catalog:
-    path: ../flutter_magento_catalog
-  flutter_magento_cart:
-    path: ../flutter_magento_cart
-  flutter_magento_profile:
-    path: ../flutter_magento_profile
+  flutter_magento_core: ^1.0.0
+  flutter_magento_auth: ^1.0.0
+  flutter_magento_catalog: ^1.0.0
+  flutter_magento_cart: ^1.0.0
+  flutter_magento_profile: ^1.0.0
   flutter_riverpod: ^2.5.0
 
 dev_dependencies:

@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial stable release
+* Multi-language support with intl
+* Currency formatting per store
+* Date/time localization
+* Store-specific locale management

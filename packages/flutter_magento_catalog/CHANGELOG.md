@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial stable release
+* Product listing with pagination and filters
+* Category tree navigation
+* Product search with facets
+* Product details with variants

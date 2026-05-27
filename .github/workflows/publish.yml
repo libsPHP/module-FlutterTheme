@@ -1,0 +1,558 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Packages to publish (comma-separated, or "all")'
+        required: false
+        default: 'all'
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        type: boolean
+        default: false
+
+env:
+  FLUTTER_VERSION: '3.24.0'
+
+jobs:
+  # Stage 1: Core package (no dependencies)
+  publish-core:
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.check.outputs.should_publish }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"core"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Publish flutter_magento_core
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_core
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 2: Packages depending only on core
+  publish-catalog:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"catalog"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_catalog
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_catalog
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  publish-auth:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"auth"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_auth
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_auth
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  publish-cart:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"cart"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_cart
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_cart
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  publish-profile:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"profile"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_profile
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_profile
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 3: Localizations
+  publish-localizations:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"localizations"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_localizations
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_localizations
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 4: UI (depends on localizations)
+  publish-ui:
+    needs: [publish-core, publish-localizations]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"ui"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true'
+        run: sleep 90
+
+      - name: Publish flutter_magento_ui
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_ui
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 5: Offline
+  publish-offline:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"offline"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_offline
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_offline
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 6: Marketplace (depends on catalog, cart)
+  publish-marketplace:
+    needs: [publish-core, publish-catalog, publish-cart]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"marketplace"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true'
+        run: sleep 120
+
+      - name: Publish flutter_magento_marketplace
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_marketplace
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 7: Blockchain
+  publish-blockchain:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"blockchain"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_blockchain
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_blockchain
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 8: Riverpod (depends on auth, catalog, cart, profile)
+  publish-riverpod:
+    needs: [publish-core, publish-auth, publish-catalog, publish-cart, publish-profile]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"riverpod"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true'
+        run: sleep 120
+
+      - name: Publish flutter_magento_riverpod
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_riverpod
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Stage 9: Umbrella package (depends on all)
+  publish-umbrella:
+    needs: [publish-core, publish-auth, publish-catalog, publish-cart, publish-profile, publish-localizations, publish-ui, publish-riverpod]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"umbrella"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.should_publish == 'true'
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true'
+        run: sleep 180
+
+      - name: Publish flutter_magento
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento
+        run: |
+          flutter pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  # Summary job
+  publish-summary:
+    needs: [publish-core, publish-catalog, publish-auth, publish-cart, publish-profile, publish-localizations, publish-ui, publish-offline, publish-marketplace, publish-blockchain, publish-riverpod, publish-umbrella]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "## Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Package | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_core | ${{ needs.publish-core.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_catalog | ${{ needs.publish-catalog.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_auth | ${{ needs.publish-auth.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_cart | ${{ needs.publish-cart.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_profile | ${{ needs.publish-profile.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_localizations | ${{ needs.publish-localizations.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_ui | ${{ needs.publish-ui.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_offline | ${{ needs.publish-offline.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_marketplace | ${{ needs.publish-marketplace.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_blockchain | ${{ needs.publish-blockchain.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_riverpod | ${{ needs.publish-riverpod.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento | ${{ needs.publish-umbrella.result }} |" >> $GITHUB_STEP_SUMMARY

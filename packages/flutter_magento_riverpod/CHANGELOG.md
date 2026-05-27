@@ -1,3 +1,8 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Initial stable release
+* Riverpod providers for all repositories
+* AuthNotifier for authentication state
+* CartNotifier for cart management
+* CatalogProviders for products and categories
+* ProfileNotifier for customer data
