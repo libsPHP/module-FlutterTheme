@@ -20,6 +20,8 @@ jobs:
       auth: ${{ steps.changes.outputs.auth }}
       cart: ${{ steps.changes.outputs.cart }}
       profile: ${{ steps.changes.outputs.profile }}
+      graphql: ${{ steps.changes.outputs.graphql }}
+      rest: ${{ steps.changes.outputs.rest }}
       localizations: ${{ steps.changes.outputs.localizations }}
       ui: ${{ steps.changes.outputs.ui }}
       offline: ${{ steps.changes.outputs.offline }}
@@ -50,6 +52,8 @@ jobs:
           echo "auth=$(check_version_change flutter_magento_auth)" >> $GITHUB_OUTPUT
           echo "cart=$(check_version_change flutter_magento_cart)" >> $GITHUB_OUTPUT
           echo "profile=$(check_version_change flutter_magento_profile)" >> $GITHUB_OUTPUT
+          echo "graphql=$(check_version_change flutter_magento_graphql)" >> $GITHUB_OUTPUT
+          echo "rest=$(check_version_change flutter_magento_rest)" >> $GITHUB_OUTPUT
           echo "localizations=$(check_version_change flutter_magento_localizations)" >> $GITHUB_OUTPUT
           echo "ui=$(check_version_change flutter_magento_ui)" >> $GITHUB_OUTPUT
           echo "offline=$(check_version_change flutter_magento_offline)" >> $GITHUB_OUTPUT
@@ -171,6 +175,54 @@ jobs:
 
       - name: Publish
         working-directory: packages/flutter_magento_profile
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-graphql:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.graphql == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_graphql
+        run: |
+          dart pub get
+          dart pub publish --force
+        continue-on-error: true
+
+  publish-rest:
+    needs: [detect-changes, publish-core]
+    if: always() && needs.detect-changes.outputs.rest == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Setup credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for dependencies
+        if: needs.detect-changes.outputs.core == 'true'
+        run: sleep 60
+
+      - name: Publish
+        working-directory: packages/flutter_magento_rest
         run: |
           dart pub get
           dart pub publish --force

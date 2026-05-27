@@ -224,6 +224,88 @@ jobs:
           fi
         continue-on-error: true
 
+  publish-graphql:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"graphql"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_graphql
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_graphql
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
+  publish-rest:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.packages }}" == "all" ]] || [[ "${{ github.event.inputs.packages }}" == *"rest"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - uses: dart-lang/setup-dart@v1
+        if: steps.check.outputs.should_publish == 'true'
+
+      - name: Setup credentials
+        if: steps.check.outputs.should_publish == 'true'
+        run: |
+          mkdir -p $HOME/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > $HOME/.config/dart/pub-credentials.json
+
+      - name: Wait for pub.dev indexing
+        if: steps.check.outputs.should_publish == 'true' && needs.publish-core.outputs.published == 'true'
+        run: sleep 60
+
+      - name: Publish flutter_magento_rest
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: packages/flutter_magento_rest
+        run: |
+          dart pub get
+          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
+            dart pub publish --dry-run
+          else
+            dart pub publish --force
+          fi
+        continue-on-error: true
+
   # Stage 3: Localizations
   publish-localizations:
     needs: publish-core
@@ -534,7 +616,7 @@ jobs:
 
   # Summary job
   publish-summary:
-    needs: [publish-core, publish-catalog, publish-auth, publish-cart, publish-profile, publish-localizations, publish-ui, publish-offline, publish-marketplace, publish-blockchain, publish-riverpod, publish-umbrella]
+    needs: [publish-core, publish-catalog, publish-auth, publish-cart, publish-profile, publish-graphql, publish-rest, publish-localizations, publish-ui, publish-offline, publish-marketplace, publish-blockchain, publish-riverpod, publish-umbrella]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -549,6 +631,8 @@ jobs:
           echo "| flutter_magento_auth | ${{ needs.publish-auth.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| flutter_magento_cart | ${{ needs.publish-cart.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| flutter_magento_profile | ${{ needs.publish-profile.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_graphql | ${{ needs.publish-graphql.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| flutter_magento_rest | ${{ needs.publish-rest.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| flutter_magento_localizations | ${{ needs.publish-localizations.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| flutter_magento_ui | ${{ needs.publish-ui.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| flutter_magento_offline | ${{ needs.publish-offline.result }} |" >> $GITHUB_STEP_SUMMARY

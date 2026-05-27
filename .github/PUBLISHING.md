@@ -58,9 +58,11 @@ Packages are published in dependency order:
    ├─→ 2b. flutter_magento_auth
    ├─→ 2c. flutter_magento_cart
    ├─→ 2d. flutter_magento_profile
-   ├─→ 2e. flutter_magento_localizations
-   ├─→ 2f. flutter_magento_offline
-   ├─→ 2g. flutter_magento_blockchain
+   ├─→ 2e. flutter_magento_graphql
+   ├─→ 2f. flutter_magento_rest
+   ├─→ 2g. flutter_magento_localizations
+   ├─→ 2h. flutter_magento_offline
+   ├─→ 2i. flutter_magento_blockchain
    │
    ├─→ 3. flutter_magento_ui (needs localizations)
    ├─→ 4. flutter_magento_marketplace (needs catalog, cart)
