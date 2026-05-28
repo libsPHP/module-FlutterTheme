@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Module Declaration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="NativeMind_Bridge" setup_version="2.0.0">
+        <sequence>
+            <module name="Magento_Store"/>
+            <module name="Magento_Catalog"/>
+            <module name="Magento_Cms"/>
+        </sequence>
+    </module>
+</config>

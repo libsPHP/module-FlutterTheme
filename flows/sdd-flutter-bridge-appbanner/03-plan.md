@@ -1,4 +1,4 @@
-# Implementation Plan: FlutterBridgeAppBanner
+# Implementation Plan: BridgeAppBanner
 
 > Version: 1.0
 > Status: DRAFT
@@ -16,9 +16,9 @@ Create the App Banner module with "Open in App" visual banner. Vanilla JS for be
 #### Task 1.1: Create Module Structure
 - **Description**: Create module directory and base files
 - **Files**:
-  - `NativeMind_FlutterBridgeAppBanner/registration.php` - Create
-  - `NativeMind_FlutterBridgeAppBanner/composer.json` - Create
-  - `NativeMind_FlutterBridgeAppBanner/etc/module.xml` - Create
+  - `NativeMind_BridgeAppBanner/registration.php` - Create
+  - `NativeMind_BridgeAppBanner/composer.json` - Create
+  - `NativeMind_BridgeAppBanner/etc/module.xml` - Create
 - **Dependencies**: Core module exists
 - **Verification**: Module registers
 - **Complexity**: Low
@@ -88,22 +88,22 @@ Task 1.1 ─→ Task 1.2 ─→ Task 2.1 ─→ Task 2.2 ─→ Task 3.1 ─┬�
 
 | File | Action | Reason |
 |------|--------|--------|
-| `NativeMind_FlutterBridgeAppBanner/registration.php` | Create | Module registration |
-| `NativeMind_FlutterBridgeAppBanner/composer.json` | Create | Composer package |
-| `NativeMind_FlutterBridgeAppBanner/etc/module.xml` | Create | Module declaration |
-| `NativeMind_FlutterBridgeAppBanner/etc/config.xml` | Create | Default config |
-| `NativeMind_FlutterBridgeAppBanner/etc/adminhtml/system.xml` | Create | Admin UI |
-| `NativeMind_FlutterBridgeAppBanner/Helper/Config.php` | Create | Config accessor |
-| `NativeMind_FlutterBridgeAppBanner/Block/Banner.php` | Create | Banner block |
-| `NativeMind_FlutterBridgeAppBanner/view/frontend/templates/banner.phtml` | Create | Banner HTML/JS |
-| `NativeMind_FlutterBridgeAppBanner/view/frontend/web/css/banner.css` | Create | Banner styles |
-| `NativeMind_FlutterBridgeAppBanner/view/frontend/layout/default.xml` | Create | Block injection |
+| `NativeMind_BridgeAppBanner/registration.php` | Create | Module registration |
+| `NativeMind_BridgeAppBanner/composer.json` | Create | Composer package |
+| `NativeMind_BridgeAppBanner/etc/module.xml` | Create | Module declaration |
+| `NativeMind_BridgeAppBanner/etc/config.xml` | Create | Default config |
+| `NativeMind_BridgeAppBanner/etc/adminhtml/system.xml` | Create | Admin UI |
+| `NativeMind_BridgeAppBanner/Helper/Config.php` | Create | Config accessor |
+| `NativeMind_BridgeAppBanner/Block/Banner.php` | Create | Banner block |
+| `NativeMind_BridgeAppBanner/view/frontend/templates/banner.phtml` | Create | Banner HTML/JS |
+| `NativeMind_BridgeAppBanner/view/frontend/web/css/banner.css` | Create | Banner styles |
+| `NativeMind_BridgeAppBanner/view/frontend/layout/default.xml` | Create | Block injection |
 
 ## Risk Assessment
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
-| CSS conflicts with theme | Low | Low | Namespaced classes (nm-flutterbridge-*) |
+| CSS conflicts with theme | Low | Low | Namespaced classes (nm-Bridge-*) |
 | Cookie not set correctly | Low | Low | Test across browsers |
 | Z-index conflicts | Medium | Low | Use high z-index (9999) |
 

@@ -7,7 +7,7 @@
 
 ## Overview
 
-Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-agnostic Magento 2 module that injects SEO metadata, route information, and app links into any existing Magento theme without replacing templates.
+Transform `NativeMind_FlutterTheme` into `NativeMind_Bridge` - a theme-agnostic Magento 2 module that injects SEO metadata, route information, and app links into any existing Magento theme without replacing templates.
 
 **Key architectural change**: From "replace root template" to "add blocks via layout XML".
 
@@ -15,7 +15,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `registration.php` | Modify | Rename to `NativeMind_FlutterBridge` |
+| `registration.php` | Modify | Rename to `NativeMind_Bridge` |
 | `composer.json` | Modify | Rename package, update description |
 | `etc/module.xml` | Modify | Rename module |
 | `etc/config.xml` | Replace | New config structure for bridge features |
@@ -54,7 +54,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                   NativeMind_FlutterBridge                          │
+│                   NativeMind_Bridge                          │
 │                                                                      │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌────────────┐ │
 │  │   Layout    │  │   Blocks    │  │   Models    │  │ Controllers│ │
@@ -135,7 +135,7 @@ Request arrives
 │                                                                   │
 │  route_meta.phtml → <script id="flutter-magento-route">         │
 │  jsonld.phtml → <script type="application/ld+json">             │
-│  banner.phtml → <div class="nm-flutterbridge-banner">           │
+│  banner.phtml → <div class="nm-Bridge-banner">           │
 └────────┬────────────────────────────────────────────────────────┘
          │
          ▼
@@ -151,7 +151,7 @@ Request arrives
 ## Directory Structure
 
 ```
-magento/NativeMind_FlutterBridge/
+magento/NativeMind_Bridge/
 ├── registration.php
 ├── composer.json
 ├── README.md
@@ -268,7 +268,7 @@ magento/NativeMind_FlutterBridge/
 
 ```php
 <?php
-namespace NativeMind\FlutterBridge\Api;
+namespace NativeMind\Bridge\Api;
 
 interface CanonicalResolverInterface
 {
@@ -292,9 +292,9 @@ interface CanonicalResolverInterface
 
 ```php
 <?php
-namespace NativeMind\FlutterBridge\Api;
+namespace NativeMind\Bridge\Api;
 
-use NativeMind\FlutterBridge\Model\Route\RoutePayload;
+use NativeMind\Bridge\Model\Route\RoutePayload;
 
 interface RoutePayloadBuilderInterface
 {
@@ -325,7 +325,7 @@ interface RoutePayloadBuilderInterface
 
 ```php
 <?php
-namespace NativeMind\FlutterBridge\Api;
+namespace NativeMind\Bridge\Api;
 
 interface JsonLdBuilderInterface
 {
@@ -351,7 +351,7 @@ interface JsonLdBuilderInterface
 
 ```php
 <?php
-namespace NativeMind\FlutterBridge\Model\Route;
+namespace NativeMind\Bridge\Model\Route;
 
 class RouteType
 {
@@ -371,7 +371,7 @@ class RouteType
 
 ```php
 <?php
-namespace NativeMind\FlutterBridge\Model\Route;
+namespace NativeMind\Bridge\Model\Route;
 
 class RoutePayload
 {
@@ -586,7 +586,7 @@ class RoutePayload
 ### Config Structure
 
 ```
-nativemind_flutterbridge/
+nativemind_Bridge/
 ├── general/
 │   ├── enabled (bool)
 │   └── debug_mode (bool)
@@ -658,18 +658,18 @@ nativemind_flutterbridge/
     <body>
         <!-- App Banner at top of body -->
         <referenceContainer name="after.body.start">
-            <block class="NativeMind\FlutterBridge\Block\App\Banner"
-                   name="nativemind.flutterbridge.app.banner"
-                   template="NativeMind_FlutterBridge::app/banner.phtml"
-                   ifconfig="nativemind_flutterbridge/app_banner/enabled"/>
+            <block class="NativeMind\Bridge\Block\App\Banner"
+                   name="nativemind.Bridge.app.banner"
+                   template="NativeMind_Bridge::app/banner.phtml"
+                   ifconfig="nativemind_Bridge/app_banner/enabled"/>
         </referenceContainer>
 
         <!-- Route metadata at end of body -->
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridge\Block\Head\RouteMeta"
-                   name="nativemind.flutterbridge.route.meta"
-                   template="NativeMind_FlutterBridge::head/route_meta.phtml"
-                   ifconfig="nativemind_flutterbridge/route/enabled"/>
+            <block class="NativeMind\Bridge\Block\Head\RouteMeta"
+                   name="nativemind.Bridge.route.meta"
+                   template="NativeMind_Bridge::head/route_meta.phtml"
+                   ifconfig="nativemind_Bridge/route/enabled"/>
         </referenceContainer>
     </body>
 </page>
@@ -681,10 +681,10 @@ nativemind_flutterbridge/
 <page>
     <body>
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridge\Block\Head\JsonLd"
-                   name="nativemind.flutterbridge.product.jsonld"
-                   template="NativeMind_FlutterBridge::head/jsonld.phtml"
-                   ifconfig="nativemind_flutterbridge/jsonld/product_enabled">
+            <block class="NativeMind\Bridge\Block\Head\JsonLd"
+                   name="nativemind.Bridge.product.jsonld"
+                   template="NativeMind_Bridge::head/jsonld.phtml"
+                   ifconfig="nativemind_Bridge/jsonld/product_enabled">
                 <arguments>
                     <argument name="builder_type" xsi:type="string">product</argument>
                 </arguments>
@@ -740,7 +740,7 @@ Blocks should declare cache tags:
 ```php
 public function getIdentities()
 {
-    return ['nativemind_flutterbridge_route'];
+    return ['nativemind_Bridge_route'];
 }
 ```
 
@@ -807,7 +807,7 @@ view/frontend/web/css/vishakha-devi-*.css
 ### Files to Rename/Modify
 
 ```
-registration.php: FlutterTheme → FlutterBridge
+registration.php: FlutterTheme → Bridge
 composer.json: package name, description
 etc/module.xml: module name
 etc/config.xml: complete replacement

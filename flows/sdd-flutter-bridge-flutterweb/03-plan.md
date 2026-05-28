@@ -1,4 +1,4 @@
-# Implementation Plan: FlutterBridgeFlutterWeb
+# Implementation Plan: BridgeFlutterWeb
 
 > Version: 1.0
 > Status: DRAFT
@@ -16,9 +16,9 @@ Create the Flutter Web progressive enhancement module. Load Flutter Web on top o
 #### Task 1.1: Create Module Structure
 - **Description**: Create module directory and base files
 - **Files**:
-  - `NativeMind_FlutterBridgeFlutterWeb/registration.php` - Create
-  - `NativeMind_FlutterBridgeFlutterWeb/composer.json` - Create
-  - `NativeMind_FlutterBridgeFlutterWeb/etc/module.xml` - Create
+  - `NativeMind_BridgeFlutterWeb/registration.php` - Create
+  - `NativeMind_BridgeFlutterWeb/composer.json` - Create
+  - `NativeMind_BridgeFlutterWeb/etc/module.xml` - Create
 - **Dependencies**: Core module exists
 - **Verification**: Module registers
 - **Complexity**: Low
@@ -130,20 +130,20 @@ Task 1.1 ─→ Task 1.2 ─→ Task 2.1
 
 | File | Action | Reason |
 |------|--------|--------|
-| `NativeMind_FlutterBridgeFlutterWeb/registration.php` | Create | Module registration |
-| `NativeMind_FlutterBridgeFlutterWeb/composer.json` | Create | Composer package |
-| `NativeMind_FlutterBridgeFlutterWeb/etc/module.xml` | Create | Module declaration |
-| `NativeMind_FlutterBridgeFlutterWeb/etc/config.xml` | Create | Default config |
-| `NativeMind_FlutterBridgeFlutterWeb/etc/adminhtml/system.xml` | Create | Admin UI |
-| `NativeMind_FlutterBridgeFlutterWeb/Model/Config/Source/*.php` | Create | Admin dropdowns |
-| `NativeMind_FlutterBridgeFlutterWeb/Helper/Config.php` | Create | Config accessor |
-| `NativeMind_FlutterBridgeFlutterWeb/Block/Container.php` | Create | Container block |
-| `NativeMind_FlutterBridgeFlutterWeb/Block/Loader.php` | Create | Loader block |
-| `NativeMind_FlutterBridgeFlutterWeb/view/frontend/templates/container.phtml` | Create | Container HTML |
-| `NativeMind_FlutterBridgeFlutterWeb/view/frontend/templates/loader.phtml` | Create | Config + script |
-| `NativeMind_FlutterBridgeFlutterWeb/view/frontend/web/js/flutter-loader.js` | Create | Bootstrap logic |
-| `NativeMind_FlutterBridgeFlutterWeb/view/frontend/web/css/flutter.css` | Create | Transition styles |
-| `NativeMind_FlutterBridgeFlutterWeb/view/frontend/layout/default.xml` | Create | Block injection |
+| `NativeMind_BridgeFlutterWeb/registration.php` | Create | Module registration |
+| `NativeMind_BridgeFlutterWeb/composer.json` | Create | Composer package |
+| `NativeMind_BridgeFlutterWeb/etc/module.xml` | Create | Module declaration |
+| `NativeMind_BridgeFlutterWeb/etc/config.xml` | Create | Default config |
+| `NativeMind_BridgeFlutterWeb/etc/adminhtml/system.xml` | Create | Admin UI |
+| `NativeMind_BridgeFlutterWeb/Model/Config/Source/*.php` | Create | Admin dropdowns |
+| `NativeMind_BridgeFlutterWeb/Helper/Config.php` | Create | Config accessor |
+| `NativeMind_BridgeFlutterWeb/Block/Container.php` | Create | Container block |
+| `NativeMind_BridgeFlutterWeb/Block/Loader.php` | Create | Loader block |
+| `NativeMind_BridgeFlutterWeb/view/frontend/templates/container.phtml` | Create | Container HTML |
+| `NativeMind_BridgeFlutterWeb/view/frontend/templates/loader.phtml` | Create | Config + script |
+| `NativeMind_BridgeFlutterWeb/view/frontend/web/js/flutter-loader.js` | Create | Bootstrap logic |
+| `NativeMind_BridgeFlutterWeb/view/frontend/web/css/flutter.css` | Create | Transition styles |
+| `NativeMind_BridgeFlutterWeb/view/frontend/layout/default.xml` | Create | Block injection |
 
 ## Risk Assessment
 

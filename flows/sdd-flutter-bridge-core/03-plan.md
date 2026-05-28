@@ -1,4 +1,4 @@
-# Implementation Plan: FlutterBridgeCore
+# Implementation Plan: BridgeCore
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,16 +7,16 @@
 
 ## Summary
 
-Create the foundation module that all other FlutterBridge modules depend on. Minimal implementation: registration, config helper, admin UI.
+Create the foundation module that all other Bridge modules depend on. Minimal implementation: registration, config helper, admin UI.
 
 ## Task Breakdown
 
 ### Phase 1: Module Foundation
 
 #### Task 1.1: Create Module Directory Structure
-- **Description**: Create NativeMind_FlutterBridgeCore directory and base files
+- **Description**: Create NativeMind_BridgeCore directory and base files
 - **Files**:
-  - `magento/NativeMind_FlutterBridgeCore/` - Create directory
+  - `magento/NativeMind_BridgeCore/` - Create directory
   - `registration.php` - Create
   - `composer.json` - Create
 - **Dependencies**: None
@@ -54,7 +54,7 @@ Create the foundation module that all other FlutterBridge modules depend on. Min
 - **Files**:
   - `etc/adminhtml/system.xml` - Create
 - **Dependencies**: Task 2.1, Task 2.2
-- **Verification**: Admin panel shows FlutterBridge section
+- **Verification**: Admin panel shows Bridge section
 - **Complexity**: Low
 
 ### Phase 3: Config Helper
@@ -81,13 +81,13 @@ Task 2.1 ─→ Task 3.1
 
 | File | Action | Reason |
 |------|--------|--------|
-| `NativeMind_FlutterBridgeCore/registration.php` | Create | Module registration |
-| `NativeMind_FlutterBridgeCore/composer.json` | Create | Composer package |
-| `NativeMind_FlutterBridgeCore/etc/module.xml` | Create | Module declaration |
-| `NativeMind_FlutterBridgeCore/etc/config.xml` | Create | Default config |
-| `NativeMind_FlutterBridgeCore/etc/acl.xml` | Create | ACL resources |
-| `NativeMind_FlutterBridgeCore/etc/adminhtml/system.xml` | Create | Admin UI |
-| `NativeMind_FlutterBridgeCore/Helper/Config.php` | Create | Config accessor |
+| `NativeMind_BridgeCore/registration.php` | Create | Module registration |
+| `NativeMind_BridgeCore/composer.json` | Create | Composer package |
+| `NativeMind_BridgeCore/etc/module.xml` | Create | Module declaration |
+| `NativeMind_BridgeCore/etc/config.xml` | Create | Default config |
+| `NativeMind_BridgeCore/etc/acl.xml` | Create | ACL resources |
+| `NativeMind_BridgeCore/etc/adminhtml/system.xml` | Create | Admin UI |
+| `NativeMind_BridgeCore/Helper/Config.php` | Create | Config accessor |
 
 ## Risk Assessment
 
@@ -97,7 +97,7 @@ Task 2.1 ─→ Task 3.1
 
 ## Rollback Strategy
 
-1. Delete `NativeMind_FlutterBridgeCore/` directory
+1. Delete `NativeMind_BridgeCore/` directory
 2. Run `bin/magento setup:upgrade`
 
 ## Checkpoints

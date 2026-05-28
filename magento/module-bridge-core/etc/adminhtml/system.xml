@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind BridgeCore Admin System Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_BridgeCore
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="nativemind" translate="label" sortOrder="400">
+            <label>NativeMind</label>
+        </tab>
+        <section id="nativemind_Bridge" translate="label" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Bridge</label>
+            <tab>nativemind</tab>
+            <resource>NativeMind_BridgeCore::config</resource>
+            <group id="general" translate="label" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Bridge</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Master switch for all Bridge modules</comment>
+                </field>
+                <field id="debug_mode" translate="label comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable debug endpoints and console logging. Disable in production.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

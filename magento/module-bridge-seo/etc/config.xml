@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <nativemind_Bridge>
+            <canonical>
+                <enabled>1</enabled>
+                <product_mode>shortest</product_mode>
+                <strip_utm>1</strip_utm>
+                <strip_tracking>1</strip_tracking>
+            </canonical>
+            <robots>
+                <search_robots>noindex,follow</search_robots>
+                <filtered_category_robots>noindex,follow</filtered_category_robots>
+                <cart_robots>noindex,nofollow</cart_robots>
+                <checkout_robots>noindex,nofollow</checkout_robots>
+                <customer_robots>noindex,nofollow</customer_robots>
+            </robots>
+            <jsonld>
+                <enabled>1</enabled>
+                <product_enabled>1</product_enabled>
+                <breadcrumb_enabled>1</breadcrumb_enabled>
+            </jsonld>
+        </nativemind_Bridge>
+    </default>
+</config>

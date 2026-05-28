@@ -1,0 +1,37 @@
+{
+    "name": "nativemind/module-bridge-seo",
+    "description": "SEO module for Flutter Bridge - canonical URLs, robots, JSON-LD",
+    "version": "2.0.0",
+    "type": "magento2-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "NativeMind",
+            "email": "contact@nativemind.net",
+            "homepage": "https://nativemind.net"
+        }
+    ],
+    "homepage": "https://github.com/libsMagento/flutter_magento",
+    "keywords": [
+        "magento2",
+        "flutter",
+        "seo",
+        "canonical",
+        "json-ld"
+    ],
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "^103.0",
+        "magento/module-catalog": "^104.0",
+        "magento/module-cms": "^104.0",
+        "nativemind/module-bridge-core": "^2.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "NativeMind\\BridgeSeo\\": ""
+        }
+    }
+}

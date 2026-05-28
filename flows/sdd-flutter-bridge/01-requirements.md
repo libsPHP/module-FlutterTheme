@@ -13,7 +13,7 @@ The current `NativeMind_FlutterTheme` module is designed as a full Magento 2 the
 3. **Complex deployment** - Requires Flutter Web build bundling
 4. **Not Magento-native** - Doesn't leverage standard Magento extension patterns
 
-**Solution**: Transform the module into `NativeMind_FlutterBridge` - a theme-agnostic Magento 2 module that adds SEO/canonical/route metadata/app links functionality **on top of any existing theme**, without replacing it.
+**Solution**: Transform the module into `NativeMind_Bridge` - a theme-agnostic Magento 2 module that adds SEO/canonical/route metadata/app links functionality **on top of any existing theme**, without replacing it.
 
 This enables flutter_magento mobile apps to seamlessly open web URLs while the Magento store continues using its existing theme.
 
@@ -49,7 +49,7 @@ This enables flutter_magento mobile apps to seamlessly open web URLs while the M
 
 1. **Theme-agnostic installation**
    - **Given** any Magento 2 store with Blank/Luma/Hyva/custom theme
-   - **When** NativeMind_FlutterBridge is installed
+   - **When** NativeMind_Bridge is installed
    - **Then** the existing theme continues to render all pages unchanged
 
 2. **Canonical URL normalization**
@@ -177,7 +177,7 @@ The module outputs route metadata in a standardized JSON format:
 
 Based on user specification, implementation follows these phases:
 
-1. **Phase 0**: Rename/reposition from FlutterTheme to FlutterBridge
+1. **Phase 0**: Rename/reposition from FlutterTheme to Bridge
 2. **Phase 1**: Base module structure (registration, config, admin)
 3. **Phase 2**: Layout injection (blocks in default.xml and page-specific layouts)
 4. **Phase 3**: Route standard (RoutePayload builders for all page types)

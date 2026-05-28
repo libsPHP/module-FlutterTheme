@@ -1,0 +1,9 @@
+<?php
+/** @var \NativeMind\BridgeSeo\Block\JsonLd $block */
+if (!$block->isEnabled() || !$block->hasData()) {
+    return;
+}
+?>
+<script type="application/ld+json">
+<?= /* @noEscape */ $block->getJsonLd() ?>
+</script>

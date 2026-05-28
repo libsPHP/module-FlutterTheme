@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <nativemind_Bridge>
+            <appbanner>
+                <enabled>0</enabled>
+                <app_name></app_name>
+                <app_icon></app_icon>
+                <android_store_url></android_store_url>
+                <ios_store_url></ios_store_url>
+                <cta_text>Open in App</cta_text>
+                <position>top</position>
+                <dismiss_duration>7</dismiss_duration>
+            </appbanner>
+        </nativemind_Bridge>
+    </default>
+</config>

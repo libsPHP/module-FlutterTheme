@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeFlutterWeb
+# Requirements: BridgeFlutterWeb
 
 > Version: 1.0
 > Status: DRAFT
@@ -102,15 +102,15 @@ NEVER:
 ## Constraints
 
 - **Dependencies**:
-  - Requires `NativeMind_FlutterBridgeCore`
-  - Recommends `NativeMind_FlutterBridgeRoutes` for route handoff
+  - Requires `NativeMind_BridgeCore`
+  - Recommends `NativeMind_BridgeRoutes` for route handoff
 - **Flutter builds external**: Module does NOT store Flutter assets
 - **Same HTML for all**: Progressive enhancement only
 
 ## Config Scope
 
 ```text
-nativemind_flutterbridge/flutter_web/
+nativemind_Bridge/flutter_web/
   - enabled
   - assets_base_url (e.g., https://cdn.example.com/flutter/)
   - flutter_js_url (default: {assets_base_url}/flutter.js)
@@ -169,7 +169,7 @@ nativemind_flutterbridge/flutter_web/
 
 <!-- Flutter container (starts empty/hidden) -->
 <div id="flutter-container"
-     class="nm-flutterbridge-flutter"
+     class="nm-Bridge-flutter"
      style="display:none;">
 </div>
 

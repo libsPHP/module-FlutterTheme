@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dependency Injection Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_BridgeRoutes
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Canonical Resolver -->
+    <preference for="NativeMind\BridgeRoutes\Model\Route\CanonicalResolverInterface"
+                type="NativeMind\BridgeRoutes\Model\Route\DefaultCanonicalResolver"/>
+
+    <!-- Route Payload Builder Pool -->
+    <type name="NativeMind\BridgeRoutes\Model\Route\RoutePayloadBuilderPool">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="product" xsi:type="object">NativeMind\BridgeRoutes\Model\Route\ProductRoutePayloadBuilder</item>
+                <item name="category" xsi:type="object">NativeMind\BridgeRoutes\Model\Route\CategoryRoutePayloadBuilder</item>
+                <item name="cms" xsi:type="object">NativeMind\BridgeRoutes\Model\Route\CmsRoutePayloadBuilder</item>
+                <item name="search" xsi:type="object">NativeMind\BridgeRoutes\Model\Route\SearchRoutePayloadBuilder</item>
+                <item name="simple" xsi:type="object">NativeMind\BridgeRoutes\Model\Route\SimpleRoutePayloadBuilder</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

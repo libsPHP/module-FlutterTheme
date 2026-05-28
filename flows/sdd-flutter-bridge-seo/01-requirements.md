@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeSeo
+# Requirements: BridgeSeo
 
 > Version: 1.0
 > Status: DRAFT
@@ -65,7 +65,7 @@ Magento stores using Flutter need proper SEO handling: canonical URLs, robots me
 
 ## Constraints
 
-- **Dependencies**: Requires `NativeMind_FlutterBridgeCore`
+- **Dependencies**: Requires `NativeMind_BridgeCore`
 - **No template overrides**: Uses layout XML block injection only
 - **Theme-agnostic**: Works with Luma, Blank, Hyva, custom themes
 - **FPC-compatible**: All blocks cacheable
@@ -73,21 +73,21 @@ Magento stores using Flutter need proper SEO handling: canonical URLs, robots me
 ## Config Scope
 
 ```text
-nativemind_flutterbridge/canonical/
+nativemind_Bridge/canonical/
   - enabled
   - product_mode (shortest|category_path|magento_default)
   - category_filtered_mode (base_noindex|current_noindex|allow_all)
   - strip_utm
   - strip_tracking
 
-nativemind_flutterbridge/robots/
+nativemind_Bridge/robots/
   - search_robots (noindex,follow)
   - filtered_category_robots
   - cart_robots
   - checkout_robots
   - customer_robots
 
-nativemind_flutterbridge/jsonld/
+nativemind_Bridge/jsonld/
   - enabled
   - mode (append|replace)
   - product_enabled
@@ -95,7 +95,7 @@ nativemind_flutterbridge/jsonld/
   - organization_enabled
   - category_itemlist_enabled
 
-nativemind_flutterbridge/opengraph/
+nativemind_Bridge/opengraph/
   - enabled
   - mode (append|replace)
   - default_image

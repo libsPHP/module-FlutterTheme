@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeAppLinks
+# Specifications: BridgeAppLinks
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,13 +7,13 @@
 
 ## Overview
 
-FlutterBridgeAppLinks serves the `.well-known` JSON endpoints required for Android App Links and iOS Universal Links verification. Uses a custom router since Magento's standard routing doesn't support dots in path segments.
+BridgeAppLinks serves the `.well-known` JSON endpoints required for Android App Links and iOS Universal Links verification. Uses a custom router since Magento's standard routing doesn't support dots in path segments.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeAppLinks` | Create | New module |
+| `NativeMind_BridgeAppLinks` | Create | New module |
 | Router | Create | Custom router for .well-known |
 | Admin Config | Create | App Links section |
 
@@ -22,7 +22,7 @@ FlutterBridgeAppLinks serves the `.well-known` JSON endpoints required for Andro
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeAppLinks/
+NativeMind_BridgeAppLinks/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -69,7 +69,7 @@ AssetLinks Controller
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppLinks\Helper;
+namespace NativeMind\BridgeAppLinks\Helper;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -89,7 +89,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppLinks\Model;
+namespace NativeMind\BridgeAppLinks\Model;
 
 class AssetLinksBuilder
 {
@@ -102,7 +102,7 @@ class AssetLinksBuilder
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppLinks\Model;
+namespace NativeMind\BridgeAppLinks\Model;
 
 class AppleAppSiteAssociationBuilder
 {
@@ -115,7 +115,7 @@ class AppleAppSiteAssociationBuilder
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppLinks\Controller;
+namespace NativeMind\BridgeAppLinks\Controller;
 
 use Magento\Framework\App\RouterInterface;
 
@@ -123,12 +123,12 @@ class Router implements RouterInterface
 {
     private const ROUTES = [
         '.well-known/assetlinks.json' => [
-            'module' => 'NativeMind_FlutterBridgeAppLinks',
+            'module' => 'NativeMind_BridgeAppLinks',
             'controller' => 'wellknown',
             'action' => 'assetlinks'
         ],
         '.well-known/apple-app-site-association' => [
-            'module' => 'NativeMind_FlutterBridgeAppLinks',
+            'module' => 'NativeMind_BridgeAppLinks',
             'controller' => 'wellknown',
             'action' => 'appleappsiteassociation'
         ]
@@ -173,14 +173,14 @@ class Router implements RouterInterface
 
 | Path | Type | Default |
 |------|------|---------|
-| `nativemind_flutterbridge/app_links/android_enabled` | bool | 0 |
-| `nativemind_flutterbridge/app_links/android_package_name` | string | |
-| `nativemind_flutterbridge/app_links/android_sha256_fingerprints` | textarea | |
-| `nativemind_flutterbridge/app_links/android_playstore_url` | string | |
-| `nativemind_flutterbridge/app_links/ios_enabled` | bool | 0 |
-| `nativemind_flutterbridge/app_links/ios_team_id` | string | |
-| `nativemind_flutterbridge/app_links/ios_bundle_id` | string | |
-| `nativemind_flutterbridge/app_links/ios_appstore_url` | string | |
+| `nativemind_Bridge/app_links/android_enabled` | bool | 0 |
+| `nativemind_Bridge/app_links/android_package_name` | string | |
+| `nativemind_Bridge/app_links/android_sha256_fingerprints` | textarea | |
+| `nativemind_Bridge/app_links/android_playstore_url` | string | |
+| `nativemind_Bridge/app_links/ios_enabled` | bool | 0 |
+| `nativemind_Bridge/app_links/ios_team_id` | string | |
+| `nativemind_Bridge/app_links/ios_bundle_id` | string | |
+| `nativemind_Bridge/app_links/ios_appstore_url` | string | |
 
 ## Behavior Specifications
 
@@ -218,11 +218,11 @@ Output (array):
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (enabled check)
+- `NativeMind_BridgeCore` (enabled check)
 
 ### Does NOT Require
 
-- Any other FlutterBridge modules
+- Any other Bridge modules
 
 ## DI Configuration
 
@@ -237,8 +237,8 @@ Output (array):
     <type name="Magento\Framework\App\RouterList">
         <arguments>
             <argument name="routerList" xsi:type="array">
-                <item name="nativemind_flutterbridge_applinks" xsi:type="array">
-                    <item name="class" xsi:type="string">NativeMind\FlutterBridgeAppLinks\Controller\Router</item>
+                <item name="nativemind_Bridge_applinks" xsi:type="array">
+                    <item name="class" xsi:type="string">NativeMind\BridgeAppLinks\Controller\Router</item>
                     <item name="disable" xsi:type="boolean">false</item>
                     <item name="sortOrder" xsi:type="string">25</item>
                 </item>

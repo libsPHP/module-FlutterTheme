@@ -29,7 +29,7 @@ COMPLETE
 
 ## Implementation Summary
 
-Created NativeMind_FlutterBridgeSeo module with 10 files:
+Created NativeMind_BridgeSeo module with 10 files:
 - registration.php, composer.json
 - etc/module.xml, config.xml, adminhtml/system.xml
 - Helper/Config.php

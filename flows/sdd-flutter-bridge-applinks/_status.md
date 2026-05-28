@@ -29,7 +29,7 @@ COMPLETE
 
 ## Implementation Summary
 
-Created NativeMind_FlutterBridgeAppLinks module with 12 files:
+Created NativeMind_BridgeAppLinks module with 12 files:
 - registration.php, composer.json
 - etc/module.xml, config.xml, di.xml, frontend/routes.xml, adminhtml/system.xml
 - Helper/Config.php

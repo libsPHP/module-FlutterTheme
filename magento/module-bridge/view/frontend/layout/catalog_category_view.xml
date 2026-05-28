@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Category View Layout
+ *
+ * Adds category-specific metadata.
+ * Does NOT replace category view template.
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- Category-specific blocks will be added in later phases -->
+</page>

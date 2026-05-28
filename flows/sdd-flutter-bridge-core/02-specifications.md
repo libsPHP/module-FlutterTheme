@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeCore
+# Specifications: BridgeCore
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,14 +7,14 @@
 
 ## Overview
 
-FlutterBridgeCore is the minimal foundation module that all other FlutterBridge modules depend on. It provides centralized enabled/disabled state, debug mode flag, and version tracking. No frontend output.
+BridgeCore is the minimal foundation module that all other Bridge modules depend on. It provides centralized enabled/disabled state, debug mode flag, and version tracking. No frontend output.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeCore` | Create | New module |
-| Admin Config | Create | General section under nativemind_flutterbridge |
+| `NativeMind_BridgeCore` | Create | New module |
+| Admin Config | Create | General section under nativemind_Bridge |
 | ACL | Create | Config permission resource |
 
 ## Architecture
@@ -22,7 +22,7 @@ FlutterBridgeCore is the minimal foundation module that all other FlutterBridge 
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeCore/
+NativeMind_BridgeCore/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -40,7 +40,7 @@ NativeMind_FlutterBridgeCore/
 ```text
 ┌─────────────────────────────────────┐
 │         Admin Configuration         │
-│  Stores > Config > FlutterBridge    │
+│  Stores > Config > Bridge    │
 └─────────────────────────────────────┘
                   │
                   ▼
@@ -53,7 +53,7 @@ NativeMind_FlutterBridgeCore/
                   │
                   ▼
 ┌─────────────────────────────────────┐
-│     Other FlutterBridge Modules     │
+│     Other Bridge Modules     │
 │  (Routes, Seo, AppLinks, etc.)      │
 └─────────────────────────────────────┘
 ```
@@ -66,7 +66,7 @@ NativeMind_FlutterBridgeCore/
 <?php
 declare(strict_types=1);
 
-namespace NativeMind\FlutterBridgeCore\Helper;
+namespace NativeMind\BridgeCore\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
@@ -75,8 +75,8 @@ class Config extends AbstractHelper
 {
     public const VERSION = '2.0.0';
 
-    public const XML_PATH_ENABLED = 'nativemind_flutterbridge/general/enabled';
-    public const XML_PATH_DEBUG_MODE = 'nativemind_flutterbridge/general/debug_mode';
+    public const XML_PATH_ENABLED = 'nativemind_Bridge/general/enabled';
+    public const XML_PATH_DEBUG_MODE = 'nativemind_Bridge/general/debug_mode';
 
     public function isEnabled(?int $storeId = null): bool;
     public function isDebugMode(?int $storeId = null): bool;
@@ -92,14 +92,14 @@ No persistent data models. Config stored in Magento's `core_config_data` table.
 
 | Path | Type | Default | Description |
 |------|------|---------|-------------|
-| `nativemind_flutterbridge/general/enabled` | bool | 1 | Master enable/disable |
-| `nativemind_flutterbridge/general/debug_mode` | bool | 0 | Debug output enabled |
+| `nativemind_Bridge/general/enabled` | bool | 1 | Master enable/disable |
+| `nativemind_Bridge/general/debug_mode` | bool | 0 | Debug output enabled |
 
 ## Behavior Specifications
 
 ### Happy Path
 
-1. Admin enables FlutterBridge in config
+1. Admin enables Bridge in config
 2. Other modules call `Config::isEnabled()`
 3. Returns `true`, modules proceed with their functionality
 
@@ -127,12 +127,12 @@ No persistent data models. Config stored in Magento's `core_config_data` table.
 
 ### Blocks
 
-- `NativeMind_FlutterBridgeRoutes`
-- `NativeMind_FlutterBridgeSeo`
-- `NativeMind_FlutterBridgeAppLinks`
-- `NativeMind_FlutterBridgeAppBanner`
-- `NativeMind_FlutterBridgeFlutterWeb`
-- `NativeMind_FlutterBridgeDebug`
+- `NativeMind_BridgeRoutes`
+- `NativeMind_BridgeSeo`
+- `NativeMind_BridgeAppLinks`
+- `NativeMind_BridgeAppBanner`
+- `NativeMind_BridgeFlutterWeb`
+- `NativeMind_BridgeDebug`
 
 ## File Specifications
 
@@ -144,7 +144,7 @@ use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
-    'NativeMind_FlutterBridgeCore',
+    'NativeMind_BridgeCore',
     __DIR__
 );
 ```
@@ -153,14 +153,14 @@ ComponentRegistrar::register(
 
 ```json
 {
-    "name": "nativemind/module-flutter-bridge-core",
-    "description": "FlutterBridge Core - Foundation module",
+    "name": "nativemind/module-bridge-core",
+    "description": "Bridge Core - Foundation module",
     "type": "magento2-module",
     "version": "2.0.0",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "NativeMind\\FlutterBridgeCore\\": ""
+            "NativeMind\\BridgeCore\\": ""
         },
         "files": ["registration.php"]
     },
@@ -177,7 +177,7 @@ ComponentRegistrar::register(
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="NativeMind_FlutterBridgeCore" setup_version="2.0.0">
+    <module name="NativeMind_BridgeCore" setup_version="2.0.0">
         <sequence>
             <module name="Magento_Store"/>
             <module name="Magento_Backend"/>
@@ -193,12 +193,12 @@ ComponentRegistrar::register(
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <nativemind_flutterbridge>
+        <nativemind_Bridge>
             <general>
                 <enabled>1</enabled>
                 <debug_mode>0</debug_mode>
             </general>
-        </nativemind_flutterbridge>
+        </nativemind_Bridge>
     </default>
 </config>
 ```
@@ -215,8 +215,8 @@ ComponentRegistrar::register(
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="NativeMind_FlutterBridgeCore::config"
-                                      title="FlutterBridge" sortOrder="100"/>
+                            <resource id="NativeMind_BridgeCore::config"
+                                      title="Bridge" sortOrder="100"/>
                         </resource>
                     </resource>
                 </resource>
@@ -236,19 +236,19 @@ ComponentRegistrar::register(
         <tab id="nativemind" translate="label" sortOrder="400">
             <label>NativeMind</label>
         </tab>
-        <section id="nativemind_flutterbridge" translate="label" sortOrder="10"
+        <section id="nativemind_Bridge" translate="label" sortOrder="10"
                  showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>FlutterBridge</label>
+            <label>Bridge</label>
             <tab>nativemind</tab>
-            <resource>NativeMind_FlutterBridgeCore::config</resource>
+            <resource>NativeMind_BridgeCore::config</resource>
             <group id="general" translate="label" sortOrder="10"
                    showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10"
                        showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable FlutterBridge</label>
+                    <label>Enable Bridge</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Master switch for all FlutterBridge modules</comment>
+                    <comment>Master switch for all Bridge modules</comment>
                 </field>
                 <field id="debug_mode" translate="label comment" type="select" sortOrder="20"
                        showInDefault="1" showInWebsite="1" showInStore="1">
@@ -278,13 +278,13 @@ ComponentRegistrar::register(
 
 ### Manual Verification
 
-- [ ] Admin panel shows FlutterBridge section
+- [ ] Admin panel shows Bridge section
 - [ ] Enable/disable toggle works
 - [ ] Debug mode toggle works
 
 ## Migration / Rollout
 
-From monolith `NativeMind_FlutterBridge`:
+From monolith `NativeMind_Bridge`:
 1. Extract general config paths
 2. Keep same XML paths for backward compatibility
 3. Dependent modules will check Core's enabled state

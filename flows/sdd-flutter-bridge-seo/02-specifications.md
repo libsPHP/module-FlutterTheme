@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeSeo
+# Specifications: BridgeSeo
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,13 +7,13 @@
 
 ## Overview
 
-FlutterBridgeSeo provides theme-agnostic SEO enhancements: canonical URL normalization, robots meta directives, JSON-LD structured data, and OpenGraph meta tags. All via layout XML injection without template overrides.
+BridgeSeo provides theme-agnostic SEO enhancements: canonical URL normalization, robots meta directives, JSON-LD structured data, and OpenGraph meta tags. All via layout XML injection without template overrides.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeSeo` | Create | New module |
+| `NativeMind_BridgeSeo` | Create | New module |
 | Frontend Layout | Modify | Inject head/body blocks |
 | Admin Config | Create | SEO sections |
 
@@ -22,7 +22,7 @@ FlutterBridgeSeo provides theme-agnostic SEO enhancements: canonical URL normali
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeSeo/
+NativeMind_BridgeSeo/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -90,7 +90,7 @@ Page Request
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeSeo\Model\Canonical;
+namespace NativeMind\BridgeSeo\Model\Canonical;
 
 class CanonicalResolver
 {
@@ -104,7 +104,7 @@ class CanonicalResolver
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeSeo\Model\Robots;
+namespace NativeMind\BridgeSeo\Model\Robots;
 
 class RobotsResolver
 {
@@ -117,7 +117,7 @@ class RobotsResolver
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeSeo\Model\JsonLd;
+namespace NativeMind\BridgeSeo\Model\JsonLd;
 
 class ProductBuilder
 {
@@ -171,21 +171,21 @@ class ProductBuilder
 
 | Path | Type | Default |
 |------|------|---------|
-| `nativemind_flutterbridge/canonical/enabled` | bool | 1 |
-| `nativemind_flutterbridge/canonical/product_mode` | select | shortest |
-| `nativemind_flutterbridge/canonical/category_filtered_mode` | select | base_noindex |
-| `nativemind_flutterbridge/canonical/strip_utm` | bool | 1 |
-| `nativemind_flutterbridge/canonical/strip_tracking` | bool | 1 |
-| `nativemind_flutterbridge/robots/search_robots` | string | noindex,follow |
-| `nativemind_flutterbridge/robots/filtered_category_robots` | string | noindex,follow |
-| `nativemind_flutterbridge/robots/cart_robots` | string | noindex,nofollow |
-| `nativemind_flutterbridge/robots/checkout_robots` | string | noindex,nofollow |
-| `nativemind_flutterbridge/robots/customer_robots` | string | noindex,nofollow |
-| `nativemind_flutterbridge/jsonld/enabled` | bool | 1 |
-| `nativemind_flutterbridge/jsonld/product_enabled` | bool | 1 |
-| `nativemind_flutterbridge/jsonld/breadcrumb_enabled` | bool | 1 |
-| `nativemind_flutterbridge/opengraph/enabled` | bool | 1 |
-| `nativemind_flutterbridge/opengraph/twitter_card_type` | select | summary_large_image |
+| `nativemind_Bridge/canonical/enabled` | bool | 1 |
+| `nativemind_Bridge/canonical/product_mode` | select | shortest |
+| `nativemind_Bridge/canonical/category_filtered_mode` | select | base_noindex |
+| `nativemind_Bridge/canonical/strip_utm` | bool | 1 |
+| `nativemind_Bridge/canonical/strip_tracking` | bool | 1 |
+| `nativemind_Bridge/robots/search_robots` | string | noindex,follow |
+| `nativemind_Bridge/robots/filtered_category_robots` | string | noindex,follow |
+| `nativemind_Bridge/robots/cart_robots` | string | noindex,nofollow |
+| `nativemind_Bridge/robots/checkout_robots` | string | noindex,nofollow |
+| `nativemind_Bridge/robots/customer_robots` | string | noindex,nofollow |
+| `nativemind_Bridge/jsonld/enabled` | bool | 1 |
+| `nativemind_Bridge/jsonld/product_enabled` | bool | 1 |
+| `nativemind_Bridge/jsonld/breadcrumb_enabled` | bool | 1 |
+| `nativemind_Bridge/opengraph/enabled` | bool | 1 |
+| `nativemind_Bridge/opengraph/twitter_card_type` | select | summary_large_image |
 
 ## Behavior Specifications
 
@@ -227,13 +227,13 @@ Remove these params from canonical URLs:
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (enabled check)
+- `NativeMind_BridgeCore` (enabled check)
 - `Magento_Catalog` (product/category data)
 - `Magento_Cms` (CMS page data)
 
 ### Does NOT Require
 
-- `NativeMind_FlutterBridgeRoutes` (independent)
+- `NativeMind_BridgeRoutes` (independent)
 
 ## Layout Specification
 
@@ -245,9 +245,9 @@ Remove these params from canonical URLs:
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridgeSeo\Block\JsonLd"
-                   name="nativemind.flutterbridge.jsonld.product"
-                   template="NativeMind_FlutterBridgeSeo::jsonld.phtml"
+            <block class="NativeMind\BridgeSeo\Block\JsonLd"
+                   name="nativemind.Bridge.jsonld.product"
+                   template="NativeMind_BridgeSeo::jsonld.phtml"
                    cacheable="true">
                 <arguments>
                     <argument name="builder_type" xsi:type="string">product</argument>

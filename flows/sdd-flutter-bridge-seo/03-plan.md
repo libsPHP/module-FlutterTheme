@@ -1,4 +1,4 @@
-# Implementation Plan: FlutterBridgeSeo
+# Implementation Plan: BridgeSeo
 
 > Version: 1.0
 > Status: DRAFT
@@ -16,9 +16,9 @@ Create the SEO module with canonical resolution, robots meta, JSON-LD, and OpenG
 #### Task 1.1: Create Module Structure
 - **Description**: Create module directory and base files
 - **Files**:
-  - `NativeMind_FlutterBridgeSeo/registration.php` - Create
-  - `NativeMind_FlutterBridgeSeo/composer.json` - Create
-  - `NativeMind_FlutterBridgeSeo/etc/module.xml` - Create
+  - `NativeMind_BridgeSeo/registration.php` - Create
+  - `NativeMind_BridgeSeo/composer.json` - Create
+  - `NativeMind_BridgeSeo/etc/module.xml` - Create
 - **Dependencies**: Core module exists
 - **Verification**: Module registers
 - **Complexity**: Low
@@ -130,20 +130,20 @@ Task 1.1 ─→ Task 1.2 ─→ Task 2.1
 
 | File | Action | Reason |
 |------|--------|--------|
-| `NativeMind_FlutterBridgeSeo/registration.php` | Create | Module registration |
-| `NativeMind_FlutterBridgeSeo/composer.json` | Create | Composer package |
-| `NativeMind_FlutterBridgeSeo/etc/module.xml` | Create | Module declaration |
-| `NativeMind_FlutterBridgeSeo/etc/config.xml` | Create | Default SEO settings |
-| `NativeMind_FlutterBridgeSeo/etc/adminhtml/system.xml` | Create | Admin UI |
-| `NativeMind_FlutterBridgeSeo/Helper/Config.php` | Create | SEO config accessor |
-| `NativeMind_FlutterBridgeSeo/Model/Config/Source/*.php` | Create | Admin dropdowns |
-| `NativeMind_FlutterBridgeSeo/Model/Canonical/CanonicalResolver.php` | Create | URL resolver |
-| `NativeMind_FlutterBridgeSeo/Model/Robots/RobotsResolver.php` | Create | Robots resolver |
-| `NativeMind_FlutterBridgeSeo/Model/JsonLd/ProductBuilder.php` | Create | Product schema |
-| `NativeMind_FlutterBridgeSeo/Model/JsonLd/BreadcrumbBuilder.php` | Create | Breadcrumb schema |
-| `NativeMind_FlutterBridgeSeo/Block/JsonLd.php` | Create | JSON-LD block |
-| `NativeMind_FlutterBridgeSeo/view/frontend/templates/jsonld.phtml` | Create | Output template |
-| `NativeMind_FlutterBridgeSeo/view/frontend/layout/*.xml` | Create | Block injection |
+| `NativeMind_BridgeSeo/registration.php` | Create | Module registration |
+| `NativeMind_BridgeSeo/composer.json` | Create | Composer package |
+| `NativeMind_BridgeSeo/etc/module.xml` | Create | Module declaration |
+| `NativeMind_BridgeSeo/etc/config.xml` | Create | Default SEO settings |
+| `NativeMind_BridgeSeo/etc/adminhtml/system.xml` | Create | Admin UI |
+| `NativeMind_BridgeSeo/Helper/Config.php` | Create | SEO config accessor |
+| `NativeMind_BridgeSeo/Model/Config/Source/*.php` | Create | Admin dropdowns |
+| `NativeMind_BridgeSeo/Model/Canonical/CanonicalResolver.php` | Create | URL resolver |
+| `NativeMind_BridgeSeo/Model/Robots/RobotsResolver.php` | Create | Robots resolver |
+| `NativeMind_BridgeSeo/Model/JsonLd/ProductBuilder.php` | Create | Product schema |
+| `NativeMind_BridgeSeo/Model/JsonLd/BreadcrumbBuilder.php` | Create | Breadcrumb schema |
+| `NativeMind_BridgeSeo/Block/JsonLd.php` | Create | JSON-LD block |
+| `NativeMind_BridgeSeo/view/frontend/templates/jsonld.phtml` | Create | Output template |
+| `NativeMind_BridgeSeo/view/frontend/layout/*.xml` | Create | Block injection |
 
 ## Risk Assessment
 

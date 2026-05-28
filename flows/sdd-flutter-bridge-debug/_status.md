@@ -29,7 +29,7 @@ COMPLETE
 
 ## Implementation Summary
 
-Created NativeMind_FlutterBridgeDebug module with 10 files:
+Created NativeMind_BridgeDebug module with 10 files:
 - registration.php, composer.json
 - etc/module.xml, frontend/routes.xml
 - Helper/Config.php

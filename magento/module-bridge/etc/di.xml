@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Dependency Injection Configuration
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ * @author      NativeMind <contact@nativemind.net>
+ * @copyright   Copyright (c) 2024 NativeMind (https://nativemind.net)
+ * @license     https://opensource.org/licenses/MIT
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Type configurations for blocks and models -->
+
+    <!-- Route Meta Block -->
+    <type name="NativeMind\Bridge\Block\Head\RouteMeta">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- JSON-LD Block -->
+    <type name="NativeMind\Bridge\Block\Head\JsonLd">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- App Banner Block -->
+    <type name="NativeMind\Bridge\Block\App\Banner">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="cache_lifetime" xsi:type="number">86400</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Custom Router for .well-known endpoints -->
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="nativemind_Bridge" xsi:type="array">
+                    <item name="class" xsi:type="string">NativeMind\Bridge\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">25</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

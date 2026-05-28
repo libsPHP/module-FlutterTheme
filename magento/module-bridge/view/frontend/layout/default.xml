@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Default Layout
+ *
+ * Adds route metadata and app banner blocks to all pages.
+ * Does NOT replace theme templates - only adds blocks.
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <css src="NativeMind_Bridge::css/bridge.css"/>
+    </head>
+
+    <body>
+        <!-- App Banner at top of body -->
+        <referenceContainer name="after.body.start">
+            <block class="NativeMind\Bridge\Block\App\Banner"
+                   name="nativemind.Bridge.app.banner"
+                   template="NativeMind_Bridge::app/banner.phtml"
+                   ifconfig="nativemind_Bridge/app_banner/enabled"
+                   cacheable="true"/>
+        </referenceContainer>
+
+        <!-- Route metadata at end of body -->
+        <referenceContainer name="before.body.end">
+            <block class="NativeMind\Bridge\Block\Head\RouteMeta"
+                   name="nativemind.Bridge.route.meta"
+                   template="NativeMind_Bridge::head/route_meta.phtml"
+                   ifconfig="nativemind_Bridge/route/enabled"
+                   cacheable="true"/>
+        </referenceContainer>
+    </body>
+</page>

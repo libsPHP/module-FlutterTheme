@@ -1,10 +1,10 @@
-# FlutterBridge Module Split - Master Overview
+# Bridge Module Split - Master Overview
 
 > Last Updated: 2026-05-25
 
 ## Summary
 
-Splitting the monolithic `NativeMind_FlutterBridge` into 7 independent capability modules:
+Splitting the monolithic `NativeMind_Bridge` into 7 independent capability modules:
 
 | Module | Purpose | Dependencies |
 |--------|---------|--------------|
@@ -20,7 +20,7 @@ Splitting the monolithic `NativeMind_FlutterBridge` into 7 independent capabilit
 
 ```text
                     ┌──────────────────────────────────────────┐
-                    │         NativeMind_FlutterBridgeCore     │
+                    │         NativeMind_BridgeCore     │
                     │   (enabled, debug_mode, version)         │
                     └──────────────────────────────────────────┘
                                         │
@@ -42,41 +42,41 @@ Splitting the monolithic `NativeMind_FlutterBridge` into 7 independent capabilit
 
 ### Minimal (Route metadata only)
 ```bash
-composer require nativemind/module-flutter-bridge-core
-composer require nativemind/module-flutter-bridge-routes
+composer require nativemind/module-bridge-core
+composer require nativemind/module-bridge-routes
 ```
 
 ### SEO Enhancement
 ```bash
-composer require nativemind/module-flutter-bridge-core
-composer require nativemind/module-flutter-bridge-seo
+composer require nativemind/module-bridge-core
+composer require nativemind/module-bridge-seo
 ```
 
 ### Full Native App Support
 ```bash
-composer require nativemind/module-flutter-bridge-core
-composer require nativemind/module-flutter-bridge-routes
-composer require nativemind/module-flutter-bridge-applinks
-composer require nativemind/module-flutter-bridge-appbanner
+composer require nativemind/module-bridge-core
+composer require nativemind/module-bridge-routes
+composer require nativemind/module-bridge-applinks
+composer require nativemind/module-bridge-appbanner
 ```
 
 ### Progressive Flutter Web
 ```bash
-composer require nativemind/module-flutter-bridge-core
-composer require nativemind/module-flutter-bridge-routes
-composer require nativemind/module-flutter-bridge-seo
-composer require nativemind/module-flutter-bridge-flutterweb
+composer require nativemind/module-bridge-core
+composer require nativemind/module-bridge-routes
+composer require nativemind/module-bridge-seo
+composer require nativemind/module-bridge-flutterweb
 ```
 
 ### Everything + Debug
 ```bash
-composer require nativemind/module-flutter-bridge-core
-composer require nativemind/module-flutter-bridge-routes
-composer require nativemind/module-flutter-bridge-seo
-composer require nativemind/module-flutter-bridge-applinks
-composer require nativemind/module-flutter-bridge-appbanner
-composer require nativemind/module-flutter-bridge-flutterweb
-composer require nativemind/module-flutter-bridge-debug
+composer require nativemind/module-bridge-core
+composer require nativemind/module-bridge-routes
+composer require nativemind/module-bridge-seo
+composer require nativemind/module-bridge-applinks
+composer require nativemind/module-bridge-appbanner
+composer require nativemind/module-bridge-flutterweb
+composer require nativemind/module-bridge-debug
 ```
 
 ## Implementation Order
@@ -130,7 +130,7 @@ Works with: Luma, Blank, Hyva, custom themes
 ```text
 Each module works standalone (except Core dependency)
 No cross-module assumptions
-Config in own section under nativemind_flutterbridge/*
+Config in own section under nativemind_Bridge/*
 ```
 
 ## Next Steps

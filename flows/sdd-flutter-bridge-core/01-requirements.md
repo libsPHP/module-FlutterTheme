@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeCore
+# Requirements: BridgeCore
 
 > Version: 1.0
 > Status: DRAFT
@@ -6,7 +6,7 @@
 
 ## Problem Statement
 
-The monolithic `NativeMind_FlutterBridge` module bundles all functionality together, forcing stores to enable everything or nothing. Stores need a base module that provides only core infrastructure shared by all other FlutterBridge modules, without any page-visible functionality.
+The monolithic `NativeMind_Bridge` module bundles all functionality together, forcing stores to enable everything or nothing. Stores need a base module that provides only core infrastructure shared by all other Bridge modules, without any page-visible functionality.
 
 ## User Stories
 
@@ -14,7 +14,7 @@ The monolithic `NativeMind_FlutterBridge` module bundles all functionality toget
 
 **As a** Magento store developer
 **I want** a minimal base module that provides shared configuration and utilities
-**So that** I can install only the FlutterBridge features I need without overhead
+**So that** I can install only the Bridge features I need without overhead
 
 ### Secondary
 
@@ -26,26 +26,26 @@ The monolithic `NativeMind_FlutterBridge` module bundles all functionality toget
 
 ### Must Have
 
-1. **Given** FlutterBridgeCore is installed
+1. **Given** BridgeCore is installed
    **When** I access admin configuration
-   **Then** I see a "FlutterBridge" section with General settings (enabled, debug mode)
+   **Then** I see a "Bridge" section with General settings (enabled, debug mode)
 
-2. **Given** FlutterBridgeCore is enabled
-   **When** other FlutterBridge modules check status
+2. **Given** BridgeCore is enabled
+   **When** other Bridge modules check status
    **Then** they receive correct enabled/disabled state via `Helper\Config::isEnabled()`
 
 3. **Given** debug mode is enabled in Core
    **When** other modules need debug info
    **Then** they can check via `Helper\Config::isDebugMode()`
 
-4. **Given** any FlutterBridge optional module is installed
-   **When** FlutterBridgeCore is not installed
+4. **Given** any Bridge optional module is installed
+   **When** BridgeCore is not installed
    **Then** Magento reports a dependency error
 
 ### Should Have
 
 - Version constant available for compatibility checks
-- Centralized event prefix for all FlutterBridge events
+- Centralized event prefix for all Bridge events
 
 ### Won't Have (This Iteration)
 
@@ -57,14 +57,14 @@ The monolithic `NativeMind_FlutterBridge` module bundles all functionality toget
 ## Constraints
 
 - **Technical**: Must follow Magento 2.4+ module standards
-- **Namespace**: `NativeMind\FlutterBridgeCore`
+- **Namespace**: `NativeMind\BridgeCore`
 - **Dependencies**: Only Magento core modules (Magento_Store, Magento_Backend)
 - **Minimal**: This module should be as small as possible
 
 ## Module Responsibilities
 
 ```text
-Config scope: nativemind_flutterbridge/general/*
+Config scope: nativemind_Bridge/general/*
   - enabled (yes/no)
   - debug_mode (yes/no)
   - version (read-only)
@@ -75,17 +75,17 @@ Helper\Config provides:
   - getVersion()
 
 ACL resource:
-  - NativeMind_FlutterBridgeCore::config
+  - NativeMind_BridgeCore::config
 ```
 
 ## Open Questions
 
-- [x] Should Core own the entire config path prefix? → Yes, `nativemind_flutterbridge/`
+- [x] Should Core own the entire config path prefix? → Yes, `nativemind_Bridge/`
 - [x] Should each submodule extend the admin section or create separate? → Extend Core's section
 
 ## References
 
-- Original monolith: `NativeMind_FlutterBridge/`
+- Original monolith: `NativeMind_Bridge/`
 - Module split spec from user
 
 ---

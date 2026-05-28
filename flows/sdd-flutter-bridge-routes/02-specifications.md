@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeRoutes
+# Specifications: BridgeRoutes
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,13 +7,13 @@
 
 ## Overview
 
-FlutterBridgeRoutes outputs the `flutter_magento_v1` route metadata JSON on every supported page. This enables Flutter apps and Flutter Web to know the app route corresponding to the current Magento page.
+BridgeRoutes outputs the `flutter_magento_v1` route metadata JSON on every supported page. This enables Flutter apps and Flutter Web to know the app route corresponding to the current Magento page.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeRoutes` | Create | New module |
+| `NativeMind_BridgeRoutes` | Create | New module |
 | Frontend Layout | Modify | Inject block to body end |
 | Admin Config | Create | Routes section |
 
@@ -22,7 +22,7 @@ FlutterBridgeRoutes outputs the `flutter_magento_v1` route metadata JSON on ever
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeRoutes/
+NativeMind_BridgeRoutes/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -75,7 +75,7 @@ RouteMeta Block
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeRoutes\Helper;
+namespace NativeMind\BridgeRoutes\Helper;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -96,7 +96,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeRoutes\Model\Route;
+namespace NativeMind\BridgeRoutes\Model\Route;
 
 class RouteType
 {
@@ -116,7 +116,7 @@ class RouteType
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeRoutes\Model\Route;
+namespace NativeMind\BridgeRoutes\Model\Route;
 
 class RoutePayload
 {
@@ -172,16 +172,16 @@ class RoutePayload
 
 | Path | Type | Default |
 |------|------|---------|
-| `nativemind_flutterbridge/route/enabled` | bool | 1 |
-| `nativemind_flutterbridge/route/standard_version` | string | flutter_magento_v1 |
-| `nativemind_flutterbridge/route/product_app_route` | string | /product/{sku} |
-| `nativemind_flutterbridge/route/category_app_route` | string | /category/{id} |
-| `nativemind_flutterbridge/route/cms_app_route` | string | /page/{identifier} |
-| `nativemind_flutterbridge/route/search_app_route` | string | /search?q={query} |
-| `nativemind_flutterbridge/route/cart_app_route` | string | /cart |
-| `nativemind_flutterbridge/route/checkout_app_route` | string | /checkout |
-| `nativemind_flutterbridge/route/customer_app_route` | string | /account |
-| `nativemind_flutterbridge/route/home_app_route` | string | / |
+| `nativemind_Bridge/route/enabled` | bool | 1 |
+| `nativemind_Bridge/route/standard_version` | string | flutter_magento_v1 |
+| `nativemind_Bridge/route/product_app_route` | string | /product/{sku} |
+| `nativemind_Bridge/route/category_app_route` | string | /category/{id} |
+| `nativemind_Bridge/route/cms_app_route` | string | /page/{identifier} |
+| `nativemind_Bridge/route/search_app_route` | string | /search?q={query} |
+| `nativemind_Bridge/route/cart_app_route` | string | /cart |
+| `nativemind_Bridge/route/checkout_app_route` | string | /checkout |
+| `nativemind_Bridge/route/customer_app_route` | string | /account |
+| `nativemind_Bridge/route/home_app_route` | string | / |
 
 ## Behavior Specifications
 
@@ -225,14 +225,14 @@ class RoutePayload
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (enabled check)
+- `NativeMind_BridgeCore` (enabled check)
 - `Magento_Catalog` (product/category registry)
 - `Magento_Cms` (cms page registry)
 - `Magento_Store` (store context)
 
 ### Blocks
 
-- `NativeMind_FlutterBridgeFlutterWeb` (uses route payload)
+- `NativeMind_BridgeFlutterWeb` (uses route payload)
 
 ## Layout Specification
 
@@ -244,9 +244,9 @@ class RoutePayload
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridgeRoutes\Block\RouteMeta"
-                   name="nativemind.flutterbridge.route.meta"
-                   template="NativeMind_FlutterBridgeRoutes::route_meta.phtml"
+            <block class="NativeMind\BridgeRoutes\Block\RouteMeta"
+                   name="nativemind.Bridge.route.meta"
+                   template="NativeMind_BridgeRoutes::route_meta.phtml"
                    cacheable="true"/>
         </referenceContainer>
     </body>

@@ -7,7 +7,7 @@
 
 ## Summary
 
-Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-agnostic Magento 2 module. Implementation follows 12 phases from cleanup through testing.
+Transform `NativeMind_FlutterTheme` into `NativeMind_Bridge` - a theme-agnostic Magento 2 module. Implementation follows 12 phases from cleanup through testing.
 
 **Total tasks**: 67
 **Estimated complexity**: High (significant refactoring + new features)
@@ -39,11 +39,11 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 - **Complexity**: Low
 
 #### Task 0.2: Rename module registration
-- **Description**: Update registration.php to register as NativeMind_FlutterBridge
+- **Description**: Update registration.php to register as NativeMind_Bridge
 - **Files**:
   - `registration.php` - Modify
 - **Dependencies**: Task 0.1
-- **Verification**: `grep -r "FlutterBridge" registration.php`
+- **Verification**: `grep -r "Bridge" registration.php`
 - **Complexity**: Low
 
 #### Task 0.3: Update composer.json
@@ -55,7 +55,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 - **Complexity**: Low
 
 #### Task 0.4: Update module.xml
-- **Description**: Rename module to NativeMind_FlutterBridge
+- **Description**: Rename module to NativeMind_Bridge
 - **Files**:
   - `etc/module.xml` - Modify
 - **Dependencies**: Task 0.2
@@ -94,7 +94,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 - **Files**:
   - `etc/config.xml` - Replace
 - **Dependencies**: Task 0.4
-- **Verification**: Config paths match spec (nativemind_flutterbridge/*)
+- **Verification**: Config paths match spec (nativemind_Bridge/*)
 - **Complexity**: Medium
 
 #### Task 1.2: Create new system.xml
@@ -106,7 +106,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 - **Complexity**: Medium
 
 #### Task 1.3: Update acl.xml
-- **Description**: Update ACL resource names for FlutterBridge
+- **Description**: Update ACL resource names for Bridge
 - **Files**:
   - `etc/acl.xml` - Modify
 - **Dependencies**: Task 1.2
@@ -571,7 +571,7 @@ Transform `NativeMind_FlutterTheme` into `NativeMind_FlutterBridge` - a theme-ag
 - **Complexity**: Low
 
 #### Task 9.4: Create bridge.css
-- **Description**: Namespaced CSS for banner (.nm-flutterbridge-*)
+- **Description**: Namespaced CSS for banner (.nm-Bridge-*)
 - **Files**:
   - `view/frontend/web/css/bridge.css` - Create
 - **Dependencies**: Task 9.3

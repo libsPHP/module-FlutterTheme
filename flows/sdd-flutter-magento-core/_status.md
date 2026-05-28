@@ -70,9 +70,9 @@ Key decisions and context for resuming:
 - MagentoEntity base class supports custom attributes
 - Error model uses sealed classes for exhaustive handling
 
-### Routing Coordination with FlutterBridge
+### Routing Coordination with Bridge
 
-Flutter apps receive route info from FlutterBridge Magento module via `flutter_magento_v1` standard.
+Flutter apps receive route info from Bridge Magento module via `flutter_magento_v1` standard.
 The RoutePayload JSON structure (from `sdd-flutter-bridge-routes`):
 
 ```json

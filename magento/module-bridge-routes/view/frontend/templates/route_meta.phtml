@@ -1,0 +1,18 @@
+<?php
+/**
+ * Route Meta Template
+ *
+ * Outputs flutter_magento_v1 route metadata as JSON script tag.
+ *
+ * @var \NativeMind\BridgeRoutes\Block\RouteMeta $block
+ */
+
+if (!$block->isEnabled() || !$block->hasRoutePayload()) {
+    return;
+}
+
+$routeJson = $block->getRoutePayloadJson();
+?>
+<script type="application/json" id="flutter-magento-route">
+<?= /* @noEscape */ $routeJson ?>
+</script>

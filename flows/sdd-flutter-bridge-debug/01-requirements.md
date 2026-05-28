@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeDebug
+# Requirements: BridgeDebug
 
 > Version: 1.0
 > Status: DRAFT
@@ -6,13 +6,13 @@
 
 ## Problem Statement
 
-Developers and store integrators need debugging tools to verify FlutterBridge modules are working correctly. These debug endpoints and tools should be in a separate module that can be disabled in production.
+Developers and store integrators need debugging tools to verify Bridge modules are working correctly. These debug endpoints and tools should be in a separate module that can be disabled in production.
 
 ## User Stories
 
 ### Primary
 
-**As a** developer integrating FlutterBridge
+**As a** developer integrating Bridge
 **I want** debug endpoints to inspect current configuration
 **So that** I can troubleshoot integration issues
 
@@ -31,11 +31,11 @@ Developers and store integrators need debugging tools to verify FlutterBridge mo
 ### Must Have
 
 1. **Given** debug mode is enabled in Core
-   **When** `/flutterbridge/debug/route` is accessed
+   **When** `/Bridge/debug/route` is accessed
    **Then** JSON response shows current route payload
 
 2. **Given** debug mode is enabled
-   **When** `/flutterbridge/debug/config` is accessed
+   **When** `/Bridge/debug/config` is accessed
    **Then** JSON response shows non-sensitive configuration
 
 3. **Given** debug mode is disabled
@@ -48,8 +48,8 @@ Developers and store integrators need debugging tools to verify FlutterBridge mo
 
 ### Should Have
 
-- `/flutterbridge/debug/seo` - Show canonical, robots, JSON-LD data
-- `/flutterbridge/debug/applinks` - Show app links configuration
+- `/Bridge/debug/seo` - Show canonical, robots, JSON-LD data
+- `/Bridge/debug/applinks` - Show app links configuration
 - Debug toolbar integration (if Magento debug toolbar enabled)
 
 ### Won't Have (This Iteration)
@@ -60,24 +60,24 @@ Developers and store integrators need debugging tools to verify FlutterBridge mo
 
 ## Constraints
 
-- **Dependencies**: Requires `NativeMind_FlutterBridgeCore`
+- **Dependencies**: Requires `NativeMind_BridgeCore`
 - **Security**: Must check debug mode before exposing data
 - **No secrets**: Never expose API keys, fingerprints, etc.
 
 ## Config Scope
 
 ```text
-Uses nativemind_flutterbridge/general/debug_mode from Core
+Uses nativemind_Bridge/general/debug_mode from Core
 No additional config needed
 ```
 
 ## Debug Endpoints
 
 ```text
-GET /flutterbridge/debug/route
+GET /Bridge/debug/route
 Response: Current page route payload JSON
 
-GET /flutterbridge/debug/config
+GET /Bridge/debug/config
 Response: {
   "core": { "enabled": true, "version": "2.0.0" },
   "routes": { "enabled": true, "standard": "flutter_magento_v1" },
@@ -87,7 +87,7 @@ Response: {
   "flutterweb": { "enabled": true, "assets_url": "..." }
 }
 
-GET /flutterbridge/debug/seo
+GET /Bridge/debug/seo
 Response: {
   "canonical": "https://...",
   "robots": "index,follow",
@@ -95,7 +95,7 @@ Response: {
   "opengraph": { ... }
 }
 
-GET /flutterbridge/debug/applinks
+GET /Bridge/debug/applinks
 Response: {
   "android": { "package": "...", "assetlinks_url": "..." },
   "ios": { "team_id": "...", "aasa_url": "..." }
@@ -106,7 +106,7 @@ Response: {
 
 ```javascript
 // When debug mode enabled and FlutterWeb active
-console.group('[FlutterBridge Debug]');
+console.group('[Bridge Debug]');
 console.log('Route:', window.flutterMagentoRoute);
 console.log('Flutter Status:', 'loading|ready|error');
 console.log('Load Time:', '1234ms');

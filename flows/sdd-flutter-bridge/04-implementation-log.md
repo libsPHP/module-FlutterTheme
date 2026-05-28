@@ -9,7 +9,7 @@
 |------|--------|-------|
 | **Phase 0: Cleanup & Rename** | Done | |
 | 0.1 Delete obsolete files | Done | 15 files deleted |
-| 0.2 Rename module registration | Done | NativeMind_FlutterBridge |
+| 0.2 Rename module registration | Done | NativeMind_Bridge |
 | 0.3 Update composer.json | Done | v2.0.0, new namespace |
 | 0.4 Update module.xml | Done | |
 | 0.5 Update README.md | Done | Theme-agnostic positioning |
@@ -20,7 +20,7 @@
 | 1.3 Update acl.xml | Done | |
 | 1.4 Create Helper/Config.php | Done | All config accessors |
 | 1.5 Update di.xml | Done | |
-| 1.6 Create frontend routes.xml | Done | flutterbridge, .well-known |
+| 1.6 Create frontend routes.xml | Done | Bridge, .well-known |
 | 1.7 Source models | Done | 5 source models |
 | **Phase 2: Route Standard** | Partial | |
 | 2.1 Create RouteType class | Done | |
@@ -60,7 +60,7 @@
 **Context**: Beginning implementation after plan approval
 
 #### Completed
-- Phase 0: Deleted 15 obsolete files, renamed to FlutterBridge
+- Phase 0: Deleted 15 obsolete files, renamed to Bridge
 - Phase 1: Created config.xml, system.xml, acl.xml, Helper/Config.php, di.xml, routes.xml
 - Phase 1: Created 5 source models (ProductCanonicalMode, CategoryFilteredMode, JsonLdMode, OpenGraphMode, TwitterCardType)
 - Phase 2: Created RouteType, RoutePayload, RoutePayloadBuilderInterface, CanonicalResolverInterface

@@ -29,7 +29,7 @@ COMPLETE
 
 ## Implementation Summary
 
-Created NativeMind_FlutterBridgeCore module with 7 files:
+Created NativeMind_BridgeCore module with 7 files:
 - registration.php, composer.json
 - etc/module.xml, config.xml, acl.xml, adminhtml/system.xml
 - Helper/Config.php (VERSION, isEnabled, isDebugMode)

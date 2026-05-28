@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeAppBanner
+# Specifications: BridgeAppBanner
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,13 +7,13 @@
 
 ## Overview
 
-FlutterBridgeAppBanner displays an "Open in App" banner encouraging mobile users to switch to the native app. Uses vanilla JS for behavior and namespaced CSS for styling. FPC-compatible via hidden initial state.
+BridgeAppBanner displays an "Open in App" banner encouraging mobile users to switch to the native app. Uses vanilla JS for behavior and namespaced CSS for styling. FPC-compatible via hidden initial state.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeAppBanner` | Create | New module |
+| `NativeMind_BridgeAppBanner` | Create | New module |
 | Frontend Layout | Modify | Inject banner block |
 | Admin Config | Create | Banner section |
 | Frontend CSS | Create | Namespaced styles |
@@ -23,7 +23,7 @@ FlutterBridgeAppBanner displays an "Open in App" banner encouraging mobile users
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeAppBanner/
+NativeMind_BridgeAppBanner/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -83,7 +83,7 @@ User Interaction
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppBanner\Helper;
+namespace NativeMind\BridgeAppBanner\Helper;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -104,7 +104,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeAppBanner\Block;
+namespace NativeMind\BridgeAppBanner\Block;
 
 use Magento\Framework\View\Element\Template;
 
@@ -127,16 +127,16 @@ class Banner extends Template
 
 | Path | Type | Default |
 |------|------|---------|
-| `nativemind_flutterbridge/app_banner/enabled` | bool | 0 |
-| `nativemind_flutterbridge/app_banner/title` | string | Open in App |
-| `nativemind_flutterbridge/app_banner/subtitle` | string | Better shopping experience |
-| `nativemind_flutterbridge/app_banner/open_button_text` | string | Open |
-| `nativemind_flutterbridge/app_banner/install_button_text` | string | Install |
-| `nativemind_flutterbridge/app_banner/show_on_product` | bool | 1 |
-| `nativemind_flutterbridge/app_banner/show_on_category` | bool | 1 |
-| `nativemind_flutterbridge/app_banner/show_on_home` | bool | 1 |
-| `nativemind_flutterbridge/app_banner/dismiss_cookie_days` | int | 7 |
-| `nativemind_flutterbridge/app_banner/install_url` | string | |
+| `nativemind_Bridge/app_banner/enabled` | bool | 0 |
+| `nativemind_Bridge/app_banner/title` | string | Open in App |
+| `nativemind_Bridge/app_banner/subtitle` | string | Better shopping experience |
+| `nativemind_Bridge/app_banner/open_button_text` | string | Open |
+| `nativemind_Bridge/app_banner/install_button_text` | string | Install |
+| `nativemind_Bridge/app_banner/show_on_product` | bool | 1 |
+| `nativemind_Bridge/app_banner/show_on_category` | bool | 1 |
+| `nativemind_Bridge/app_banner/show_on_home` | bool | 1 |
+| `nativemind_Bridge/app_banner/dismiss_cookie_days` | int | 7 |
+| `nativemind_Bridge/app_banner/install_url` | string | |
 
 ## Behavior Specifications
 
@@ -161,7 +161,7 @@ switch ($fullActionName) {
 
 ```javascript
 // Cookie name
-const COOKIE_NAME = 'nm_flutterbridge_banner_dismissed';
+const COOKIE_NAME = 'nm_Bridge_banner_dismissed';
 
 // Set cookie on dismiss
 function dismiss() {
@@ -193,22 +193,22 @@ function shouldShow() {
 ### Class Names (BEM, namespaced)
 
 ```css
-.nm-flutterbridge-banner {}
-.nm-flutterbridge-banner__content {}
-.nm-flutterbridge-banner__text {}
-.nm-flutterbridge-banner__title {}
-.nm-flutterbridge-banner__subtitle {}
-.nm-flutterbridge-banner__actions {}
-.nm-flutterbridge-banner__btn {}
-.nm-flutterbridge-banner__btn--open {}
-.nm-flutterbridge-banner__btn--install {}
-.nm-flutterbridge-banner__close {}
+.nm-Bridge-banner {}
+.nm-Bridge-banner__content {}
+.nm-Bridge-banner__text {}
+.nm-Bridge-banner__title {}
+.nm-Bridge-banner__subtitle {}
+.nm-Bridge-banner__actions {}
+.nm-Bridge-banner__btn {}
+.nm-Bridge-banner__btn--open {}
+.nm-Bridge-banner__btn--install {}
+.nm-Bridge-banner__close {}
 ```
 
 ### Default Styles
 
 ```css
-.nm-flutterbridge-banner {
+.nm-Bridge-banner {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -225,7 +225,7 @@ function shouldShow() {
 
 /* Mobile only */
 @media (min-width: 769px) {
-    .nm-flutterbridge-banner {
+    .nm-Bridge-banner {
         display: none !important;
     }
 }
@@ -240,13 +240,13 @@ function shouldShow() {
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="NativeMind_FlutterBridgeAppBanner::css/banner.css"/>
+        <css src="NativeMind_BridgeAppBanner::css/banner.css"/>
     </head>
     <body>
         <referenceContainer name="after.body.start">
-            <block class="NativeMind\FlutterBridgeAppBanner\Block\Banner"
-                   name="nativemind.flutterbridge.app.banner"
-                   template="NativeMind_FlutterBridgeAppBanner::banner.phtml"
+            <block class="NativeMind\BridgeAppBanner\Block\Banner"
+                   name="nativemind.Bridge.app.banner"
+                   template="NativeMind_BridgeAppBanner::banner.phtml"
                    cacheable="true"/>
         </referenceContainer>
     </body>
@@ -257,26 +257,26 @@ function shouldShow() {
 
 ```html
 <?php if ($block->isEnabled()): ?>
-<div class="nm-flutterbridge-banner"
-     id="nm-flutterbridge-banner"
+<div class="nm-Bridge-banner"
+     id="nm-Bridge-banner"
      data-dismiss-days="<?= $block->escapeHtmlAttr($block->getDismissDays()) ?>"
      style="display: none;">
-    <div class="nm-flutterbridge-banner__content">
-        <div class="nm-flutterbridge-banner__text">
-            <strong class="nm-flutterbridge-banner__title">
+    <div class="nm-Bridge-banner__content">
+        <div class="nm-Bridge-banner__text">
+            <strong class="nm-Bridge-banner__title">
                 <?= $block->escapeHtml($block->getTitle()) ?>
             </strong>
-            <span class="nm-flutterbridge-banner__subtitle">
+            <span class="nm-Bridge-banner__subtitle">
                 <?= $block->escapeHtml($block->getSubtitle()) ?>
             </span>
         </div>
-        <div class="nm-flutterbridge-banner__actions">
-            <a class="nm-flutterbridge-banner__btn nm-flutterbridge-banner__btn--open"
+        <div class="nm-Bridge-banner__actions">
+            <a class="nm-Bridge-banner__btn nm-Bridge-banner__btn--open"
                href="<?= $block->escapeUrl($block->getCurrentUrl()) ?>">
                 <?= $block->escapeHtml($block->getOpenButtonText()) ?>
             </a>
             <?php if ($block->getInstallUrl()): ?>
-            <a class="nm-flutterbridge-banner__btn nm-flutterbridge-banner__btn--install"
+            <a class="nm-Bridge-banner__btn nm-Bridge-banner__btn--install"
                href="<?= $block->escapeUrl($block->getInstallUrl()) ?>"
                target="_blank" rel="noopener">
                 <?= $block->escapeHtml($block->getInstallButtonText()) ?>
@@ -284,8 +284,8 @@ function shouldShow() {
             <?php endif; ?>
         </div>
     </div>
-    <button type="button" class="nm-flutterbridge-banner__close"
-            id="nm-flutterbridge-banner-close" aria-label="Close">
+    <button type="button" class="nm-Bridge-banner__close"
+            id="nm-Bridge-banner-close" aria-label="Close">
         &times;
     </button>
 </div>
@@ -297,11 +297,11 @@ function shouldShow() {
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (enabled check)
+- `NativeMind_BridgeCore` (enabled check)
 
 ### Optional Integration
 
-- Can read install URLs from `NativeMind_FlutterBridgeAppLinks` if available
+- Can read install URLs from `NativeMind_BridgeAppLinks` if available
 
 ## Testing Strategy
 

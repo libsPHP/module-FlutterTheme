@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeAppLinks
+# Requirements: BridgeAppLinks
 
 > Version: 1.0
 > Status: DRAFT
@@ -59,14 +59,14 @@ Flutter mobile apps need App Links (Android) and Universal Links (iOS) to interc
 
 ## Constraints
 
-- **Dependencies**: Requires `NativeMind_FlutterBridgeCore`
+- **Dependencies**: Requires `NativeMind_BridgeCore`
 - **Routing**: Custom router needed for `.well-known` paths (Magento standard routing doesn't support dots in paths)
 - **Content-Type**: Must return `application/json`
 
 ## Config Scope
 
 ```text
-nativemind_flutterbridge/app_links/
+nativemind_Bridge/app_links/
   - android_enabled
   - android_package_name (e.g., com.example.app)
   - android_sha256_fingerprints (textarea, one per line)

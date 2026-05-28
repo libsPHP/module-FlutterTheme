@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Product View Layout
+ *
+ * Adds JSON-LD structured data for products.
+ * Does NOT replace product view template.
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- JSON-LD structured data for product -->
+        <referenceContainer name="before.body.end">
+            <block class="NativeMind\Bridge\Block\Head\JsonLd"
+                   name="nativemind.Bridge.jsonld.product"
+                   template="NativeMind_Bridge::head/jsonld.phtml"
+                   ifconfig="nativemind_Bridge/jsonld/enabled"
+                   cacheable="true">
+                <arguments>
+                    <argument name="builder_type" xsi:type="string">product</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

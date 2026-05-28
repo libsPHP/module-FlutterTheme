@@ -1,0 +1,366 @@
+name: Publish Magento Modules to Packagist
+
+on:
+  push:
+    tags:
+      - 'magento-v*'
+  workflow_dispatch:
+    inputs:
+      modules:
+        description: 'Modules to publish (comma-separated, or "all")'
+        required: false
+        default: 'all'
+      dry_run:
+        description: 'Dry run (validate only)'
+        type: boolean
+        default: false
+
+jobs:
+  # Stage 1: Core module (no NativeMind dependencies)
+  publish-core:
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.check.outputs.should_publish }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"core"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeCore
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-core"}}'
+        continue-on-error: true
+
+  # Stage 2: Modules depending only on Core
+  publish-routes:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"routes"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeRoutes
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-routes"}}'
+        continue-on-error: true
+
+  publish-seo:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"seo"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeSeo
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-seo"}}'
+        continue-on-error: true
+
+  publish-applinks:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"applinks"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeAppLinks
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-applinks"}}'
+        continue-on-error: true
+
+  publish-appbanner:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"appbanner"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeAppBanner
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-appbanner"}}'
+        continue-on-error: true
+
+  publish-debug:
+    needs: publish-core
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"debug"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeDebug
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-debug"}}'
+        continue-on-error: true
+
+  # Stage 3: FlutterWeb (depends on Core + Routes)
+  publish-flutterweb:
+    needs: [publish-core, publish-routes]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"flutterweb"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_BridgeFlutterWeb
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge-flutterweb"}}'
+        continue-on-error: true
+
+  # Stage 4: Umbrella module (depends on all)
+  publish-umbrella:
+    needs: [publish-core, publish-routes, publish-seo, publish-applinks, publish-appbanner]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"umbrella"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/NativeMind_Bridge
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-bridge"}}'
+        continue-on-error: true
+
+  # Marketplace (standalone)
+  publish-marketplace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if should publish
+        id: check
+        run: |
+          if [[ "${{ github.event.inputs.modules }}" == "all" ]] || [[ "${{ github.event.inputs.modules }}" == *"marketplace"* ]] || [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup PHP
+        if: steps.check.outputs.should_publish == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Validate composer.json
+        if: steps.check.outputs.should_publish == 'true'
+        working-directory: magento/module-marketplace
+        run: composer validate --strict
+
+      - name: Notify Packagist
+        if: steps.check.outputs.should_publish == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          curl -XPOST -H'content-type:application/json' \
+            "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_TOKEN }}" \
+            -d'{"repository":{"url":"https://packagist.org/packages/nativemind/module-marketplace"}}'
+        continue-on-error: true
+
+  # Summary
+  publish-summary:
+    needs: [publish-core, publish-routes, publish-seo, publish-applinks, publish-appbanner, publish-debug, publish-flutterweb, publish-umbrella, publish-marketplace]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "## Composer Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Module | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-core | ${{ needs.publish-core.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-routes | ${{ needs.publish-routes.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-seo | ${{ needs.publish-seo.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-applinks | ${{ needs.publish-applinks.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-appbanner | ${{ needs.publish-appbanner.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-debug | ${{ needs.publish-debug.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge-flutterweb | ${{ needs.publish-flutterweb.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-bridge | ${{ needs.publish-umbrella.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| nativemind/module-marketplace | ${{ needs.publish-marketplace.result }} |" >> $GITHUB_STEP_SUMMARY

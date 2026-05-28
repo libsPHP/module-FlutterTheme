@@ -25,14 +25,14 @@ Current status of flutter_magento packages and Magento modules.
 
 | Module | Status | Description |
 |--------|--------|-------------|
-| `NativeMind_FlutterBridgeCore` | **Stable** | Core configuration, shared utilities |
-| `NativeMind_FlutterBridgeRoutes` | **Stable** | Route metadata, page context |
-| `NativeMind_FlutterBridgeSeo` | **Beta** | Canonical URLs, robots, JSON-LD |
-| `NativeMind_FlutterBridgeAppLinks` | **Stable** | Universal Links, App Links |
-| `NativeMind_FlutterBridgeAppBanner` | **Beta** | Smart App Banner |
-| `NativeMind_FlutterBridgeFlutterWeb` | **Experimental** | Flutter Web progressive enhancement |
-| `NativeMind_FlutterBridgeDebug` | **Beta** | Debug tools, logging |
-| `NativeMind_FlutterBridge` | **Legacy** | Umbrella module (deprecated) |
+| `NativeMind_BridgeCore` | **Stable** | Core configuration, shared utilities |
+| `NativeMind_BridgeRoutes` | **Stable** | Route metadata, page context |
+| `NativeMind_BridgeSeo` | **Beta** | Canonical URLs, robots, JSON-LD |
+| `NativeMind_BridgeAppLinks` | **Stable** | Universal Links, App Links |
+| `NativeMind_BridgeAppBanner` | **Beta** | Smart App Banner |
+| `NativeMind_BridgeFlutterWeb` | **Experimental** | Flutter Web progressive enhancement |
+| `NativeMind_BridgeDebug` | **Beta** | Debug tools, logging |
+| `NativeMind_Bridge` | **Legacy** | Umbrella module (deprecated) |
 
 ## Status Definitions
 

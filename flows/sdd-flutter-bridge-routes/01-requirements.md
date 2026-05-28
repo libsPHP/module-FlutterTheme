@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeRoutes
+# Requirements: BridgeRoutes
 
 > Version: 1.0
 > Status: DRAFT
@@ -30,7 +30,7 @@ Flutter mobile apps and Flutter Web need to know how to map Magento page URLs to
 
 ### Must Have
 
-1. **Given** FlutterBridgeRoutes is enabled
+1. **Given** BridgeRoutes is enabled
    **When** any supported page loads (product/category/cms/search/cart/checkout/home)
    **Then** a `<script type="application/json" id="flutter-magento-route">` block is injected
 
@@ -53,7 +53,7 @@ Flutter mobile apps and Flutter Web need to know how to map Magento page URLs to
    **When** page renders
    **Then** appRoute uses configured pattern with placeholder substitution
 
-4. **Given** FlutterBridgeCore is disabled
+4. **Given** BridgeCore is disabled
    **When** Routes module checks
    **Then** route metadata is not output
 
@@ -70,14 +70,14 @@ Flutter mobile apps and Flutter Web need to know how to map Magento page URLs to
 
 ## Constraints
 
-- **Dependencies**: Requires `NativeMind_FlutterBridgeCore`
+- **Dependencies**: Requires `NativeMind_BridgeCore`
 - **Output location**: `before.body.end` container via layout XML
 - **Cache**: Block must be FPC-compatible (`cacheable="true"`)
 
 ## Config Scope
 
 ```text
-nativemind_flutterbridge/route/
+nativemind_Bridge/route/
   - enabled (yes/no)
   - standard_version (default: flutter_magento_v1)
   - product_app_route (default: /product/{sku})

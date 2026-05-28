@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NativeMind Bridge Home Page Layout
+ *
+ * Adds home page metadata.
+ * Does NOT replace home page template.
+ *
+ * @category    NativeMind
+ * @package     NativeMind_Bridge
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- Home page specific blocks will be added in later phases -->
+</page>

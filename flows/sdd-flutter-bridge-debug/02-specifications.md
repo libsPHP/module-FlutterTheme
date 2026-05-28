@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeDebug
+# Specifications: BridgeDebug
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,13 +7,13 @@
 
 ## Overview
 
-FlutterBridgeDebug provides debugging endpoints and console logging for FlutterBridge integration troubleshooting. All features gated behind Core's debug_mode setting.
+BridgeDebug provides debugging endpoints and console logging for Bridge integration troubleshooting. All features gated behind Core's debug_mode setting.
 
 ## Affected Systems
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeDebug` | Create | New module |
+| `NativeMind_BridgeDebug` | Create | New module |
 | Frontend Routes | Create | Debug endpoints |
 | Frontend JS | Create | Console logging |
 
@@ -22,7 +22,7 @@ FlutterBridgeDebug provides debugging endpoints and console logging for FlutterB
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeDebug/
+NativeMind_BridgeDebug/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -51,7 +51,7 @@ NativeMind_FlutterBridgeDebug/
 ### Security Flow
 
 ```text
-Request to /flutterbridge/debug/*
+Request to /Bridge/debug/*
     │
     ▼
 Controller checks Core::isDebugMode()
@@ -67,7 +67,7 @@ Controller checks Core::isDebugMode()
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeDebug\Helper;
+namespace NativeMind\BridgeDebug\Helper;
 
 class DebugHelper
 {
@@ -83,7 +83,7 @@ class DebugHelper
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeDebug\Controller\Debug;
+namespace NativeMind\BridgeDebug\Controller\Debug;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 
@@ -95,7 +95,7 @@ class Route implements HttpGetActionInterface
 
 ## Data Models
 
-### /flutterbridge/debug/config Response
+### /Bridge/debug/config Response
 
 ```json
 {
@@ -139,7 +139,7 @@ class Route implements HttpGetActionInterface
 }
 ```
 
-### /flutterbridge/debug/route Response
+### /Bridge/debug/route Response
 
 ```json
 {
@@ -168,7 +168,7 @@ class Route implements HttpGetActionInterface
 }
 ```
 
-### /flutterbridge/debug/seo Response
+### /Bridge/debug/seo Response
 
 ```json
 {
@@ -197,7 +197,7 @@ class Route implements HttpGetActionInterface
 }
 ```
 
-### /flutterbridge/debug/applinks Response
+### /Bridge/debug/applinks Response
 
 ```json
 {
@@ -239,19 +239,19 @@ public function execute(): ResultInterface
 
 ```javascript
 // When debug mode enabled and FlutterWeb active
-if (window.flutterBridgeDebug) {
-    console.group('[FlutterBridge Debug]');
-    console.log('Config:', window.flutterBridgeConfig);
+if (window.BridgeDebug) {
+    console.group('[Bridge Debug]');
+    console.log('Config:', window.BridgeConfig);
     console.log('Route:', window.flutterMagentoRoute);
-    console.log('Modules:', window.flutterBridgeDebug.modules);
+    console.log('Modules:', window.BridgeDebug.modules);
     console.groupEnd();
 
     // Track Flutter lifecycle
-    window.flutterBridgeDebug.events = [];
-    window.flutterBridgeDebug.log = function(event, data) {
+    window.BridgeDebug.events = [];
+    window.BridgeDebug.log = function(event, data) {
         const entry = { time: Date.now(), event, data };
         this.events.push(entry);
-        console.log('[FlutterBridge]', event, data);
+        console.log('[Bridge]', event, data);
     };
 }
 ```
@@ -279,16 +279,16 @@ NEVER expose:
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (debug mode check)
+- `NativeMind_BridgeCore` (debug mode check)
 
 ### Optional Integration
 
 Detects and reports on:
-- `NativeMind_FlutterBridgeRoutes`
-- `NativeMind_FlutterBridgeSeo`
-- `NativeMind_FlutterBridgeAppLinks`
-- `NativeMind_FlutterBridgeAppBanner`
-- `NativeMind_FlutterBridgeFlutterWeb`
+- `NativeMind_BridgeRoutes`
+- `NativeMind_BridgeSeo`
+- `NativeMind_BridgeAppLinks`
+- `NativeMind_BridgeAppBanner`
+- `NativeMind_BridgeFlutterWeb`
 
 ## Routes Configuration
 
@@ -299,8 +299,8 @@ Detects and reports on:
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="standard">
-        <route id="flutterbridge" frontName="flutterbridge">
-            <module name="NativeMind_FlutterBridgeDebug"/>
+        <route id="Bridge" frontName="Bridge">
+            <module name="NativeMind_BridgeDebug"/>
         </route>
     </router>
 </config>
@@ -316,9 +316,9 @@ Detects and reports on:
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridgeDebug\Block\ConsoleLogger"
-                   name="nativemind.flutterbridge.debug.console"
-                   template="NativeMind_FlutterBridgeDebug::console_logger.phtml"
+            <block class="NativeMind\BridgeDebug\Block\ConsoleLogger"
+                   name="nativemind.Bridge.debug.console"
+                   template="NativeMind_BridgeDebug::console_logger.phtml"
                    cacheable="false"/>
         </referenceContainer>
     </body>
@@ -337,8 +337,8 @@ Note: `cacheable="false"` because debug output shouldn't be cached.
 
 ### Integration Tests
 
-- [ ] `/flutterbridge/debug/config` returns 200 when debug ON
-- [ ] `/flutterbridge/debug/config` returns 404 when debug OFF
+- [ ] `/Bridge/debug/config` returns 200 when debug ON
+- [ ] `/Bridge/debug/config` returns 404 when debug OFF
 - [ ] All endpoints return valid JSON
 
 ### Manual Verification

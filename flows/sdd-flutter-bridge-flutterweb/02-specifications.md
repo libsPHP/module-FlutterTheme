@@ -1,4 +1,4 @@
-# Specifications: FlutterBridgeFlutterWeb
+# Specifications: BridgeFlutterWeb
 
 > Version: 1.0
 > Status: DRAFT
@@ -7,7 +7,7 @@
 
 ## Overview
 
-FlutterBridgeFlutterWeb implements progressive enhancement by loading Flutter Web on top of Magento HTML. The same HTML is served to everyone (bots, no-JS users, JS-enabled users). JS-enabled browsers get Flutter Web overlay that hides Magento content only after Flutter is ready.
+BridgeFlutterWeb implements progressive enhancement by loading Flutter Web on top of Magento HTML. The same HTML is served to everyone (bots, no-JS users, JS-enabled users). JS-enabled browsers get Flutter Web overlay that hides Magento content only after Flutter is ready.
 
 ## Critical Design Principles
 
@@ -22,7 +22,7 @@ FlutterBridgeFlutterWeb implements progressive enhancement by loading Flutter We
 
 | System | Impact | Notes |
 |--------|--------|-------|
-| `NativeMind_FlutterBridgeFlutterWeb` | Create | New module |
+| `NativeMind_BridgeFlutterWeb` | Create | New module |
 | Frontend Layout | Modify | Inject container and scripts |
 | Admin Config | Create | Flutter Web section |
 
@@ -31,7 +31,7 @@ FlutterBridgeFlutterWeb implements progressive enhancement by loading Flutter We
 ### Module Structure
 
 ```text
-NativeMind_FlutterBridgeFlutterWeb/
+NativeMind_BridgeFlutterWeb/
 ├── registration.php
 ├── composer.json
 ├── etc/
@@ -113,7 +113,7 @@ NativeMind_FlutterBridgeFlutterWeb/
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeFlutterWeb\Helper;
+namespace NativeMind\BridgeFlutterWeb\Helper;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -137,7 +137,7 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeFlutterWeb\Block;
+namespace NativeMind\BridgeFlutterWeb\Block;
 
 use Magento\Framework\View\Element\Template;
 
@@ -152,7 +152,7 @@ class Container extends Template
 
 ```php
 <?php
-namespace NativeMind\FlutterBridgeFlutterWeb\Block;
+namespace NativeMind\BridgeFlutterWeb\Block;
 
 use Magento\Framework\View\Element\Template;
 
@@ -169,7 +169,7 @@ class Loader extends Template
 ### Flutter Configuration Object
 
 ```javascript
-window.flutterBridgeConfig = {
+window.BridgeConfig = {
     enabled: true,
     assetsBaseUrl: "https://cdn.example.com/flutter/",
     flutterJsUrl: "https://cdn.example.com/flutter/flutter.js",
@@ -191,7 +191,7 @@ window.flutterBridgeConfig = {
 ### Route Handoff (from Routes module)
 
 ```javascript
-// Set by FlutterBridgeRoutes module
+// Set by BridgeRoutes module
 window.flutterMagentoRoute = {
     standard: "flutter_magento_v1",
     type: "product",
@@ -209,19 +209,19 @@ window.flutterMagentoRoute = {
 
 | Path | Type | Default |
 |------|------|---------|
-| `nativemind_flutterbridge/flutter_web/enabled` | bool | 0 |
-| `nativemind_flutterbridge/flutter_web/assets_base_url` | string | |
-| `nativemind_flutterbridge/flutter_web/flutter_js_url` | string | {assets_base_url}/flutter.js |
-| `nativemind_flutterbridge/flutter_web/main_dart_js_url` | string | {assets_base_url}/main.dart.js |
-| `nativemind_flutterbridge/flutter_web/service_worker_enabled` | bool | 0 |
-| `nativemind_flutterbridge/flutter_web/service_worker_url` | string | |
-| `nativemind_flutterbridge/flutter_web/renderer` | select | auto |
-| `nativemind_flutterbridge/flutter_web/target_container_id` | string | flutter-container |
-| `nativemind_flutterbridge/flutter_web/load_trigger` | select | idle |
-| `nativemind_flutterbridge/flutter_web/load_timeout_ms` | int | 10000 |
-| `nativemind_flutterbridge/flutter_web/hide_magento_after` | select | flutter_ready |
-| `nativemind_flutterbridge/flutter_web/show_loading_indicator` | bool | 1 |
-| `nativemind_flutterbridge/flutter_web/fallback_on_error` | select | keep_magento |
+| `nativemind_Bridge/flutter_web/enabled` | bool | 0 |
+| `nativemind_Bridge/flutter_web/assets_base_url` | string | |
+| `nativemind_Bridge/flutter_web/flutter_js_url` | string | {assets_base_url}/flutter.js |
+| `nativemind_Bridge/flutter_web/main_dart_js_url` | string | {assets_base_url}/main.dart.js |
+| `nativemind_Bridge/flutter_web/service_worker_enabled` | bool | 0 |
+| `nativemind_Bridge/flutter_web/service_worker_url` | string | |
+| `nativemind_Bridge/flutter_web/renderer` | select | auto |
+| `nativemind_Bridge/flutter_web/target_container_id` | string | flutter-container |
+| `nativemind_Bridge/flutter_web/load_trigger` | select | idle |
+| `nativemind_Bridge/flutter_web/load_timeout_ms` | int | 10000 |
+| `nativemind_Bridge/flutter_web/hide_magento_after` | select | flutter_ready |
+| `nativemind_Bridge/flutter_web/show_loading_indicator` | bool | 1 |
+| `nativemind_Bridge/flutter_web/fallback_on_error` | select | keep_magento |
 
 ## Behavior Specifications
 
@@ -254,7 +254,7 @@ window.flutterMagentoRoute = {
 
 ```javascript
 (function() {
-    const config = window.flutterBridgeConfig;
+    const config = window.BridgeConfig;
     if (!config || !config.enabled) return;
 
     const route = window.flutterMagentoRoute;
@@ -272,14 +272,14 @@ window.flutterMagentoRoute = {
     }
 
     function handleError(error) {
-        console.error('[FlutterBridge]', error);
+        console.error('[Bridge]', error);
         clearTimeout(loadTimeout);
         switch (config.fallbackOnError) {
             case 'show_error':
                 // Show error banner
                 break;
             case 'disable_flutter':
-                document.cookie = 'nm_flutterbridge_disabled=1; path=/; max-age=86400';
+                document.cookie = 'nm_Bridge_disabled=1; path=/; max-age=86400';
                 break;
             case 'keep_magento':
             default:
@@ -289,7 +289,7 @@ window.flutterMagentoRoute = {
 
     function loadFlutter() {
         // Check if disabled by previous error
-        if (document.cookie.includes('nm_flutterbridge_disabled=1')) return;
+        if (document.cookie.includes('nm_Bridge_disabled=1')) return;
 
         // Set timeout
         loadTimeout = setTimeout(() => {
@@ -396,11 +396,11 @@ body.flutter-ready .page-wrapper {
 
 ### Requires
 
-- `NativeMind_FlutterBridgeCore` (enabled check)
+- `NativeMind_BridgeCore` (enabled check)
 
 ### Recommends
 
-- `NativeMind_FlutterBridgeRoutes` (route handoff)
+- `NativeMind_BridgeRoutes` (route handoff)
 
 ### Does NOT Require
 
@@ -415,18 +415,18 @@ body.flutter-ready .page-wrapper {
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="NativeMind_FlutterBridgeFlutterWeb::css/flutter.css"/>
+        <css src="NativeMind_BridgeFlutterWeb::css/flutter.css"/>
     </head>
     <body>
         <!-- Flutter container at end of body -->
         <referenceContainer name="before.body.end">
-            <block class="NativeMind\FlutterBridgeFlutterWeb\Block\Container"
-                   name="nativemind.flutterbridge.flutter.container"
-                   template="NativeMind_FlutterBridgeFlutterWeb::container.phtml"
+            <block class="NativeMind\BridgeFlutterWeb\Block\Container"
+                   name="nativemind.Bridge.flutter.container"
+                   template="NativeMind_BridgeFlutterWeb::container.phtml"
                    cacheable="true"/>
-            <block class="NativeMind\FlutterBridgeFlutterWeb\Block\Loader"
-                   name="nativemind.flutterbridge.flutter.loader"
-                   template="NativeMind_FlutterBridgeFlutterWeb::loader.phtml"
+            <block class="NativeMind\BridgeFlutterWeb\Block\Loader"
+                   name="nativemind.Bridge.flutter.loader"
+                   template="NativeMind_BridgeFlutterWeb::loader.phtml"
                    cacheable="true"/>
         </referenceContainer>
     </body>

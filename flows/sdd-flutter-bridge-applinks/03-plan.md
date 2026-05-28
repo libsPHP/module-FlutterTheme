@@ -1,4 +1,4 @@
-# Implementation Plan: FlutterBridgeAppLinks
+# Implementation Plan: BridgeAppLinks
 
 > Version: 1.0
 > Status: DRAFT
@@ -16,9 +16,9 @@ Create the App Links module with custom router for .well-known endpoints. Serves
 #### Task 1.1: Create Module Structure
 - **Description**: Create module directory and base files
 - **Files**:
-  - `NativeMind_FlutterBridgeAppLinks/registration.php` - Create
-  - `NativeMind_FlutterBridgeAppLinks/composer.json` - Create
-  - `NativeMind_FlutterBridgeAppLinks/etc/module.xml` - Create
+  - `NativeMind_BridgeAppLinks/registration.php` - Create
+  - `NativeMind_BridgeAppLinks/composer.json` - Create
+  - `NativeMind_BridgeAppLinks/etc/module.xml` - Create
 - **Dependencies**: Core module exists
 - **Verification**: Module registers
 - **Complexity**: Low
@@ -106,18 +106,18 @@ Task 1.1 ─→ Task 1.2 ─→ Task 2.1 ─┬─→ Task 2.2 ─→ Task 3.2
 
 | File | Action | Reason |
 |------|--------|--------|
-| `NativeMind_FlutterBridgeAppLinks/registration.php` | Create | Module registration |
-| `NativeMind_FlutterBridgeAppLinks/composer.json` | Create | Composer package |
-| `NativeMind_FlutterBridgeAppLinks/etc/module.xml` | Create | Module declaration |
-| `NativeMind_FlutterBridgeAppLinks/etc/config.xml` | Create | Default config |
-| `NativeMind_FlutterBridgeAppLinks/etc/adminhtml/system.xml` | Create | Admin UI |
-| `NativeMind_FlutterBridgeAppLinks/etc/di.xml` | Create | Router registration |
-| `NativeMind_FlutterBridgeAppLinks/Helper/Config.php` | Create | Config accessor |
-| `NativeMind_FlutterBridgeAppLinks/Model/AssetLinksBuilder.php` | Create | Android JSON |
-| `NativeMind_FlutterBridgeAppLinks/Model/AppleAppSiteAssociationBuilder.php` | Create | iOS JSON |
-| `NativeMind_FlutterBridgeAppLinks/Controller/Router.php` | Create | Custom router |
-| `NativeMind_FlutterBridgeAppLinks/Controller/WellKnown/AssetLinks.php` | Create | Android endpoint |
-| `NativeMind_FlutterBridgeAppLinks/Controller/WellKnown/AppleAppSiteAssociation.php` | Create | iOS endpoint |
+| `NativeMind_BridgeAppLinks/registration.php` | Create | Module registration |
+| `NativeMind_BridgeAppLinks/composer.json` | Create | Composer package |
+| `NativeMind_BridgeAppLinks/etc/module.xml` | Create | Module declaration |
+| `NativeMind_BridgeAppLinks/etc/config.xml` | Create | Default config |
+| `NativeMind_BridgeAppLinks/etc/adminhtml/system.xml` | Create | Admin UI |
+| `NativeMind_BridgeAppLinks/etc/di.xml` | Create | Router registration |
+| `NativeMind_BridgeAppLinks/Helper/Config.php` | Create | Config accessor |
+| `NativeMind_BridgeAppLinks/Model/AssetLinksBuilder.php` | Create | Android JSON |
+| `NativeMind_BridgeAppLinks/Model/AppleAppSiteAssociationBuilder.php` | Create | iOS JSON |
+| `NativeMind_BridgeAppLinks/Controller/Router.php` | Create | Custom router |
+| `NativeMind_BridgeAppLinks/Controller/WellKnown/AssetLinks.php` | Create | Android endpoint |
+| `NativeMind_BridgeAppLinks/Controller/WellKnown/AppleAppSiteAssociation.php` | Create | iOS endpoint |
 
 ## Risk Assessment
 

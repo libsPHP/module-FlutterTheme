@@ -1,4 +1,4 @@
-# Requirements: FlutterBridgeAppBanner
+# Requirements: BridgeAppBanner
 
 > Version: 1.0
 > Status: DRAFT
@@ -68,7 +68,7 @@ When users visit the web store on mobile, stores want to encourage them to use t
 
 ## Constraints
 
-- **Dependencies**: Requires `NativeMind_FlutterBridgeCore`
+- **Dependencies**: Requires `NativeMind_BridgeCore`
 - **Optional dependency**: Can use App Store URLs from AppLinks module if available
 - **No JS frameworks**: Vanilla JS only for banner behavior
 - **FPC-compatible**: Initial render hidden, JS shows if cookie not set
@@ -76,7 +76,7 @@ When users visit the web store on mobile, stores want to encourage them to use t
 ## Config Scope
 
 ```text
-nativemind_flutterbridge/app_banner/
+nativemind_Bridge/app_banner/
   - enabled
   - title (default: "Open in App")
   - subtitle (default: "Better shopping experience")
@@ -101,7 +101,7 @@ On page load (JS):
 
 On close click:
   1. Hide banner
-  2. Set cookie nm_flutterbridge_dismissed=1 for N days
+  2. Set cookie nm_Bridge_dismissed=1 for N days
 
 Open button:
   - Links to current URL (relies on App Links to intercept)
@@ -114,18 +114,18 @@ Install button:
 ## CSS Architecture
 
 ```text
-All classes prefixed: .nm-flutterbridge-banner*
+All classes prefixed: .nm-Bridge-banner*
 
 Structure:
-  .nm-flutterbridge-banner (container)
-    .nm-flutterbridge-banner__content
-      .nm-flutterbridge-banner__text
-        .nm-flutterbridge-banner__title
-        .nm-flutterbridge-banner__subtitle
-      .nm-flutterbridge-banner__actions
-        .nm-flutterbridge-banner__btn--open
-        .nm-flutterbridge-banner__btn--install
-    .nm-flutterbridge-banner__close
+  .nm-Bridge-banner (container)
+    .nm-Bridge-banner__content
+      .nm-Bridge-banner__text
+        .nm-Bridge-banner__title
+        .nm-Bridge-banner__subtitle
+      .nm-Bridge-banner__actions
+        .nm-Bridge-banner__btn--open
+        .nm-Bridge-banner__btn--install
+    .nm-Bridge-banner__close
 ```
 
 ## Open Questions

@@ -31,7 +31,7 @@ IN_PROGRESS
 
 Key decisions and context for resuming:
 
-- Transforming existing NativeMind_FlutterTheme into NativeMind_FlutterBridge
+- Transforming existing NativeMind_FlutterTheme into NativeMind_Bridge
 - New approach: theme-agnostic module that works with any Magento theme
 - Module should NOT contain Flutter Web build or replace theme
 - Module ADDS: canonical, route metadata, JSON-LD, OpenGraph, App Links, app banner
