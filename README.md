@@ -54,6 +54,87 @@ flutter_magento (umbrella)
 
 ---
 
+## Magento Modules
+
+Server-side Magento 2 modules that complement the Flutter SDK.
+
+### Module Architecture
+
+```
+magento/
+├── module-bridge                 # Umbrella module (includes all Bridge components)
+├── module-bridge-core            # Shared configuration and utilities
+├── module-bridge-routes          # Route metadata for deep linking
+├── module-bridge-seo             # SEO: canonical, robots, JSON-LD, OpenGraph
+├── module-bridge-app-links       # Android App Links & iOS Universal Links
+├── module-bridge-app-banner      # Smart App Banner for iOS/Android
+├── module-bridge-debug           # Development and debugging tools
+├── module-bridge-flutter-web     # Flutter Web progressive enhancement
+└── module-marketplace            # Multi-vendor marketplace platform
+```
+
+### Magento Packages
+
+| Package | Description | Version |
+|---------|-------------|---------|
+| [nativemind/module-bridge](https://packagist.org/packages/nativemind/module-bridge) | Umbrella module | [![version](https://poser.pugx.org/nativemind/module-bridge/v/stable)](https://packagist.org/packages/nativemind/module-bridge) |
+| [nativemind/module-bridge-core](https://packagist.org/packages/nativemind/module-bridge-core) | Core configuration | [![version](https://poser.pugx.org/nativemind/module-bridge-core/v/stable)](https://packagist.org/packages/nativemind/module-bridge-core) |
+| [nativemind/module-bridge-routes](https://packagist.org/packages/nativemind/module-bridge-routes) | Route metadata | [![version](https://poser.pugx.org/nativemind/module-bridge-routes/v/stable)](https://packagist.org/packages/nativemind/module-bridge-routes) |
+| [nativemind/module-bridge-seo](https://packagist.org/packages/nativemind/module-bridge-seo) | SEO optimization | [![version](https://poser.pugx.org/nativemind/module-bridge-seo/v/stable)](https://packagist.org/packages/nativemind/module-bridge-seo) |
+| [nativemind/module-bridge-applinks](https://packagist.org/packages/nativemind/module-bridge-applinks) | App Links | [![version](https://poser.pugx.org/nativemind/module-bridge-applinks/v/stable)](https://packagist.org/packages/nativemind/module-bridge-applinks) |
+| [nativemind/module-bridge-appbanner](https://packagist.org/packages/nativemind/module-bridge-appbanner) | Smart App Banner | [![version](https://poser.pugx.org/nativemind/module-bridge-appbanner/v/stable)](https://packagist.org/packages/nativemind/module-bridge-appbanner) |
+| [nativemind/module-bridge-debug](https://packagist.org/packages/nativemind/module-bridge-debug) | Debug tools | [![version](https://poser.pugx.org/nativemind/module-bridge-debug/v/stable)](https://packagist.org/packages/nativemind/module-bridge-debug) |
+| [nativemind/module-bridge-flutterweb](https://packagist.org/packages/nativemind/module-bridge-flutterweb) | Flutter Web | [![version](https://poser.pugx.org/nativemind/module-bridge-flutterweb/v/stable)](https://packagist.org/packages/nativemind/module-bridge-flutterweb) |
+| [nativemind/module-marketplace](https://packagist.org/packages/nativemind/module-marketplace) | Multi-vendor marketplace | [![version](https://poser.pugx.org/nativemind/module-marketplace/v/stable)](https://packagist.org/packages/nativemind/module-marketplace) |
+
+### Magento Installation
+
+#### Option 1: Umbrella module (recommended)
+
+Installs all Bridge components:
+
+```bash
+composer require nativemind/module-bridge
+bin/magento module:enable NativeMind_Bridge NativeMind_BridgeCore NativeMind_BridgeRoutes NativeMind_BridgeSeo NativeMind_BridgeAppLinks NativeMind_BridgeAppBanner
+bin/magento setup:upgrade
+bin/magento cache:flush
+```
+
+#### Option 2: Individual modules
+
+Install only what you need:
+
+```bash
+# Core + Routes (minimum for deep linking)
+composer require nativemind/module-bridge-core nativemind/module-bridge-routes
+
+# Add SEO
+composer require nativemind/module-bridge-seo
+
+# Add App Links
+composer require nativemind/module-bridge-applinks
+
+bin/magento module:enable NativeMind_BridgeCore NativeMind_BridgeRoutes NativeMind_BridgeSeo NativeMind_BridgeAppLinks
+bin/magento setup:upgrade
+bin/magento cache:flush
+```
+
+#### Marketplace module (standalone)
+
+```bash
+composer require nativemind/module-marketplace
+bin/magento module:enable NativeMind_Marketplace
+bin/magento setup:upgrade
+bin/magento cache:flush
+```
+
+### Magento Requirements
+
+- Magento 2.4.x
+- PHP 8.1+
+
+---
+
 ## Why flutter_magento?
 
 Magento is powerful, but its APIs are not always convenient for mobile apps. A real Flutter storefront usually needs to handle:
