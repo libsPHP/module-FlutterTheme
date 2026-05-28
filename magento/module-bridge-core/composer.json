@@ -3,7 +3,7 @@
     "description": "Core module for NativeMind Flutter Bridge - shared configuration and utilities",
     "version": "2.0.0",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "authors": [
         {
             "name": "NativeMind",

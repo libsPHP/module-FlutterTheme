@@ -220,7 +220,7 @@ npm install
 
 ## License
 
-MIT License
+NativeMindNONC License
 
 ## Support
 

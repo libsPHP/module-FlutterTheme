@@ -3,7 +3,7 @@
     "description": "Debug module for Flutter Bridge - development tools and logging",
     "version": "2.0.0",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "authors": [
         {
             "name": "NativeMind",

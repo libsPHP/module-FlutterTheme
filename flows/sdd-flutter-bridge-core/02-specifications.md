@@ -157,7 +157,7 @@ ComponentRegistrar::register(
     "description": "Bridge Core - Foundation module",
     "type": "magento2-module",
     "version": "2.0.0",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "autoload": {
         "psr-4": {
             "NativeMind\\BridgeCore\\": ""

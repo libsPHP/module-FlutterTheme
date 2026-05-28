@@ -243,4 +243,4 @@ For more information, see:
 
 ## License
 
-MIT License - See LICENSE file for details
+NativeMindNONC License - See LICENSE file for details

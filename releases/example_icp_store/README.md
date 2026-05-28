@@ -303,7 +303,7 @@ For issues or questions:
 
 ## License
 
-MIT License - see LICENSE file
+NativeMindNONC License - see LICENSE file
 
 ## Credits
 

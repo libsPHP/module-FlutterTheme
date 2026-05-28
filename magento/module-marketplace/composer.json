@@ -3,7 +3,7 @@
     "description": "NativeMind Marketplace module - multi-vendor marketplace for Magento 2",
     "version": "2.0.0",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "authors": [
         {
             "name": "NativeMind",

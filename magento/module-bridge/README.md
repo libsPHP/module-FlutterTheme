@@ -225,7 +225,7 @@ This shows the current page's route metadata for verification.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE)
+NativeMindNONC License - see [LICENSE](LICENSE)
 
 ## Support
 

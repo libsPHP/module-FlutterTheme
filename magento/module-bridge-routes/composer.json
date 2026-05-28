@@ -3,7 +3,7 @@
     "description": "Route metadata module for Flutter Bridge - page context and app routing",
     "version": "2.0.0",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "authors": [
         {
             "name": "NativeMind",

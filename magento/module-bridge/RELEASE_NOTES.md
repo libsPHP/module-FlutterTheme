@@ -209,7 +209,7 @@ module-FlutterTheme/
 
 ## 📄 Лицензия
 
-MIT License - свободно используйте в своих проектах!
+NativeMindNONC License - свободно используйте в своих проектах!
 
 ---
 

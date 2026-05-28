@@ -3,7 +3,7 @@
     "description": "Flutter Bridge umbrella module - includes all Flutter Bridge components",
     "version": "2.0.0",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": "NativeMindNONC",
     "authors": [
         {
             "name": "NativeMind",
